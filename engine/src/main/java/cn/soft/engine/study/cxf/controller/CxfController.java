@@ -17,6 +17,7 @@ public class CxfController {
     @RequestMapping("/openService")
     public String startService() throws Exception {
         cxfService.openService();
+        System.out.println("uchu");
         return "soap服务已开启";
     }
 
