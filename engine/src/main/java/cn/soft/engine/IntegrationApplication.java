@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
 public class IntegrationApplication {
     public static void main(String[] args) {
+        System.out.println("一个输出");
         SpringApplication.run(IntegrationApplication.class, args);
     }
 }
