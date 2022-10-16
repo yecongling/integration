@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>条件列表渲染</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+<!--
+    监视属性：
+    1、当监视的属性变化时，回调函数会自动调用
+    2、监视的属性必须存在才能进行监视
+    3、监视属性的两种写法
+        1、new Vue时传入watch配置
+        2、通过vm.$watch监视
+-->
+<div id="root">
+    <h2>你好</h2>
+    <!-- 条件渲染 -->
+    <div v-if="n === 1">人鱼</div>
+    <div v-if="n === 2">妖怪</div>
+    <div v-if="n === 3">傻逼</div>
+    <button @click="n++">点我n+1</button>
+
+    <!-- v-if和template配合使用 -->
+    <template v-if="n === 1">
+        <div>人鱼</div>
+        <div>妖怪</div>
+        <div>傻逼</div>
+    </template>
+
+    <!-- 列表渲染 -->
+    <!-- 遍历数组 -->
+    <ul>
+        <li v-for="p in persons" :key="p.id">
+            {{p.name}}-{{p.age}}
+        </li>
+        <li v-for="(p, index) in persons" :key="p.id">
+            {{p.name}}-{{p.age}}---{{index}}
+        </li>
+    </ul>
+
+    <!-- 遍历对象 -->
+    <ul>
+        <li v-for="(value,  k) in car" :key="k">
+            {{k}}-{{value}}
+        </li>
+    </ul>
+</div>
+<script>
+    Vue.config.productionTip = false;
+    const vm = new Vue({
+        data: {
+            n: 0,
+            persons: [
+                {id: '001', name: '叶丛林', age: '25'},
+                {id: '002', name: '人鱼', age: '25'},
+                {id: '003', name: '王琴', age: '25'},
+            ],
+            car: {
+                name: '奥迪',
+                price: '24'
+            }
+        },
+        methods: {
+
+        }
+    });
+    vm.$mount('#root');
+</script>
+</body>
+</html>

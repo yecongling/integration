@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>初识Vue</title>
+        <script src="../../js/vue.js"></script>
+    </head>
+    <body>
+        <!-- 
+            Vue中常用的按键别名
+            回车=>enter ……
+            其中tab键比较特殊，需要配合keydown使用，还有四个组合键 ctrl alt shift meta
+         -->
+        <div id="root">
+           <h1>你是{{name}}吗</h1>
+           <input type="text" placeholder="按下回车提示输入" @keyup.enter="showInfo">
+           <input type="text" placeholder="按下回车提示输入" @keyup.huiche="showInfo">
+        </div>
+        <script>
+            Vue.config.productionTip = false;
+            Vue.config.keyCodes.huiche=13  // 定义了一个别名
+            const vm = new Vue({
+                data: {
+                    name: '傻逼'
+                },
+                methods: {
+                    showInfo(e) {
+                        console.log(e.target.value)
+                    }
+                }
+            });
+            vm.$mount('#root');
+        </script>
+    </body>
+</html>

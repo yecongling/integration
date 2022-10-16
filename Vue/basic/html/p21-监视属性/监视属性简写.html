@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>监视属性</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <h2>今天天气很{{info}}</h2>
+    <button @click="switchWeather">切换天气</button>
+</div>
+<script>
+    Vue.config.productionTip = false;
+    const vm = new Vue({
+        data: {
+            isHot: true
+        },
+        /* 计算属性 */
+        computed: {
+            info() {
+                return this.isHot ? '炎热': '凉爽'
+            }
+        },
+        methods: {
+            switchWeather() {
+                this.isHot = !this.isHot
+            }
+        },
+        /* 监视，监视属性的写法还可以写成下面的方式 */
+        watch: {
+            // 正常写法
+            /*isHot: {
+                // immediate: true, // 初始化时让handler调用一下
+                // 当isHot发生改变是被调用
+                // deep: true, 深度监视
+                handler(newValue, oldValue) {
+                    console.log('isHot属性被修改');
+                }
+            }*/
+            // 简写
+            isHot(newValue, oldValue) {
+
+            }
+        }
+    });
+    vm.$mount('#root');
+    /* 监视属性的第二种写法-简写 */
+    vm.$watch('isHot', function (newValue, oldValue) {
+        console.log('isHot属性被修改');
+    });
+</script>
+</body>
+</html>

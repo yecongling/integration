@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>数据绑定</title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+           单向数据绑定：<input type="text" v-bind:value="name">
+           双向数据绑定：<input type="text" v-model:value="name">
+        </div>
+        <script>
+            Vue.config.productionTip = false;
+            const vm = new Vue({
+                el: '#root',  //el 用于指定当前Vue实例为哪个容器服务
+                data: {
+                    name: '你好'
+                }
+            });
+
+            vm.$mount('#root'); // 挂载对象，作用同el写法
+            // data:function() {  函数式，以后介绍组件时必须使用函数式
+            //     return {};
+            // }
+        </script>
+    </body>
+</html>

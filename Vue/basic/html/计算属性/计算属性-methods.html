@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>计算属性</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    姓：<input type="text" v-model="firstName">
+    名：<input type="text" v-model="lastName">
+    全名：<span>{{fullName()}}</span>
+</div>
+<script>
+    Vue.config.productionTip = false;
+    /* 使用函数的方式 */
+    const vm = new Vue({
+        data: {
+            firstName: '叶',
+            lastName: '丛林'
+        },
+        methods: {
+            fullName() {
+                return this.firstName + '-' + this.lastName;
+            }
+        }
+    });
+    vm.$mount('#root');
+</script>
+</body>
+</html>

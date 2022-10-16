@@ -1,0 +1,24 @@
+ <!DOCTYPE html>
+ <html>
+     <head>
+         <meta charset="UTF-8"/>
+         <title>初识Vue</title>
+         <script src="../js/vue.js"></script>
+     </head>
+     <body>
+         <div id="root">
+            <h1>你是{{name}}吗</h1>
+            <h1>我今年{{age}}岁</h1>
+         </div>
+         <script>
+             Vue.config.productionTip = false;
+             const a = new Vue({
+                 el: '#root',  //el 用于指定当前Vue实例为哪个容器服务
+                 data: {
+                     name: '傻逼',
+                     age: 23
+                 }
+             });
+         </script>
+     </body>
+ </html>

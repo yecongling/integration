@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>canvas-editor</title>
+</head>
+
+<body>
+  <div id="app">
+    <div class="menu" editor-component="menu">
+      <div class="menu-item">
+        <div class="menu-item__undo">
+          <i></i>
+        </div>
+        <div class="menu-item__redo">
+          <i></i>
+        </div>
+        <div class="menu-item__painter">
+          <i></i>
+        </div>
+        <div class="menu-item__format">
+          <i></i>
+        </div>
+      </div>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item__font">
+          <span class="select">微软雅黑</span>
+          <div class="options">
+            <ul>
+              <li data-family='Yahei'>微软雅黑</li>
+              <li data-family="宋体">宋体</li>
+              <li data-family="黑体">黑体</li>
+              <li data-family="Arial">Arial</li>
+              <li data-family="Fantasy">Fantasy</li>
+            </ul>
+          </div>
+        </div>
+        <div class="menu-item__size-add">
+          <i></i>
+        </div>
+        <div class="menu-item__size-minus">
+          <i></i>
+        </div>
+        <div class="menu-item__bold">
+          <i></i>
+        </div>
+        <div class="menu-item__italic">
+          <i></i>
+        </div>
+        <div class="menu-item__underline">
+          <i></i>
+        </div>
+        <div class="menu-item__strikeout">
+          <i></i>
+        </div>
+        <div class="menu-item__superscript">
+          <i></i>
+        </div>
+        <div class="menu-item__subscript">
+          <i></i>
+        </div>
+        <div class="menu-item__color">
+          <i></i>
+          <span></span>
+          <input type="color" id="color" />
+        </div>
+        <div class="menu-item__highlight">
+          <i></i>
+          <span></span>
+          <input type="color" id="highlight">
+        </div>
+      </div>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item__left">
+          <i></i>
+        </div>
+        <div class="menu-item__center">
+          <i></i>
+        </div>
+        <div class="menu-item__right">
+          <i></i>
+        </div>
+        <div class="menu-item__row-margin">
+          <i></i>
+          <div class="options">
+            <ul>
+              <li data-rowmargin='1'>1</li>
+              <li data-rowmargin="1.25">1.25</li>
+              <li data-rowmargin="1.5">1.5</li>
+              <li data-rowmargin="1.75">1.75</li>
+              <li data-rowmargin="2">2</li>
+              <li data-rowmargin="2.5">2.5</li>
+              <li data-rowmargin="3">3</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item__table">
+          <i></i>
+        </div>
+        <div class="menu-item__table__collapse">
+          <div class="table-close">×</div>
+          <div class="table-title">
+            <span class="table-select">插入</span>
+            <span>表格</span>
+          </div>
+          <div class="table-panel"></div>
+        </div>
+        <div class="menu-item__image">
+          <i></i>
+          <input type="file" id="image" accept=".png, .jpg, .jpeg">
+        </div>
+        <div class="menu-item__hyperlink">
+          <i></i>
+        </div>
+        <div class="menu-item__separator">
+          <i></i>
+          <div class="options">
+            <ul>
+              <li data-separator='0,0'>
+                <i></i>
+              </li>
+              <li data-separator="1,1">
+                <i></i>
+              </li>
+              <li data-separator="3,1">
+                <i></i>
+              </li>
+              <li data-separator="4,4">
+                <i></i>
+              </li>
+              <li data-separator="7,3,3,3">
+                <i></i>
+              </li>
+              <li data-separator="6,2,2,2,2,2">
+                <i></i>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="menu-item__watermark">
+          <i></i>
+          <div class="options">
+            <ul>
+              <li data-menu="add">添加水印</li>
+              <li data-menu="delete">删除水印</li>
+            </ul>
+          </div>
+        </div>
+        <div class="menu-item__codeblock">
+          <i></i>
+        </div>
+        <div class="menu-item__page-break">
+          <i></i>
+        </div>
+        <div class="menu-item__control">
+          <i></i>
+          <div class="options">
+            <ul>
+              <li data-control='text'>文本型</li>
+              <li data-control="select">列举型</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item__search" data-menu="search">
+          <i></i>
+        </div>
+        <div class="menu-item__search__collapse" data-menu="search">
+          <div class="menu-item__search__collapse__search">
+            <input type="text" />
+            <span>×</span>
+          </div>
+          <div class="menu-item__search__collapse__replace">
+            <input type="text">
+            <button>替换</button>
+          </div>
+        </div>
+        <div class="menu-item__print" data-menu="print">
+          <i></i>
+        </div>
+      </div>
+    </div>
+    <div class="editor" editor-component="main"></div>
+    <div class="footer" editor-component="footer">
+      <div>
+        <span>可见页码：<span class="page-no-list">1</span></span>
+        <span>页面：<span class="page-no">1</span>/<span class="page-size">1</span></span>
+      </div>
+      <div class="editor-mode">编辑模式</div>
+      <div>
+        <div class="page-scale-minus">
+          <i></i>
+        </div>
+        <span class="page-scale-percentage">100%</span>
+        <div class="page-scale-add">
+          <i></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

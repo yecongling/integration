@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>计算属性</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+<!--
+    计算属性虽然比较简写，但是不能开启异步任务
+    watch可以开启异步任务如下
+
+    1、所有被Vue管理的函数，最好写成普通函数，这样this的指向才是vm或组件实例对象
+    2、所有不被Vue所管理的函数（定时器回调函数、ajax的回调函数），最好写成箭头函数（（）=>）
+    这样this的指向才会是vm或组件实例
+ -->
+<div id="root">
+    姓：<input type="text" v-model="firstName"><br>
+    名：<input type="text" v-model="lastName"><br>
+    全名：<span>{{fullName}}</span>
+</div>
+<script>
+    Vue.config.productionTip = false;
+    const vm = new Vue({
+        data: {
+            firstName: '叶',
+            lastName: '丛林',
+            fullName: ''
+        },
+        watch: {
+            firstName(newValue, oldValue) {
+                setTimeout(() => {
+                    // 箭头函数没有this指向，因此会往父层找，就是firstName 就是Vue实例
+                    this.fullName = this.firstName + this.lastName;
+                }, 1000);
+
+                setTimeout(function () {
+                    // 这种情况下的this指的是windows，因为是js引擎调用的
+                    this.fullName = this.firstName + this.lastName;
+                }, 1000);
+            },
+            lastName(newValue, oldValue) {
+
+            }
+        }
+    });
+    vm.$mount('#root');
+</script>
+</body>
+</html>

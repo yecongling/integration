@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>绑定样式</title>
+    <style>
+        .basic {
+
+        }
+
+    </style>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- 绑定class样式--字符串写法，适用于：样式的类名不确定，需要动态指定 -->
+        <div class="basic" :class="mood" @click="changeMethod">
+            {{name}}
+        </div>
+        <!-- 绑定class样式--数组写法，适用于：要绑定的样式个数不确定、名字也不确定 -->
+        <div class="basic" :class="arr">
+            {{name}}
+        </div>
+
+        <!-- 绑定class样式--对象写法，适用于：要绑定的样式个数确定、名字也确定，但要动态决定用不用 -->
+        <div class="basic" :class="classObj">
+            {{name}}
+        </div>
+        <!--  绑定style样式 对象写法 也可以数组用法  但是大部分情况下还是使用上述的class写法  -->
+        <div class="basic" :style="styleObj">
+            {{name}}
+        </div>
+    </div>
+
+<script>
+    Vue.config.productionTip = false;
+    const vm = new Vue({
+        data: {
+            name: '叶',
+            mood: 'normal',
+            arr: ['1', '2', '3'],
+            classObj: {
+                a: true,
+                b:false
+            },
+            styleObj: {
+                fontSize: '40px'
+            }
+        },
+        methods: {
+            changeMethod() {
+                this.mood = 'happy'
+            }
+        }
+    });
+    vm.$mount('#root');
+</script>
+</body>
+</html>

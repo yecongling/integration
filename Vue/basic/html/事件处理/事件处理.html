@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>初识Vue</title>
+        <script src="../../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+           <h1>你是{{name}}吗</h1>
+           <button v-on:click="showInfo">点我提示信息</button>
+           <button @click="showInfo2($event, 66)">点我提示信息</button>
+        </div>
+        <script>
+            Vue.config.productionTip = false;
+            const vm = new Vue({
+                data: {
+                    name: '傻逼'
+                },
+                methods: {
+                    showInfo(event) {
+                        console.log(event.target);
+                    },
+                    showInfo2(event, number) {
+                        console.log(event, number);
+                    }
+                }
+            });
+            vm.$mount('#root');
+        </script>
+    </body>
+</html>
