@@ -1,3 +1,7 @@
+# what to say
+greeting: Hello World
+# how often to trigger the timer (millis)
+myPeriod: 2000
 server:
   port: 8080
   undertow:
