@@ -1,7 +1,9 @@
 package cn.soft.engine.project.service.impl;
 
 import cn.soft.engine.project.mapper.ProjectManagerMapper;
+import cn.soft.engine.project.model.ProjectModel;
 import cn.soft.engine.project.service.ProjectManagerService;
+import com.soft.common.api.vo.Result;
 import org.apache.camel.CamelContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,10 +29,31 @@ public class ProjectManagerServiceImpl implements ProjectManagerService {
 
     /* 注入项目管理mapper */
     private ProjectManagerMapper projectManagerMapper;
+
     @Autowired
     public void setProjectManagerMapper(ProjectManagerMapper projectManagerMapper) {
         this.projectManagerMapper = projectManagerMapper;
     }
 
+    /**
+     * 新增服务信息
+     *
+     * @param projectModel 项目对象
+     * @return 保存结果
+     */
+    @Override
+    public Result<Object> addProject(ProjectModel projectModel) {
+        return null;
+    }
+
+    /**
+     * 发布服务
+     *
+     * @param projectId 项目编号
+     * @return 发布的结果
+     */
+    public Result<Object> publishService(String projectId) {
+        return null;
+    }
 
 }

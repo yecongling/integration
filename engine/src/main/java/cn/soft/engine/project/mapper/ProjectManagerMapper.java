@@ -1,6 +1,10 @@
 package cn.soft.engine.project.mapper;
 
+import cn.soft.engine.project.model.ProjectModel;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @TODO 项目管理mapper
@@ -11,4 +15,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProjectManagerMapper {
 
+    /**
+     * 根据项目ID查询项目信息
+     *
+     * @param projectId 项目ID
+     * @return 项目信息
+     */
+    List<ProjectModel> queryProjectInfoByID(@Param("projectId") String projectId);
 }
