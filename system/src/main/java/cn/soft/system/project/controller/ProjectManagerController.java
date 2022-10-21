@@ -1,7 +1,7 @@
-package cn.soft.engine.project.controller;
+package cn.soft.system.project.controller;
 
-import cn.soft.engine.project.model.ProjectModel;
-import cn.soft.engine.project.service.ProjectManagerService;
+import cn.soft.system.project.model.ProjectModel;
+import cn.soft.system.project.service.ProjectManagerService;
 import com.alibaba.fastjson.JSONPObject;
 import com.soft.common.api.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;

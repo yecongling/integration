@@ -1,4 +1,4 @@
-package cn.soft.engine.project.model;
+package cn.soft.system.project.model;
 
 import com.soft.common.api.vo.BaseModel;
 

@@ -172,6 +172,17 @@
             <artifactId>spring-boot-starter-undertow</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>cn.soft</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.soft</groupId>
+            <artifactId>engine</artifactId>
+            <version>1.0</version>
+        </dependency>
+
         <!-- fastJson -->
         <dependency>
             <groupId>com.alibaba</groupId>

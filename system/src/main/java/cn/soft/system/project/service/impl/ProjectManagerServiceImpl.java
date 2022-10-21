@@ -1,8 +1,8 @@
-package cn.soft.engine.project.service.impl;
+package cn.soft.system.project.service.impl;
 
-import cn.soft.engine.project.mapper.ProjectManagerMapper;
-import cn.soft.engine.project.model.ProjectModel;
-import cn.soft.engine.project.service.ProjectManagerService;
+import cn.soft.system.project.mapper.ProjectManagerMapper;
+import cn.soft.system.project.model.ProjectModel;
+import cn.soft.system.project.service.ProjectManagerService;
 import com.soft.common.api.vo.Result;
 import org.apache.camel.CamelContext;
 import org.springframework.beans.factory.annotation.Autowired;

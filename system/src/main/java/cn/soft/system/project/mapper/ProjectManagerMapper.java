@@ -1,6 +1,6 @@
-package cn.soft.engine.project.mapper;
+package cn.soft.system.project.mapper;
 
-import cn.soft.engine.project.model.ProjectModel;
+import cn.soft.system.project.model.ProjectModel;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
