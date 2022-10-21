@@ -1,6 +1,7 @@
 package cn.soft.system.project.mapper;
 
 import cn.soft.system.project.model.ProjectModel;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @Date 2022/10/20 12:54
  * @Version 1.0
  */
-@Repository
+@Mapper
 public interface ProjectManagerMapper {
 
     /**
