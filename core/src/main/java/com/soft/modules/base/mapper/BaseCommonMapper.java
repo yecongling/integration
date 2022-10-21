@@ -1,6 +1,6 @@
 package com.soft.modules.base.mapper;
 
-import com.soft.common.api.dto.LogDTO;
+import com.soft.common.api.dto.SysLog;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -15,5 +15,5 @@ public interface BaseCommonMapper {
      * 保存日志
      * @param dto 日志对象
      */
-    void saveLog(@Param("dto")LogDTO dto);
+    void saveLog(@Param("dto") SysLog dto);
 }
