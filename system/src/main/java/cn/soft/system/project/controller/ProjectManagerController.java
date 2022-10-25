@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/")
+@RequestMapping("/project")
 public class ProjectManagerController {
 
     /* 注入项目管理service */
