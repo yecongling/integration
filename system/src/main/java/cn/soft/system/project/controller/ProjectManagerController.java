@@ -1,6 +1,6 @@
 package cn.soft.system.project.controller;
 
-import cn.soft.system.project.model.ProjectModel;
+import cn.soft.system.project.entity.ProjectModel;
 import cn.soft.system.project.service.ProjectManagerService;
 import com.alibaba.fastjson.JSONPObject;
 import com.soft.common.api.vo.Result;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/project")
+@RequestMapping("/sys/project")
 public class ProjectManagerController {
 
     /* 注入项目管理service */

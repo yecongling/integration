@@ -1,6 +1,6 @@
 package cn.soft.system.project.service;
 
-import cn.soft.system.project.model.ProjectModel;
+import cn.soft.system.project.entity.ProjectModel;
 import com.soft.common.api.vo.Result;
 
 /**

@@ -3,7 +3,7 @@
 <mapper namespace="cn.soft.system.project.mapper.ProjectManagerMapper">
 
     <!-- 根据项目ID查询项目信息 -->
-    <select id="queryProjectInfoByID" parameterType="string" resultType="cn.soft.system.project.model.ProjectModel">
+    <select id="queryProjectInfoByID" parameterType="string" resultType="cn.soft.system.project.entity.ProjectModel">
 
     </select>
 </mapper>
