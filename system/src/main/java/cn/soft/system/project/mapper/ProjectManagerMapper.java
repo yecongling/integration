@@ -12,6 +12,7 @@ import java.util.List;
  * @Date 2022/10/20 12:54
  * @Version 1.0
  */
+@Mapper
 public interface ProjectManagerMapper {
 
     /**

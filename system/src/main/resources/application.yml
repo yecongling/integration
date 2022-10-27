@@ -3,7 +3,7 @@ greeting: Hello World
 # how often to trigger the timer (millis)
 myPeriod: 2000
 server:
-  port: 8080
+  port: 8082
   undertow:
     threads:
       io: 4
@@ -15,7 +15,7 @@ server:
     include-stacktrace: ALWAYS
     include-message: ALWAYS
   servlet:
-    context-path: /ig
+    context-path: /integration
   compression:
     enabled: true
     min-response-size: 1024
@@ -28,9 +28,9 @@ spring:
 #      password: root
 #      driver-class-name: com.mysql.cj.jdbc.Driver
 #    slave:
-      url: jdbc:mysql://47.109.63.155/:3306/integration?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
-      username: ycl
-      password: Ycl499475142!
+      url: jdbc:mysql://localhost:3306/integration?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+      username: root
+      password: ycl123456
       driver-class-name: com.mysql.cj.jdbc.Driver
 camel:
   springboot:

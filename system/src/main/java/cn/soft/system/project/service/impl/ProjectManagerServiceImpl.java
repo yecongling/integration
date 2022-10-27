@@ -30,7 +30,7 @@ public class ProjectManagerServiceImpl implements ProjectManagerService {
     }
 
     /* 注入项目管理mapper */
-    @Resource
+    @Autowired
     private ProjectManagerMapper projectManagerMapper;
 
     /**
