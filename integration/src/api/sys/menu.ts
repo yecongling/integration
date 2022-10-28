@@ -27,7 +27,7 @@ export const getMenuList = () => {
  * 切换成vue3菜单
  */
 export const switchVue3Menu = () => {
-  return new Promise((resolve) => {
+  return new Promise(() => {
     defHttp.get({ url: Api.SwitchVue3Menu });
   });
 };
