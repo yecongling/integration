@@ -30,8 +30,12 @@ public class ProjectManagerServiceImpl implements ProjectManagerService {
     }
 
     /* 注入项目管理mapper */
-    @Autowired
     private ProjectManagerMapper projectManagerMapper;
+
+    @Autowired
+    public void setProjectManagerMapper(ProjectManagerMapper projectManagerMapper) {
+        this.projectManagerMapper = projectManagerMapper;
+    }
 
     /**
      * 新增服务信息
