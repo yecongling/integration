@@ -28,9 +28,9 @@ spring:
 #      password: root
 #      driver-class-name: com.mysql.cj.jdbc.Driver
 #    slave:
-      url: jdbc:mysql://localhost:3306/integration?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
-      username: root
-      password: ycl123456
+      url: jdbc:mysql://rm-2vc3ee45i9034fua7zo.mysql.cn-chengdu.rds.aliyuncs.com:3306/integration?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+      username: ycl
+      password: Ycl499475142!
       driver-class-name: com.mysql.cj.jdbc.Driver
 camel:
   springboot:
