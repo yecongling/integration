@@ -1,6 +1,8 @@
 package cn.soft.system.resource.service.impl;
 
+import cn.soft.system.resource.mapper.ResourceManagerMapper;
 import cn.soft.system.resource.service.ResourceManagerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,4 +15,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ResourceManagerServiceImpl implements ResourceManagerService {
 
+    private ResourceManagerMapper resourceManagerMapper;
+    @Autowired
+    public void setResourceManagerMapper(ResourceManagerMapper resourceManagerMapper) {
+        this.resourceManagerMapper = resourceManagerMapper;
+    }
 }

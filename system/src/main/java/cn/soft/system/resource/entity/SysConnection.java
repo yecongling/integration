@@ -11,4 +11,5 @@ import com.soft.common.api.vo.BaseModel;
  **/
 public class SysConnection extends BaseModel {
 
+    private static final long serialVersionUID = 4638946782786699715L;
 }

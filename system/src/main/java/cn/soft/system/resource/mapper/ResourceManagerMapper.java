@@ -1,5 +1,7 @@
 package cn.soft.system.resource.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
+
 /**
  * @ClassName ResourceManagerMapper
  * @Description 资源管理mapper
@@ -7,6 +9,7 @@ package cn.soft.system.resource.mapper;
  * @Date 2022/10/25 23:07
  * @Version 1.0
  **/
+@Mapper
 public interface ResourceManagerMapper {
 
 }

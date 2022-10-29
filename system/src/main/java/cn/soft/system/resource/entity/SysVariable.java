@@ -11,6 +11,7 @@ import com.soft.common.api.vo.BaseModel;
  **/
 public class SysVariable extends BaseModel {
 
+    private static final long serialVersionUID = 8967226505071996202L;
     /* 变量id 以variable_开头 */
     private String variableId;
     /* 变量名 */
