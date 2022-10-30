@@ -1,4 +1,4 @@
-package com.soft.common.api.dto;
+package cn.soft.common.api.dto;
 
 import java.io.Serializable;
 

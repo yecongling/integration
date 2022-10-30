@@ -1,7 +1,7 @@
 package cn.soft.system.project.service;
 
 import cn.soft.system.project.entity.ProjectModel;
-import com.soft.common.api.vo.Result;
+import cn.soft.common.api.vo.Result;
 
 /**
  * @TODO 项目管理service接口

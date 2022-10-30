@@ -1,6 +1,6 @@
 package cn.soft.system.resource.entity;
 
-import com.soft.common.api.vo.BaseModel;
+import cn.soft.common.api.vo.BaseModel;
 
 /**
  * @ClassName SysVariable

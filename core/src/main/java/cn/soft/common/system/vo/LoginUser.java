@@ -1,4 +1,4 @@
-package com.soft.common.system.vo;
+package cn.soft.common.system.vo;
 
 /**
  * @TODO 在线用户信息

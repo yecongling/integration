@@ -20,6 +20,7 @@
         <mybatis.version>2.2.0</mybatis.version>
         <dynamic-datasource-spring-boot-starter.version>3.2.0</dynamic-datasource-spring-boot-starter.version>
         <druid.version>1.1.22</druid.version>
+        <integration.version>1.0</integration.version>
     </properties>
 
     <modules>
@@ -179,5 +180,20 @@
         </dependency>
 
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>cn.soft</groupId>
+                <artifactId>core</artifactId>
+                <version>${integration.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.soft</groupId>
+                <artifactId>engine</artifactId>
+                <version>${integration.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>

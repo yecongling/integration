@@ -1,4 +1,4 @@
-package com.soft.common.system.base.controller;
+package cn.soft.common.system.base.controller;
 
 /**
  * @TODO controller 基类

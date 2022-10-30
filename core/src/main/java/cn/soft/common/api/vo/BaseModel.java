@@ -1,4 +1,4 @@
-package com.soft.common.api.vo;
+package cn.soft.common.api.vo;
 
 import java.io.Serializable;
 import java.util.Date;

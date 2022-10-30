@@ -1,4 +1,4 @@
-package com.soft.common.system.base.service;
+package cn.soft.common.system.base.service;
 
 /**
  * @TODO Service基类

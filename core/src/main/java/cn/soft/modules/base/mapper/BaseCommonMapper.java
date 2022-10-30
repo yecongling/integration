@@ -1,6 +1,6 @@
-package com.soft.modules.base.mapper;
+package cn.soft.modules.base.mapper;
 
-import com.soft.common.api.dto.SysLog;
+import cn.soft.common.api.dto.SysLog;
 import org.apache.ibatis.annotations.Param;
 
 /**

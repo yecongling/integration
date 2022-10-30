@@ -1,6 +1,6 @@
-package com.soft.common.system.base.service.impl;
+package cn.soft.common.system.base.service.impl;
 
-import com.soft.common.system.base.service.IntegrationService;
+import cn.soft.common.system.base.service.IntegrationService;
 
 /**
  * @TODO ServiceImpl基类

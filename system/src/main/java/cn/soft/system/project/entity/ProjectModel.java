@@ -1,6 +1,6 @@
 package cn.soft.system.project.entity;
 
-import com.soft.common.api.vo.BaseModel;
+import cn.soft.common.api.vo.BaseModel;
 
 /**
  * 项目model封装

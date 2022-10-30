@@ -3,7 +3,7 @@ package cn.soft.system.project.controller;
 import cn.soft.system.project.entity.ProjectModel;
 import cn.soft.system.project.service.ProjectManagerService;
 import com.alibaba.fastjson.JSONPObject;
-import com.soft.common.api.vo.Result;
+import cn.soft.common.api.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -3,12 +3,10 @@ package cn.soft.system.project.service.impl;
 import cn.soft.system.project.mapper.ProjectManagerMapper;
 import cn.soft.system.project.entity.ProjectModel;
 import cn.soft.system.project.service.ProjectManagerService;
-import com.soft.common.api.vo.Result;
+import cn.soft.common.api.vo.Result;
 import org.apache.camel.CamelContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 /**
  * @TODO 项目管理服务实现类

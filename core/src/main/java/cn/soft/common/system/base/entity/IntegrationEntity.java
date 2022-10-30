@@ -1,4 +1,4 @@
-package com.soft.common.system.base.entity;
+package cn.soft.common.system.base.entity;
 
 import java.io.Serializable;
 
