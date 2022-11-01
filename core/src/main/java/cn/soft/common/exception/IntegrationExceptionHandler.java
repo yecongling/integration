@@ -16,6 +16,6 @@ public class IntegrationExceptionHandler {
     @ExceptionHandler(Exception.class)
     public Result<Object> handleException(Exception e) {
         System.out.println("输出异常:" + e.getMessage());
-        return null;
+        return Result.error("我搞了个异常");
     }
 }
