@@ -1,6 +1,8 @@
 package cn.soft.system.user.service.impl;
 
+import cn.soft.common.util.PasswordUtil;
 import cn.soft.system.user.entity.SysLoginModel;
+import cn.soft.system.user.entity.SysUser;
 import cn.soft.system.user.mapper.SysLoginMapper;
 import cn.soft.system.user.service.SysLoginService;
 import com.alibaba.fastjson.JSONObject;
@@ -36,9 +38,30 @@ public class SysLoginServiceImpl implements SysLoginService {
         Result<JSONObject> result = new Result<>();
         String username = loginModel.getUsername();
         String password = loginModel.getPassword();
-        if (username == null) {
-            throw new RuntimeException("用户名不存在");
+        SysUser sysUser = sysLoginMapper.getSysUserByUsername(username);
+        // 校验用户信息
+        result = this.checkUserIsEffective(sysUser);
+        if (!result.isSuccess()) {
+            return result;
         }
+        // 校验用户名密码是否正确
+        String encrypt = PasswordUtil.encrypt(username, password, sysUser.getSalt());
+        String sysPassword = sysUser.getPassword();
+        if (!sysPassword.equals(encrypt)) {
+            result.error500("用户名或密码错误");
+            return result;
+        }
+        return null;
+    }
+
+    /**
+     * 校验用户是否有效
+     *
+     * @param sysUser 用户信息
+     * @return 校验结果
+     */
+    @Override
+    public Result<JSONObject> checkUserIsEffective(SysUser sysUser) {
         return null;
     }
 }
