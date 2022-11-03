@@ -3,6 +3,6 @@
 <mapper namespace="cn.soft.system.user.mapper.SysLoginMapper">
     <!-- 根据用户名查询用户信息 -->
     <select id="getSysUserByUsername" resultType="cn.soft.system.user.entity.SysUser">
-        select * from sys_user where username = #{username}
+        select * from t_sys_user where username = #{username}
     </select>
 </mapper>

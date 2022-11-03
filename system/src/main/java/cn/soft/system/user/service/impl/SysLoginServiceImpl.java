@@ -1,14 +1,20 @@
 package cn.soft.system.user.service.impl;
 
+import cn.soft.common.constant.CommonConstant;
+import cn.soft.common.system.vo.LoginUser;
 import cn.soft.common.util.PasswordUtil;
+import cn.soft.modules.base.service.BaseCommonService;
 import cn.soft.system.user.entity.SysLoginModel;
 import cn.soft.system.user.entity.SysUser;
 import cn.soft.system.user.mapper.SysLoginMapper;
 import cn.soft.system.user.service.SysLoginService;
 import com.alibaba.fastjson.JSONObject;
 import cn.soft.common.api.vo.Result;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.LinkedHashMap;
 
 /**
  * @ClassName SysLoginServiceImpl
@@ -21,11 +27,18 @@ import org.springframework.stereotype.Service;
 public class SysLoginServiceImpl implements SysLoginService {
 
     private SysLoginMapper sysLoginMapper;
+
     @Autowired
     public void setSysLoginMapper(SysLoginMapper sysLoginMapper) {
         this.sysLoginMapper = sysLoginMapper;
     }
 
+    private BaseCommonService baseCommonService;
+
+    @Autowired
+    public void setBaseCommonService(BaseCommonService baseCommonService) {
+        this.baseCommonService = baseCommonService;
+    }
 
     /**
      * 登录逻辑
@@ -35,7 +48,7 @@ public class SysLoginServiceImpl implements SysLoginService {
      */
     @Override
     public Result<JSONObject> login(SysLoginModel loginModel) {
-        Result<JSONObject> result = new Result<>();
+        Result<JSONObject> result;
         String username = loginModel.getUsername();
         String password = loginModel.getPassword();
         SysUser sysUser = sysLoginMapper.getSysUserByUsername(username);
@@ -51,7 +64,12 @@ public class SysLoginServiceImpl implements SysLoginService {
             result.error500("用户名或密码错误");
             return result;
         }
-        return null;
+        // 用户登录信息
+        loadUserInfo(sysUser, result);
+        LoginUser loginUser = new LoginUser();
+        BeanUtils.copyProperties(sysUser, loginUser);
+        baseCommonService.addLog("用户名: " + username + ",登录成功！", CommonConstant.LOG_TYPE_1, null, loginUser);
+        return result;
     }
 
     /**
@@ -62,6 +80,19 @@ public class SysLoginServiceImpl implements SysLoginService {
      */
     @Override
     public Result<JSONObject> checkUserIsEffective(SysUser sysUser) {
-        return null;
+        return new Result<>();
+    }
+
+    /**
+     * 加载用户信息
+     *
+     * @param sysUser 用户
+     * @param result  返回结果
+     */
+    private void loadUserInfo(SysUser sysUser, Result<JSONObject> result) {
+        JSONObject obj = new JSONObject(new LinkedHashMap<>());
+        obj.put("userInfo", sysUser);
+        result.setResult(obj);
+        result.success("登录成功");
     }
 }
