@@ -88,6 +88,7 @@
         notification.success({
           description: resultInfo.data.message || t('sys.api.registerMsg'),
           duration: 3,
+          message: resultInfo.data.message || t('sys.api.registerMsg')
         });
         handleBackLogin();
       } else {

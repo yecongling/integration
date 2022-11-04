@@ -1,9 +1,9 @@
-import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
-import type { RuleObject } from 'ant-design-vue/lib/form/interface';
-import { ref, computed, unref, Ref } from 'vue';
-import { useI18n } from '/@/hooks/web/useI18n';
-import { checkOnlyUser } from '/@/api/sys/user';
-import { defHttp } from '/@/utils/http/axios';
+import type {ValidationRule} from 'ant-design-vue/lib/form/Form';
+import type {RuleObject} from 'ant-design-vue/lib/form/interface';
+import {ref, computed, unref, Ref} from 'vue';
+import {useI18n} from '/@/hooks/web/useI18n';
+import {checkOnlyUser} from '/@/api/sys/user';
+// import {defHttp} from '/@/utils/http/axios';
 
 export enum LoginStateEnum {
   LOGIN,
@@ -18,6 +18,7 @@ export enum SmsEnum {
   REGISTER = '1',
   FORGET_PASSWORD = '2',
 }
+
 const currentState = ref(LoginStateEnum.LOGIN);
 
 export function useLoginState() {
@@ -31,7 +32,7 @@ export function useLoginState() {
     setLoginState(LoginStateEnum.LOGIN);
   }
 
-  return { setLoginState, getLoginState, handleBackLogin };
+  return {setLoginState, getLoginState, handleBackLogin};
 }
 
 export function useFormValid<T extends Object = any>(formRef: Ref<any>) {
@@ -42,11 +43,11 @@ export function useFormValid<T extends Object = any>(formRef: Ref<any>) {
     return data as T;
   }
 
-  return { validForm };
+  return {validForm};
 }
 
 export function useFormRules(formData?: Recordable) {
-  const { t } = useI18n();
+  const {t} = useI18n();
 
   const getAccountFormRule = computed(() => createRule(t('sys.login.accountPlaceholder')));
   const getPasswordFormRule = computed(() => createRule(t('sys.login.passwordPlaceholder')));
@@ -93,15 +94,21 @@ export function useFormRules(formData?: Recordable) {
           password: passwordFormRule,
           mobile: registerMobileRule,
           sms: smsFormRule,
-          confirmPassword: [{ validator: validateConfirmPassword(formData?.password), trigger: 'change' }],
-          policy: [{ validator: validatePolicy, trigger: 'change' }],
+          confirmPassword: [{
+            validator: validateConfirmPassword(formData?.password),
+            trigger: 'change'
+          }],
+          policy: [{validator: validatePolicy, trigger: 'change'}],
         };
 
       // reset password form rules
       case LoginStateEnum.RESET_PASSWORD:
         return {
           username: accountFormRule,
-          confirmPassword: [{ validator: validateConfirmPassword(formData?.password), trigger: 'change' }],
+          confirmPassword: [{
+            validator: validateConfirmPassword(formData?.password),
+            trigger: 'change'
+          }],
           ...mobileRule,
         };
 
@@ -117,7 +124,7 @@ export function useFormRules(formData?: Recordable) {
         };
     }
   });
-  return { getFormRules };
+  return {getFormRules};
 }
 
 function createRule(message: string) {
@@ -129,6 +136,7 @@ function createRule(message: string) {
     },
   ];
 }
+
 function createRegisterAccountRule(type) {
   return [
     {
@@ -139,25 +147,26 @@ function createRegisterAccountRule(type) {
 }
 
 function checkUsername(rule, value, callback) {
-  const { t } = useI18n();
+  const {t} = useI18n();
   if (!value) {
     return Promise.reject(t('sys.login.accountPlaceholder'));
   } else {
     return new Promise((resolve, reject) => {
-      checkOnlyUser({ username: value }).then((res) => {
+      checkOnlyUser({username: value}).then((res) => {
         res.success ? resolve() : reject('用户名已存在!');
       });
     });
   }
 }
+
 async function checkPhone(rule, value, callback) {
-  const { t } = useI18n();
+  const {t} = useI18n();
   var reg = /^1[3456789]\d{9}$/;
   if (!reg.test(value)) {
     return Promise.reject(new Error('请输入正确手机号'));
   } else {
     return new Promise((resolve, reject) => {
-      checkOnlyUser({ phone: value }).then((res) => {
+      checkOnlyUser({phone: value}).then((res) => {
         res.success ? resolve() : reject('手机号已存在!');
       });
     });
@@ -181,4 +190,5 @@ export function sysOAuth2Login(source) {
   url += `?state=${encodeURIComponent(window.location.origin)}`;
   window.location.href = url;
 }
+
 //update-end---author:wangshuai ---date:20220629  for：[issues/I5BG1I]vue3不支持auth2登录------------
