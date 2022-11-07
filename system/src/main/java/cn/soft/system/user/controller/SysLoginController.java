@@ -35,7 +35,7 @@ public class SysLoginController {
      * @return 返回登录结果
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Result<JSONObject> login(@RequestBody SysLoginModel loginModel) {
+    public Result<JSONObject> login(@RequestBody SysLoginModel loginModel) throws Exception{
         return sysLoginService.login(loginModel);
     }
 
