@@ -47,7 +47,7 @@ public class SysLoginServiceImpl implements SysLoginService {
      * @return 登录结果
      */
     @Override
-    public Result<JSONObject> login(SysLoginModel loginModel) {
+    public Result<JSONObject> login(SysLoginModel loginModel) throws Exception{
         Result<JSONObject> result;
         String username = loginModel.getUsername();
         String password = loginModel.getPassword();

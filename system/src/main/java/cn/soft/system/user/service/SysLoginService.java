@@ -20,7 +20,7 @@ public interface SysLoginService {
      * @param loginModel 登录对象
      * @return 登录结果
      */
-    Result<JSONObject> login(SysLoginModel loginModel);
+    Result<JSONObject> login(SysLoginModel loginModel) throws Exception;
 
     /**
      * 校验用户是否有效
@@ -28,5 +28,5 @@ public interface SysLoginService {
      * @param sysUser 用户信息
      * @return 校验结果
      */
-    Result<JSONObject> checkUserIsEffective(SysUser sysUser);
+    Result<JSONObject> checkUserIsEffective(SysUser sysUser) throws Exception;
 }
