@@ -1,7 +1,10 @@
 package cn.soft.system.user.controller;
 
 import cn.soft.common.api.vo.Result;
+import cn.soft.system.user.service.SysUserService;
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,13 +20,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/sys/user")
 public class SysUserController {
 
+    private SysUserService userService;
+    @Autowired
+    public void setUserService(SysUserService userService) {
+        this.userService = userService;
+    }
+
     /**
      * 用户注册
      *
      * @param data 注册数据
      * @return 返回注册结果
      */
+    @PostMapping("/register")
     public Result<JSONObject> userRegister(@RequestBody JSONObject data) {
-        return null;
+        return userService.register(data);
     }
 }

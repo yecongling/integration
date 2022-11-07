@@ -8,7 +8,7 @@
       <FormItem name="mobile" class="enter-x">
         <Input size="large" v-model:value="formData.mobile" :placeholder="t('sys.login.mobile')" class="fix-auto-fill" />
       </FormItem>
-      <FormItem name="sms" class="enter-x">
+<!--      <FormItem name="sms" class="enter-x">
         <CountdownInput
           size="large"
           class="fix-auto-fill"
@@ -16,7 +16,7 @@
           :placeholder="t('sys.login.smsCode')"
           :sendCodeApi="sendCodeApi"
         />
-      </FormItem>
+      </FormItem>-->
       <FormItem name="password" class="enter-x">
         <StrengthMeter size="large" v-model:value="formData.password" :placeholder="t('sys.login.password')" />
       </FormItem>
@@ -81,7 +81,7 @@
           username: data.account,
           password: data.password,
           phone: data.mobile,
-          smscode: data.sms,
+          // smscode: data.sms,
         })
       );
       if (resultInfo && resultInfo.data.success) {
