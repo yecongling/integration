@@ -42,6 +42,42 @@ CREATE TABLE `t_sys_user`
   COLLATE = utf8_general_ci COMMENT = '用户表'
   ROW_FORMAT = Dynamic;
 
+/* 新建系统角色表 */
+DROP TABLE IF EXISTS `t_sys_role`;
+CREATE TABLE `t_sys_role`
+(
+    `id`          varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  NOT NULL COMMENT '主键id',
+    `role_name`   varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色名称',
+    `role_code`   varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色编码',
+    `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
+    `create_by`   varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL COMMENT '创建人',
+    `create_time` datetime                                                NULL DEFAULT NULL COMMENT '创建时间',
+    `update_by`   varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL COMMENT '更新人',
+    `update_time` datetime                                                NULL DEFAULT NULL COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    UNIQUE INDEX `uniq_sys_role_role_code` (`role_code`) USING BTREE,
+    INDEX `idx_sr_role_code` (`role_code`) USING BTREE
+) ENGINE = InnoDB
+  CHARACTER SET = utf8
+  COLLATE = utf8_general_ci COMMENT = '角色表'
+  ROW_FORMAT = Dynamic;
+
+/* 新建用户角色关联表 */
+DROP TABLE IF EXISTS `t_sys_user_role`;
+CREATE TABLE `t_sys_user_role`
+(
+    `id`      varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '主键id',
+    `user_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户id',
+    `role_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色id',
+    PRIMARY KEY (`id`) USING BTREE,
+    INDEX `idx_sur_user_id` (`user_id`) USING BTREE,
+    INDEX `idx_sur_role_id` (`role_id`) USING BTREE,
+    INDEX `idx_sur_user_role_id` (`user_id`, `role_id`) USING BTREE
+) ENGINE = InnoDB
+  CHARACTER SET = utf8
+  COLLATE = utf8_general_ci COMMENT = '用户角色表'
+  ROW_FORMAT = Dynamic;
+
 /* 新建变量表 */
 drop table if exists `t_sys_variable`;
 create table `t_sys_variable`
