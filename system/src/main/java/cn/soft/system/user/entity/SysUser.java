@@ -1,6 +1,7 @@
 package cn.soft.system.user.entity;
 
 import cn.soft.common.api.vo.BaseModel;
+import cn.soft.common.util.SnowFlakeUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -155,6 +156,13 @@ public class SysUser extends BaseModel {
      * 登录首页地址
      */
     private String homePath;
+
+    /**
+     * 默认构造函数，id由雪花id函数生成
+     */
+    public SysUser() {
+        this.id = String.valueOf(new SnowFlakeUtil(16, 16).nextId());
+    }
 
     public String getId() {
         return id;
