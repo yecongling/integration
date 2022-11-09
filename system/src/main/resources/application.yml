@@ -36,4 +36,4 @@ camel:
   springboot:
     backlog-tracing: false
 mybatis:
-  mapper-locations: classpath:/mapper/**/*Mapper.xml
+  mapper-locations: classpath*:cn/soft/**/mapper/xml/*Mapper.xml

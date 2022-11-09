@@ -3,33 +3,7 @@
 <mapper namespace="cn.soft.system.user.mapper.SysUserMapper">
     <!-- 根据用户名查询用户信息 -->
     <select id="getUserByName" resultType="cn.soft.system.user.entity.SysUser">
-        select id,
-               username,
-               real_name,
-               password,
-               salt,
-               avatar,
-               birthday,
-               sex,
-               email,
-               phone,
-               org_code,
-               status,
-               del_flag,
-               third_id,
-               third_type,
-               activity_sync,
-               work_no,
-               post,
-               telephone,
-               create_by,
-               create_time,
-               update_by,
-               update_time,
-               user_identity,
-               depart_ids,
-               rel_tenant_ids,
-               client_id
+        select *
         from integration.t_sys_user
         where username = #{username}
     </select>
