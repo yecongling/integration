@@ -123,7 +123,7 @@
 
   const formData = reactive({
     account: 'admin',
-    password: '123456',
+    password: '123123',
     inputCode: '',
   });
   const randCodeData = reactive({

@@ -79,7 +79,7 @@ public class SysUserServiceImpl implements SysUserService {
             String passwordEncode = PasswordUtil.encrypt(username, password, salt);
             user.setSalt(salt);
             user.setUsername(username);
-            user.setReal_name(username);
+            user.setRealname(username);
             user.setPassword(passwordEncode);
             user.setPhone(phone);
             user.setStatus(CommonConstant.USER_UNFREEZE);

@@ -92,6 +92,7 @@ public class SysLoginServiceImpl implements SysLoginService {
     private void loadUserInfo(SysUser sysUser, Result<JSONObject> result) {
         JSONObject obj = new JSONObject(new LinkedHashMap<>());
         obj.put("userInfo", sysUser);
+        obj.put("token", sysUser.getId());
         result.setResult(obj);
         result.success("登录成功");
     }

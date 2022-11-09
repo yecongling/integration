@@ -32,7 +32,7 @@ public class SysUser extends BaseModel {
     /**
      * 真实姓名
      */
-    private String real_name;
+    private String realname;
 
     /**
      * 密码
@@ -180,12 +180,12 @@ public class SysUser extends BaseModel {
         this.username = username;
     }
 
-    public String getReal_name() {
-        return real_name;
+    public String getRealname() {
+        return realname;
     }
 
-    public void setReal_name(String real_name) {
-        this.real_name = real_name;
+    public void setRealname(String realname) {
+        this.realname = realname;
     }
 
     public String getPassword() {
