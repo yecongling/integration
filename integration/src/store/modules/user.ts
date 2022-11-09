@@ -150,7 +150,8 @@ export const useUserStore = defineStore({
     async afterLoginAction(goHome?: boolean, data?: any): Promise<any | null> {
       if (!this.getToken) return null;
       //获取用户信息
-      const userInfo = await this.getUserInfoAction();
+      const {userInfo} = data;
+      // const userInfo = await this.getUserInfoAction();
       const sessionTimeout = this.sessionTimeout;
       if (sessionTimeout) {
         this.setSessionTimeout(false);
