@@ -1,7 +1,8 @@
 <template>
   <template v-if="getShow">
     <LoginFormTitle class="enter-x" />
-    <Form class="p-4 enter-x" :model="formData" :rules="getFormRules" ref="formRef">
+<!--    <Form class="p-4 enter-x" :model="formData" :rules="getFormRules" ref="formRef">-->
+    <Form class="p-4 enter-x" :model="formData" ref="formRef">
       <FormItem name="account" class="enter-x">
         <Input class="fix-auto-fill" size="large" v-model:value="formData.account" :placeholder="t('sys.login.userName')" />
       </FormItem>

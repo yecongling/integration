@@ -5,7 +5,9 @@ import cn.soft.common.constant.CommonConstant;
 import cn.soft.common.util.ConvertUtil;
 import cn.soft.common.util.PasswordUtil;
 import cn.soft.system.user.entity.SysUser;
+import cn.soft.system.user.entity.SysUserRole;
 import cn.soft.system.user.mapper.SysUserMapper;
+import cn.soft.system.user.mapper.SysUserRoleMapper;
 import cn.soft.system.user.service.SysUserService;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
@@ -29,6 +31,13 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     public void setUserMapper(SysUserMapper userMapper) {
         this.userMapper = userMapper;
+    }
+
+    private SysUserRoleMapper userRoleMapper;
+
+    @Autowired
+    public void setUserRoleMapper(SysUserRoleMapper userRoleMapper) {
+        this.userRoleMapper = userRoleMapper;
     }
 
     /**
@@ -98,6 +107,10 @@ public class SysUserServiceImpl implements SysUserService {
         if (StringUtils.isNotEmpty(roles)) {
             String[] arr = roles.split(",");
             // 后续添加角色和用户关联表的数据
+            for (String roleId : arr) {
+                SysUserRole userRole = new SysUserRole(user.getId(), roleId);
+                userRoleMapper.addUserRole(userRole);
+            }
         }
     }
 }
