@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
@@ -112,5 +113,16 @@ public class SysUserServiceImpl implements SysUserService {
                 userRoleMapper.addUserRole(userRole);
             }
         }
+    }
+
+    /**
+     * 获取用户信息
+     *
+     * @param request 请求
+     * @return 用户信息
+     */
+    @Override
+    public Result<JSONObject> getUserInfo(HttpServletRequest request) {
+        return null;
     }
 }

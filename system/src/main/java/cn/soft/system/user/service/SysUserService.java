@@ -4,6 +4,8 @@ import cn.soft.common.api.vo.Result;
 import cn.soft.system.user.entity.SysUser;
 import com.alibaba.fastjson.JSONObject;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @ClassName SysUserService
  * @Description 系统用户service接口
@@ -29,4 +31,12 @@ public interface SysUserService {
      * @param roles 角色
      */
     void addUserWithRole(SysUser user, String roles);
+
+    /**
+     * 获取用户信息
+     *
+     * @param request 请求
+     * @return 用户信息
+     */
+    Result<JSONObject> getUserInfo(HttpServletRequest request);
 }

@@ -46,6 +46,6 @@ public class SysUserController {
      */
     @GetMapping("/getUserInfo")
     public Result<JSONObject> getUserInfo(HttpServletRequest request) {
-        return null;
+        return userService.getUserInfo(request);
     }
 }
