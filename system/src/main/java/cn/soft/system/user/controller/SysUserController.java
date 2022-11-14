@@ -5,10 +5,9 @@ import cn.soft.system.user.entity.SysUser;
 import cn.soft.system.user.service.SysUserService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @ClassName SysUserController
@@ -37,5 +36,16 @@ public class SysUserController {
     @PostMapping("/register")
     public Result<JSONObject> userRegister(@RequestBody JSONObject data, SysUser user) {
         return userService.register(data, user);
+    }
+
+    /**
+     * 获取用户信息
+     *
+     * @param request 请求
+     * @return 用户信息
+     */
+    @GetMapping("/getUserInfo")
+    public Result<JSONObject> getUserInfo(HttpServletRequest request) {
+        return null;
     }
 }
