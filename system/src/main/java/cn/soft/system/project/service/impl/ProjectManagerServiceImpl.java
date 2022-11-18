@@ -4,6 +4,7 @@ import cn.soft.system.project.mapper.ProjectManagerMapper;
 import cn.soft.system.project.entity.ProjectModel;
 import cn.soft.system.project.service.ProjectManagerService;
 import cn.soft.common.api.vo.Result;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.camel.CamelContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,18 @@ public class ProjectManagerServiceImpl implements ProjectManagerService {
      * @return 保存结果
      */
     @Override
-    public Result<Object> addProject(ProjectModel projectModel) {
+    public Result<JSONObject> addProject(ProjectModel projectModel) {
+        return null;
+    }
+
+    /**
+     * 修改项目信息
+     *
+     * @param projectModel 项目对象
+     * @return 修改结果
+     */
+    @Override
+    public Result<JSONObject> updateProject(ProjectModel projectModel) {
         return null;
     }
 
@@ -52,7 +64,7 @@ public class ProjectManagerServiceImpl implements ProjectManagerService {
      * @param projectId 项目编号
      * @return 发布的结果
      */
-    public Result<Object> publishService(String projectId) {
+    public Result<JSONObject> publishService(String projectId) {
         return null;
     }
 

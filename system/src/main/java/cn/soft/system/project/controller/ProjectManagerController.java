@@ -37,6 +37,17 @@ public class ProjectManagerController {
     }
 
     /**
+     * 修改项目信息
+     *
+     * @param projectModel 项目对象
+     * @return 修改结果
+     */
+    @RequestMapping("/updateProject")
+    public Result<JSONPObject> updateProject(@RequestBody ProjectModel projectModel) {
+        return null;
+    }
+
+    /**
      * 改变项目状态
      *
      * @param param 项目信息
