@@ -10,11 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @TODO 项目管理服务实现类
- * @Author ycl
+ * @ClassName ProjectManagerServiceImpl
+ * @Description 项目管理服务实现类
+ * @Author 叶丛林
  * @Date 2022/10/20 12:57
  * @Version 1.0
- */
+ **/
 @Service
 public class ProjectManagerServiceImpl implements ProjectManagerService {
 
@@ -34,6 +35,17 @@ public class ProjectManagerServiceImpl implements ProjectManagerService {
     @Autowired
     public void setProjectManagerMapper(ProjectManagerMapper projectManagerMapper) {
         this.projectManagerMapper = projectManagerMapper;
+    }
+
+    /**
+     * 查询所有项目信息
+     *
+     * @param projectModel 项目查询条件
+     * @return 所有项目信息
+     */
+    @Override
+    public Result<ProjectModel> queryProjects(ProjectModel projectModel) {
+        return null;
     }
 
     /**

@@ -33,6 +33,9 @@ public class ProjectModel extends BaseModel {
     /* 项目优先级 */
     private Integer projectPriority;
 
+    /* 项目状态  0 - 未发布   1 - 发布 */
+    private Integer status;
+
     public String getProjectId() {
         return projectId;
     }
