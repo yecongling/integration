@@ -20,7 +20,7 @@ public class ProjectModel extends BaseModel {
     private String projectName;
 
     /**
-     * 项目类型
+     * 项目类型 分 1、集成项目   2、接口项目
      */
     private Integer projectType;
 
