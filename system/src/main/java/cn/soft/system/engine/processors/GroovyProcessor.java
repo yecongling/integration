@@ -21,6 +21,6 @@ public class GroovyProcessor implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
         System.out.println("这里是groovy处理器");
-
+        exchange.getMessage().setBody("这是返回内容");
     }
 }
