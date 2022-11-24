@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @ClassName ResourceManagerController
+ * @ClassName SysResourceController
  * @Description 资源管理controller
  * @Author 叶丛林
  * @Date 2022/10/25 22:59
@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 @RequestMapping("/sys/resource")
-public class ResourceManagerController {
+public class SysResourceController {
 
 }
