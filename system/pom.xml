@@ -18,13 +18,13 @@
         <dependency>
             <groupId>cn.soft</groupId>
             <artifactId>core</artifactId>
-            <version>1.0</version>
+            <version>${integration.version}</version>
         </dependency>
 
         <dependency>
             <groupId>cn.soft</groupId>
             <artifactId>engine</artifactId>
-            <version>1.0</version>
+            <version>${integration.version}</version>
         </dependency>
     </dependencies>
 

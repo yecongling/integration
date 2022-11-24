@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.soft.system.user.mapper.SysUserMapper">
+    <!-- 根据用户名查询用户信息 -->
+    <select id="getUserByName" resultType="cn.soft.system.user.entity.SysUser">
+        select *
+        from integration.t_sys_user
+        where username = #{username}
+    </select>
+
+    <!-- 根据电话查询用户信息 -->
+    <select id="getUserByPhone" resultType="cn.soft.system.user.entity.SysUser">
+        select id,
+               username,
+               real_name,
+               password,
+               salt,
+               avatar,
+               birthday,
+               sex,
+               email,
+               phone,
+               org_code,
+               status,
+               del_flag,
+               third_id,
+               third_type,
+               activity_sync,
+               work_no,
+               post,
+               telephone,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               user_identity,
+               depart_ids,
+               rel_tenant_ids,
+               client_id
+        from integration.t_sys_user
+        where phone = #{phone}
+    </select>
+
+    <!-- 保存用户信息 -->
+    <insert id="saveUser" parameterType="cn.soft.system.user.entity.SysUser">
+        insert into integration.t_sys_user(id,
+                                           username,
+                                           real_name,
+                                           password,
+                                           salt,
+                                           avatar,
+                                           birthday,
+                                           sex,
+                                           email,
+                                           phone,
+                                           org_code,
+                                           status,
+                                           del_flag,
+                                           activity_sync,
+                                           work_no,
+                                           post,
+                                           telephone,
+                                           create_by,
+                                           create_time,
+                                           update_by,
+                                           update_time,
+                                           user_identity,
+                                           depart_ids,
+                                           rel_tenant_ids,
+                                           client_id)
+        values (#{id},
+                #{username},
+                #{realname},
+                #{password},
+                #{salt},
+                #{avatar},
+                #{birthday},
+                #{sex},
+                #{email},
+                #{phone},
+                #{orgCode},
+                #{status},
+                #{delFlag},
+                #{activitySync},
+                #{workNo},
+                #{post},
+                #{telephone},
+                #{createBy},
+                #{createTime},
+                #{updateBy},
+                #{updateTime},
+                #{userIdentity},
+                #{departIds},
+                #{relTenantIds},
+                #{clientId})
+    </insert>
+</mapper>

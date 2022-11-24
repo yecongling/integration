@@ -23,17 +23,17 @@ server:
 spring:
   datasource:
 #    master:
-#      jdbc-url: jdbc:mysql://127.0.0.1:3306/rainpro?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
-#      username: root
-#      password: root
-#      driver-class-name: com.mysql.cj.jdbc.Driver
-#    slave:
-      url: jdbc:mysql://rm-2vc3ee45i9034fua7zo.mysql.cn-chengdu.rds.aliyuncs.com:3306/integration?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
-      username: ycl
-      password: Ycl499475142!
+      url: jdbc:mysql://127.0.0.1:3306/integration?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+      username: root
+      password: ycl123456
       driver-class-name: com.mysql.cj.jdbc.Driver
+#    slave:
+#      url: jdbc:mysql://rm-2vc3ee45i9034fua7zo.mysql.cn-chengdu.rds.aliyuncs.com:3306/integration?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+#      username: ycl
+#      password: Ycl499475142!
+#      driver-class-name: com.mysql.cj.jdbc.Driver
 camel:
   springboot:
     backlog-tracing: false
 mybatis:
-  mapper-locations: classpath:/mapper/**/*Mapper.xml
+  mapper-locations: classpath*:cn/soft/**/mapper/xml/*Mapper.xml

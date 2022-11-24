@@ -3,7 +3,7 @@ package cn.soft.system.user.controller;
 import cn.soft.system.user.entity.SysLoginModel;
 import cn.soft.system.user.service.SysLoginService;
 import com.alibaba.fastjson.JSONObject;
-import com.soft.common.api.vo.Result;
+import cn.soft.common.api.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,11 +35,8 @@ public class SysLoginController {
      * @return 返回登录结果
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Result<JSONObject> login(@RequestBody SysLoginModel loginModel) {
-        Result<JSONObject> result = new Result<>();
-        String username = loginModel.getUsername();
-        String password = loginModel.getPassword();
-        return null;
+    public Result<JSONObject> login(@RequestBody SysLoginModel loginModel) throws Exception{
+        return sysLoginService.login(loginModel);
     }
 
 }

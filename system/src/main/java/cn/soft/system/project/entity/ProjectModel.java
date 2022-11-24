@@ -1,6 +1,6 @@
 package cn.soft.system.project.entity;
 
-import com.soft.common.api.vo.BaseModel;
+import cn.soft.common.api.vo.BaseModel;
 
 /**
  * 项目model封装
@@ -20,7 +20,7 @@ public class ProjectModel extends BaseModel {
     private String projectName;
 
     /**
-     * 项目类型
+     * 项目类型 分 1、集成项目   2、接口项目
      */
     private Integer projectType;
 
@@ -32,6 +32,9 @@ public class ProjectModel extends BaseModel {
 
     /* 项目优先级 */
     private Integer projectPriority;
+
+    /* 项目状态  0 - 未发布   1 - 发布 */
+    private Integer status;
 
     public String getProjectId() {
         return projectId;
