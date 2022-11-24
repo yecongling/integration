@@ -15,7 +15,7 @@ import static org.apache.camel.language.groovy.GroovyLanguage.groovy;
 public class HisServiceRouter extends RouteBuilder {
 
     /* 路由ID 标识整个流程的ID */
-    private String routeId;
+    private final String routeId;
 
     // 构造器
     public HisServiceRouter(String routeId) {
