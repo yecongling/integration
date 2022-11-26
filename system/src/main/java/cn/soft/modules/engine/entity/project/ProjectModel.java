@@ -39,9 +39,9 @@ public class ProjectModel extends BaseModel {
     private Integer status;
 
     /* 项目中所含的路由ID */
-    private List<String> routeDefinitions;
+    private List<String> routes;
     /* 项目中所含的终端ID */
-    private List<String> endpointDefinitions;
+    private List<String> endpoints;
 
     public String getProjectId() {
         return projectId;

@@ -2,14 +2,16 @@ package cn.soft.modules.engine.entity.project;
 
 import cn.soft.common.api.vo.BaseModel;
 
+import java.util.List;
+
 /**
- * @ClassName RouteDefinition
+ * @ClassName Route
  * @Description 路由定义model
  * @Author ycl
  * @Date 2022/11/26 11:34
  * @Version 1.0
  */
-public class RouteDefinition extends BaseModel {
+public class Route extends BaseModel {
     private static final long serialVersionUID = 3272368134709013107L;
 
     /* 路由ID 以route_开头 */
@@ -30,4 +32,6 @@ public class RouteDefinition extends BaseModel {
     private Integer x;
     /* 在页面上的位置 y */
     private Integer y;
+    /* 路由内部包含的节点 */
+    private List<String> nodes;
 }
