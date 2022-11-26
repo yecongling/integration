@@ -30,10 +30,10 @@ public class ProjectModel extends BaseModel {
     /* 项目描述 */
     private String description;
 
-    /* 项目优先级 */
+    /* 项目优先级 1-10*/
     private Integer projectPriority;
 
-    /* 项目状态  0 - 未发布   1 - 发布 */
+    /* 项目状态  0 - 全部停止   1 - 部分已启动  2 - 全部启动 */
     private Integer status;
 
     public String getProjectId() {
