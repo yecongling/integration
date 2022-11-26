@@ -1,6 +1,6 @@
 package cn.soft.modules.system.mapper;
 
-import cn.soft.system.user.entity.SysUser;
+import cn.soft.modules.system.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

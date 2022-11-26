@@ -1,9 +1,9 @@
 package cn.soft.modules.system.service;
 
-import cn.soft.common.api.vo.Result;
-import cn.soft.system.user.entity.SysLoginModel;
-import cn.soft.system.user.entity.SysUser;
+import cn.soft.modules.system.entity.SysLoginModel;
+import cn.soft.modules.system.entity.SysUser;
 import com.alibaba.fastjson.JSONObject;
+import cn.soft.common.api.vo.Result;
 
 /**
  * @ClassName SysLoginService
