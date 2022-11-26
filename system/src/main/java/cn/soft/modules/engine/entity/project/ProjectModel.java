@@ -1,6 +1,8 @@
-package cn.soft.modules.engine.entity;
+package cn.soft.modules.engine.entity.project;
 
 import cn.soft.common.api.vo.BaseModel;
+
+import java.util.List;
 
 /**
  * 项目model封装
@@ -35,6 +37,11 @@ public class ProjectModel extends BaseModel {
 
     /* 项目状态  0 - 全部停止   1 - 部分已启动  2 - 全部启动 */
     private Integer status;
+
+    /* 项目中所含的路由ID */
+    private List<String> routeDefinitions;
+    /* 项目中所含的终端ID */
+    private List<String> endpointDefinitions;
 
     public String getProjectId() {
         return projectId;

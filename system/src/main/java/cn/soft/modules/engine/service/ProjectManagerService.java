@@ -1,7 +1,7 @@
 package cn.soft.modules.engine.service;
 
 import cn.soft.common.api.vo.Result;
-import cn.soft.modules.engine.entity.ProjectModel;
+import cn.soft.modules.engine.entity.project.ProjectModel;
 import com.alibaba.fastjson.JSONObject;
 
 /**

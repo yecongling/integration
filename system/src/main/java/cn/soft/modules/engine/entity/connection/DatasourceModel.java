@@ -1,4 +1,4 @@
-package cn.soft.modules.engine.entity;
+package cn.soft.modules.engine.entity.connection;
 
 import cn.soft.common.api.vo.BaseModel;
 

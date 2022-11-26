@@ -1,6 +1,6 @@
 package cn.soft.modules.engine.mapper;
 
-import cn.soft.modules.engine.entity.ProjectModel;
+import cn.soft.modules.engine.entity.project.ProjectModel;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

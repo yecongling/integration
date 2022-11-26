@@ -80,6 +80,9 @@ CREATE TABLE `t_sys_user_role`
 
 /*  ============== 以下是引擎部分需要的=================*/
 
+/* 新建项目表 */
+
+
 /* 新建变量表 */
 drop table if exists `t_variable`;
 create table `t_variable`

@@ -2,7 +2,7 @@ package cn.soft.modules.engine.service.impl;
 
 import cn.soft.modules.base.service.impl.BaseCommonServiceImpl;
 import cn.soft.modules.engine.mapper.ProjectManagerMapper;
-import cn.soft.modules.engine.entity.ProjectModel;
+import cn.soft.modules.engine.entity.project.ProjectModel;
 import cn.soft.modules.engine.service.ProjectManagerService;
 import cn.soft.common.api.vo.Result;
 import com.alibaba.fastjson.JSONObject;

@@ -1,7 +1,7 @@
 package cn.soft.modules.engine.service;
 
 import cn.soft.common.api.vo.Result;
-import cn.soft.modules.engine.entity.DatasourceModel;
+import cn.soft.modules.engine.entity.connection.DatasourceModel;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;

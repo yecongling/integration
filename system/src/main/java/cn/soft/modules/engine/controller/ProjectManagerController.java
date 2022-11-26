@@ -1,6 +1,6 @@
 package cn.soft.modules.engine.controller;
 
-import cn.soft.modules.engine.entity.ProjectModel;
+import cn.soft.modules.engine.entity.project.ProjectModel;
 import cn.soft.modules.engine.service.ProjectManagerService;
 import com.alibaba.fastjson.JSONObject;
 import cn.soft.common.api.vo.Result;
