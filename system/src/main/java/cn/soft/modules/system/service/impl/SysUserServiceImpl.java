@@ -4,6 +4,7 @@ import cn.soft.common.api.vo.Result;
 import cn.soft.common.constant.CommonConstant;
 import cn.soft.common.util.ConvertUtil;
 import cn.soft.common.util.PasswordUtil;
+import cn.soft.modules.base.service.impl.BaseCommonServiceImpl;
 import cn.soft.modules.system.entity.SysUser;
 import cn.soft.modules.system.entity.SysUserRole;
 import cn.soft.modules.system.mapper.SysUserMapper;
@@ -25,7 +26,7 @@ import java.util.Date;
  * @Version 1.0
  */
 @Service
-public class SysUserServiceImpl implements SysUserService {
+public class SysUserServiceImpl extends BaseCommonServiceImpl implements SysUserService {
 
     private SysUserMapper userMapper;
 

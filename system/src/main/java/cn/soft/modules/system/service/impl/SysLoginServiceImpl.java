@@ -1,15 +1,15 @@
 package cn.soft.modules.system.service.impl;
 
+import cn.soft.common.api.vo.Result;
 import cn.soft.common.constant.CommonConstant;
 import cn.soft.common.system.vo.LoginUser;
 import cn.soft.common.util.PasswordUtil;
-import cn.soft.modules.base.service.BaseCommonService;
+import cn.soft.modules.base.service.impl.BaseCommonServiceImpl;
 import cn.soft.modules.system.entity.SysLoginModel;
 import cn.soft.modules.system.entity.SysUser;
 import cn.soft.modules.system.mapper.SysLoginMapper;
 import cn.soft.modules.system.service.SysLoginService;
 import com.alibaba.fastjson.JSONObject;
-import cn.soft.common.api.vo.Result;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,20 +24,13 @@ import java.util.LinkedHashMap;
  * @Version 1.0
  */
 @Service
-public class SysLoginServiceImpl implements SysLoginService {
+public class SysLoginServiceImpl extends BaseCommonServiceImpl implements SysLoginService {
 
     private SysLoginMapper sysLoginMapper;
 
     @Autowired
     public void setSysLoginMapper(SysLoginMapper sysLoginMapper) {
         this.sysLoginMapper = sysLoginMapper;
-    }
-
-    private BaseCommonService baseCommonService;
-
-    @Autowired
-    public void setBaseCommonService(BaseCommonService baseCommonService) {
-        this.baseCommonService = baseCommonService;
     }
 
     /**
@@ -68,7 +61,7 @@ public class SysLoginServiceImpl implements SysLoginService {
         loadUserInfo(sysUser, result);
         LoginUser loginUser = new LoginUser();
         BeanUtils.copyProperties(sysUser, loginUser);
-        baseCommonService.addLog("用户名: " + username + ",登录成功！", CommonConstant.LOG_TYPE_1, null, loginUser);
+        this.addLog("用户名: " + username + ",登录成功！", CommonConstant.LOG_TYPE_1, null, loginUser);
         return result;
     }
 

@@ -1,5 +1,6 @@
 package cn.soft.modules.emr.service.impl;
 
+import cn.soft.modules.base.service.impl.BaseCommonServiceImpl;
 import cn.soft.modules.emr.service.DesignerService;
 import org.springframework.stereotype.Service;
 
@@ -11,5 +12,5 @@ import org.springframework.stereotype.Service;
  * @Version 1.0
  */
 @Service
-public class DesignerServiceImpl implements DesignerService {
+public class DesignerServiceImpl extends BaseCommonServiceImpl implements DesignerService {
 }

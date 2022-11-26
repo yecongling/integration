@@ -1,5 +1,6 @@
 package cn.soft.modules.engine.service.impl;
 
+import cn.soft.modules.base.service.impl.BaseCommonServiceImpl;
 import cn.soft.modules.engine.mapper.ProjectManagerMapper;
 import cn.soft.modules.engine.entity.ProjectModel;
 import cn.soft.modules.engine.service.ProjectManagerService;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
  * @Version 1.0
  **/
 @Service
-public class ProjectManagerServiceImpl implements ProjectManagerService {
+public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements ProjectManagerService {
 
     /**
      * 注入camel运行的上下文环境，发布项目时，向该环境中添加运行路由
