@@ -11,4 +11,6 @@ import cn.soft.common.api.vo.BaseModel;
  */
 public class Endpoint extends BaseModel {
     private static final long serialVersionUID = -4983389133257246176L;
+
+
 }

@@ -81,13 +81,24 @@ CREATE TABLE `t_sys_user_role`
 /*  ============== 以下是引擎部分需要的=================*/
 
 /* 新建项目表 */
-
+drop table if exists `t_project`;
+create table `t_project`
+(
+    `id` varchar(32) character set utf8mb4 collate utf8mb4_general_ci not null comment '项目ID',
+    `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '创建人',
+    `create_time` datetime                                                      NULL DEFAULT NULL COMMENT '创建日期',
+    `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '更新人',
+    `update_time` datetime                                                      NULL DEFAULT NULL COMMENT '更新日期'
+) engine = InooDB
+  character set = utf8mb4
+  COLLATE = utf8_general_ci COMMENT = '项目信息'
+  ROW_FORMAT = Dynamic;
 
 /* 新建变量表 */
 drop table if exists `t_variable`;
 create table `t_variable`
 (
-    `id`          varchar(36) character set utf8mb4 collate utf8mb4_general_ci  not null comment '变量ID',
+    `id`          varchar(32) character set utf8mb4 collate utf8mb4_general_ci  not null comment '变量ID',
     `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '创建人',
     `create_time` datetime                                                      NULL DEFAULT NULL COMMENT '创建日期',
     `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '更新人',
