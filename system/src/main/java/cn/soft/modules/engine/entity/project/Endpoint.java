@@ -20,11 +20,12 @@ public class Endpoint extends BaseModel {
     /* 描述 */
     private String description;
     /* 终端类型 soap  http  等 */
-    private String type;
+    private EndpointType type;
     /* 模式  IN IN_OUT  OUT OUT_IN */
     private String mode;
     /* 终端的配置属性 */
     private Map<String, Object> properties;
-    /* 终端的充实策略配置 */
+    /* 终端的重试策略配置 */
     private Map<String, Object> retryPolicy;
+
 }

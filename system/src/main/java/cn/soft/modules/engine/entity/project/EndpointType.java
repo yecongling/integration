@@ -17,9 +17,32 @@ public class EndpointType extends BaseModel {
 
     /* 终端类型名 */
     private String name;
-    /* 对应终端类型需要的配置属性 */
-    private List<Map<String, Object>> properties;
     /* 支持的模式（根据终端类型决定类型 IN IN_OUT OUT OUT_IN） */
     private List<String> supportedMode;
+    /* 对应终端类型需要的配置属性 */
+    private List<Map<String, Object>> properties;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<String> getSupportedMode() {
+        return supportedMode;
+    }
+
+    public void setSupportedMode(List<String> supportedMode) {
+        this.supportedMode = supportedMode;
+    }
+
+    public List<Map<String, Object>> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(List<Map<String, Object>> properties) {
+        this.properties = properties;
+    }
 }

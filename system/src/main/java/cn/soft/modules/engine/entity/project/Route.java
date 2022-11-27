@@ -34,4 +34,84 @@ public class Route extends BaseModel {
     private Integer y;
     /* 路由内部包含的节点 */
     private List<String> nodes;
+
+    public String getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(String routeId) {
+        this.routeId = routeId;
+    }
+
+    public String getRouteName() {
+        return routeName;
+    }
+
+    public void setRouteName(String routeName) {
+        this.routeName = routeName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Boolean getDebug() {
+        return debug;
+    }
+
+    public void setDebug(Boolean debug) {
+        this.debug = debug;
+    }
+
+    public Boolean getDeepClone() {
+        return deepClone;
+    }
+
+    public void setDeepClone(Boolean deepClone) {
+        this.deepClone = deepClone;
+    }
+
+    public String getProcessingStrategy() {
+        return processingStrategy;
+    }
+
+    public void setProcessingStrategy(String processingStrategy) {
+        this.processingStrategy = processingStrategy;
+    }
+
+    public Integer getThreadCount() {
+        return threadCount;
+    }
+
+    public void setThreadCount(Integer threadCount) {
+        this.threadCount = threadCount;
+    }
+
+    public Integer getX() {
+        return x;
+    }
+
+    public void setX(Integer x) {
+        this.x = x;
+    }
+
+    public Integer getY() {
+        return y;
+    }
+
+    public void setY(Integer y) {
+        this.y = y;
+    }
+
+    public List<String> getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(List<String> nodes) {
+        this.nodes = nodes;
+    }
 }
