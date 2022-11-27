@@ -18,7 +18,6 @@ public class IntegrationApplication extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
-        System.out.println("一个输出");
         SpringApplication.run(IntegrationApplication.class, args);
     }
 }

@@ -78,11 +78,27 @@ CREATE TABLE `t_sys_user_role`
   COLLATE = utf8_general_ci COMMENT = '用户角色表'
   ROW_FORMAT = Dynamic;
 
-/* 新建变量表 */
-drop table if exists `t_sys_variable`;
-create table `t_sys_variable`
+/*  ============== 以下是引擎部分需要的=================*/
+
+/* 新建项目表 */
+drop table if exists `t_project`;
+create table `t_project`
 (
-    `id`          varchar(36) character set utf8mb4 collate utf8mb4_general_ci  not null comment '变量ID' primary key,
+    `id` varchar(32) character set utf8mb4 collate utf8mb4_general_ci not null comment '项目ID',
+    `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '创建人',
+    `create_time` datetime                                                      NULL DEFAULT NULL COMMENT '创建日期',
+    `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '更新人',
+    `update_time` datetime                                                      NULL DEFAULT NULL COMMENT '更新日期'
+) engine = InooDB
+  character set = utf8mb4
+  COLLATE = utf8_general_ci COMMENT = '项目信息'
+  ROW_FORMAT = Dynamic;
+
+/* 新建变量表 */
+drop table if exists `t_variable`;
+create table `t_variable`
+(
+    `id`          varchar(32) character set utf8mb4 collate utf8mb4_general_ci  not null comment '变量ID',
     `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '创建人',
     `create_time` datetime                                                      NULL DEFAULT NULL COMMENT '创建日期',
     `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '更新人',
@@ -90,8 +106,10 @@ create table `t_sys_variable`
     `name`        varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '变量名字',
     `encrypt`     bit                                                           NULL DEFAULT NULL COMMENT '是否加密',
     `encryption`  varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '加密方式',
-    `value`       varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '变量值'
+    `value`       varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '变量值',
+    primary key (`id`) using BTREE,
+    index `idx_variable_id` (`id`) using btree
 ) engine = InnoDB
   character set = utf8mb4
-  collate = utf8mb4_general_ci
+  collate = utf8mb4_general_ci comment = '变量表'
   row_format = DYNAMIC;
