@@ -1,6 +1,6 @@
 package cn.soft.modules.engine.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * @ClassName DatasourceMapper
@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @Date 2022/11/24 21:48
  * @Version 1.0
  **/
-@Mapper
+@Repository
 public interface DatasourceMapper {
 
 }

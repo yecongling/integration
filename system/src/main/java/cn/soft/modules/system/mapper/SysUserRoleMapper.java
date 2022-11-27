@@ -1,7 +1,7 @@
 package cn.soft.modules.system.mapper;
 
 import cn.soft.modules.system.entity.SysUserRole;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * @ClassName SysUserRoleMapper
@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @Date 2022/11/9 12:46
  * @Version 1.0
  */
-@Mapper
+@Repository
 public interface SysUserRoleMapper {
 
     /**

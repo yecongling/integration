@@ -1,6 +1,6 @@
 package cn.soft.modules.emr.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * @ClassName DesignerMapper
@@ -9,6 +9,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @Date 2022/11/25 12:57
  * @Version 1.0
  */
-@Mapper
+@Repository
 public interface DesignerMapper {
 }

@@ -1,6 +1,6 @@
 package cn.soft.modules.engine.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * @ClassName ResourceMapper
@@ -9,6 +9,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @Date 2022/11/25 12:59
  * @Version 1.0
  */
-@Mapper
+@Repository
 public interface ResourceMapper {
 }
