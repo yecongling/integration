@@ -3,7 +3,6 @@ package cn.soft.modules.engine.entity.project;
 import cn.soft.common.api.vo.BaseModel;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @ClassName EndpointType
@@ -20,7 +19,7 @@ public class EndpointType extends BaseModel {
     /* 支持的模式（根据终端类型决定类型 IN IN_OUT OUT OUT_IN） */
     private List<String> supportedMode;
     /* 对应终端类型需要的配置属性 */
-    private List<Map<String, Object>> properties;
+    private List<EndpointProperties> properties;
 
     public String getName() {
         return name;
@@ -38,11 +37,11 @@ public class EndpointType extends BaseModel {
         this.supportedMode = supportedMode;
     }
 
-    public List<Map<String, Object>> getProperties() {
+    public List<EndpointProperties> getProperties() {
         return properties;
     }
 
-    public void setProperties(List<Map<String, Object>> properties) {
+    public void setProperties(List<EndpointProperties> properties) {
         this.properties = properties;
     }
 }
