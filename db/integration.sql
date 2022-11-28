@@ -88,7 +88,18 @@ create table `t_project`
     `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '创建人',
     `create_time` datetime                                                      NULL DEFAULT NULL COMMENT '创建日期',
     `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '更新人',
-    `update_time` datetime                                                      NULL DEFAULT NULL COMMENT '更新日期'
+    `update_time` datetime                                                      NULL DEFAULT NULL COMMENT '更新日期',
+    `name`        varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '项目名',
+    `type`        tinyint(1)                                                    NULL DEFAULT NULL COMMENT '项目类型（1-集成项目 2-接口项目）',
+    `log_type`    tinyint(1)                                                    NULL DEFAULT NULL COMMENT '日志类型（1、全部记录 2、仅记录失败 3、精简日志 4、不记录）',
+    `status`      tinyint(1)                                                    NULL DEFAULT NULL COMMENT '项目状态（0-全部停止 1-部分启动 2-全部启动）',
+    `priority`    tinyint(1)                                                    not NULL DEFAULT 1 COMMENT '项目优先级（1-10）',
+    `description` text        CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '项目描述',
+    `routes`      text        CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '项目包含的路由ID',
+    `endpoints`   text        CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '项目包含的终端ID',
+    `links`       text        CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '项目包含的连线ID（第一个编辑器内部）',
+    primary key (`id`) using btree ,
+    index `idx_project_id` (`id`) using btree
 ) engine = InooDB
   character set = utf8mb4
   COLLATE = utf8_general_ci COMMENT = '项目信息'
