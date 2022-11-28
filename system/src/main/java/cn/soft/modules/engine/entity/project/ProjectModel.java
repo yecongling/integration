@@ -39,9 +39,11 @@ public class ProjectModel extends BaseModel {
     private Integer status;
 
     /* 项目中所含的路由ID */
-    private List<String> routes;
+    private List<Route> routes;
     /* 项目中所含的终端ID */
-    private List<String> endpoints;
+    private List<Endpoint> endpoints;
+    /* 项目包含的连线-针对第一个编辑器对象中的 */
+    private List<Link> links;
 
     public String getProjectId() {
         return projectId;
@@ -89,5 +91,37 @@ public class ProjectModel extends BaseModel {
 
     public void setProjectPriority(Integer projectPriority) {
         this.projectPriority = projectPriority;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public List<Route> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(List<Route> routes) {
+        this.routes = routes;
+    }
+
+    public List<Endpoint> getEndpoints() {
+        return endpoints;
+    }
+
+    public void setEndpoints(List<Endpoint> endpoints) {
+        this.endpoints = endpoints;
+    }
+
+    public List<Link> getLinks() {
+        return links;
+    }
+
+    public void setLinks(List<Link> links) {
+        this.links = links;
     }
 }

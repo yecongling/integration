@@ -19,7 +19,7 @@ public class Node extends BaseModel {
     private String nodeName;
     /* 节点类型 NODE（组件-主要的类型） INPUT_PORT（输入节点） OUTPUT_PORT（输出节点） 后面两个是针对路由内部的存储 */
     private String type;
-    /* 次类型 如果type=NODE 则subType为对应组件的类型（如groovy脚本组件、filter消息过滤组件等），否则为null */
+    /* 次类型 如果type=NODE 则subType为对应组件的类型（如groovy脚本组件、filter消息过滤组件等），否则为null，则表示是路由自己的端点 */
     private String subType;
     /* 组件的属性配置 */
     private Map<String, Object> properties;
