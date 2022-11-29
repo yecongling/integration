@@ -134,16 +134,19 @@ create table `t_ep_properties`
     `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '更新人',
     `update_time` datetime                                                      NULL DEFAULT NULL COMMENT '更新日期',
     `ep_type_name` varchar(16)CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null  COMMENT '终端类型名',
-    `name`        varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null  COMMENT '属性名',
+    `name`        varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null  COMMENT '属性名',
+    `title`       varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  null default null COMMENT '标题',
+    `type`       varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  null default null COMMENT '类型',
     `required`    tinyint(1)                                                    not null default 0 COMMENT '属性名',
-    `allowed_values` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  null default NULL COMMENT '允许的属性值',
+    `allowed_values` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  null default NULL COMMENT '允许的属性值',
     `default_value`  varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  null default NULL COMMENT '默认值',
     `endpoint_modes` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null NULL COMMENT '属性名',
     `masked` tinyint(1)                                                            not null default 0 COMMENT '标记',
     `modeRequired` tinyint(1)                                                      not null default 0 COMMENT '模式必填',
-    `applies_to` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null NULL COMMENT '用于哪一端 生产-PRODUCER（IN/IN_OUT） 消费-CONSUMER（OUT/OUT_IN）',
-    primary key (`ep_type_name`,`name`) using BTREE,
+    `applies_to` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null COMMENT '用于哪一端 生产-PRODUCER（IN/IN_OUT） 消费-CONSUMER（OUT/OUT_IN）',
+    primary key (`ep_type_name`,`name`, `applies_to`) using BTREE,
     index `idx_variable_ep_type_name` (`ep_type_name`) using btree,
+    index `idx_variable_applies_to` (`applies_to`) using btree,
     index `idx_variable_name` (`name`) using btree
 ) ENGINE = InnoDB
   character set = utf8mb4

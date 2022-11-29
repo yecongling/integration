@@ -23,7 +23,7 @@ public class EndpointProperties extends BaseModel {
     private String type;
     /* 是否必要 */
     private Boolean required;
-    /* 允许的值  主要用于下拉选择 */
+    /* 允许的值  主要用于下拉选择格式为  title=value|title=value title为显示标题  value为存储值 */
     private String allowedValues;
     private List<String> allowedValue;
     /* 默认的值 */
