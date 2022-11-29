@@ -100,9 +100,9 @@ create table `t_project`
     `links`       text        CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '项目包含的连线ID（第一个编辑器内部）',
     primary key (`id`) using btree ,
     index `idx_project_id` (`id`) using btree
-) engine = InooDB
+) ENGINE = InnoDB
   character set = utf8mb4
-  COLLATE = utf8_general_ci COMMENT = '项目信息'
+  COLLATE = utf8mb4_general_ci COMMENT = '项目信息'
   ROW_FORMAT = Dynamic;
 
 /* 新建变量表 */
@@ -120,7 +120,32 @@ create table `t_variable`
     `value`       varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '变量值',
     primary key (`id`) using BTREE,
     index `idx_variable_id` (`id`) using btree
-) engine = InnoDB
+) ENGINE = InnoDB
   character set = utf8mb4
   collate = utf8mb4_general_ci comment = '变量表'
+  row_format = DYNAMIC;
+
+/* 新建终端属性配置表 */
+drop table if exists `t_ep_properties`;
+create table `t_ep_properties`
+(
+    `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '创建人',
+    `create_time` datetime                                                      NULL DEFAULT NULL COMMENT '创建日期',
+    `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '更新人',
+    `update_time` datetime                                                      NULL DEFAULT NULL COMMENT '更新日期',
+    `ep_type_name` varchar(16)CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null  COMMENT '终端类型名',
+    `name`        varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null  COMMENT '属性名',
+    `required`    tinyint(1)                                                    not null default 0 COMMENT '属性名',
+    `allowed_values` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  null default NULL COMMENT '允许的属性值',
+    `default_value`  varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  null default NULL COMMENT '默认值',
+    `endpoint_modes` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null NULL COMMENT '属性名',
+    `masked` tinyint(1)                                                            not null default 0 COMMENT '标记',
+    `modeRequired` tinyint(1)                                                      not null default 0 COMMENT '模式必填',
+    `applies_to` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null NULL COMMENT '用于哪一端 生产-PRODUCER（IN/IN_OUT） 消费-CONSUMER（OUT/OUT_IN）',
+    primary key (`ep_type_name`,`name`) using BTREE,
+    index `idx_variable_ep_type_name` (`ep_type_name`) using btree,
+    index `idx_variable_name` (`name`) using btree
+) ENGINE = InnoDB
+  character set = utf8mb4
+  collate = utf8mb4_general_ci comment = '终端属性配置表'
   row_format = DYNAMIC;

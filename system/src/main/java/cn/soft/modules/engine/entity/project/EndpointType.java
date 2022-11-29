@@ -16,7 +16,7 @@ public class EndpointType extends BaseModel {
 
     /* 终端类型名 */
     private String name;
-    /* 支持的模式（根据终端类型决定类型 IN IN_OUT OUT OUT_IN） */
+    /* 支持的模式（根据终端类型决定类型 IN IN_OUT OUT OUT_IN或其他） */
     private List<String> supportedMode;
     /* 对应终端类型需要的配置属性 */
     private List<EndpointProperties> properties;
