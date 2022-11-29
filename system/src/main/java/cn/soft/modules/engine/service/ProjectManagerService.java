@@ -1,8 +1,11 @@
 package cn.soft.modules.engine.service;
 
 import cn.soft.common.api.vo.Result;
+import cn.soft.modules.engine.entity.project.EndpointProperties;
 import cn.soft.modules.engine.entity.project.ProjectModel;
 import com.alibaba.fastjson.JSONObject;
+
+import java.util.List;
 
 /**
  * @TODO 项目管理service接口
@@ -44,4 +47,10 @@ public interface ProjectManagerService {
      */
     Result<JSONObject> publishService(String projectId);
 
+    /**
+     * 查询终端属性配置
+     *
+     * @return 返回终端的属性配置
+     */
+    Result<List<EndpointProperties>> queryEndpointProperties();
 }

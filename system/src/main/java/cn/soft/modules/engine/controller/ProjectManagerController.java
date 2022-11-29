@@ -1,11 +1,14 @@
 package cn.soft.modules.engine.controller;
 
+import cn.soft.modules.engine.entity.project.EndpointProperties;
 import cn.soft.modules.engine.entity.project.ProjectModel;
 import cn.soft.modules.engine.service.ProjectManagerService;
 import com.alibaba.fastjson.JSONObject;
 import cn.soft.common.api.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @ClassName ProjectManagerController
@@ -68,6 +71,16 @@ public class ProjectManagerController {
     @GetMapping("/publishService/{projectID}")
     public Result<JSONObject> publishService(@PathVariable("projectID") String projectID) {
         return projectManagerService.publishService(projectID);
+    }
+
+    /**
+     * 查询终端的属性配置
+     *
+     * @return 终端属性配置
+     */
+    @GetMapping("/endpointProperties")
+    public Result<List<EndpointProperties>> queryEndpointProperties() {
+        return projectManagerService.queryEndpointProperties();
     }
 
 }

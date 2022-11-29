@@ -1,6 +1,6 @@
 package cn.soft.modules.engine.mapper;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @ClassName VariableMapper
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * @Date 2022/11/24 21:49
  * @Version 1.0
  **/
-@Repository
+@Mapper
 public interface VariableMapper {
 
 }

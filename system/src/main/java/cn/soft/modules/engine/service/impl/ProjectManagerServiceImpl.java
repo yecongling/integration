@@ -1,6 +1,7 @@
 package cn.soft.modules.engine.service.impl;
 
 import cn.soft.modules.base.service.impl.BaseCommonServiceImpl;
+import cn.soft.modules.engine.entity.project.EndpointProperties;
 import cn.soft.modules.engine.mapper.ProjectManagerMapper;
 import cn.soft.modules.engine.entity.project.ProjectModel;
 import cn.soft.modules.engine.service.ProjectManagerService;
@@ -9,6 +10,8 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.camel.CamelContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @ClassName ProjectManagerServiceImpl
@@ -81,4 +84,15 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
         return null;
     }
 
+    /**
+     * 查询终端属性配置
+     *
+     * @return 返回终端的属性配置
+     */
+    @Override
+    public Result<List<EndpointProperties>> queryEndpointProperties() {
+        JSONObject param = new JSONObject();
+        List<EndpointProperties> properties = projectManagerMapper.queryEndpointProperties(param);
+        return Result.OK(properties);
+    }
 }

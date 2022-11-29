@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.soft.modules.engine.mapper.ProjectManagerMapper">
+    <!-- 属性表和实体字段映射 -->
+    <resultMap id="properties" type="cn.soft.modules.engine.entity.project.EndpointProperties">
+        <result column="endpoint_type_name" property="endpointTypeName"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="allowed_values" property="allowedValues"/>
+        <result column="required" property="required"/>
+        <result column="default_value" property="defaultValue"/>
+        <result column="endpoint_modes" property="endpointModes"/>
+        <result column="masked" property="masked"/>
+        <result column="modeRequired" property="modeRequired"/>
+        <result column="applies_to" property="appliesTo"/>
+    </resultMap>
 
     <!-- 根据项目ID查询项目信息 -->
     <select id="queryProjectInfoByID" parameterType="string"
@@ -9,8 +22,7 @@
     </select>
 
     <!-- 查询终端配置属性（也适用于后期维护该表时的查询） -->
-    <select id="queryEndpointProperties" parameterType="object"
-            resultType="cn.soft.modules.engine.entity.project.EndpointProperties">
+    <select id="queryEndpointProperties" parameterType="object" resultMap="properties">
         select endpoint_type_name,
                `name`,
                type,

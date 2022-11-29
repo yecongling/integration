@@ -1,8 +1,8 @@
 package cn.soft.modules.system.mapper;
 
 import cn.soft.modules.system.entity.SysUser;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 /**
  * @ClassName SysUserMapper
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  * @Date 2022/11/4 13:02
  * @Version 1.0
  */
-@Repository
+@Mapper
 public interface SysUserMapper {
 
     /**
