@@ -68,7 +68,7 @@ VALUES ('00001', '2022-11-29 11:30:48', '00001', '2022-11-29 11:30:53', 'soap', 
         'SOAP请求模板', 0, NULL, NULL, NULL, 0, 0, 'PRODUCER'),
        ('00001', '2022-11-29 12:48:03', '00001', '2022-11-29 12:48:08', 'soap', 'timeoutDetail', 'STRING', '响应超时错误详细',
         0, NULL, '', 'IN_OUT', 0, 0, 'CONSUMER');
-INSERT INTO integration.t_ep_properties (create_by, create_time, update_by, update_time, ep_type_name, name, `type`,
+INSERT INTO integration.t_ep_properties (create_by, create_time, update_by, update_time, endpoint_type_name, name, `type`,
                                          title, required, allowed_values, default_value, endpoint_modes, masked,
                                          modeRequired, applies_to)
 VALUES ('00001', '2022-11-29 12:50:22', '00001', '2022-11-29 12:50:26', 'soap', 'timeoutFaultString', 'STRING',
