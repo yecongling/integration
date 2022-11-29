@@ -1,6 +1,8 @@
 package cn.soft.modules.engine.mapper;
 
+import cn.soft.modules.engine.entity.project.EndpointProperties;
 import cn.soft.modules.engine.entity.project.ProjectModel;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -22,4 +24,12 @@ public interface ProjectManagerMapper {
      * @return 项目信息
      */
     List<ProjectModel> queryProjectInfoByID(@Param("projectId") String projectId);
+
+    /**
+     * 查询终端的配置属性
+     *
+     * @param params 筛选条件
+     * @return 终端配置属性
+     */
+    List<EndpointProperties> queryEndpointProperties(@Param("query")JSONObject params);
 }

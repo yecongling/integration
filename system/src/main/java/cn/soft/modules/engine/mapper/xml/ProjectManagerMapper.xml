@@ -3,7 +3,24 @@
 <mapper namespace="cn.soft.modules.engine.mapper.ProjectManagerMapper">
 
     <!-- 根据项目ID查询项目信息 -->
-    <select id="queryProjectInfoByID" parameterType="string" resultType="cn.soft.modules.engine.entity.project.ProjectModel">
+    <select id="queryProjectInfoByID" parameterType="string"
+            resultType="cn.soft.modules.engine.entity.project.ProjectModel">
 
+    </select>
+
+    <!-- 查询终端配置属性（也适用于后期维护该表时的查询） -->
+    <select id="queryEndpointProperties" parameterType="object"
+            resultType="cn.soft.modules.engine.entity.project.EndpointProperties">
+        select endpoint_type_name,
+               `name`,
+               type,
+               required,
+               allowed_values,
+               default_value,
+               endpoint_modes,
+               masked,
+               modeRequired,
+               applies_to
+        from integration.t_ep_properties
     </select>
 </mapper>
