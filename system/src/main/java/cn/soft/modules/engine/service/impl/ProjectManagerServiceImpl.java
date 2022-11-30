@@ -1,14 +1,18 @@
 package cn.soft.modules.engine.service.impl;
 
+import cn.soft.common.api.vo.Result;
 import cn.soft.modules.base.service.impl.BaseCommonServiceImpl;
 import cn.soft.modules.engine.entity.project.EndpointProperties;
-import cn.soft.modules.engine.mapper.ProjectManagerMapper;
 import cn.soft.modules.engine.entity.project.ProjectModel;
+import cn.soft.modules.engine.mapper.ProjectManagerMapper;
 import cn.soft.modules.engine.service.ProjectManagerService;
-import cn.soft.common.api.vo.Result;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.camel.CamelContext;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +25,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Service
-public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements ProjectManagerService {
+public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements ProjectManagerService, BeanFactoryAware {
 
     /**
      * 注入camel运行的上下文环境，发布项目时，向该环境中添加运行路由
@@ -32,6 +36,11 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
     public void setContext(CamelContext context) {
         this.context = context;
     }
+
+    /**
+     * bean工厂
+     */
+    private DefaultListableBeanFactory beanFactory;
 
     /* 注入项目管理mapper */
     private ProjectManagerMapper projectManagerMapper;
@@ -94,5 +103,17 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
         JSONObject param = new JSONObject();
         List<EndpointProperties> properties = projectManagerMapper.queryEndpointProperties(param);
         return Result.OK(properties);
+    }
+
+    /**
+     * 注入bean工厂，作用是动态发布bean（如动态编译的cxf类，注册为bean，作为camel 的endpoint使用bean）
+     *
+     * @param beanFactory owning BeanFactory (never {@code null}).
+     *                    The bean can immediately call methods on the factory.
+     * @throws BeansException bean异常
+     */
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = (DefaultListableBeanFactory) beanFactory;
     }
 }

@@ -35,4 +35,8 @@
                applies_to
         from integration.t_ep_properties
     </select>
+    <!-- 查询路由流程数据 -->
+    <select id="queryRoute" parameterType="string" resultType="map">
+
+    </select>
 </mapper>

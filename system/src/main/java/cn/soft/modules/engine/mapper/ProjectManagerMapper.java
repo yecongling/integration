@@ -3,10 +3,12 @@ package cn.soft.modules.engine.mapper;
 import cn.soft.modules.engine.entity.project.EndpointProperties;
 import cn.soft.modules.engine.entity.project.ProjectModel;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @TODO 项目管理mapper
@@ -32,4 +34,13 @@ public interface ProjectManagerMapper {
      * @return 终端配置属性
      */
     List<EndpointProperties> queryEndpointProperties(@Param("query")JSONObject params);
+
+    /**
+     * 通过路由ID查询路由的流程数据
+     *
+     * @param routeId 路由ID
+     * @return 流程数据
+     */
+    @MapKey("IXH")
+    List<Map<String, Object>> queryRoute(@Param("routeId") String routeId);
 }
