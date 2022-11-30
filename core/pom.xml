@@ -23,18 +23,18 @@
         </dependency>
 
         <!-- druid -->
-        <dependency>
+        <!--<dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>${druid.version}</version>
         </dependency>
 
-        <!-- 动态数据源 -->
+        &lt;!&ndash; 动态数据源 &ndash;&gt;
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
             <version>${dynamic-datasource-spring-boot-starter.version}</version>
-        </dependency>
+        </dependency>-->
 
         <!-- 数据库驱动 -->
         <!--mysql-->
