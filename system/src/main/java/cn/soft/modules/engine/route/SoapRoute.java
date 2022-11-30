@@ -34,7 +34,7 @@ public class SoapRoute extends BaseRoute {
     @Override
     public void configure() throws Exception {
         // 根据路由ID查询出整个流程的执行顺序数据
-        List<Map<String, Object>> routes = projectManagerMapper.queryRoute(routerID);
+        List<Map<String, Object>> routes = projectManagerMapper.queryRoute(this.getRouterID());
 
     }
 }

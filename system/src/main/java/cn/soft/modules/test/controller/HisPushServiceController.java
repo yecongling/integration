@@ -1,5 +1,6 @@
 package cn.soft.modules.test.controller;
 
+import cn.soft.modules.engine.route.SoapRoute;
 import cn.soft.modules.test.router.HisServiceRouter;
 import cn.soft.modules.test.service.HisPushService;
 import org.apache.camel.CamelContext;
@@ -30,6 +31,12 @@ public class HisPushServiceController implements BeanFactoryAware {
         this.camelContext = camelContext;
     }
 
+    private SoapRoute soapRoute;
+    @Autowired
+    public void setSoapRoute(SoapRoute soapRoute) {
+        this.soapRoute = soapRoute;
+    }
+
     /**
      * bean工厂
      */
@@ -44,8 +51,15 @@ public class HisPushServiceController implements BeanFactoryAware {
         // 注册bean
         beanFactory.registerSingleton("cxfEndpoint", cxfEndpoint);
         camelContext.addEndpoint("cxfEndpoint", cxfEndpoint);
+
         // 开启路由
+        soapRoute.setRouterID("");
+        soapRoute.setRouterID("");
+        camelContext.addRoutes(soapRoute);
+
+
         camelContext.addRoutes(new HisServiceRouter("HisPushService"));
+
         return "成功开启路由";
     }
 
