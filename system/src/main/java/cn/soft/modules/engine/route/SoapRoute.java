@@ -1,9 +1,8 @@
 package cn.soft.modules.engine.route;
 
+import cn.soft.common.util.SpringContextUtils;
 import cn.soft.engine.core.routes.BaseRoute;
 import cn.soft.modules.engine.mapper.ProjectManagerMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -15,15 +14,11 @@ import java.util.Map;
  * @Date 2022/11/30 10:52
  * @Version 1.0
  */
-@Component
 public class SoapRoute extends BaseRoute {
 
-    /* 注入项目管理mapper */
-    private ProjectManagerMapper projectManagerMapper;
-
-    @Autowired
-    public void setProjectManagerMapper(ProjectManagerMapper projectManagerMapper) {
-        this.projectManagerMapper = projectManagerMapper;
+    public SoapRoute(String routeId, String protocol) {
+        this.routerID = routeId;
+        this.protocol = protocol;
     }
 
     /**
@@ -33,8 +28,9 @@ public class SoapRoute extends BaseRoute {
      */
     @Override
     public void configure() throws Exception {
+        ProjectManagerMapper projectManagerMapper = SpringContextUtils.getBean(ProjectManagerMapper.class);
         // 根据路由ID查询出整个流程的执行顺序数据
-        List<Map<String, Object>> routes = projectManagerMapper.queryRoute(this.getRouterID());
+        List<Map<String, Object>> routes = projectManagerMapper.queryRoute(routerID);
 
     }
 }
