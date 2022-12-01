@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>state</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script text="text/javascript" src="../js/react.development.js"></script>
+    <script text="text/javascript" src="../js/react-dom.development.js"></script>
+    <script text="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+        // 1、创建组件
+        class Demo extends React.Component{
+            // 展示左侧输入框数据
+            showData = ()=> {
+                // alert(this.refs["input1"].value)
+                // 不推荐使用的方式
+                const {input1} = this.refs;
+                alert(input1.value)
+            }
+            // 展示右侧的数据 使用回调形式的ref
+            showData2 = ()=> {
+                alert(this.input2.value)
+            }
+
+            render() {
+                return (
+                    <div>
+                        <input ref="input1" type="text" placeholder="点击按钮提示数据"/>
+                        <button onClick={this.showData}>点我提示左侧数据</button>
+                        /*回调形式的ref*/
+                        <input ref={(c)=>{this.input2=c}} onBlur={this.showData2} type="text" placeholder="失去焦点提示数据"/>
+                        <input ref={c => this.input2=c} onBlur={this.showData2} type="text" placeholder="失去焦点提示数据"/>
+                    </div>
+                )
+            }
+
+        }
+        ReactDOM.render(<Demo/>, document.getElementById("app"));
+    </script>
+    </script>
+</body>
+
+</html>

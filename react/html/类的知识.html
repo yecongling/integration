@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>类</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script text="text/javascript" src="../js/react.development.js"></script>
+    <script text="text/javascript" src="../js/react-dom.development.js"></script>
+    <script text="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/javascript">
+        // person类
+        class Person{
+            // 构造器
+            constructor(name, age) {
+                // 构造器中的this 类的实例对象
+                this.name = name;
+                this.age = age;
+            }
+
+            // 一般方法，方法放在类的原型对象上，给实例使用，通过实例的方式调用时，其中的this就是Person实例
+            // speak中的this对象是谁要具体看调用这个方法的方式，如call、apply可能就不是实例对象
+            speak() {
+                console.log(`我叫${this.name}，我的年龄是${this.age}`);
+            }
+
+
+        }
+
+        // 创建实例
+        const person = new Person('ycl', 12);
+        person.speak();
+
+        // 创建一个Student类
+        class Student extends Person {
+
+        }
+
+        const s = new Student('ycl', 25);
+        console.log(s);
+    </script>
+    </script>
+</body>
+
+</html>
