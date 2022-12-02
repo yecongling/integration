@@ -20,7 +20,7 @@
         select id, name, type, log_type, status, priority, description from integration.t_project
         <where>
             <if test="name != null and name != ''">
-                and instr(#{name}, name)
+                and instr(#{name}, name) > 0
             </if>
             <if test="type != null and type != ''">
                 and type = #{type}
