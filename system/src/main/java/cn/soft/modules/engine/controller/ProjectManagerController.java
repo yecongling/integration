@@ -32,12 +32,12 @@ public class ProjectManagerController {
     /**
      * 查询所有项目信息
      *
-     * @param projectModel 项目信息
+     * @param param 检索条件
      * @return 所有的项目信息
      */
     @RequestMapping("/queryProjects")
-    public Result<ProjectModel> queryProject(@RequestBody ProjectModel projectModel) {
-        return projectManagerService.queryProjects(projectModel);
+    public Result<List<ProjectModel>> queryProject(@RequestBody(required = false) JSONObject param) {
+        return projectManagerService.queryProjects(param);
     }
 
     /**

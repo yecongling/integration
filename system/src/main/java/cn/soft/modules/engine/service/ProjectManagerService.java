@@ -18,10 +18,10 @@ public interface ProjectManagerService {
     /**
      * 查询所有项目信息
      *
-     * @param projectModel 项目查询条件
+     * @param param 项目查询条件
      * @return 所有项目信息
      */
-    Result<ProjectModel> queryProjects(ProjectModel projectModel);
+    Result<List<ProjectModel>> queryProjects(JSONObject param);
 
     /**
      * 新增服务信息

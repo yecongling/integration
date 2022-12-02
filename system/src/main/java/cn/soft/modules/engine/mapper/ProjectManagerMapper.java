@@ -11,13 +11,22 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @TODO 项目管理mapper
- * @Author ycl
- * @Date 2022/10/20 12:54
+ * @ClassName ProjectManagerMapper
+ * @Description 项目管理Mapper
+ * @Author 叶丛林
+ * @Date 2022/10/20 12:57
  * @Version 1.0
- */
+ **/
 @Mapper
 public interface ProjectManagerMapper {
+
+    /**
+     * 查询所有项目信息
+     *
+     * @param param 检索条件
+     * @return 返回所有项目信息
+     */
+    List<ProjectModel> queryAllProject(JSONObject param);
 
     /**
      * 根据项目ID查询项目信息
@@ -25,7 +34,7 @@ public interface ProjectManagerMapper {
      * @param projectId 项目ID
      * @return 项目信息
      */
-    List<ProjectModel> queryProjectInfoByID(@Param("projectId") String projectId);
+    ProjectModel queryProjectInfoByID(@Param("projectId") String projectId);
 
     /**
      * 查询终端的配置属性
@@ -33,7 +42,7 @@ public interface ProjectManagerMapper {
      * @param params 筛选条件
      * @return 终端配置属性
      */
-    List<EndpointProperties> queryEndpointProperties(@Param("query")JSONObject params);
+    List<EndpointProperties> queryEndpointProperties(@Param("query") JSONObject params);
 
     /**
      * 通过路由ID查询路由的流程数据

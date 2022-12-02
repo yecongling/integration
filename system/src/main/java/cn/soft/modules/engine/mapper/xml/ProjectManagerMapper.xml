@@ -15,6 +15,22 @@
         <result column="applies_to" property="appliesTo"/>
     </resultMap>
 
+    <!-- 查询所有项目信息 -->
+    <select id="queryAllProject" resultType="cn.soft.modules.engine.entity.project.ProjectModel" parameterType="object">
+        select id, name, type, log_type, status, priority, description from integration.t_project
+        <where>
+            <if test="name != null and name != ''">
+                and instr(#{name}, name)
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="status != null and status != ''">
+                and `status` = #{status}
+            </if>
+        </where>
+    </select>
+
     <!-- 根据项目ID查询项目信息 -->
     <select id="queryProjectInfoByID" parameterType="string"
             resultType="cn.soft.modules.engine.entity.project.ProjectModel">

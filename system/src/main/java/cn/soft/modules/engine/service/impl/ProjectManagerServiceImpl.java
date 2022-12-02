@@ -53,12 +53,13 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
     /**
      * 查询所有项目信息
      *
-     * @param projectModel 项目查询条件
+     * @param param 项目查询条件
      * @return 所有项目信息
      */
     @Override
-    public Result<ProjectModel> queryProjects(ProjectModel projectModel) {
-        return null;
+    public Result<List<ProjectModel>> queryProjects(JSONObject param) {
+        List<ProjectModel> allProject = projectManagerMapper.queryAllProject(param);
+        return Result.ok(allProject);
     }
 
     /**
