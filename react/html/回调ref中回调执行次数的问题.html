@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>类</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+        // 1、创建组件
+        class Demo extends React.Component{
+            // 展示右侧的数据 使用回调形式的ref
+            showData2 = ()=> {
+                const {input} = this;
+                alert(input.value)
+            }
+
+            showInput = (c)=> {
+                this.input = c;
+            }
+
+            render() {
+                return (
+                    <div>
+                        <input ref={this.showInput} type="text" placeholder="点击按钮提示数据"/>
+                        <button onClick={this.showData2}>点我提示左侧数据</button>
+                    </div>
+                )
+            }
+
+        }
+        ReactDOM.render(<Demo/>, document.getElementById("app"));
+    </script>
+</body>
+
+</html>

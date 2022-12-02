@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>受控组件</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/javascript" src="../../js/react.development.js"></script>
+    <script type="text/javascript" src="../../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../../js/babel.min.js"></script>
+    <script type="text/babel">
+        // 1、创建组件
+        class Login extends React.Component{
+
+            state = {
+                username: "",
+                password: ""
+            }
+            handleSubmit = (event)=> {
+                event.preventDefault();
+            }
+            // 受控组件
+            saveUsername = (event)=> {
+                this.setState({username: event.target.value})
+            }
+
+            render() {
+                return (
+                    <form action="http://www.baidu.com/home" onSubmit={this.handleSubmit}>
+                        用户名： <input onChange={this.saveUsername} type="text" name="username"/>
+                        密码：<input type="password" name="password"/>
+                        <button>登录</button>
+                    </form>
+                )
+            }
+
+        }
+        ReactDOM.render(<Login/>, document.getElementById("app"));
+    </script>
+</body>
+
+</html>
