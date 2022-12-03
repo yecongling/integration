@@ -386,7 +386,8 @@ export class CommandAdapt {
     if (!~startIndex && !~endIndex) return
     const elementList = this.draw.getElementList()
     const { width, margins } = this.options
-    const innerWidth = width - margins[1] - margins[3]
+    // const innerWidth = width - margins[1] - margins[2]
+    const innerWidth = width - margins['right'] - margins['left']
     // colgroup
     const colgroup: IColgroup[] = []
     const colWidth = innerWidth / col
