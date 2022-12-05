@@ -41,6 +41,17 @@ public class ProjectManagerController {
     }
 
     /**
+     * 通过项目ID查询项目信息（包括项目包含的终端、路由、组件、连线）
+     *
+     * @param projectId 项目ID
+     * @return 项目model
+     */
+    @GetMapping("/queryProjectById/{projectId}")
+    public Result<ProjectModel> queryProjectById(@PathVariable("projectId") String projectId) {
+        return projectManagerService.queryProjectById(projectId);
+    }
+
+    /**
      * 新增项目信息
      *
      * @param projectModel 封装的项目对象

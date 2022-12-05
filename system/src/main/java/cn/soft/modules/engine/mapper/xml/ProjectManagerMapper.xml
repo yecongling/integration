@@ -34,7 +34,9 @@
     <!-- 根据项目ID查询项目信息 -->
     <select id="queryProjectInfoByID" parameterType="string"
             resultType="cn.soft.modules.engine.entity.project.ProjectModel">
-
+        select id, name, type, log_type, status, priority, description
+        from integration.t_project
+        where id = #{projectId}
     </select>
 
     <!-- 查询终端配置属性（也适用于后期维护该表时的查询） -->
