@@ -81,8 +81,8 @@ CREATE TABLE `t_sys_user_role`
 /*  ============== 以下是引擎部分需要的=================*/
 
 /* 新建项目表 */
-drop table if exists `t_project`;
-create table `t_project`
+drop table if exists `t_engine_project`;
+create table `t_engine_project`
 (
     `id` varchar(32) character set utf8mb4 collate utf8mb4_general_ci not null comment '项目ID',
     `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '创建人',
@@ -106,8 +106,8 @@ create table `t_project`
   ROW_FORMAT = Dynamic;
 
 /* 新建变量表 */
-drop table if exists `t_variable`;
-create table `t_variable`
+drop table if exists `t_engine_variable`;
+create table `t_engine_variable`
 (
     `id`          varchar(32) character set utf8mb4 collate utf8mb4_general_ci  not null comment '变量ID',
     `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '创建人',
@@ -126,8 +126,8 @@ create table `t_variable`
   row_format = DYNAMIC;
 
 /* 新建终端属性配置表 */
-drop table if exists `t_ep_properties`;
-create table `t_ep_properties`
+drop table if exists `t_engine_ep_properties`;
+create table `t_engine_ep_properties`
 (
     `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '创建人',
     `create_time` datetime                                                      NULL DEFAULT NULL COMMENT '创建日期',
@@ -151,4 +151,27 @@ create table `t_ep_properties`
 ) ENGINE = InnoDB
   character set = utf8mb4
   collate = utf8mb4_general_ci comment = '终端属性配置表'
+  row_format = DYNAMIC;
+
+/* 新建路由表 */
+drop table if exists `t_engine_route`;
+create table t_engine_route
+(
+    id                  varchar(32)                      not null comment '路由唯一ID',
+    name                nvarchar(128)                    not null comment '路由名字',
+    description         nvarchar(256)                    null comment '描述',
+    debug               tinyint     default 0            not null comment '启用调试模式',
+    deep_clone          tinyint     default 0            not null comment '启用深度克隆',
+    processing_strategy varchar(12) default 'SEQUENTIAL' not null comment '处理策略',
+    column_7            int                              null,
+    thread_count        int         default 1            not null comment '处理线程数',
+    x                   int         default 0            not null comment '路由x位置',
+    y                   int         default 0            not null comment '路由y位置',
+    nodes               text                             null comment '路由包含的节点',
+    links               text                             null comment '路由包含的连线',
+    PRIMARY KEY (`id`) USING BTREE,
+    index `idx_route_id` (`id`) using btree
+) engine = InnoDB
+  character set = utf8mb4
+  collate = utf8mb4_general_ci comment '引擎路由表'
   row_format = DYNAMIC;

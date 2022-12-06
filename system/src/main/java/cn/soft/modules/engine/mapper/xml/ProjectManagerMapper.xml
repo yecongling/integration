@@ -17,7 +17,7 @@
 
     <!-- 查询所有项目信息 -->
     <select id="queryAllProject" resultType="cn.soft.modules.engine.entity.project.ProjectModel" parameterType="object">
-        select id, name, type, log_type, status, priority, description from integration.t_project
+        select id, name, type, log_type, status, priority, description from integration.t_engine_project
         <where>
             <if test="name != null and name != ''">
                 and instr(#{name}, name) > 0
@@ -35,7 +35,7 @@
     <select id="queryProjectInfoByID" parameterType="string"
             resultType="cn.soft.modules.engine.entity.project.ProjectModel">
         select id, name, type, log_type, status, priority, description
-        from integration.t_project
+        from integration.t_engine_project
         where id = #{projectId}
     </select>
 
@@ -51,7 +51,7 @@
                masked,
                modeRequired,
                applies_to
-        from integration.t_ep_properties
+        from integration.t_engine_ep_properties
     </select>
     <!-- 查询路由流程数据 -->
     <select id="queryRoute" parameterType="string" resultType="map">

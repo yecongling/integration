@@ -1,4 +1,4 @@
-INSERT INTO integration.t_ep_properties (create_by, create_time, update_by, update_time, endpoint_type_name, name, `type`,
+INSERT INTO integration.t_engine_ep_properties (create_by, create_time, update_by, update_time, endpoint_type_name, name, `type`,
                                          title, required, allowed_values, default_value, endpoint_modes, masked,
                                          modeRequired, applies_to)
 VALUES ('00001', '2022-11-29 11:30:48', '00001', '2022-11-29 11:30:53', 'soap', 'certificate', 'STRING', '证书', 0, NULL,
@@ -21,7 +21,7 @@ VALUES ('00001', '2022-11-29 11:30:48', '00001', '2022-11-29 11:30:53', 'soap', 
         NULL, NULL, 0, 0, 'CONSUMER'),
        ('00001', '2022-11-29 12:43:35', '00001', '2022-11-29 12:43:39', 'soap', 'maximumQueueSize', 'INTEGER',
         '最大线程池队列数', 0, NULL, '100', NULL, 0, 0, 'CONSUMER');
-INSERT INTO integration.t_ep_properties (create_by, create_time, update_by, update_time, endpoint_type_name, name, `type`,
+INSERT INTO integration.t_engine_ep_properties (create_by, create_time, update_by, update_time, endpoint_type_name, name, `type`,
                                          title, required, allowed_values, default_value, endpoint_modes, masked,
                                          modeRequired, applies_to)
 VALUES ('00001', '2022-11-29 12:40:51', '00001', '2022-11-29 12:40:56', 'soap', 'maximumThreadSize', 'INTEGER', '最大线程数',
@@ -45,7 +45,7 @@ VALUES ('00001', '2022-11-29 12:40:51', '00001', '2022-11-29 12:40:56', 'soap', 
        ('00001', '2022-11-29 11:18:34', '00001', '2022-11-29 11:18:41', 'soap', 'requestCompressMode', 'STRING', '压缩请求',
         0, 'NO_REQUEST_COMPRESSION=不压缩请求|COMPRESS_ON_SERVER_COMPRESSION=根据服务端压缩请求|ALWAYS_COMPRESS_REQUEST=压缩请求',
         'COMPRESS_ON_SERV', NULL, 0, 0, 'PRODUCER');
-INSERT INTO integration.t_ep_properties (create_by, create_time, update_by, update_time, endpoint_type_name, name, `type`,
+INSERT INTO integration.t_engine_ep_properties (create_by, create_time, update_by, update_time, endpoint_type_name, name, `type`,
                                          title, required, allowed_values, default_value, endpoint_modes, masked,
                                          modeRequired, applies_to)
 VALUES ('00001', '2022-11-29 11:30:48', '00001', '2022-11-29 11:30:53', 'soap', 'requestHeaders', 'STRING', '消息头', 0,
@@ -68,7 +68,7 @@ VALUES ('00001', '2022-11-29 11:30:48', '00001', '2022-11-29 11:30:53', 'soap', 
         'SOAP请求模板', 0, NULL, NULL, NULL, 0, 0, 'PRODUCER'),
        ('00001', '2022-11-29 12:48:03', '00001', '2022-11-29 12:48:08', 'soap', 'timeoutDetail', 'STRING', '响应超时错误详细',
         0, NULL, '', 'IN_OUT', 0, 0, 'CONSUMER');
-INSERT INTO integration.t_ep_properties (create_by, create_time, update_by, update_time, endpoint_type_name, name, `type`,
+INSERT INTO integration.t_engine_ep_properties (create_by, create_time, update_by, update_time, endpoint_type_name, name, `type`,
                                          title, required, allowed_values, default_value, endpoint_modes, masked,
                                          modeRequired, applies_to)
 VALUES ('00001', '2022-11-29 12:50:22', '00001', '2022-11-29 12:50:26', 'soap', 'timeoutFaultString', 'STRING',
