@@ -163,7 +163,6 @@ create table t_engine_route
     debug               tinyint     default 0            not null comment '启用调试模式',
     deep_clone          tinyint     default 0            not null comment '启用深度克隆',
     processing_strategy varchar(12) default 'SEQUENTIAL' not null comment '处理策略',
-    column_7            int                              null,
     thread_count        int         default 1            not null comment '处理线程数',
     x                   int         default 0            not null comment '路由x位置',
     y                   int         default 0            not null comment '路由y位置',

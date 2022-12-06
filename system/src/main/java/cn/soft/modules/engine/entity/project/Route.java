@@ -32,10 +32,14 @@ public class Route extends BaseModel {
     private Integer x;
     /* 在页面上的位置 y */
     private Integer y;
+    /* 包含的节点 ｜ 分隔 */
+    private String nodes;
     /* 路由内部包含的节点 */
-    private List<Node> nodes;
+    private List<Node> node;
+    /* 包含的连线 ｜ 分隔 */
+    private String links;
     /* 路由内部包含的连线 - 针对路由内部的编辑器内部 */
-    private List<Link> links;
+    private List<Link> link;
 
     public String getRouteId() {
         return routeId;
@@ -109,19 +113,35 @@ public class Route extends BaseModel {
         this.y = y;
     }
 
-    public List<Node> getNodes() {
+    public List<Node> getNode() {
+        return node;
+    }
+
+    public void setNode(List<Node> node) {
+        this.node = node;
+    }
+
+    public List<Link> getLink() {
+        return link;
+    }
+
+    public void setLink(List<Link> link) {
+        this.link = link;
+    }
+
+    public String getNodes() {
         return nodes;
     }
 
-    public void setNodes(List<Node> nodes) {
+    public void setNodes(String nodes) {
         this.nodes = nodes;
     }
 
-    public List<Link> getLinks() {
+    public String getLinks() {
         return links;
     }
 
-    public void setLinks(List<Link> links) {
+    public void setLinks(String links) {
         this.links = links;
     }
 }

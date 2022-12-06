@@ -2,13 +2,12 @@ package cn.soft.modules.engine.mapper;
 
 import cn.soft.modules.engine.entity.project.EndpointProperties;
 import cn.soft.modules.engine.entity.project.ProjectModel;
+import cn.soft.modules.engine.entity.project.Route;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @ClassName ProjectManagerMapper
@@ -45,11 +44,10 @@ public interface ProjectManagerMapper {
     List<EndpointProperties> queryEndpointProperties(@Param("query") JSONObject params);
 
     /**
-     * 通过路由ID查询路由的流程数据
+     * 通过路由ID查询路由信息（可能包含多个路由）
      *
-     * @param routeId 路由ID
+     * @param routeIDs 路由ID
      * @return 流程数据
      */
-    @MapKey("IXH")
-    List<Map<String, Object>> queryRoute(@Param("routeId") String routeId);
+    List<Route> queryRoutes(String[] routeIDs);
 }

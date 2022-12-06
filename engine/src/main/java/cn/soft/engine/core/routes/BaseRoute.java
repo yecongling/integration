@@ -10,8 +10,8 @@ import org.apache.camel.builder.RouteBuilder;
  */
 public abstract class BaseRoute extends RouteBuilder {
 
-    /* 路由ID 大多是和项目ID一致，目的是为了区分每一条路由（每一个项目发布的一个服务可以理解成发布了一个路由） */
-    protected String routerID;
+    /* 项目ID，目的是为了区分每一条路由（每一个项目发布的一个服务可以理解成发布了一个路由） */
+    protected String projectId;
 
     /**
      * <b>Called on initialization to build the routes using the fluent builder syntax.</b>

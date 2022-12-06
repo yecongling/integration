@@ -2,10 +2,8 @@ package cn.soft.modules.engine.route;
 
 import cn.soft.common.util.SpringContextUtils;
 import cn.soft.engine.core.routes.BaseRoute;
+import cn.soft.modules.engine.entity.project.ProjectModel;
 import cn.soft.modules.engine.mapper.ProjectManagerMapper;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * @ClassName BaseRouteImpl
@@ -16,8 +14,8 @@ import java.util.Map;
  */
 public class BaseRouteImpl extends BaseRoute {
 
-    public BaseRouteImpl(String routeId) {
-        this.routerID = routeId;
+    public BaseRouteImpl(String projectId) {
+        this.projectId = projectId;
     }
 
     /**
@@ -28,8 +26,8 @@ public class BaseRouteImpl extends BaseRoute {
     @Override
     public void configure() throws Exception {
         ProjectManagerMapper projectManagerMapper = SpringContextUtils.getBean(ProjectManagerMapper.class);
-        // 根据路由ID查询出整个流程的执行顺序数据
-        List<Map<String, Object>> routes = projectManagerMapper.queryRoute(routerID);
+        // 根据项目ID查询出整个流程的执行顺序数据
+        ProjectModel projectModel = projectManagerMapper.queryProjectInfoByID(projectId);
 
     }
 }
