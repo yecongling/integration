@@ -63,6 +63,20 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
     }
 
     /**
+     * 通过项目ID查询项目信息（包括项目包含的终端、路由、组件、连线）
+     *
+     * @param projectId 项目ID
+     * @return 项目model
+     */
+    @Override
+    public Result<ProjectModel> queryProjectById(String projectId) {
+        ProjectModel projectModel = projectManagerMapper.queryProjectInfoByID(projectId);
+        // 后续添加查询其对应的终端、路由组件、连线等数据
+
+        return Result.ok(projectModel);
+    }
+
+    /**
      * 新增服务信息
      *
      * @param projectModel 项目对象

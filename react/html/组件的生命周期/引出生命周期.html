@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>受控组件</title>
+</head>
+
+<body>
+<div id="app"></div>
+<script type="text/javascript" src="../../js/react.development.js"></script>
+<script type="text/javascript" src="../../js/react-dom.development.js"></script>
+<script type="text/javascript" src="../../js/babel.min.js"></script>
+<script type="text/babel">
+    // 1、创建组件
+    class Life extends React.Component {
+        state = {
+            opacity: 1
+        }
+        /* 箭头函数作为回调，获取this对象（箭头函数没有this，因此回获取组件的） */
+        death = ()=> {
+            // 卸载组件
+            ReactDOM.unmountComponentAtNode(document.getElementById("app"))
+        }
+
+        // 组件挂载完毕
+        componentDidMount() {
+            this.timer = setInterval(() => {
+                let {opacity} = this.state
+                opacity -= 0.1
+                if (opacity <= 0) opacity = 1
+                this.setState({opacity})
+            }, 200)
+        }
+        // 组件将要卸载
+        componentWillUnmount() {
+            // 清楚定时器
+            clearInterval(this.timer)
+        }
+        render() {
+            return (
+                <div>
+                    <h2 style={{opacity: this.state.opacity}}>React学不会怎么样</h2>
+                    <button onClick={this.death}>不活了</button>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<Life/>, document.getElementById("app"));
+</script>
+</body>
+
+</html>
