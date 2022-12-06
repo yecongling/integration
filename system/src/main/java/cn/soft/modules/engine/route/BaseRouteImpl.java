@@ -8,21 +8,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @ClassName SoapRoute
- * @Description 支持soap请求用的路由
+ * @ClassName BaseRouteImpl
+ * @Description 基础路由的实现（通过传入项目ID，去查询对应的配置信息，决定路由配置）
  * @Author ycl
  * @Date 2022/11/30 10:52
  * @Version 1.0
  */
-public class SoapRoute extends BaseRoute {
+public class BaseRouteImpl extends BaseRoute {
 
-    public SoapRoute(String routeId, String protocol) {
+    public BaseRouteImpl(String routeId) {
         this.routerID = routeId;
-        this.protocol = protocol;
     }
 
     /**
-     *  soap路由流程配置
+     * 路由流程配置
      *
      * @throws Exception can be thrown during configuration
      */

@@ -13,9 +13,6 @@ public abstract class BaseRoute extends RouteBuilder {
     /* 路由ID 大多是和项目ID一致，目的是为了区分每一条路由（每一个项目发布的一个服务可以理解成发布了一个路由） */
     protected String routerID;
 
-    /* 路由协议类型（决定开头的路由是soap、http或其他） */
-    protected String protocol;
-
     /**
      * <b>Called on initialization to build the routes using the fluent builder syntax.</b>
      * <p/>
