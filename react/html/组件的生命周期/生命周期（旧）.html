@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>生命周期（旧）</title>
+</head>
+
+<body>
+<div id="app"></div>
+<script type="text/javascript" src="../../js/react.development.js"></script>
+<script type="text/javascript" src="../../js/react-dom.development.js"></script>
+<script type="text/javascript" src="../../js/babel.min.js"></script>
+<script type="text/babel">// 1、创建组件
+class Count extends React.Component {
+
+    constructor(props) {
+        console.log("Count-constructor")
+        super();
+        this.state = {
+            count : 0
+        }
+    }
+    add = () => {
+        const {count} = this.state
+        this.setState({count: count + 1})
+    }
+
+    // 组件将要挂载
+    componentWillMount() {
+        console.log("Count-componentWillMount")
+    }
+    // 组件挂载完毕
+    componentDidMount() {
+        console.log("Count-componentDidMount")
+    }
+
+    death = ()=> {
+        ReactDOM.unmountComponentAtNode(document.getElementById("app"))
+    }
+    // 组件将要卸载
+    componentWillUnmount() {
+        console.log("Count-componentWillUnmount")
+    }
+    // 是否应该更新  必须返回true/false true则允许接下来调用render更新  否则不允许
+    shouldComponentUpdate() {
+        console.log("Count-shouldComponentUpdate")
+        return true;
+    }
+    // 组件将要更新的钩子
+    componentWillUpdate() {
+        console.log("Count-componentWillUpdate")
+    }
+
+    force = () => {
+        // 强制更新
+        this.forceUpdate()
+    }
+    // 组件更新完毕
+    componentDidUpdate() {
+        console.log("Count-componentDidUpdate")
+    }
+
+    render() {
+        console.log("render")
+        const {count} = this.state
+        return (
+            <div>
+                <h2>当前求和为{count}</h2>
+                <button onClick={this.add}>点我+1</button>
+                <button onClick={this.death}>卸载</button>
+                <button onClick={this.force}>强制更新</button>
+            </div>
+        )
+    }
+}
+ReactDOM.render(<Count/>, document.getElementById("app"));
+
+</script>
+</body>
+
+</html>
