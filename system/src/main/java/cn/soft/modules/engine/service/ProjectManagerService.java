@@ -3,6 +3,7 @@ package cn.soft.modules.engine.service;
 import cn.soft.common.api.vo.Result;
 import cn.soft.modules.engine.entity.project.EndpointProperties;
 import cn.soft.modules.engine.entity.project.ProjectModel;
+import cn.soft.modules.engine.entity.project.Route;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
@@ -61,4 +62,14 @@ public interface ProjectManagerService {
      * @return 返回终端的属性配置
      */
     Result<List<EndpointProperties>> queryEndpointProperties();
+
+    /**
+     * 查询路由
+     *
+     * @param routeIds 需要查询的路由ID
+     * @return 返回多个路由信息
+     */
+    List<Route> queryRoutes(List<String> routeIds);
+
+
 }

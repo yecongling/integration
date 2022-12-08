@@ -49,5 +49,5 @@ public interface ProjectManagerMapper {
      * @param routeIDs 路由ID
      * @return 流程数据
      */
-    List<Route> queryRoutes(String[] routeIDs);
+    List<Route> queryRoutes(List<String> routeIDs);
 }

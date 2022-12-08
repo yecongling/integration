@@ -4,6 +4,7 @@ import cn.soft.common.api.vo.Result;
 import cn.soft.modules.base.service.impl.BaseCommonServiceImpl;
 import cn.soft.modules.engine.entity.project.EndpointProperties;
 import cn.soft.modules.engine.entity.project.ProjectModel;
+import cn.soft.modules.engine.entity.project.Route;
 import cn.soft.modules.engine.mapper.ProjectManagerMapper;
 import cn.soft.modules.engine.service.ProjectManagerService;
 import com.alibaba.fastjson.JSONObject;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,6 +43,18 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
      * bean工厂
      */
     private DefaultListableBeanFactory beanFactory;
+
+    /**
+     * 注入bean工厂，作用是动态发布bean（如动态编译的cxf类，注册为bean，作为camel 的endpoint使用bean）
+     *
+     * @param beanFactory owning BeanFactory (never {@code null}).
+     *                    The bean can immediately call methods on the factory.
+     * @throws BeansException bean异常
+     */
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = (DefaultListableBeanFactory) beanFactory;
+    }
 
     /* 注入项目管理mapper */
     private ProjectManagerMapper projectManagerMapper;
@@ -121,14 +135,18 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
     }
 
     /**
-     * 注入bean工厂，作用是动态发布bean（如动态编译的cxf类，注册为bean，作为camel 的endpoint使用bean）
+     * 查询路由
      *
-     * @param beanFactory owning BeanFactory (never {@code null}).
-     *                    The bean can immediately call methods on the factory.
-     * @throws BeansException bean异常
+     * @param routeIds 需要查询的路由ID
+     * @return 返回多个路由信息
      */
     @Override
-    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-        this.beanFactory = (DefaultListableBeanFactory) beanFactory;
+    public List<Route> queryRoutes(List<String> routeIds) {
+        List<Route> routes = projectManagerMapper.queryRoutes(routeIds);
+        // 仅仅是为了返回（后续需要更改的）
+        if (routes.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return routes;
     }
 }
