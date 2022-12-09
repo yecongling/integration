@@ -69,7 +69,7 @@
         from integration.t_engine_ep_properties
     </select>
     <!-- 查询路由信息 -->
-    <select id="queryRoutes" parameterType="list" resultType="cn.soft.modules.engine.entity.project.Route">
+    <select id="queryRoutes" parameterType="list" resultMap="route">
         select id,
                `name`,
                `description`,
