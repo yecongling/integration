@@ -49,7 +49,7 @@
     <!-- 根据项目ID查询项目信息 -->
     <select id="queryProjectInfoByID" parameterType="string"
             resultType="cn.soft.modules.engine.entity.project.ProjectModel">
-        select id, name, type, log_type, status, priority, description
+        select id, `name`, type, log_type, `status`, priority, `description`
         from integration.t_engine_project
         where id = #{projectId}
     </select>
@@ -71,8 +71,8 @@
     <!-- 查询路由信息 -->
     <select id="queryRoutes" parameterType="list" resultType="cn.soft.modules.engine.entity.project.Route">
         select id,
-               name,
-               description,
+               `name`,
+               `description`,
                debug,
                deep_clone,
                processing_strategy,
@@ -82,5 +82,11 @@
                nodes,
                links
         from integration.t_engine_route
+        <where>
+            and id in
+            <foreach collection="list" item="routeId" index="index" open="(" close=")" separator=",">
+                #{routeId}
+            </foreach>
+        </where>
     </select>
 </mapper>
