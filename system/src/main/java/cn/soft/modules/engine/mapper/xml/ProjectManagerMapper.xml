@@ -82,11 +82,13 @@
                nodes,
                links
         from integration.t_engine_route
-        <where>
-            and id in
-            <foreach collection="list" item="routeId" index="index" open="(" close=")" separator=",">
-                #{routeId}
-            </foreach>
-        </where>
+        <if test="routeIDs != null and routeIDs.size() > 0">
+            <where>
+                and id in
+                <foreach collection="list" item="routeId" index="index" open="(" close=")" separator=",">
+                    #{routeId}
+                </foreach>
+            </where>
+        </if>
     </select>
 </mapper>

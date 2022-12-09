@@ -2,12 +2,14 @@ package cn.soft.modules.engine.controller;
 
 import cn.soft.modules.engine.entity.project.EndpointProperties;
 import cn.soft.modules.engine.entity.project.ProjectModel;
+import cn.soft.modules.engine.entity.project.Route;
 import cn.soft.modules.engine.service.ProjectManagerService;
 import com.alibaba.fastjson.JSONObject;
 import cn.soft.common.api.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -92,6 +94,19 @@ public class ProjectManagerController {
     @GetMapping("/endpointProperties")
     public Result<List<EndpointProperties>> queryEndpointProperties() {
         return projectManagerService.queryEndpointProperties();
+    }
+
+    /**
+     * 查询路由信息
+     *
+     * @return 返回路由信息
+     */
+    @RequestMapping("/queryRoutes")
+    public Result<List<Route>> queryRoutes() {
+        List<String> ids = new ArrayList<>();
+        ids.add("route_123456");
+        List<Route> routes = projectManagerService.queryRoutes(ids);
+        return Result.ok(routes);
     }
 
 }
