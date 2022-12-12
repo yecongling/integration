@@ -79,11 +79,13 @@ public class ProjectManagerController {
      * （取消）发布服务
      *
      * @param projectID 服务ID
+     * @param status 状态 是发布服务还是取消  还是半启动
      * @return 发布结果
      */
-    @GetMapping("/publishService/{projectID}")
-    public Result<JSONObject> publishService(@PathVariable("projectID") String projectID) {
-        return projectManagerService.publishService(projectID);
+    @GetMapping("/publishService/")
+    public Result<JSONObject> publishService(@RequestParam("projectID") String projectID, @RequestParam("status") Integer status) {
+        // 需要添加状态参数
+        return projectManagerService.publishService(projectID, status);
     }
 
     /**

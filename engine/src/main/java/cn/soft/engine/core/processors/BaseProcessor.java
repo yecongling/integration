@@ -1,11 +1,14 @@
 package cn.soft.engine.core.processors;
 
+import org.apache.camel.Processor;
+
 /**
- * @TODO 基础类 处理器
+ * @ClassName BaseProcessor
+ * @Description 基础的处理器 封装统一的处理方案
  * @Author ycl
- * @Date 2022/10/20 18:03
+ * @Date 2022/12/10 10:50
  * @Version 1.0
  */
-public class BaseProcessor {
+public abstract class BaseProcessor implements Processor {
 
 }

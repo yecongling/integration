@@ -52,9 +52,10 @@ public interface ProjectManagerService {
      * 根据项目ID查找项目信息 并发布该服务
      *
      * @param projectId 项目ID
+     * @param status 状态 是发布服务还是取消  还是半启动
      * @return 发布服务结果
      */
-    Result<JSONObject> publishService(String projectId);
+    Result<JSONObject> publishService(String projectId, Integer status);
 
     /**
      * 查询终端属性配置

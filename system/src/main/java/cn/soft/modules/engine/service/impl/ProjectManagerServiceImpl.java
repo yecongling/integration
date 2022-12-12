@@ -1,7 +1,7 @@
 package cn.soft.modules.engine.service.impl;
 
 import cn.soft.common.api.vo.Result;
-import cn.soft.engine.core.components.EngineServiceCenter;
+import cn.soft.modules.engine.core.EngineServiceCenter;
 import cn.soft.modules.base.service.impl.BaseCommonServiceImpl;
 import cn.soft.modules.engine.entity.project.EndpointProperties;
 import cn.soft.modules.engine.entity.project.ProjectModel;
@@ -93,8 +93,14 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
      * @param projectId 项目编号
      * @return 发布的结果
      */
-    public Result<JSONObject> publishService(String projectId) {
-        Result<JSONObject> result = engineServiceCenter.publishService(projectId);
+    @Override
+    public Result<JSONObject> publishService(String projectId, Integer status) {
+        JSONObject result = engineServiceCenter.publishService(projectId, status);
+        // 根据服务发布的结果对表中的数据标识（如发布状态、运行状态、异常信息等）
+        if (result.getBoolean("success")) {
+            // 修改表中配置，改动发布状态
+            System.out.println();
+        }
         return null;
     }
 

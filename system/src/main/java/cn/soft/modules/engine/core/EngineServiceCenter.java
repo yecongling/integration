@@ -1,6 +1,6 @@
-package cn.soft.engine.core.components;
+package cn.soft.modules.engine.core;
 
-import cn.soft.common.api.vo.Result;
+import cn.soft.modules.engine.route.BaseRouteImpl;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.camel.CamelContext;
 import org.springframework.beans.BeansException;
@@ -57,9 +57,24 @@ public class EngineServiceCenter implements BeanFactoryAware {
      * 服务发布
      *
      * @param projectId 项目ID
+     * @param status 状态 是发布服务还是取消  还是半启动
      * @return 服务发布结果
      */
-    public Result<JSONObject> publishService(String projectId) {
-        return null;
+    public JSONObject publishService(String projectId, int status) {
+        BaseRouteImpl baseRoute = new BaseRouteImpl(projectId);
+        JSONObject result = new JSONObject();
+        boolean success = true;
+        String msg = "";
+        try {
+            // 提示消息需要改  ？？？？
+            context.addRoutes(baseRoute);
+            msg = "服务发布成功!";
+        } catch (Exception e) {
+            msg = "服务发布失败，原因：" + e.getMessage();
+            success = false;
+        }
+        result.put("success", success);
+        result.put("msg", msg);
+        return result;
     }
 }
