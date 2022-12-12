@@ -3,6 +3,7 @@ package cn.soft.modules.engine.core;
 import cn.soft.modules.engine.route.BaseRouteImpl;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.camel.CamelContext;
+import org.apache.camel.spi.RouteController;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -33,7 +34,7 @@ public class EngineServiceCenter implements BeanFactoryAware {
     }
 
     /**
-     * bean工厂
+     * bean工厂（用于动态注册bean，如：cxfEndpoint）
      */
     private DefaultListableBeanFactory beanFactory;
 
@@ -57,18 +58,17 @@ public class EngineServiceCenter implements BeanFactoryAware {
      * 服务发布
      *
      * @param projectId 项目ID
-     * @param status 状态 是发布服务还是取消  还是半启动
      * @return 服务发布结果
      */
-    public JSONObject publishService(String projectId, int status) {
+    public JSONObject publishService(String projectId) {
+        // 需要修改（不能通过项目ID决定路由的名称，因为一个项目中可能包含多个路由，都需要已入口终端的名作为唯一值才行）
         BaseRouteImpl baseRoute = new BaseRouteImpl(projectId);
+
         JSONObject result = new JSONObject();
         boolean success = true;
-        String msg = "";
+        String msg = "服务发布成功";
         try {
-            // 提示消息需要改  ？？？？
             context.addRoutes(baseRoute);
-            msg = "服务发布成功!";
         } catch (Exception e) {
             msg = "服务发布失败，原因：" + e.getMessage();
             success = false;
@@ -76,5 +76,36 @@ public class EngineServiceCenter implements BeanFactoryAware {
         result.put("success", success);
         result.put("msg", msg);
         return result;
+    }
+
+    /**
+     * 关闭服务
+     *
+     * @param projectId 项目ID
+     * @return 关闭结果
+     */
+    public JSONObject closeService(String projectId) {
+        JSONObject result = new JSONObject();
+        // 获取路由生命周期控制器
+        RouteController routeController = context.getRouteController();
+        boolean success = true;
+        String msg = "服务关闭成功";
+        try {
+            routeController.stopRoute("路由ID");
+            // 针对其他类型的服务要考虑是否做bean的卸载工作
+        } catch (Exception e) {
+            success = false;
+            msg = "关闭发布失败，原因：" + e.getMessage();
+        }
+        result.put("success", success);
+        result.put("msg", msg);
+        return result;
+    }
+
+    /**
+     * 发布webservice
+     */
+    private void publishWebService() {
+
     }
 }

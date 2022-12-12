@@ -95,7 +95,13 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
      */
     @Override
     public Result<JSONObject> publishService(String projectId, Integer status) {
-        JSONObject result = engineServiceCenter.publishService(projectId, status);
+        JSONObject result;
+        // 这里后续考虑更改，使用枚举或者自定义常量
+        if (status == 1) {
+            result = engineServiceCenter.publishService(projectId);
+        } else {
+            result = engineServiceCenter.closeService(projectId);
+        }
         // 根据服务发布的结果对表中的数据标识（如发布状态、运行状态、异常信息等）
         if (result.getBoolean("success")) {
             // 修改表中配置，改动发布状态
