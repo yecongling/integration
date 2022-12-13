@@ -59,7 +59,7 @@ public class HisPushServiceController implements BeanFactoryAware {
         RouteController routeController = camelContext.getRouteController();
         routeController.stopRoute("HisPushService");
         // 卸载
-        beanFactory.destroySingleton("cxfEndpoint");
+//        beanFactory.destroySingleton("cxfEndpoint");
         return "关闭路由成功，并卸载了web service";
     }
 

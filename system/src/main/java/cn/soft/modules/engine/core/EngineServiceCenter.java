@@ -93,6 +93,7 @@ public class EngineServiceCenter implements BeanFactoryAware {
         try {
             routeController.stopRoute("路由ID");
             // 针对其他类型的服务要考虑是否做bean的卸载工作
+
         } catch (Exception e) {
             success = false;
             msg = "关闭发布失败，原因：" + e.getMessage();
@@ -103,9 +104,11 @@ public class EngineServiceCenter implements BeanFactoryAware {
     }
 
     /**
-     * 发布webservice
+     * 发布webservice（根据项目ID，查询其包含的soap终端（使用的资源、发布地址、服务名等））
+     *
+     * @param projectId 项目ID
      */
-    private void publishWebService() {
+    private void publishWebService(String projectId) {
 
     }
 }
