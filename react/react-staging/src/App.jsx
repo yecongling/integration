@@ -15,7 +15,7 @@ export default class App extends Component {
     }
 
     getStudentData = () => {
-        const url = 'http://localhost:3000/integration';
+        const url = 'http://localhost:3000/api1/integration';
         axios.get(url + this.state.url).then(
             response => {
                 console.log('成功了', response);
