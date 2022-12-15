@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {Button, Modal} from "antd";
-
+import './header.less'
 const Header: React.FC = () => {
     const [createModalVisible, handleModalVisible] = useState<boolean>(false);
     return (
-        <div>
+        <div className="header">
             <Button type="primary" onClick={() => handleModalVisible(true)}>点击弹窗</Button>
             <Modal onCancel={() => handleModalVisible(false)} open={createModalVisible} destroyOnClose={true}
                    onOk={() => handleModalVisible(false)} maskClosable={false}>
