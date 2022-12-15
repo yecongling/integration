@@ -27,6 +27,6 @@ target/
 /.nb-gradle/
 !**/src/main/**/build/
 !**/src/test/**/build/
-
+/node_modules
 ### VS Code ###
 .vscode/
