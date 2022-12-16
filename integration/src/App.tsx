@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import './App.css';
-import BasicLayout from "./layouts/BasicLayout";
+import BasicLayout from "@/layouts/BasicLayout";
 
 function App() {
   return (

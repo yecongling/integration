@@ -1,5 +1,5 @@
 import React from "react";
-const Home: React.FC = ()=> {
+const Index: React.FC = ()=> {
     return (
         <div>
             home主页
@@ -7,4 +7,4 @@ const Home: React.FC = ()=> {
     )
 };
 
-export default Home;
+export default Index;
