@@ -19,12 +19,17 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
-    }
+      "@layouts/*": ["src/layouts/*"],
+      "@style/*": ["src/common/style/*"]
+    },
+    "typeRoots": [
+      "./typings"
+    ]
   },
   "include": [
-    "src"
+    "src",
+    "typings"
   ]
 }

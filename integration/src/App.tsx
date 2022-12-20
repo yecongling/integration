@@ -1,13 +1,11 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import './App.css';
-import BasicLayout from "@/layouts/BasicLayout";
+import BasicLayout from "@layouts/BasicLayout";
 
 function App() {
-  return (
-    <Fragment>
+    return (
         <BasicLayout/>
-    </Fragment>
-  );
+    );
 }
 
 export default App;
