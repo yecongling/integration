@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>初识</title>
+  <script type="text/javascript" src="../basic/vue.js"></script>
+</head>
+<body>
+<!-- 准备好一个 容器 -->
+<div id="root">
+  <!-- 普通写法 -->
+  <!-- 数据只能从data流向页面 单向数据绑定 -->
+  单向数据绑定：<input type="text" v-bind:value="name"/><br/>
+  <!-- v-model只能应用于表单类元素 -->
+  双向数据绑定：<input type="text" v-model:value="name"/>
+
+  <!-- 简写 -->
+  <!-- 数据只能从data流向页面 单向数据绑定 -->
+  单向数据绑定：<input type="text" :value="name"/><br/>
+  <!-- v-model只能应用于表单类元素 -->
+  双向数据绑定：<input type="text" v-model="name"/>
+</div>
+<script type="text/javascript">
+  Vue.config.productionTip = false;
+
+  const vm = new Vue({
+    el: '#root',  // Vue实例挂载的dom位置
+    data: {
+      name: 'ycl'
+    }
+  });
+</script>
+</body>
+</html>
