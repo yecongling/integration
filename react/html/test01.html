@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>react初学</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script text="text/javascript" src="../js/react.development.js"></script>
+    <script text="text/javascript" src="../js/react-dom.development.js"></script>
+    <script text="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+        const myId = "Hello";
+        const myName = "world";
+        const VDOM = (
+            <h2>{myId},{myName}</h2>
+        )
+        ReactDOM.render(VDOM, document.getElementById('app'));
+    </script>
+    </script>
+</body>
+
+</html>
