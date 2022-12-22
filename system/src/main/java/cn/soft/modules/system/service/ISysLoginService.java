@@ -12,7 +12,7 @@ import cn.soft.common.api.vo.Result;
  * @Date 2022/10/28 11:01
  * @Version 1.0
  */
-public interface SysLoginService {
+public interface ISysLoginService {
 
     /**
      * 登录逻辑

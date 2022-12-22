@@ -1,7 +1,7 @@
 package cn.soft.modules.system.controller;
 
 import cn.soft.modules.system.entity.SysLoginModel;
-import cn.soft.modules.system.service.SysLoginService;
+import cn.soft.modules.system.service.ISysLoginService;
 import com.alibaba.fastjson.JSONObject;
 import cn.soft.common.api.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/sys")
 public class SysLoginController {
 
-    private SysLoginService sysLoginService;
+    private ISysLoginService ISysLoginService;
 
     @Autowired
-    public void setSysLoginService(SysLoginService sysLoginService) {
-        this.sysLoginService = sysLoginService;
+    public void setSysLoginService(ISysLoginService ISysLoginService) {
+        this.ISysLoginService = ISysLoginService;
     }
 
     /**
@@ -36,7 +36,7 @@ public class SysLoginController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Result<JSONObject> login(@RequestBody SysLoginModel loginModel) throws Exception{
-        return sysLoginService.login(loginModel);
+        return ISysLoginService.login(loginModel);
     }
 
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Date 2022/11/4 13:01
  * @Version 1.0
  */
-public interface SysUserService {
+public interface ISysUserService {
 
     /**
      * 用户注册

@@ -2,7 +2,7 @@ package cn.soft.modules.system.controller;
 
 import cn.soft.common.api.vo.Result;
 import cn.soft.modules.system.entity.SysUser;
-import cn.soft.modules.system.service.SysUserService;
+import cn.soft.modules.system.service.ISysUserService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/sys/user")
 public class SysUserController {
 
-    private SysUserService userService;
+    private ISysUserService userService;
     @Autowired
-    public void setUserService(SysUserService userService) {
+    public void setUserService(ISysUserService userService) {
         this.userService = userService;
     }
 

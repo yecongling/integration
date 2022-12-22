@@ -8,7 +8,7 @@ import cn.soft.modules.base.service.impl.BaseCommonServiceImpl;
 import cn.soft.modules.system.entity.SysLoginModel;
 import cn.soft.modules.system.entity.SysUser;
 import cn.soft.modules.system.mapper.SysLoginMapper;
-import cn.soft.modules.system.service.SysLoginService;
+import cn.soft.modules.system.service.ISysLoginService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import java.util.LinkedHashMap;
  * @Version 1.0
  */
 @Service
-public class SysLoginServiceImpl extends BaseCommonServiceImpl implements SysLoginService {
+public class SysLoginServiceImpl extends BaseCommonServiceImpl implements ISysLoginService {
 
     private SysLoginMapper sysLoginMapper;
 

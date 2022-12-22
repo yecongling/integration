@@ -1,5 +1,7 @@
 package cn.soft.common.util;
 
+import cn.soft.common.constant.CommonConstant;
+
 import java.util.Random;
 
 /**
@@ -10,6 +12,16 @@ import java.util.Random;
  * @Version 1.0
  **/
 public class ConvertUtil {
+
+    /**
+     * 判断对象是否为空
+     *
+     * @param obj 对象
+     * @return true 空  false 非空
+     */
+    public static boolean isEmpty(Object obj) {
+        return obj == null || "".equals(obj) || CommonConstant.STRING_NULL.equals(obj);
+    }
 
     /**
      * 随机数

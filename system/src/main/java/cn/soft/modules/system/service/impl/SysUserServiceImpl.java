@@ -9,7 +9,7 @@ import cn.soft.modules.system.entity.SysUser;
 import cn.soft.modules.system.entity.SysUserRole;
 import cn.soft.modules.system.mapper.SysUserMapper;
 import cn.soft.modules.system.mapper.SysUserRoleMapper;
-import cn.soft.modules.system.service.SysUserService;
+import cn.soft.modules.system.service.ISysUserService;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import java.util.Date;
  * @Version 1.0
  */
 @Service
-public class SysUserServiceImpl extends BaseCommonServiceImpl implements SysUserService {
+public class SysUserServiceImpl extends BaseCommonServiceImpl implements ISysUserService {
 
     private SysUserMapper userMapper;
 
