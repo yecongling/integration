@@ -4,12 +4,7 @@ import Header from "@layouts/Header";
 import SideBar from "@layouts/SideBar";
 import "@style/scss/common/layout.scss";
 /* 基础布局 */
-const Index: React.FC = () => {
-    const userInfo = {
-        authority: "",
-        userId: 2,
-        userName: ""
-    }
+const BasicLayout: React.FC = () => {
     return (
         <Layout>
             <Header/>
@@ -18,4 +13,4 @@ const Index: React.FC = () => {
     )
 }
 
-export default Index;
+export default BasicLayout;

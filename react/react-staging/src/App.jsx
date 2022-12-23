@@ -15,6 +15,7 @@ export default class App extends Component {
                     <Routes>
                         {/* 注册路由 */}
                         <Route path="/about" element={<About/>}/>
+                        <Route path="/" element={<About/>}/>
                         <Route path="/home" element={<Home/>}/>
                     </Routes>
                 </div>
