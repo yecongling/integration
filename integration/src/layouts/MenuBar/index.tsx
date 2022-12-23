@@ -1,9 +1,9 @@
 import React from "react";
 
-const Index: React.FC = () => {
+const MenuBar: React.FC = () => {
     return (
         <div>menuBar</div>
     )
 }
 
-export default Index
+export default MenuBar

@@ -23,13 +23,9 @@
     "paths": {
       "@layouts/*": ["src/layouts/*"],
       "@style/*": ["src/common/style/*"]
-    },
-    "typeRoots": [
-      "./typings"
-    ]
+    }
   },
   "include": [
-    "src",
-    "typings"
+    "src"
   ]
 }

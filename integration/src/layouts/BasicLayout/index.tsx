@@ -13,7 +13,7 @@ const Index: React.FC = () => {
     return (
         <Layout>
             <Header/>
-            <SideBar userInfo={userInfo}/>
+            <SideBar/>
         </Layout>
     )
 }
