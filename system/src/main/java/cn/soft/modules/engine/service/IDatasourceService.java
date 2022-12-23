@@ -13,7 +13,7 @@ import java.util.List;
  * @Date 2022/11/22 12:54
  * @Version 1.0
  */
-public interface DatasourceService {
+public interface IDatasourceService {
 
     /**
      * 查询所有的数据源信息

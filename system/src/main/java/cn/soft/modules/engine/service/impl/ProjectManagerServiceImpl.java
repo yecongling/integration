@@ -7,7 +7,7 @@ import cn.soft.modules.engine.entity.project.EndpointProperties;
 import cn.soft.modules.engine.entity.project.ProjectModel;
 import cn.soft.modules.engine.entity.project.Route;
 import cn.soft.modules.engine.mapper.ProjectManagerMapper;
-import cn.soft.modules.engine.service.ProjectManagerService;
+import cn.soft.modules.engine.service.IProjectManagerService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Service
-public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements ProjectManagerService {
+public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements IProjectManagerService {
 
     /* 注入项目管理mapper */
     private ProjectManagerMapper projectManagerMapper;

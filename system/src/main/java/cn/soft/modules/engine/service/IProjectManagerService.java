@@ -14,7 +14,7 @@ import java.util.List;
  * @Date 2022/10/20 12:57
  * @Version 1.0
  */
-public interface ProjectManagerService {
+public interface IProjectManagerService {
 
     /**
      * 查询所有项目信息

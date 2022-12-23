@@ -3,7 +3,7 @@ package cn.soft.modules.engine.controller;
 import cn.soft.modules.engine.entity.project.EndpointProperties;
 import cn.soft.modules.engine.entity.project.ProjectModel;
 import cn.soft.modules.engine.entity.project.Route;
-import cn.soft.modules.engine.service.ProjectManagerService;
+import cn.soft.modules.engine.service.IProjectManagerService;
 import com.alibaba.fastjson.JSONObject;
 import cn.soft.common.api.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +24,10 @@ import java.util.List;
 public class ProjectManagerController {
 
     /* 注入项目管理service */
-    private ProjectManagerService projectManagerService;
+    private IProjectManagerService projectManagerService;
 
     @Autowired
-    public void setProjectManagerService(ProjectManagerService projectManagerService) {
+    public void setProjectManagerService(IProjectManagerService projectManagerService) {
         this.projectManagerService = projectManagerService;
     }
 
