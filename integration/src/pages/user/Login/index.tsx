@@ -1,10 +1,7 @@
 import {
-    AlipayCircleOutlined,
     LockOutlined,
     MobileOutlined,
-    TaobaoCircleOutlined,
-    UserOutlined,
-    WeiboCircleOutlined,
+    UserOutlined
 } from '@ant-design/icons';
 import {
     LoginForm,
@@ -12,32 +9,38 @@ import {
     ProFormCheckbox,
     ProFormText,
 } from '@ant-design/pro-components';
-import { message, Space, Tabs } from 'antd';
-import type { CSSProperties } from 'react';
+import { message, Tabs } from 'antd';
+/*import type { CSSProperties } from 'react';*/
 import React, { useState } from 'react';
 
 type LoginType = 'phone' | 'account';
 
-const iconStyles: CSSProperties = {
+/*const iconStyles: CSSProperties = {
     marginInlineStart: '16px',
     color: 'rgba(0, 0, 0, 0.2)',
     fontSize: '24px',
     verticalAlign: 'middle',
     cursor: 'pointer',
-};
+};*/
 
 export const Login: React.FC = ()=> {
     const [loginType, setLoginType] = useState<LoginType>('account');
     const loginItems = [
         { label: '账户密码登录', key: 'account',  },
-        { label: '手机号登录', key: 'mobile', },
+        { label: '手机号登录', key: 'phone', },
     ];
+    const onFinish = async (values: any):Promise<void> => {
+        message.success("提交成功参数")
+        console.log('传过来的值为', values);
+    }
+
     return (
         <div style={{ backgroundColor: 'white' }}>
             <LoginForm
                 logo="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
                 title="integration"
                 subTitle="全球最大的集成平台"
+                onFinish={onFinish}
             >
                 <Tabs
                     centered
@@ -54,7 +57,7 @@ export const Login: React.FC = ()=> {
                                 size: 'large',
                                 prefix: <UserOutlined className={'prefixIcon'} />,
                             }}
-                            placeholder={'用户名: admin or user'}
+                            placeholder={'用户名: admin'}
                             rules={[
                                 {
                                     required: true,
@@ -68,7 +71,7 @@ export const Login: React.FC = ()=> {
                                 size: 'large',
                                 prefix: <LockOutlined className={'prefixIcon'} />,
                             }}
-                            placeholder={'密码: ant.design'}
+                            placeholder={'密码: admin'}
                             rules={[
                                 {
                                     required: true,
@@ -134,13 +137,13 @@ export const Login: React.FC = ()=> {
                     <ProFormCheckbox noStyle name="autoLogin">
                         自动登录
                     </ProFormCheckbox>
-                    <a
+                    {/*<a
                         style={{
                             float: 'right',
                         }}
                     >
                         忘记密码
-                    </a>
+                    </a>*/}
                 </div>
             </LoginForm>
         </div>
