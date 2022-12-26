@@ -22,7 +22,7 @@
     "baseUrl": ".",
     "paths": {
       "@layouts/*": ["src/layouts/*"],
-      "@style/*": ["src/common/style/*"]
+      "@styles/*": ["src/assets/styles/*"]
     }
   },
   "include": [

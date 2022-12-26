@@ -321,7 +321,7 @@ module.exports = function (webpackEnv) {
         }),
         '@':path.resolve(__dirname, '../src'),
         '@layouts': path.resolve(__dirname, '../src/layouts'),
-        '@style': path.resolve(__dirname, '../src/common/style'),
+        '@styles': path.resolve(__dirname, '../src/assets/styles'),
         ...(modules.webpackAliases || {}),
       },
       plugins: [

@@ -7,8 +7,7 @@ import "@style/scss/common/layout.scss";
 const BasicLayout: React.FC = () => {
     return (
         <Layout>
-            <Header/>
-            <SideBar/>
+
         </Layout>
     )
 }
