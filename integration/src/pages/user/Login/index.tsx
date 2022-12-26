@@ -39,7 +39,7 @@ export const Login: React.FC = () => {
                     <Checkbox>Remember me</Checkbox>
                 </Form.Item>
 
-                <a className="login-form-forgot" href="">
+                <a className="login-form-forgot" href="http://www.baidu.com">
                     忘记密码
                 </a>
             </Form.Item>

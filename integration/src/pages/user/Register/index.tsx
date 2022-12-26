@@ -273,7 +273,7 @@ export const Register: React.FC = () => {
                 {...tailFormItemLayout}
             >
                 <Checkbox>
-                    I have read the <a href="#">agreement</a>
+                    I have read the <span>agreement</span>
                 </Checkbox>
             </Form.Item>
             <Form.Item {...tailFormItemLayout}>
