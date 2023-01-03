@@ -17,7 +17,7 @@ export default class App extends Component {
                     {/* 向路由组件传递search参数 */}
                     {/*<NavLink className="list-group-item" to={`/home/18/?id=${a}`}>Home</NavLink>*/}
                     {/* 向路由组件传递state参数 */}
-                    <NavLink replace className="list-group-item" to={{pathname:'/home', state: {id:18, age:15}}}>Home</NavLink>
+                    <NavLink className="list-group-item" to={{pathname:'/home', state: {id:18, age:15}}}>Home</NavLink>
 
                 <div className="panel">
                     <Routes>
