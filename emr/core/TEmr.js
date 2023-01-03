@@ -14,6 +14,7 @@ import {TPoint} from "../system/TPoint";
 import {TCursors} from "./Controls";
 import {TCaret} from "../system/TCaret";
 import {TInterval} from "../component/TInterval";
+import {TWaitList} from "../system/TWaitList";
 
 export class TEmr extends TObject {
     /* 67682 */
@@ -109,6 +110,14 @@ export class TEmr extends TObject {
         this._capturePopupControl = null;
         /* 鼠标移入弹出层？？？ */
         this._mouseMovePopupControl = null;
+
+        /* 等待列表 */
+        this._waitList = new TWaitList();
+        this._waitList.onAdded = (item) => {
+            this.update();
+        }
+
+        /* 下面是添加的事件 */
 
     }
 
