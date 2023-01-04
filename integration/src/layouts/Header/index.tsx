@@ -4,17 +4,27 @@ import config from '../../config/global';
 import favicon from "../../assets/images/favicon.png";
 import {Avatar, Badge, Dropdown, Image, Layout, MenuProps, Space} from "antd";
 import {Link} from "react-router-dom";
-import Notification from "@layouts/component/notification";
-import {BellOutlined, SmileOutlined} from "@ant-design/icons";
+// import Notification from "@layouts/component/notification";
+import {BellOutlined, LogoutOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons";
 const Header: React.FC = () => {
 
     const items: MenuProps['items'] = [
         {
             key: '1',
-            label: (
-                <Notification/>
-            ),
-            icon: <SmileOutlined />,
+            label: '个人中心',
+            icon: <UserOutlined/>,
+            disabled: false
+        },
+        {
+            key: '2',
+            label: '系统设置',
+            icon: <SettingOutlined/>,
+            disabled: false
+        },
+        {
+            key: '3',
+            label: '退出登录',
+            icon: <LogoutOutlined />,
             disabled: false,
         },
     ]
@@ -42,7 +52,7 @@ const Header: React.FC = () => {
                 </div>
             </Link>
             <div className="dis-fl js-sb ai-ct">
-                <Space>
+                <Space style={{cursor: 'pointer'}}>
                     <Dropdown menu={{items}} placement="bottomRight">
                         <div className="login-user"
                              style={{
@@ -55,11 +65,11 @@ const Header: React.FC = () => {
                                  transition: 'all 0.3s'
                              }}>
                             <Badge count={15}>
-                                <BellOutlined style={{verticalAlign: 'middle', color: 'white', cursor: 'pointer'}}></BellOutlined>
+                                <BellOutlined style={{verticalAlign: 'middle', color: 'white', cursor: 'pointer'}}/>
                             </Badge>
                         </div>
                     </Dropdown>
-                    <Dropdown arrow={false} menu={{items}} placement="bottomCenter">
+                    <Dropdown menu={{items}} placement="bottom">
                         <div className="login-user" style={{
                             display: 'flex',
                             alignItems: 'center',
@@ -68,7 +78,7 @@ const Header: React.FC = () => {
                             color: 'white',
                             transition: 'all 0.3s'
                         }}>
-                            <Avatar size="small" icon={<Image src={favicon}/>}/>
+                            <Avatar size="small" icon={<UserOutlined/>}/>
                             <span style={{margin: '0 0 0 10px'}}>叶丛林</span>
                         </div>
                     </Dropdown>

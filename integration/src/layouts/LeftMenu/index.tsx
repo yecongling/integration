@@ -1,10 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
 import {Layout} from "antd";
-import {MenuFoldOutlined} from "@ant-design/icons";
+import {MenuFoldOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
+import AdminConfig from "../../config/global";
 
 const {Sider} = Layout;
 
 const LeftMenu: React.FC = () => {
+
+    const [collapse, setCollapse] = useState(AdminConfig.COLLAPSE);
+
+    const changeCollapse = () => {
+        setCollapse(!collapse);
+    }
+
     return (
         <Sider
             trigger={null}
@@ -15,7 +23,7 @@ const LeftMenu: React.FC = () => {
                 zIndex: 1000
             }}
             theme={"light"}
-            collapsed={false}
+            collapsed={collapse}
             collapsible
         >
             <div className="layout-sider">
@@ -30,12 +38,11 @@ const LeftMenu: React.FC = () => {
                         borderTop: '1px solid #ccc',
                         borderRight: '1px solid #f0f2f5'
                     }}
-                    onClick={() => {
-                    }}
+                    onClick={() => changeCollapse()}
                     className="btnbor"
                 >
                     <div style={{marginLeft: '16px', padding: '10px 0'}}>
-                        {React.createElement(MenuFoldOutlined)}
+                        {React.createElement(collapse ? MenuUnfoldOutlined : MenuFoldOutlined)}
                     </div>
                 </div>
             </div>

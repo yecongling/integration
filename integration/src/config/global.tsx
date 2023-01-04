@@ -1,4 +1,5 @@
 export interface Config {
+    COLLAPSE: boolean,
     TOKEN_KEY: string;
     LOGIN_LIMIT_KEY: string;
     ADMIN_NAME: string;
@@ -10,9 +11,10 @@ export interface Config {
 }
 
 const AdminConfig: Config = {
+    COLLAPSE: false,
     TOKEN_KEY: 'TOKEN_KEY',
     LOGIN_LIMIT_KEY: 'LOGIN_LIMIT_KEY',
-    ADMIN_NAME: 'integration',
+    ADMIN_NAME: 'integration(集成中心)',
     LOGIN_LIMIT_TIME: 10 * 60 * 60 * 1000,
     HOME_ROUTER_PATH: '/home',
     HOME_NAME: '首页',
