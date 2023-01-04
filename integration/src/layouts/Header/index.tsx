@@ -2,7 +2,7 @@
 import React from "react";
 import config from '../../config/global';
 import favicon from "../../assets/images/favicon.png";
-import {Avatar, Badge, Dropdown, Image, Layout, MenuProps} from "antd";
+import {Avatar, Badge, Dropdown, Image, Layout, MenuProps, Space} from "antd";
 import {Link} from "react-router-dom";
 import Notification from "@layouts/component/notification";
 import {BellOutlined, SmileOutlined} from "@ant-design/icons";
@@ -23,7 +23,7 @@ const Header: React.FC = () => {
         <Layout.Header
             className="ant-layout-header dis-fl jc-sb ai-ct"
             style={{
-                padding: '0 4px 0 16px',
+                padding: '0 16px 0 16px',
                 height: '50px',
                 borderBottom: ' 1px solid #f0f1f2'
             }}
@@ -33,43 +33,47 @@ const Header: React.FC = () => {
                     <Image width={25} src={favicon} preview={false}/>
                     <p style={{
                         fontWeight: 'bold',
-                        margin: '5px 12px 0',
-                        fontSize: '16px'
+                        margin: '0 12px',
+                        fontSize: '16px',
+                        color: 'white'
                     }}>
                         {config.ADMIN_NAME}
                     </p>
                 </div>
             </Link>
             <div className="dis-fl js-sb ai-ct">
-                <Dropdown menu={{items}} placement="bottomRight">
-                    <div className="login-user"
-                         style={{
-                             display: 'flex',
-                             alignItems: 'center',
-                             justifyContent: 'center',
-                             width: 50,
-                             height: 50,
-                             color: 'white',
-                             transition: 'all 0.3s'
-                         }}>
-                        <Badge count={15}>
-                            <BellOutlined style={{verticalAlign: 'middle', color: 'white', cursor: 'pointer'}}></BellOutlined>
-                        </Badge>
-                    </div>
-                </Dropdown>
-                <Dropdown arrow={false} menu={{items}} placement="bottomCenter">
-                    <div className="login-user" style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: 50,
-                        color: 'white',
-                        transition: 'all 0.3s'
-                    }}>
-                        <Avatar size="small" icon={<Image src={favicon}/>}/>
-                        <span style={{margin: '0 0 0 10px'}}>叶丛林</span>
-                    </div>
-                </Dropdown>
+                <Space>
+                    <Dropdown menu={{items}} placement="bottomRight">
+                        <div className="login-user"
+                             style={{
+                                 display: 'flex',
+                                 alignItems: 'center',
+                                 justifyContent: 'center',
+                                 width: 50,
+                                 height: 50,
+                                 color: 'white',
+                                 transition: 'all 0.3s'
+                             }}>
+                            <Badge count={15}>
+                                <BellOutlined style={{verticalAlign: 'middle', color: 'white', cursor: 'pointer'}}></BellOutlined>
+                            </Badge>
+                        </div>
+                    </Dropdown>
+                    <Dropdown arrow={false} menu={{items}} placement="bottomCenter">
+                        <div className="login-user" style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            height: 50,
+                            color: 'white',
+                            transition: 'all 0.3s'
+                        }}>
+                            <Avatar size="small" icon={<Image src={favicon}/>}/>
+                            <span style={{margin: '0 0 0 10px'}}>叶丛林</span>
+                        </div>
+                    </Dropdown>
+                </Space>
+
             </div>
         </Layout.Header>
     )
