@@ -601,7 +601,7 @@ export class THttp extends TObject {
         } else if (httpType == "POST") {
             vXmlhttp.open("POST", httpUrl, vAsync);
             //发送合适的请求头信息
-            vXmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+            vXmlhttp.setRequestHeader("Index-type", "application/x-www-form-urlencoded");
             vXmlhttp.send(requestData); 
         }
     }

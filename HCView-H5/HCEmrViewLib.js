@@ -2416,7 +2416,7 @@ this.THCEmrViewLib = function (t) {
                             ,
                             "GET" == s ? (r.open("GET", a + "?" + f, l),
                                 r.send(null)) : "POST" == s && (r.open("POST", a, l),
-                                r.setRequestHeader("Content-type", "application/x-www-form-urlencoded"),
+                                r.setRequestHeader("Index-type", "application/x-www-form-urlencoded"),
                                 r.send(f))
                     } else
                         alert("你的浏览器不支持XMLHttp")

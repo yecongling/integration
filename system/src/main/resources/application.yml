@@ -60,3 +60,5 @@ camel:
     backlog-tracing: false
 mybatis:
   mapper-locations: classpath*:cn/soft/**/mapper/xml/*Mapper.xml
+rocketmq:
+  name-server: 127.0.0.1:9876

@@ -7158,7 +7158,7 @@
         end: input.selectionEnd
       };
     } else {
-      // Content editable or old IE textarea.
+      // Index editable or old IE textarea.
       selection = getOffsets(input);
     }
 

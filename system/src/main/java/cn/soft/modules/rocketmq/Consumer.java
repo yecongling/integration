@@ -20,7 +20,7 @@ public class Consumer {
         // 指定NameSrv地址
         consumer.setNamesrvAddr("localhost:9876");
         // 订阅topic
-        consumer.subscribe("wonderland", "*");
+        consumer.subscribe("Topic", "*");
         // 重试消费次数
         consumer.setMaxReconsumeTimes(10);
         // 设置消费模式（可以集群消费和广播消费）
