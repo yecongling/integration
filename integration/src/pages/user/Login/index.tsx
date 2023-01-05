@@ -33,7 +33,7 @@ export const Login: React.FC = ()=> {
     const navigate = useNavigate();
 
     const onFinish = async (values: any):Promise<void> => {
-        console.log("传过来的值：" + values)
+        console.log("传过来的值：", values)
         /* 跳转到框架首页 */
         navigate("/index");
     }
