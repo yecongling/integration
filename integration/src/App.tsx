@@ -11,7 +11,7 @@ function App() {
         <Routes>
             <Route path="/login" element={<Login/>}/>
             <Route path="/register" element={<Register/>}/>
-            <Route path="/" element={!token ? <Navigate to="/login"/> : <BasicLayout/>}></Route>
+            <Route path="/index" element={!token ? <Navigate to="/login"/> : <BasicLayout/>}></Route>
         </Routes>
     );
 }

@@ -3,11 +3,12 @@ import React from "react";
 import config from '../../config/global';
 import favicon from "../../assets/images/favicon.png";
 import {Avatar, Badge, Dropdown, Image, Layout, MenuProps, Space} from "antd";
+import {useNavigate} from "react-router-dom";
 import {Link} from "react-router-dom";
 // import Notification from "@layouts/component/notification";
 import {BellOutlined, LogoutOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons";
 const Header: React.FC = () => {
-
+    const navigate = useNavigate()
     const items: MenuProps['items'] = [
         {
             key: '1',
@@ -26,6 +27,10 @@ const Header: React.FC = () => {
             label: '退出登录',
             icon: <LogoutOutlined />,
             disabled: false,
+            onClick: function () {
+                // 退出到登录页面
+                navigate("/login");
+            }
         },
     ]
 

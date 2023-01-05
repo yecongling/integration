@@ -12,6 +12,7 @@ import {
 import { message, Tabs } from 'antd';
 /*import type { CSSProperties } from 'react';*/
 import React, { useState } from 'react';
+import {useNavigate} from "react-router-dom";
 
 type LoginType = 'phone' | 'account';
 
@@ -29,9 +30,12 @@ export const Login: React.FC = ()=> {
         { label: '账户密码登录', key: 'account',  },
         { label: '手机号登录', key: 'phone', },
     ];
+    const navigate = useNavigate();
+
     const onFinish = async (values: any):Promise<void> => {
-        message.success("提交成功参数")
-        console.log('传过来的值为', values);
+        console.log("传过来的值：" + values)
+        /* 跳转到框架首页 */
+        navigate("/index");
     }
 
     return (
@@ -53,6 +57,7 @@ export const Login: React.FC = ()=> {
                     <>
                         <ProFormText
                             name="username"
+                            initialValue={"admin"}
                             fieldProps={{
                                 size: 'large',
                                 prefix: <UserOutlined className={'prefixIcon'} />,
@@ -67,6 +72,7 @@ export const Login: React.FC = ()=> {
                         />
                         <ProFormText.Password
                             name="password"
+                            initialValue={"password"}
                             fieldProps={{
                                 size: 'large',
                                 prefix: <LockOutlined className={'prefixIcon'} />,
