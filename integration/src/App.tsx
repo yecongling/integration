@@ -9,10 +9,9 @@ function App() {
     const token = !0;
     return (
         <Routes>
+            <Route path="*" element={!token ? <Navigate to="/login"/> : <BasicLayout/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/register" element={<Register/>}/>
-            <Route path="/" element={!token ? <Navigate to="/login"/> : <BasicLayout/>}/>
-            <Route path="/index" element={!token ? <Navigate to="/login"/> : <BasicLayout/>}/>
         </Routes>
     );
 }
