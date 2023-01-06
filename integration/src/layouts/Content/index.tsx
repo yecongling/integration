@@ -1,9 +1,11 @@
 import React from "react";
-import {Content} from "antd/es/layout/layout";
+import {Layout} from "antd";
 /* 内容区域 */
 const Index: React.FC = ()=> {
     return (
-        <Content className="dis-fl fd-c">内容区域</Content>
+        <Layout.Content className="dis-fl fd-c">
+            内容区域
+        </Layout.Content>
     )
 }
 
