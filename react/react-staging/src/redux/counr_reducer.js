@@ -9,9 +9,9 @@ export default function count_reducer(preState=initState, action) {
     // 根据他也决定如何加工数据
     switch (type) {
         case 'increment':  // 如果是加
-            return preState + data;
+            return preState + data*1;
         case 'decrement':  // 如果是减
-            return preState - data;
+            return preState - data*1;
         default:
             return preState;
     }
