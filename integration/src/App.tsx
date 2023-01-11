@@ -5,9 +5,10 @@ import Login from "./pages/user/Login";
 import {Register} from "./pages/user/Register";
 import BasicLayout from "@layouts/BasicLayout";
 import store from "@/stores";
+import {connect} from "react-redux";
 const App = ()=> {
     const state = store.getState();
-    const token = !0;
+    const token = state.global.token;
     console.log(state)
     return (
         <Routes>
@@ -17,5 +18,6 @@ const App = ()=> {
         </Routes>
     );
 }
-
-export default App;
+// 将state和组件的属性绑定
+const mapStateToProps = (state: any) => state.global;
+export default connect(mapStateToProps, null)(App);
