@@ -1,6 +1,7 @@
-import {GlobalState, IAction} from "@/stores/interface";
+import {GlobalState} from "@/stores/interface";
 import produce from "immer";
 import * as types from "@/stores/mutation-types";
+import {AnyAction} from "redux";
 
 const globalState: GlobalState = {
     token: "",
@@ -24,7 +25,7 @@ const globalState: GlobalState = {
 }
 
 /* global reducer */
-const global = (state: GlobalState=globalState, action: IAction) =>
+const global = (state: GlobalState=globalState, action: AnyAction) =>
     produce(state, draftState => {
         switch (action.type) {
             case types.SET_TOKEN:

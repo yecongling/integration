@@ -5,8 +5,11 @@ import "@styles/scss/layout/layout.scss";
 import LeftMenu from "@layouts/LeftMenu";
 import TagList from "@layouts/TagList";
 import Content from "@layouts/Content";
+import store from "@/stores";
 /* 基础布局 */
 const BasicLayout: React.FC = () => {
+    const state = store.getState();
+    console.log(state)
     return (
         <Layout style={{minHeight: '100%'}}>
             {/* 顶部 */}

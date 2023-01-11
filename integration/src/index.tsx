@@ -5,15 +5,19 @@ import '@styles/scss/global.scss';
 import App from "./App";
 import {BrowserRouter} from "react-router-dom";
 import {ConfigProvider} from "antd";
+import {Provider} from "react-redux";
+import store from "@/stores"
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
       <ConfigProvider>
-          <BrowserRouter>
-              <App />
-          </BrowserRouter>
+          <Provider store={store}>
+              <BrowserRouter>
+                  <App />
+              </BrowserRouter>
+          </Provider>
       </ConfigProvider>
   </React.StrictMode>
 );

@@ -1,11 +1,6 @@
 /* globalState */
 import {SizeType} from "antd/es/config-provider/SizeContext";
 
-export interface IAction {
-    type: string,
-    data?: any
-}
-
 /* themeConfigProp */
 export interface ThemeConfigProp {
     primary: string;

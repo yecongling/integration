@@ -12,10 +12,12 @@ import {
 import { message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import {useNavigate} from "react-router-dom";
+import {setToken} from "@/stores/modules/global/action";
+import {connect} from "react-redux";
 
 type LoginType = 'phone' | 'account';
 
-export const Login: React.FC = (props)=> {
+const Login = (props:any)=> {
     const [loginType, setLoginType] = useState<LoginType>('account');
     const loginItems = [
         { label: '账户密码登录', key: 'account',  },
@@ -23,14 +25,13 @@ export const Login: React.FC = (props)=> {
     ];
     const navigate = useNavigate();
 
+    const {setToken} = props;
     const onFinish = async (values: any):Promise<void> => {
         console.log("传过来的值：", values)
+        setToken("login-token");
         /* 跳转到框架首页 */
         navigate("/home");
     }
-
-    const [loading, setLoading] = useState<boolean>(false);
-
     return (
         <div style={{ backgroundColor: 'white' }}>
             <LoginForm
@@ -148,3 +149,6 @@ export const Login: React.FC = (props)=> {
         </div>
     );
 };
+// 将dispatch和组件的props相绑定
+const mapDispatchToProps = {setToken};
+export default connect(null, mapDispatchToProps)(Login);
