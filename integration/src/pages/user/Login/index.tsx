@@ -10,21 +10,12 @@ import {
     ProFormText,
 } from '@ant-design/pro-components';
 import { message, Tabs } from 'antd';
-/*import type { CSSProperties } from 'react';*/
 import React, { useState } from 'react';
 import {useNavigate} from "react-router-dom";
 
 type LoginType = 'phone' | 'account';
 
-/*const iconStyles: CSSProperties = {
-    marginInlineStart: '16px',
-    color: 'rgba(0, 0, 0, 0.2)',
-    fontSize: '24px',
-    verticalAlign: 'middle',
-    cursor: 'pointer',
-};*/
-
-export const Login: React.FC = ()=> {
+export const Login: React.FC = (props)=> {
     const [loginType, setLoginType] = useState<LoginType>('account');
     const loginItems = [
         { label: '账户密码登录', key: 'account',  },
@@ -37,6 +28,8 @@ export const Login: React.FC = ()=> {
         /* 跳转到框架首页 */
         navigate("/home");
     }
+
+    const [loading, setLoading] = useState<boolean>(false);
 
     return (
         <div style={{ backgroundColor: 'white' }}>
