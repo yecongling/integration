@@ -1,5 +1,5 @@
 import {Component} from "react";
-import Count from "./component/Count";
+import Count from "./containers/Count";
 export default class App extends Component {
     render() {
         return (
