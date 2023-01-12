@@ -14,7 +14,7 @@ const App = ()=> {
         <Routes>
             <Route path="*" element={!token ? <Navigate to="/login" replace/> : <BasicLayout/>}/>
             <Route path="/login" element={<Login/>}/>
-            <Route path="/register" element={<Register/>}/> 
+            <Route path="/register" element={<Register/>}/>
         </Routes>
     );
 }
