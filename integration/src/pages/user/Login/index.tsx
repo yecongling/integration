@@ -1,154 +1,80 @@
-import {
-    LockOutlined,
-    MobileOutlined,
-    UserOutlined
-} from '@ant-design/icons';
-import {
-    LoginForm,
-    ProFormCaptcha,
-    ProFormCheckbox,
-    ProFormText,
-} from '@ant-design/pro-components';
-import { message, Tabs } from 'antd';
-import React, { useState } from 'react';
+import SwitchDark from "@/components/common/SwitchDark";
+import loginLeft from "@assets/images/login_left.png";
+import logo from "@assets/images/logo.png";
 import {useNavigate} from "react-router-dom";
+import {useState} from "react";
+import {Button, Form, Input, message} from "antd";
+import {LockOutlined, UserOutlined} from "@ant-design/icons";
+import {LoginForm} from "@/services/global";
 import {setToken} from "@/stores/modules/global/action";
 import {connect} from "react-redux";
+import "./index.less";
+import "@/assets/styles/theme/theme-default.less";
 
-type LoginType = 'phone' | 'account';
-
-const Login = (props:any)=> {
-    const [loginType, setLoginType] = useState<LoginType>('account');
-    const loginItems = [
-        { label: '账户密码登录', key: 'account',  },
-        { label: '手机号登录', key: 'phone', },
-    ];
-    const navigate = useNavigate();
-
+const Login = (props: any) => {
     const {setToken} = props;
-    const onFinish = async (values: any):Promise<void> => {
-        console.log("传过来的值：", values)
-        setToken("login-token");
-        /* 跳转到框架首页 */
-        navigate("/home");
+    const navigate = useNavigate();
+    const [form] = Form.useForm();
+    // 加载状态
+    const [loading, setLoading] = useState<boolean>(false);
+
+    // 登录
+    const onFinish = async (loginForm: LoginForm) => {
+        try {
+            setLoading(true);
+            setToken("access-token");
+            message.success("登录成功！");
+            navigate("/home");
+        } finally {
+            setLoading(false);
+        }
     }
+
+    const onFinishFailed = (error: any) => {
+        console.log("登录失败", error);
+    }
+
     return (
-        <div style={{ backgroundColor: 'white' }}>
-            <LoginForm
-                logo="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
-                title="integration"
-                subTitle="全球最大的集成平台"
-                onFinish={onFinish}
-            >
-                <Tabs
-                    centered
-                    activeKey={loginType}
-                    onChange={(activeKey) => setLoginType(activeKey as LoginType)}
-                    items={loginItems}
-                >
-                </Tabs>
-                {loginType === 'account' && (
-                    <>
-                        <ProFormText
-                            name="username"
-                            initialValue={"admin"}
-                            fieldProps={{
-                                size: 'large',
-                                prefix: <UserOutlined className={'prefixIcon'} />,
-                            }}
-                            placeholder={'用户名: admin'}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: '请输入用户名!',
-                                },
-                            ]}
-                        />
-                        <ProFormText.Password
-                            name="password"
-                            initialValue={"password"}
-                            fieldProps={{
-                                size: 'large',
-                                prefix: <LockOutlined className={'prefixIcon'} />,
-                            }}
-                            placeholder={'密码: admin'}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: '请输入密码！',
-                                },
-                            ]}
-                        />
-                    </>
-                )}
-                {loginType === 'phone' && (
-                    <>
-                        <ProFormText
-                            fieldProps={{
-                                size: 'large',
-                                prefix: <MobileOutlined className={'prefixIcon'} />,
-                            }}
-                            name="mobile"
-                            placeholder={'手机号'}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: '请输入手机号！',
-                                },
-                                {
-                                    pattern: /^1\d{10}$/,
-                                    message: '手机号格式错误！',
-                                },
-                            ]}
-                        />
-                        <ProFormCaptcha
-                            fieldProps={{
-                                size: 'large',
-                                prefix: <LockOutlined className={'prefixIcon'} />,
-                            }}
-                            captchaProps={{
-                                size: 'large',
-                            }}
-                            placeholder={'请输入验证码'}
-                            captchaTextRender={(timing, count) => {
-                                if (timing) {
-                                    return `${count} ${'获取验证码'}`;
-                                }
-                                return '获取验证码';
-                            }}
-                            name="captcha"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: '请输入验证码！',
-                                },
-                            ]}
-                            onGetCaptcha={async () => {
-                                message.success('获取验证码成功！验证码为：1234');
-                            }}
-                        />
-                    </>
-                )}
-                <div
-                    style={{
-                        marginBlockEnd: 24,
-                    }}
-                >
-                    <ProFormCheckbox noStyle name="autoLogin">
-                        自动登录
-                    </ProFormCheckbox>
-                    {/*<a
-                        style={{
-                            float: 'right',
-                        }}
-                    >
-                        忘记密码
-                    </a>*/}
+        <div className="login-container">
+            <SwitchDark/>
+            <div className="login-box">
+                <div className="login-left">
+                    <img src={loginLeft} alt="login"/>
                 </div>
-            </LoginForm>
+                <div className="login-form">
+                    <div className="login-logo">
+                        <img className="login-icon" src={logo} alt="logo"/>
+                        <span className="logo-text">integration（集成中心）</span>
+                    </div>
+                    {/* from */}
+                    <Form
+                        form={form}
+                        name="basic"
+                        labelCol={{span: 5}}
+                        initialValues={{remember: true, username: 'admin', password: '123456'}}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                        size="large"
+                        autoComplete="off"
+                    >
+                        <Form.Item name="username" rules={[{required: true, message: "请输入用户名"}]}>
+                            <Input placeholder="用户名：admin" prefix={<UserOutlined/>}/>
+                        </Form.Item>
+                        <Form.Item name="password" rules={[{required: true, message: "请输入密码"}]}>
+                            <Input.Password autoComplete="new-password" placeholder="密码：123456"
+                                            prefix={<LockOutlined/>}/>
+                        </Form.Item>
+                        <Form.Item className="login-btn">
+                            <Button type="primary" htmlType="submit" loading={loading} icon={<UserOutlined/>}>
+                                登录
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </div>
+            </div>
         </div>
-    );
-};
-// 将dispatch和组件的props相绑定
-const mapDispatchToProps = {setToken};
-export default connect(null, mapDispatchToProps)(Login);
+    )
+}
+
+const mapDispatcherToProps = {setToken};
+export default connect(null, mapDispatcherToProps)(Login);
