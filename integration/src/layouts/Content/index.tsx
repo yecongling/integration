@@ -15,8 +15,8 @@ const Index: React.FC = ()=> {
                 </div>
             }>
                 <Routes location={location}>
-                    <Route path="/home" element={<Home/>} />
-                    <Route path="/home1" element={<Home1/>} />
+                    <Route path="/index/home" element={<Home/>} />
+                    <Route path="/index/home1" element={<Home1/>} />
                     <Route path="/" element={<Navigate to={AdminConfig.HOME_ROUTER_PATH} replace/>}/>
                     {/* 注册路由 */}
                 </Routes>

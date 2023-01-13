@@ -22,7 +22,7 @@ const Index: React.FC = () => {
                             primaryColor: '#25b864'
                         }
                     })
-                    navigation("/home1")
+                    navigation("/index/home1")
                 }}>去第二个home页面</Button>
             </div>
         </div>

@@ -24,7 +24,7 @@ const Login = (props: any) => {
             setLoading(true);
             setToken("access-token");
             message.success("登录成功！");
-            navigate("/home");
+            navigate("/index/home");
         } finally {
             setLoading(false);
         }
