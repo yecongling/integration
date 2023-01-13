@@ -3,8 +3,8 @@ import loginLeft from "@assets/images/login_left.png";
 import logo from "@assets/images/logo.png";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
-import {Button, Form, Input, message} from "antd";
-import {LockOutlined, UserOutlined} from "@ant-design/icons";
+import {Button, Form, Input, message, Space} from "antd";
+import {CloseCircleOutlined, LockOutlined, UserOutlined} from "@ant-design/icons";
 import {LoginForm} from "@/services/global";
 import {setToken} from "@/stores/modules/global/action";
 import {connect} from "react-redux";
@@ -51,7 +51,7 @@ const Login = (props: any) => {
                         form={form}
                         name="basic"
                         labelCol={{span: 5}}
-                        initialValues={{remember: true, username: 'admin', password: '123456'}}
+                        initialValues={{remember: true}}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
                         size="large"
@@ -65,9 +65,19 @@ const Login = (props: any) => {
                                             prefix={<LockOutlined/>}/>
                         </Form.Item>
                         <Form.Item className="login-btn">
-                            <Button type="primary" htmlType="submit" loading={loading} icon={<UserOutlined/>}>
-                                登录
-                            </Button>
+                            <Space>
+                                <Button
+                                    onClick={() => {
+                                        form.resetFields();
+                                    }}
+                                    icon={<CloseCircleOutlined/>}
+                                >
+                                    重置
+                                </Button>
+                                <Button type="primary" htmlType="submit" loading={loading} icon={<UserOutlined/>}>
+                                    登录
+                                </Button>
+                            </Space>
                         </Form.Item>
                     </Form>
                 </div>
