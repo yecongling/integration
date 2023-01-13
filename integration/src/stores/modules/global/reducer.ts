@@ -24,7 +24,7 @@ const globalState: GlobalState = {
     }
 }
 
-/* global reducer */
+// global reducer
 const global = (state: GlobalState=globalState, action: AnyAction) =>
     produce(state, draftState => {
         switch (action.type) {

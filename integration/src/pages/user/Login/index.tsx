@@ -44,7 +44,7 @@ const Login = (props: any) => {
                 <div className="login-form">
                     <div className="login-logo">
                         <img className="login-icon" src={logo} alt="logo"/>
-                        <span className="logo-text">integration（集成中心）</span>
+                        <span className="logo-text">integration</span>
                     </div>
                     {/* from */}
                     <Form
