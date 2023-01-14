@@ -5,7 +5,7 @@ import cn.soft.common.system.vo.LoginUser;
 import cn.soft.common.util.ConvertUtil;
 import cn.soft.modules.system.service.ISysPermissionService;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.shiro.SecurityUtils;
+//import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,7 +42,8 @@ public class SysPermissionController {
         Result<JSONObject> result = new Result<>();
         try {
             // 获取当前登录用户
-            LoginUser loginUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
+//            LoginUser loginUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
+            LoginUser loginUser = null;
             if (ConvertUtil.isEmpty(loginUser)) {
                 return Result.error("请登录系统");
             }

@@ -5,11 +5,12 @@ import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {Button, Form, Input, message, Space} from "antd";
 import {CloseCircleOutlined, LockOutlined, UserOutlined} from "@ant-design/icons";
-import {LoginForm} from "@/services/global";
 import {setToken} from "@/stores/modules/global/action";
 import {connect} from "react-redux";
 import "./index.less";
 import "@/assets/styles/theme/theme-default.less";
+import {LoginParams} from "@/services/system/model/userModel";
+import {loginApi} from "@/pages/user/Login/api";
 
 const Login = (props: any) => {
     const {setToken} = props;
@@ -19,10 +20,12 @@ const Login = (props: any) => {
     const [loading, setLoading] = useState<boolean>(false);
 
     // 登录
-    const onFinish = async (loginForm: LoginForm) => {
+    const onFinish = async (loginForm: LoginParams) => {
         try {
             setLoading(true);
-            setToken("access-token");
+            const token = await loginApi(loginForm);
+            //  暂时用返回值处理
+            setToken(token);
             message.success("登录成功！");
             navigate("/index/home");
         } finally {
