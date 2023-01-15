@@ -4,12 +4,11 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import Login from "./pages/user/Login";
 import {Register} from "./pages/user/Register";
 import BasicLayout from "@layouts/BasicLayout";
-import store from "@/stores";
+import {store, persistor} from "@/stores";
 import {connect} from "react-redux";
 const App = ()=> {
     const state = store.getState();
     const token = state.global.token;
-    console.log(state)
     return (
         <Routes>
             <Route path="*" element={!token ? <Navigate to="/login" replace/> : <BasicLayout/>}/>

@@ -5,8 +5,9 @@ import '@styles/scss/global.scss';
 import App from "./App";
 import {BrowserRouter} from "react-router-dom";
 import {ConfigProvider} from "antd";
+import { PersistGate } from "redux-persist/integration/react";
 import {Provider} from "react-redux";
-import store from "@/stores"
+import {store, persistor} from "@/stores"
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -14,9 +15,11 @@ root.render(
   <React.StrictMode>
       <ConfigProvider>
           <Provider store={store}>
-              <BrowserRouter>
-                  <App />
-              </BrowserRouter>
+              <PersistGate persistor={persistor}>
+                  <BrowserRouter>
+                      <App />
+                  </BrowserRouter>
+              </PersistGate>
           </Provider>
       </ConfigProvider>
   </React.StrictMode>

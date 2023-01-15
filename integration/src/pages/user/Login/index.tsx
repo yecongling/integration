@@ -3,14 +3,14 @@ import loginLeft from "@assets/images/login_left.png";
 import logo from "@assets/images/logo.png";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
-import {Button, Form, Input, message, Space} from "antd";
+import {Button, Form, Input, Space} from "antd";
 import {CloseCircleOutlined, LockOutlined, UserOutlined} from "@ant-design/icons";
 import {setToken} from "@/stores/modules/global/action";
 import {connect} from "react-redux";
 import "./index.less";
 import "@/assets/styles/theme/theme-default.less";
 import {LoginParams} from "@/services/system/model/userModel";
-import {loginApi} from "@/pages/user/Login/api";
+import {loginApi} from "@/services/system/user/login";
 
 const Login = (props: any) => {
     const {setToken} = props;
@@ -23,7 +23,7 @@ const Login = (props: any) => {
     const onFinish = async (loginForm: LoginParams) => {
         try {
             setLoading(true);
-            const token = await loginApi(loginForm);
+            const {token} = await loginApi(loginForm);
             //  暂时用返回值处理
             setToken(token);
             navigate("/index/home");

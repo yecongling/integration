@@ -1,9 +1,20 @@
-import {combineReducers, applyMiddleware, legacy_createStore as createStore} from "redux";
+import {combineReducers, applyMiddleware, legacy_createStore as createStore, Store, compose} from "redux";
 import global from "@/stores/modules/global/reducer";
+import {persistStore, persistReducer} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
 // 创建reducer（拆分reducer）
 const reducer = combineReducers({
     global
 })
 
-export default createStore(reducer, applyMiddleware(thunk));
+// redux持久化配置
+const persistConfig = {
+    key: "redux-state",
+    storage: storage
+}
+const persistReducerConfig = persistReducer(persistConfig, reducer);
+const store: Store = createStore(persistReducerConfig, compose(applyMiddleware(thunk)));
+// 创建持久化store
+const persistor = persistStore(store);
+export {store, persistor};

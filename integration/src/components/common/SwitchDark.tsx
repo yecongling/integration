@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import {Switch} from "antd";
 
 const SwitchDark = (props: any) => {
-     console.log('Switch组件收到的',props)
     const { setThemeConfig, themeConfig } = props;
     const onChange = (checked: boolean)=> {
         setThemeConfig({...themeConfig, isDark: checked})
