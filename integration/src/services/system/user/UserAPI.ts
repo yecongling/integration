@@ -1,3 +1,3 @@
 export enum UserAPI{
-    login = '/sys/login'
+    login = '/userApi/integration/sys/login'
 }

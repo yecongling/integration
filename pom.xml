@@ -14,7 +14,7 @@
     <description>integration</description>
     <packaging>pom</packaging>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <camel.version>3.7.4</camel.version>
         <!-- 持久层 -->
         <mybatis.version>2.2.0</mybatis.version>
