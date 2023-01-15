@@ -10,6 +10,7 @@ export function loginApi(params: LoginParams) {
         {
             url: UserAPI.login,
             data: params
+            // 如果写成params，则表示该参数会被拼接到URL地址上
         }
     )
 }

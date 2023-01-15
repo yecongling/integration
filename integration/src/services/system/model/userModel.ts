@@ -12,6 +12,14 @@ export interface LoginParams {
 }
 
 /**
+ *  定义角色信息
+ */
+export interface RoleInfo {
+    roleName: string;
+    value: string;
+}
+
+/**
  * 定义登录返回类型（这里需要和后台的一致，因此需要修改）
  *
  */
@@ -19,5 +27,5 @@ export interface LoginParams {
 export interface LoginResultModel {
     userId: string | number;
     token: string;
-
+    role: RoleInfo
 }

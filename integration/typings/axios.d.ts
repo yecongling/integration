@@ -22,14 +22,14 @@ export interface RequestOptions {
     successMessageMode?: SuccessMessageMode;
     // 是否添加时间戳
     joinTime?: boolean;
-    ignoreCancelToken?: boolean;
     //是否在标头中发送令牌
     withToken?: boolean;
 }
 
 export interface Result<T = any> {
     code: number;
-    type: 'success' | 'error' | 'warning';
+    success: boolean;
     message: string;
     result: T;
+
 }

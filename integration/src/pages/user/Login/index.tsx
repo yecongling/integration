@@ -26,7 +26,6 @@ const Login = (props: any) => {
             const token = await loginApi(loginForm);
             //  暂时用返回值处理
             setToken(token);
-            message.success("登录成功！");
             navigate("/index/home");
         } finally {
             setLoading(false);
