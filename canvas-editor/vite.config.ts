@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
         lib: {
           name,
           fileName: (format) => `${name}.${format}.js`,
-          entry: path.resolve(__dirname, 'src/editor/index.ts')
+          entry: path.resolve(__dirname, 'src/editor/index.tsx')
         }
       }
     }

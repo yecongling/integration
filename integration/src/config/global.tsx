@@ -16,7 +16,7 @@ const AdminConfig: Config = {
     LOGIN_LIMIT_KEY: 'LOGIN_LIMIT_KEY',
     ADMIN_NAME: 'integration(集成中心)',
     LOGIN_LIMIT_TIME: 10 * 60 * 60 * 1000,
-    HOME_ROUTER_PATH: '/home',
+    HOME_ROUTER_PATH: '/index/home',
     HOME_NAME: '首页',
     DEFAULT_PAGE_SIZE: 20, // 默认条数
     DEFAULT_CURRENT_PAGE: 1 // 默认当前页

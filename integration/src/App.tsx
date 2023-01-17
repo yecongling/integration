@@ -1,20 +1,13 @@
 import React from 'react';
 import './App.css';
-import {Navigate, Route, Routes} from "react-router-dom";
-import Login from "./pages/user/Login";
-import {Register} from "./pages/user/Register";
-import BasicLayout from "@layouts/BasicLayout";
-import {store} from "@/stores";
 import {connect} from "react-redux";
+import AuthRouter from "@/routes/utils/authRouter";
+import Router from "@/routes";
 const App = ()=> {
-    const state = store.getState();
-    const token = state.global.token;
     return (
-        <Routes>
-            <Route path="*" element={!token ? <Navigate to="/login" replace/> : <BasicLayout/>}/>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/register" element={<Register/>}/>
-        </Routes>
+        <AuthRouter>
+            <Router/>
+        </AuthRouter>
     );
 }
 // 将state和组件的属性绑定

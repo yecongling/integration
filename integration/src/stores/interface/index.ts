@@ -19,3 +19,11 @@ export interface GlobalState {
     assemblySize: SizeType,
     themeConfig: ThemeConfigProp
 }
+
+/* AuthState */
+export interface AuthState {
+    authButtons: {
+        [propName: string]: any;
+    };
+    authRouter: string[];
+}

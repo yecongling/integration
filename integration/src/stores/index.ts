@@ -3,9 +3,11 @@ import global from "@/stores/modules/global/reducer";
 import {persistStore, persistReducer} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
+import auth from "@/stores/modules/auth/reducer";
 // 创建reducer（拆分reducer）
 const reducer = combineReducers({
-    global
+    global,
+    auth
 })
 
 // redux持久化配置
