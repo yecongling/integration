@@ -2,15 +2,21 @@
 import React, {useState} from "react";
 import config from '../../config/global';
 import favicon from "../../assets/images/favicon.png";
-import {Avatar, Badge, Dropdown, Image, Layout, MenuProps, Space} from "antd";
+import {Avatar, Badge, Dropdown, Image, Layout, MenuProps, Space, Modal} from "antd";
 import {useNavigate} from "react-router-dom";
 import {Link} from "react-router-dom";
 // import Notification from "@layouts/component/notification";
-import {BellOutlined, LogoutOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons";
+import {
+    BellOutlined,
+    ExclamationCircleOutlined,
+    LogoutOutlined,
+    SettingOutlined,
+    UserOutlined
+} from "@ant-design/icons";
 import Setting from "@layouts/Setting";
 const Header: React.FC = () => {
     const [open, setOpen] = useState(false);
-
+    const [modal, contextHolder] = Modal.useModal();
     const navigate = useNavigate()
     const items: MenuProps['items'] = [
         {
@@ -34,8 +40,17 @@ const Header: React.FC = () => {
             icon: <LogoutOutlined />,
             disabled: false,
             onClick: function () {
-                // 退出到登录页面
-                navigate("/login");
+                modal.confirm({
+                    title: 'Confirm',
+                    icon: <ExclamationCircleOutlined />,
+                    content: '确认退出登录吗？',
+                    okText: '确认',
+                    onOk: function () {
+                        // 退出到登录页面
+                        navigate("/login");
+                    },
+                    cancelText: '取消',
+                });
             }
         },
     ]
@@ -117,6 +132,7 @@ const Header: React.FC = () => {
             </Layout.Header>
             {/* 系统设置 */}
             <Setting open={open} change={change}/>
+            {contextHolder}
         </>
     )
 }
