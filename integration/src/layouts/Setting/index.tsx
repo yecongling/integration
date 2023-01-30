@@ -15,7 +15,7 @@ const Setting: React.FC<draw> = (props) => {
 
     return (
         <>
-            <Drawer title="这是系统设置部分" placement="right" open={open} onClose={closeDrawer}>
+            <Drawer title="系统设置" placement="right" open={open} onClose={closeDrawer}>
                 <p>系统设置部分</p>
             </Drawer>
         </>

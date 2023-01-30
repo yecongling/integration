@@ -95,7 +95,7 @@ const Header: React.FC = () => {
                     </div>
                 </Link>
                 <div className="dis-fl js-sb ai-ct">
-                    <Space style={{cursor: 'pointer'}}>
+                    <Space style={{cursor: 'pointer'}} size="middle">
                         <Dropdown menu={{items}} placement="bottomRight">
                             <div className="login-user"
                                  style={{
@@ -108,7 +108,7 @@ const Header: React.FC = () => {
                                      transition: 'all 0.3s'
                                  }}>
                                 <Badge count={15}>
-                                    <BellOutlined style={{verticalAlign: 'middle', color: 'white', cursor: 'pointer'}}/>
+                                    <BellOutlined style={{verticalAlign: 'middle', color: 'white', cursor: 'pointer', padding: '4px'}}/>
                                 </Badge>
                             </div>
                         </Dropdown>
