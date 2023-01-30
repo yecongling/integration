@@ -1,5 +1,6 @@
 /* globalState */
 import {SizeType} from "antd/es/config-provider/SizeContext";
+import {RouteItem} from "@/services/system/model/menuModel";
 
 /* themeConfigProp */
 export interface ThemeConfigProp {
@@ -26,4 +27,10 @@ export interface AuthState {
         [propName: string]: any;
     };
     authRouter: string[];
+}
+
+/* MenuState */
+export interface MenuState {
+    isCollapse: boolean;
+    menuList: RouteItem[];
 }

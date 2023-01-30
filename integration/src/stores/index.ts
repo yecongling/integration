@@ -4,9 +4,11 @@ import {persistStore, persistReducer} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
 import auth from "@/stores/modules/auth/reducer";
+import menu from "@/stores/modules/menu/reducer";
 // 创建reducer（拆分reducer）
 const reducer = combineReducers({
     global,
+    menu,
     auth
 })
 

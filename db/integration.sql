@@ -78,27 +78,76 @@ CREATE TABLE `t_sys_user_role`
   COLLATE = utf8_general_ci COMMENT = '用户角色表'
   ROW_FORMAT = Dynamic;
 
+
+-- ----------------------------
+-- 系统菜单表（2023-01-30新加）
+-- ----------------------------
+DROP TABLE IF EXISTS `t_sys_permission`;
+CREATE TABLE `t_sys_permission`
+(
+    `id`                   varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  NOT NULL COMMENT '主键id',
+    `parent_id`            varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL COMMENT '父id',
+    `name`                 varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单标题',
+    `url`                  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '路径',
+    `component`            varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组件',
+    `component_name`       varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组件名字',
+    `redirect`             varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '一级菜单跳转地址',
+    `menu_type`            int(11)                                                 NULL DEFAULT NULL COMMENT '菜单类型(0:一级菜单; 1:子菜单:2:按钮权限)',
+    `perms`                varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单权限编码',
+    `perms_type`           varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT '0' COMMENT '权限策略1显示2禁用',
+    `sort_no`              double(8, 2)                                            NULL DEFAULT NULL COMMENT '菜单排序',
+    `always_show`          tinyint(1)                                              NULL DEFAULT NULL COMMENT '聚合子路由: 1是0否',
+    `icon`                 varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单图标',
+    `is_route`             tinyint(1)                                              NULL DEFAULT 1 COMMENT '是否路由菜单: 0:不是  1:是（默认值1）',
+    `is_leaf`              tinyint(1)                                              NULL DEFAULT NULL COMMENT '是否叶子节点:    1:是   0:不是',
+    `keep_alive`           tinyint(1)                                              NULL DEFAULT NULL COMMENT '是否缓存该页面:    1:是   0:不是',
+    `hidden`               tinyint(1)                                              NULL DEFAULT 0 COMMENT '是否隐藏路由: 0否,1是',
+    `hide_tab`             tinyint(1)                                              NULL DEFAULT NULL COMMENT '是否隐藏tab: 0否,1是',
+    `description`          varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
+    `create_by`            varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL COMMENT '创建人',
+    `create_time`          datetime                                                NULL DEFAULT NULL COMMENT '创建时间',
+    `update_by`            varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL COMMENT '更新人',
+    `update_time`          datetime                                                NULL DEFAULT NULL COMMENT '更新时间',
+    `del_flag`             int(1)                                                  NULL DEFAULT 0 COMMENT '删除状态 0正常 1已删除',
+    `rule_flag`            int(3)                                                  NULL DEFAULT 0 COMMENT '是否添加数据权限1是0否',
+    `status`               varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci   NULL DEFAULT NULL COMMENT '按钮权限状态(0无效1有效)',
+    `internal_or_external` tinyint(1)                                              NULL DEFAULT NULL COMMENT '外链菜单打开方式 0/内部打开 1/外部打开',
+    PRIMARY KEY (`id`) USING BTREE,
+    INDEX `idx_sp_parent_id` (`parent_id`) USING BTREE,
+    INDEX `idx_sp_is_route` (`is_route`) USING BTREE,
+    INDEX `idx_sp_is_leaf` (`is_leaf`) USING BTREE,
+    INDEX `idx_sp_sort_no` (`sort_no`) USING BTREE,
+    INDEX `idx_sp_del_flag` (`del_flag`) USING BTREE,
+    INDEX `idx_sp_menu_type` (`menu_type`) USING BTREE,
+    INDEX `idx_sp_hidden` (`hidden`) USING BTREE,
+    INDEX `idx_sp_status` (`status`) USING BTREE
+) ENGINE = InnoDB
+  CHARACTER SET = utf8
+  COLLATE = utf8_general_ci COMMENT = '菜单权限表'
+  ROW_FORMAT = Dynamic;
+
+
 /*  ============== 以下是引擎部分需要的=================*/
 
 /* 新建项目表 */
 drop table if exists `t_engine_project`;
 create table `t_engine_project`
 (
-    `id` varchar(32) character set utf8mb4 collate utf8mb4_general_ci not null comment '项目ID',
-    `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '创建人',
-    `create_time` datetime                                                      NULL DEFAULT NULL COMMENT '创建日期',
-    `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '更新人',
-    `update_time` datetime                                                      NULL DEFAULT NULL COMMENT '更新日期',
-    `name`        varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '项目名',
-    `type`        tinyint(1)                                                    NULL DEFAULT NULL COMMENT '项目类型（1-集成项目 2-接口项目）',
-    `log_type`    tinyint(1)                                                    NULL DEFAULT NULL COMMENT '日志类型（1、全部记录 2、仅记录失败 3、精简日志 4、不记录）',
-    `status`      tinyint(1)                                                    NULL DEFAULT NULL COMMENT '项目状态（0-全部停止 1-部分启动 2-全部启动）',
-    `priority`    tinyint(1)                                                    not NULL DEFAULT 1 COMMENT '项目优先级（1-10）',
-    `description` text        CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '项目描述',
-    `routes`      text        CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '项目包含的路由ID',
-    `endpoints`   text        CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '项目包含的终端ID',
-    `links`       text        CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '项目包含的连线ID（第一个编辑器内部）',
-    primary key (`id`) using btree ,
+    `id`          varchar(32) character set utf8mb4 collate utf8mb4_general_ci not null comment '项目ID',
+    `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL     DEFAULT NULL COMMENT '创建人',
+    `create_time` datetime                                                     NULL     DEFAULT NULL COMMENT '创建日期',
+    `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL     DEFAULT NULL COMMENT '更新人',
+    `update_time` datetime                                                     NULL     DEFAULT NULL COMMENT '更新日期',
+    `name`        varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL     DEFAULT NULL COMMENT '项目名',
+    `type`        tinyint(1)                                                   NULL     DEFAULT NULL COMMENT '项目类型（1-集成项目 2-接口项目）',
+    `log_type`    tinyint(1)                                                   NULL     DEFAULT NULL COMMENT '日志类型（1、全部记录 2、仅记录失败 3、精简日志 4、不记录）',
+    `status`      tinyint(1)                                                   NULL     DEFAULT NULL COMMENT '项目状态（0-全部停止 1-部分启动 2-全部启动）',
+    `priority`    tinyint(1)                                                   not NULL DEFAULT 1 COMMENT '项目优先级（1-10）',
+    `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci        NULL     DEFAULT NULL COMMENT '项目描述',
+    `routes`      text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci        NULL     DEFAULT NULL COMMENT '项目包含的路由ID',
+    `endpoints`   text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci        NULL     DEFAULT NULL COMMENT '项目包含的终端ID',
+    `links`       text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci        NULL     DEFAULT NULL COMMENT '项目包含的连线ID（第一个编辑器内部）',
+    primary key (`id`) using btree,
     index `idx_project_id` (`id`) using btree
 ) ENGINE = InnoDB
   character set = utf8mb4
@@ -129,22 +178,22 @@ create table `t_engine_variable`
 drop table if exists `t_engine_ep_properties`;
 create table `t_engine_ep_properties`
 (
-    `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '创建人',
-    `create_time` datetime                                                      NULL DEFAULT NULL COMMENT '创建日期',
-    `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '更新人',
-    `update_time` datetime                                                      NULL DEFAULT NULL COMMENT '更新日期',
-    `endpoint_type_name` varchar(16)CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null  COMMENT '终端类型名',
-    `name`        varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null  COMMENT '属性名',
-    `title`       varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  null default null COMMENT '标题',
-    `type`       varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  null default null COMMENT '类型',
-    `required`    tinyint(1)                                                    not null default 0 COMMENT '属性名',
-    `allowed_values` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  null default NULL COMMENT '允许的属性值',
-    `default_value`  varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  null default NULL COMMENT '默认值',
-    `endpoint_modes` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null NULL COMMENT '属性名',
-    `masked` tinyint(1)                                                            not null default 0 COMMENT '标记',
-    `modeRequired` tinyint(1)                                                      not null default 0 COMMENT '模式必填',
-    `applies_to` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null COMMENT '用于哪一端 生产-PRODUCER（IN/IN_OUT） 消费-CONSUMER（OUT/OUT_IN）',
-    primary key (`endpoint_type_name`,`name`, `applies_to`) using BTREE,
+    `create_by`          varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL     DEFAULT NULL COMMENT '创建人',
+    `create_time`        datetime                                                     NULL     DEFAULT NULL COMMENT '创建日期',
+    `update_by`          varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL     DEFAULT NULL COMMENT '更新人',
+    `update_time`        datetime                                                     NULL     DEFAULT NULL COMMENT '更新日期',
+    `endpoint_type_name` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null COMMENT '终端类型名',
+    `name`               varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null COMMENT '属性名',
+    `title`              varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci null     default null COMMENT '标题',
+    `type`               varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci null     default null COMMENT '类型',
+    `required`           tinyint(1)                                                   not null default 0 COMMENT '属性名',
+    `allowed_values`     text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci        null     default NULL COMMENT '允许的属性值',
+    `default_value`      varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci null     default NULL COMMENT '默认值',
+    `endpoint_modes`     varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null NULL COMMENT '属性名',
+    `masked`             tinyint(1)                                                   not null default 0 COMMENT '标记',
+    `modeRequired`       tinyint(1)                                                   not null default 0 COMMENT '模式必填',
+    `applies_to`         varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null COMMENT '用于哪一端 生产-PRODUCER（IN/IN_OUT） 消费-CONSUMER（OUT/OUT_IN）',
+    primary key (`endpoint_type_name`, `name`, `applies_to`) using BTREE,
     index `idx_variable_ep_type_name` (`endpoint_type_name`) using btree,
     index `idx_variable_applies_to` (`applies_to`) using btree,
     index `idx_variable_name` (`name`) using btree

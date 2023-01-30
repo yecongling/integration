@@ -1,11 +1,9 @@
 package cn.soft.modules.system.controller;
 
 import cn.soft.common.api.vo.Result;
-import cn.soft.common.system.vo.LoginUser;
-import cn.soft.common.util.ConvertUtil;
 import cn.soft.modules.system.service.ISysPermissionService;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-//import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,10 +41,22 @@ public class SysPermissionController {
         try {
             // 获取当前登录用户
 //            LoginUser loginUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
-            LoginUser loginUser = null;
-            if (ConvertUtil.isEmpty(loginUser)) {
-                return Result.error("请登录系统");
-            }
+//            LoginUser loginUser = null;
+//            if (ConvertUtil.isEmpty(loginUser)) {
+//                return Result.error("请登录系统");
+//            }
+            JSONObject object = new JSONObject();
+            object.put("path","/menu");
+            object.put("component","/menu");
+            JSONObject meta = new JSONObject();
+            object.put("meta", meta);
+            meta.put("title", "测试菜单");
+            meta.put("icon", "PropertySafetyOutlined");
+            JSONArray array = new JSONArray();
+            array.add(object);
+            JSONObject result2 = new JSONObject();
+            result2.put("menu", array);
+            return Result.OK(result2);
 
         } catch (Exception e) {
             result.error500("查询失败：" + e.getMessage());

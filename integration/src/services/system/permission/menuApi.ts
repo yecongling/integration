@@ -1,3 +1,3 @@
 export enum Api {
-    getMenuList = '/sys/permission/getUserPermissionByToken'
+    getMenuList = '/permissionApi/integration/sys/permission/getUserPermissionByToken'
 }

@@ -26,7 +26,7 @@ export const rootRouter: RouteItem[] = [
         element: <BasicLayout />,
         children: [
             {
-                path: "/index/home",
+                path: "/home",
                 element: <Home/>,
                 meta: {
                     title: "首页",
@@ -34,7 +34,7 @@ export const rootRouter: RouteItem[] = [
                 }
             },
             {
-                path: "/index/home1",
+                path: "/home1",
                 element: <Home1/>,
                 meta: {
                     title: "首页2",

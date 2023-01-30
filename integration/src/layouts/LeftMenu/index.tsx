@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Layout} from "antd";
 import {MenuFoldOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
 import AdminConfig from "../../config/global";
+import LayoutMenu from "@layouts/component/menu";
 
 const {Sider} = Layout;
 
@@ -28,7 +29,7 @@ const LeftMenu: React.FC = () => {
         >
             <div className="layout-sider">
                 <div className="pro-sider scroll">
-                    菜单
+                    <LayoutMenu></LayoutMenu>
                 </div>
                 <div
                     style={{
