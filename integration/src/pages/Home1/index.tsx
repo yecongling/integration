@@ -9,7 +9,7 @@ const Home1: React.FC = ()=> {
         <div>
             这是第二个home页面
             <Button type="primary" onClick={()=> {
-                navigation("/index/home");
+                navigation("/home");
             }}>回到第一个home页面</Button>
         </div>
     )
