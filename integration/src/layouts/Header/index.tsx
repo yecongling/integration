@@ -5,6 +5,7 @@ import favicon from "../../assets/images/favicon.png";
 import {Avatar, Badge, Dropdown, Image, Layout, MenuProps, Space, Modal} from "antd";
 import {useNavigate} from "react-router-dom";
 import {Link} from "react-router-dom";
+import {setToken} from "@/stores/modules/global/action";
 // import Notification from "@layouts/component/notification";
 import {
     BellOutlined,
@@ -14,7 +15,9 @@ import {
     UserOutlined
 } from "@ant-design/icons";
 import Setting from "@layouts/Setting";
-const Header: React.FC = () => {
+import {connect} from "react-redux";
+const Header: React.FC = (props:any) => {
+    const {setToken} = props;
     const [open, setOpen] = useState(false);
     const [modal, contextHolder] = Modal.useModal();
     const navigate = useNavigate()
@@ -46,6 +49,8 @@ const Header: React.FC = () => {
                     content: '确认退出登录吗？',
                     okText: '确认',
                     onOk: function () {
+                        // 清空token
+                        setToken("");
                         // 退出到登录页面
                         navigate("/login");
                     },
@@ -136,5 +141,6 @@ const Header: React.FC = () => {
         </>
     )
 }
-
-export default Header;
+const mapDispatcherToProps = {setToken};
+export default connect(null, mapDispatcherToProps)(Header);
+// export default Header;

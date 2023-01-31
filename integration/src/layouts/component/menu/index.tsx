@@ -88,7 +88,7 @@ const LayoutMenu = (props: any) => {
                 <Menu
                     theme="light"
                     mode="inline"
-                    triggerSubMenuAction="click"
+                    triggerSubMenuAction="hover"
                     items={menuList}
                     onClick={clickMenu}
                 ></Menu>

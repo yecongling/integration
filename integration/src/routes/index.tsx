@@ -11,7 +11,7 @@ import Home1 from "@/pages/Home1";
 export const rootRouter: RouteItem[] = [
     {
         path: "/",
-        element: <Navigate to="/login" />
+        element: <Navigate to="/home" />
     },
     {
         path: "/login",
@@ -30,7 +30,8 @@ export const rootRouter: RouteItem[] = [
                 element: <Home/>,
                 meta: {
                     title: "首页",
-                    key: "home"
+                    key: "home",
+                    requiresAuth: true
                 }
             },
             {
@@ -38,7 +39,8 @@ export const rootRouter: RouteItem[] = [
                 element: <Home1/>,
                 meta: {
                     title: "首页2",
-                    key: "home2"
+                    key: "home2",
+                    requiresAuth: true
                 }
             }
         ]

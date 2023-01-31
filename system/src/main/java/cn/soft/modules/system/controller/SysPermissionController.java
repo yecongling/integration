@@ -46,15 +46,39 @@ public class SysPermissionController {
 //                return Result.error("请登录系统");
 //            }
             JSONObject object = new JSONObject();
-            object.put("path","/menu");
+            object.put("path","/system/menu");
             object.put("component","system/menu");
             JSONObject meta = new JSONObject();
             object.put("meta", meta);
-            meta.put("title", "测试菜单");
+            meta.put("title", "菜单管理");
             meta.put("icon", "PropertySafetyOutlined");
             meta.put("requiresAuth", true);
+
+            JSONObject object2 = new JSONObject();
+            object2.put("path","/system/user");
+            object2.put("component","system/user");
+            JSONObject meta2 = new JSONObject();
+            object2.put("meta", meta2);
+            meta2.put("title", "用户管理");
+            meta2.put("icon", "PropertySafetyOutlined");
+            meta2.put("requiresAuth", true);
+
+            JSONObject object3 = new JSONObject();
+            object3.put("path","/system");
+            object3.put("component","");
+            JSONObject meta3 = new JSONObject();
+            object3.put("meta", meta3);
+            meta3.put("title", "系统管理");
+            meta3.put("icon", "PropertySafetyOutlined");
+            meta3.put("requiresAuth", false);
+            JSONArray jsonArray = new JSONArray();
+            jsonArray.add(object);
+            jsonArray.add(object2);
+
+            object3.put("children", jsonArray);
+
             JSONArray array = new JSONArray();
-            array.add(object);
+            array.add(object3);
             JSONObject result2 = new JSONObject();
             result2.put("menu", array);
             return Result.OK(result2);
