@@ -5,7 +5,7 @@ import {RouteMeta} from "react-router";
  */
 export interface RouteItem {
   path: string;
-  component: any;
+  component: string;
   meta: RouteMeta,
   name?: string;
   alias?: string | string[];

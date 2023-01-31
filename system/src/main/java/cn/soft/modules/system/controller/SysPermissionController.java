@@ -47,11 +47,12 @@ public class SysPermissionController {
 //            }
             JSONObject object = new JSONObject();
             object.put("path","/menu");
-            object.put("component","/menu");
+            object.put("component","system/menu");
             JSONObject meta = new JSONObject();
             object.put("meta", meta);
             meta.put("title", "测试菜单");
             meta.put("icon", "PropertySafetyOutlined");
+            meta.put("requiresAuth", true);
             JSONArray array = new JSONArray();
             array.add(object);
             JSONObject result2 = new JSONObject();

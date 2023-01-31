@@ -2,7 +2,7 @@ import {setAuthRouter} from "@/stores/modules/auth/action";
 import {setMenuList} from "@/stores/modules/menu/action";
 import {connect} from "react-redux";
 import React, {useEffect, useState} from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as Icons from "@ant-design/icons";
 import {RouteItem} from "@/services/system/model/menuModel";
 import {getMenuList} from "@/services/system/permission/permission";
@@ -23,7 +23,9 @@ const LayoutMenu = (props: any) => {
     const deepLoopFloat = (menuList: RouteItem[], newArr: MenuItem[] = []) => {
         menuList.forEach((item: RouteItem) => {
             // 下面判断代码解释 *** !item?.children?.length   ==>   (!item.children || item.children.length === 0)
-            if (!item?.children?.length) return newArr.push(getItem(item.meta.title, item.path, addIcon(item.meta.icon!)));
+            if (!item?.children?.length) {
+                return newArr.push(getItem(item.meta.title, item.path, addIcon(item.meta.icon!)));
+            }
             newArr.push(getItem(item.meta.title, item.path, addIcon(item.meta.icon!), deepLoopFloat(item.children)));
         });
         return newArr;
