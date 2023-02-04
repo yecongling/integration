@@ -1,19 +1,10 @@
-/*=======================================================
-
-    Html Component Library 前端UI框架 V0.1
-    基本类型单元
-    作者：荆通(18114532@qq.com)
-    QQ群：649023932
-
-=======================================================*/
-
-export let TCharSet = {
+export var TCharSet = {
     Ansi: 0,
     Unicode: 1,
     GBK2312: 2
 }
 
-export let TEncode = {
+export var TEncode = {
     Asni: 0,
     Utf8: 1,
     Utf16: 2
@@ -29,27 +20,18 @@ TFileType.PNG = "image/png";
 TFileType.BMP = "application/x-bmp";
 TFileType.JPEG = "image/jpeg";
 TFileType.IMAGE = TFileType.PNG + "," + TFileType.JPEG + "," + TFileType.BMP;
-TFileType.PDF = "application/pdf";
-
-export let TFileExt = {
-    Text: ".text"
-}
 
 /**
- * 系统类
+ * HCL类：系统类(已实例化为system，无需重复实例化)
  */
-export class TSystem {
-    constructor() {
-        this.lineBreak = "\r\n";
-        this._dpi = null;
-    }
-
-    _getDPI() {
+class TSystem {
+    getDPI() {
         let vDPI = {};
         if (window.screen.deviceXDPI != undefined ) {
             vDPI.x = window.screen.deviceXDPI;
             vDPI.y = window.screen.deviceYDPI;
-        } else {
+        }
+        else {
             let vNode = document.createElement("div");
             vNode.style.cssText = "width:1in;height:1in;position:absolute;left:0px;top:0px;z-index:99;visibility:hidden";
             document.body.appendChild(vNode);
@@ -61,27 +43,28 @@ export class TSystem {
         return vDPI;
     }
 
-    openURL(url) {
-        window.open(url);
-    }
-
-
     isOdd(n) {
         return (n & 1) == 1 ? true : false;
     }
 
     tryParseInt(val) {
-        let vI = NaN;
+        let vI = 0;
         let vResult = false;
-        if (this.isNumber(val)) {
+        try {
             vI = parseInt(val);
             vResult = true;
+        } catch (e) {
+            vResult = false;
         }
         
         return {
             value: vI,
             ok: vResult
         }
+   }
+
+    openURL(url) {
+        window.open(url);
     }
 
     /**
@@ -97,130 +80,43 @@ export class TSystem {
             return false;   
     }
 
-    parseFloatDef(s, def) {
-        let vR = parseFloat(s);
-        if (isNaN(vR))
-            return def;
-        else
-            return vR;
-    }
-
-    parseIntDef(s, def) {
-        let vR = parseInt(s);
-        if (isNaN(vR))
-            return def;
-        else
-            return vR;
-    }
-
-    parseBooleanDef(s, def) {
-        let vR = parseInt(s);
-        if (isNaN(vR))
-            return def;
-        else if (vR == 1)
-            return true;
-        else
-            return false;
-    }
-
     assigned(obj) {
-        //return obj != null;
-        return typeof(obj) != "undefined";
+        return obj != null;
     }
 
     beep() { }
 
-    getUrlParam(param) {
-       let vQuery = window.location.search.substring(1);
-       let vParams = vQuery.split("&"), vPrm;
-       for (let i = 0; i < vParams.length; i++) {
-            vPrm = vParams[i].split("=");
-            if (vPrm[0] == param)
-                return vPrm[1];
-       }
-
-       return "";
+    exception(msg) {
+        throw "HCL异常:" + msg;
     }
 
-    /** 时间戳 */
-    get Timestamp() {
-        return new Date().getTime();
-    }
-
-    get dpi() {
-        if (!this._dpi)
-            this._dpi = this._getDPI();
-
-        return this._dpi;
+    log(msg) {
+        console.log(msg);
     }
 }
 
-export class TObjectArray extends Array {
-    constructor(len) {
-        super(len);
-        this.fill(null);
-    }
-}
-
-export class TIntegerArray extends Array {
-    constructor(len) {
-        super(len);
-        this.fill(0);
-    }
-}
-
-export class TByteArray extends Array {
-    constructor(len) {
-        super(len);
-        this.fill(0);
-    }
-}
-
-export class TBooleanArray extends Array {
-    constructor(len) {
-        super(len);
-        this.fill(false);
-    }
-}
+/**
+ * HCL实例：系统类的实例
+ */
+export let system = new TSystem();
 
 export class TBytes extends Array {
     constructor(len) {
         super(len);
-        this.fill(0);
     }
 
     static fromBase64(base64) {
         let vRawData = window.atob(base64);  // atob仅windows下？
         let vBytes = new TBytes(vRawData.length);
         //let vBytes = new Uint8Array(vRawData.length);
-        for (let i = 0, vLen = vRawData.length; i < vLen; ++i)
+        for (let i = 0; i < vRawData.length; ++i)
             vBytes[i] = vRawData.charCodeAt(i);
 
         return vBytes;
     }
 
-    static fromBuffer(buf) {
-        let vBytes = new TBytes(buf.length);
-        for (let i = 0, vLen = buf.length; i < vLen; ++i)
-            vBytes[i] = buf[i];
-
-        return vBytes;
-    }
-
     toText() {
-        //return new TextDecoder().decode(new Uint8Array(this));
-        /*let vChunk = 8 * 1024, i, vLen, vS = "";
-        for (i = 0, vLen = this.length / vChunk; i < vLen; i ++)
-            vS += String.fromCharCode.apply(null, this.slice(i * vChunk, (i + 1) * vChunk));
-
-        return vS + String.fromCharCode.apply(null, this.slice(i * vChunk));*/
-        //return String.fromCharCode.apply(null, new Uint16Array(this));
-
-        let vS = "";
-        for (let i = 0, vLen = this.length; i < vLen; i++)
-            vS += String.fromCharCode(this[i]);
-
-        return vS;
+        return String.fromCharCode.apply(null, new Uint16Array(this));
     }
 
     toBase64() {
@@ -232,16 +128,16 @@ export class TBytes extends Array {
 class TEncoding {
     constructor(){
         if (this.constructor.prototype === TEncoding.prototype)
-            throw "TEncoding类为抽象类，不可直接实例使用！";
+            system.exception("TEncoding类为抽象类，不可直接实例使用！");
 
         if (typeof this.getByteCount !== "function")
-            throw this.prototype + " 没有实现getByteCount方法！";
+            system.exception(this.prototype + " 没有实现getByteCount方法！");
 
         if (typeof this.getBytes !== "function")
-            throw this.prototype + " 没有实现getBytes方法！";
+            system.exception(this.prototype + " 没有实现getBytes方法！");
 
         if (typeof this.getString !== "function")
-            throw this.prototype + " 没有实现getString方法！";
+            system.exception(this.prototype + " 没有实现getString方法！");
     }
 }
 
@@ -256,41 +152,22 @@ export class TUtf8Encoding extends TEncoding {
         super();
     }
 
-    static getBytes(str) {
-        let vArr = new TBytes(0), vCharCode;
-        for (let i = 0, vLen = str.length; i < vLen; i++) {
-            vCharCode = str.charCodeAt(i);
-            if (vCharCode >= 0 && vCharCode <= 0x7f)
-                vArr.push(vCharCode);
-            else if (vCharCode >= 0x80 && vCharCode <= 0x7ff) {
-                vArr.push(0xC0 | ((vCharCode >> 6) & 0x1F));
-                vArr.push(0x80 | (vCharCode & 0x3F));
-            } else if (vCharCode >= 0x800 && vCharCode <= 0xffff) {
-                vArr.push(0xE0 | ((vCharCode >> 12) & 0x0F));
-                vArr.push(0x80 | ((vCharCode >> 6) & 0x3F));
-                vArr.push(0x80 | (vCharCode & 0x3F));
-            }
-        }
-
-        return vArr;
-    }
-
     getByteCount(str) {
         let vCharCode, vResult = 0;
         for (let i = 0, vLen = str.lenght; i < vLen; i++) {
             vCharCode = str.charCodeAt(i);
-            if (vCharCode >= 0 && vCharCode <= 0x7f)
-                vResult += 1;
-            else if (vCharCode >= 0x80 && vCharCode <= 0x7ff)
-                vResult += 2;
-            else if (vCharCode >= 0x800 && vCharCode <= 0xffff)
-                vResult += 3;
-            else if (vCharCode > 0x10000 && vCharCode <= 0x1FFFFF)
-                vResult += 4;
-            else if (vCharCode > 0x200000 && vCharCode <= 0x3FFFFFF)
-                vResult += 5;
-            else if (vCharCode > 0x4000000 && vCharCode <= 0x7FFFFFFF)
-                vResult += 6;
+        if (vCharCode >= 0 && vCharCode <= 0x7f)
+            vResult += 1;
+        else if (vCharCode >= 0x80 && vCharCode <= 0x7ff)
+            vResult += 2;
+        else if (vCharCode >= 0x800 && vCharCode <= 0xffff)
+            vResult += 3;
+        else if (vCharCode > 0x10000 && vCharCode <= 0x1FFFFF)
+            vResult += 4;
+        else if (vCharCode > 0x200000 && vCharCode <= 0x3FFFFFF)
+            vResult += 5;
+        else if (vCharCode > 0x4000000 && vCharCode <= 0x7FFFFFFF)
+            vResult += 6;
         }
 
         return vResult;
@@ -396,7 +273,7 @@ export class TUtf16Encoding extends TEncoding {
 export class TInt8 {
     constructor(val = 0) {
         if (val < -128 || val > 127)
-            throw String.format("值 {0} 不在 -128..127内！", val);
+            system.exception(String.format("值 {0} 不在 -128..127内！", val));
 
         this._val = new Int8Array(1);
         this._val[0] = val;
@@ -441,7 +318,7 @@ export class TInt8 {
 export class TUInt8 {
     constructor(val = 0) {
         if (val < 0 || val > 255)
-            throw String.format("值 {0} 不在 0..255内！", val);
+            system.exception(String.format("值 {0} 不在 0..255内！", val));
 
         this._val = new Uint8Array(1);
         this._val[0] = val;
@@ -491,7 +368,7 @@ export class TByte extends TUInt8 { constructor(val = 0) {super(val)} }
 export class TInt16 {
     constructor(val = 0) {
         if (val < -32768 || val > 32767)
-            throw String.format("值 {0} 不在 -32768..32767内！", val);
+            system.exception(String.format("值 {0} 不在 -32768..32767内！", val));
 
         this._val = new Int16Array(1);
         this._val[0] = val;
@@ -548,7 +425,7 @@ export class TInt16 {
 export class TUInt16 {
     constructor(val = 0) {
         if (val < 0 || val > 65536)
-            throw String.format("值 {0} 不在 0..65535内！", val);
+            system.exception(String.format("值 {0} 不在 0..65535内！", val));
 
         this._val = new Uint16Array(1);
         this._val[0] = val;
@@ -605,7 +482,7 @@ export class TUInt16 {
 export class TInt32 {
     constructor(val = 0) {
         if (val < -2147483648 || val > 2147483647)
-            throw String.format("值 {0} 不在 -2147483648..2147483647内！", val);
+            system.exception(String.format("值 {0} 不在 -2147483648..2147483647内！", val));
 
         this._val = new Int32Array(1);
         this._val[0] = val;
@@ -674,7 +551,7 @@ export class TInt32 {
 export class TUInt32 {
     constructor(val = 0) {
         if (val < 0 || val > 4294967295)
-            throw String.format("值 {0} 不在 0..4294967295内！", val);
+            system.exception(String.format("值 {0} 不在 0..4294967295内！", val));
 
         this._val = new Uint32Array(1);
         this._val[0] = val;
@@ -747,7 +624,7 @@ export class TSingle {
 export class TUInt64 {
     constructor(val = 0) {
         if (val < Number.MIN_SAFE_INTEGER || val > Number.MAX_SAFE_INTEGER)
-            throw String.format("值 {0} 不在 {1}..{2}内！", val, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
+            system.exception(String.format("值 {0} 不在 {1}..{2}内！", val, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER));
 
         if (val > TUInt32.max) {
             let vsBin = val.toString(2);
@@ -819,22 +696,17 @@ export class TEnumSet {
 }
 
 /**
- * 对象基类
+ * HCL类：HCL基类
  */
 export class TObject {
     constructor() {
-        this.createBefor();
         this._className = this.constructor.name;
     }
-
-    createBefor() { }
 
     dispose() { }
 
     isClass(cls) {
-        return this instanceof cls;  // 原型链是针对this.prototype进行检查的，而不是针对this本身
-        //return Object.prototype.isPrototypeOf.call(cls, this);
-        //return cls.prototype.isPrototypeOf(this);
+        return this instanceof cls;
     }
 
     isSubClass(cls) {
@@ -857,7 +729,7 @@ export class TObject {
 }
 
 /**
- * 类：点，包含x、y
+ * HCL类：点，包含x、y
  */
 export class TPoint {
     constructor() {
@@ -899,7 +771,7 @@ export class TPoint {
 }
 
 /**
- * 类：尺寸，包含width、height
+ * HCL类：尺寸，包含width、height
  */
 export class TSize {
     constructor() {
@@ -914,7 +786,7 @@ export class TSize {
 }
 
 /**
- * 类：矩形区域
+ * HCL类：矩形区域
  */
 export class TRect {
     constructor() {
@@ -938,7 +810,7 @@ export class TRect {
     }
 
     static CreateByBounds(left, top, width, height) {
-        let rect = new TRect();
+        var rect = new TRect();
         rect.left = left;
         rect.top = top;
         rect.right = left + width;
@@ -961,11 +833,6 @@ export class TRect {
         this.reset(l, t, l + w, t + h);
     }
 
-    resetSize(size) {
-        this.right = this.left + size.width;
-        this.bottom = this.top + size.height;
-    }
-
     offset(x, y, clone = false) {
         if (!clone) {
             this.left = this.left + x;
@@ -976,10 +843,6 @@ export class TRect {
             return TRect.Create(this.left + x, this.top + y, this.right + x, this.bottom + y);
     }
 
-    /**
-     * 返回和区域的相交的区域
-     * @param {矩形区域} rect 
-     */
     intersection(rect) {
         let re = new TRect();
         if (rect.right <= this.left)
@@ -1060,19 +923,6 @@ export class TRect {
         return this.pointInAt(pt.x, pt.y);
     }
 
-    /**
-     * 和另一个矩形区域是否有相交
-     * @param {矩形区域} rect 
-     */
-    isIntersect(rect) {
-        let vMaxL = this.left > rect.left ? this.left : rect.left;
-        let vMaxT = this.top > rect.top ? this.top : rect.top;
-        let vMinR = this.right < rect.right ? this.right : rect.right;
-        let vMinB = this.bottom < rect.bottom ? this.bottom : rect.bottom;
-
-        return (vMaxL < vMinR && vMaxT < vMinB);
-    }
-
     get leftTop() {
         return TPoint.Create(this.left, this.top);
     }
@@ -1107,14 +957,14 @@ export class TRect {
 }
 
 /**
- * 类：列表
+ * HCL类：列表
  */
 export class TList extends Array {
     constructor(ownsObjects = true) {
         super();
         this._onAdded = null;
         this._onRemoved = null;
-        this.ownsObjects = (ownsObjects == null ? true : ownsObjects);
+        this.ownsObjects = ownsObjects;
     }
 
     doAdded_(item) {
@@ -1194,7 +1044,7 @@ export class TList extends Array {
     insert(index, item) {
         if ((index >= 0) && (index <= this.length)) {
             this.splice(index, 0, item);
-            this.doAdded_(item);
+            this.doAdded_(index, item);
             return true;
         }
 
@@ -1248,7 +1098,7 @@ export class TList extends Array {
 }
 
 /**
- * 类：栈
+ * HCL类：栈
  */
 export class TStack extends Array {
     constructor() {
@@ -1269,7 +1119,7 @@ export class TStack extends Array {
 }
 
 /**
- * 类：队列
+ * HCL类：队列
  */
 export class TQueue extends Array {
     constructor() {
@@ -1293,101 +1143,13 @@ export class TQueue extends Array {
     }
 }
 
-//export class TMap { }
-
-export class TDictionary extends TList {
-    constructor(ownsObjects = true) {
-        super(ownsObjects);
-    }
-
-    add(key, val) {
-        let vMap = {};
-        vMap.key = key;
-        vMap.val = val;
-        super.add(vMap);
-    }
-
-    remove(key) {
-        let i = this.indexOfKey(key);
-        if (i >= 0)
-            super.removeAt(i);
-    }
-
-    indexOfKey(key) {
-        for (let i = 0; i < this.count; i++) {
-            if (this[i].key == key)
-                return i;
-        }
-
-        return -1;
-    }
-
-    indexOfValue(val) {
-        for (let i = 0; i < this.count - 1; i++) {
-            if (this[i].val == val)
-                return i;
-        }
-
-        return -1;
-    }
-
-    valueByKey(key) {
-        let i = this.indexOfKey(key);
-        if (i < 0)
-            return null;
-        else
-            return this[i].val;
-    }
-
-    keyByValue(val) {
-        let i = this.indexOfValue(val);
-        if (i < 0)
-            return null;
-        else
-            return this[i].key;
-    }
-
-    setValue(key, val) {
-        let i = this.indexOfKey(key);
-        if (i < 0)
-            this.add(key, val);
-        else
-            this[i].val = val;
-    }
-
-    hasKey(key) {
-        return this.indexOfKey(key) >= 0;
-    }
-}
-
-export class TStringList extends TList {
-    constructor() {
-        super();
-    }
-
-    append(s) {
-        this.add(s);
-    }
-
-    get text() {
-        let vRes = "";
-        if (this.length > 0) {
-            vRes = this[0];
-            for (let i = 1, vLen = this.length; i < vLen; i++)
-                vRes += "\r\n" + this[i]; 
-        }
-
-        return vRes;
-    }
-}
-
 export class TDateTime {
     constructor() {
         this._datetime = new Date;
     }
 
     format(fmt) {   
-        let vDT = {   
+        let o = {   
             "M+" : this.month,
             "d+" : this.day,
             "h+" : this.hour,
@@ -1401,18 +1163,12 @@ export class TDateTime {
         if (/(y+)/.test(fmt))   
             fmt = fmt.replace(RegExp.$1, (this.year + "").substr(4 - RegExp.$1.length));   
 
-        for (let k in vDT) {  
+        for (let k in o) {  
             if(new RegExp("("+ k +")").test(fmt))   
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (vDT[k]) : (("00"+ vDT[k]).substr((""+ vDT[k]).length)));   
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
         }
 
         return fmt;   
-    }
-
-    fromString(str) {
-        str = str.replace(/-/g, "/").replace(/年/g, "/").replace(/月/g, "/").replace(/日/g, "/");
-        str = str.replace(/时/g, ":").replace(/分/g, ":").replace(/秒/g, "");
-        this._datetime = new Date(Date.parse(str));
     }
 
     toString() {
@@ -1420,16 +1176,11 @@ export class TDateTime {
     }
     
     toOADate() {
-        //return this._datetime.toUTCString();
-        let localOffset = this._datetime.getTimezoneOffset() * 60000; //系统时区偏移 1900/1/1 到 1970/1/1 的 25569 天
-        return (parseFloat(this._datetime.getTime()) - localOffset) / 24 / 3600 / 1000 + 25569;
+        this._datetime.toUTCString();
     }
 
     fromOAData(utc) {
-        //this._datetime.setUTCMilliseconds(utc);
-        this._datetime = new Date();
-        let localOffset = this._datetime.getTimezoneOffset() * 60000; //系统时区偏移 1900/1/1 到 1970/1/1 的 25569 天
-        this._datetime.setTime((utc - 25569) * 24 * 3600 * 1000 + localOffset);
+        this._datetime.setUTCMilliseconds(utc);
     }
 
     get year() {
@@ -1512,12 +1263,6 @@ export class TDateTime {
         return vDateTime;
     }
 
-    static CreateByString(str) {
-        let vDateTime = new TDateTime();
-        vDateTime.fromString(str);
-        return vDateTime;
-    }
-
     static Now() {
         return new TDateTime();
     }
@@ -1559,27 +1304,11 @@ export class TStream {
         this.onLoadFinish = null;
     }
 
-    clear() {
-        this._bytes.length = 0;
-        this._size = 0;
-        this._position = 0;
-    }
-
-    copyFrom(source, count) {
-        if (count == 0) {
-            source.position = 0;
-            count = source.size;
-        }
-
-        let vBuffer = source.readBuffer(count)
-        this.writeBuffer(vBuffer);
-    }
-
     loadFromFile(blob) {
         //console.log('loadFromFile');
         //new Promise((resolveEvent, rejectEvent) => {
             let vReader = new FileReader();
-            vReader.onloadstart = () => {  // 开始读取
+            vReader.onloadstart = (e) => {  // 开始读取
                 this._size = 0;
                 this._position = 0;
                 this._buffer = null;// new ArrayBuffer(this._size);
@@ -1601,11 +1330,11 @@ export class TStream {
                 //resolveEvent();
             }
 
-            vReader.onloadend = () => {  // 读取完成，无论成功或失败
+            vReader.onloadend = (e) => {  // 读取完成，无论成功或失败
 
             }
 
-            vReader.onabort = () => {  // 读取中断时触发
+            vReader.onabort = (e) => {  // 读取中断时触发
 
             }
 
@@ -1615,7 +1344,7 @@ export class TStream {
                     this.onLoadProgress(e.loaded, e.total);
             }
 
-            vReader.onerror = () => {  // 读取发生错误
+            vReader.onerror = (e) => {  // 读取发生错误
                 //console.log('onerror');
             }
 
@@ -1664,7 +1393,7 @@ export class TStream {
     }
 
     readInt8() {
-        return new Int8Array(this.readBuffer(1));
+        return new TInt8(this.readBuffer(1)[0]).value;  // Int8Array.BYTES_PER_ELEMENT
     }
 
     writeInt8(int8) {
@@ -1740,7 +1469,7 @@ export class TStream {
         //    + (vBuffer[3] << 24) + (vBuffer[2] << 16) + (vBuffer[1] << 8) + vBuffer[0];
     }
 
-    writeInt64() {
+    writeInt64(int64) {
         
     }
 
@@ -1770,7 +1499,7 @@ export class TStream {
 
     readDouble() {
         let vBuffer = this.readBuffer(8);
-        let vF = new Float64Array(new Uint8Array(vBuffer).buffer);
+        let vF = new Float64Array(vBuffer);  // vBuffer.byteOffset, vBuffer.byteLength
         return vF[0];
     }
 
@@ -1791,13 +1520,11 @@ export class TStream {
 
     readDateTime() {
         let vdb = this.readDouble();
-        let vDT = new TDateTime();
-        vDT.fromOAData(vdb);
-        return vDT;
+        return (new TDateTime()).fromOAData(vdb);
     }
 
     writeDateTime(dt) {
-        let vdb = dt.toOADate();
+        let vdb = parseInt(dt.toOADate());
         this.writeDouble(vdb);
     }
 
@@ -1861,27 +1588,6 @@ String.format = function() {
             });
         } else
             return vValues[0];
-    }
-}
-
-String.formatFloat = function () {
-    let vValues = arguments;
-    if (vValues.length > 1) {
-        let vLAftDot = vValues[0];  // 小数点后几位
-        let vS = vValues[1].toString();
-        let vDotPos = vS.indexOf(".");
-        if (vDotPos >= 0) {  // 有小数点
-            let vB = vS.substr(0, vDotPos);
-            if (vB == "")
-                vB = "0";
-
-            let vE = vS.substr(vDotPos + 1, vLAftDot);
-            if (vE.replace("0", "") == "")  // 全是0
-                return vB;
-            else
-                return vB + "." + vE;
-        } else
-            return vS;
     }
 }
 

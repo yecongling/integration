@@ -1,16 +1,6 @@
-/*=======================================================
+import { TPoint, TEnumSet, TList } from "./System.js";
 
-    Html Component Library 前端UI框架 V0.1
-    区域单元
-    作者：荆通(18114532@qq.com)
-    QQ群：649023932
-
-=======================================================*/
-
-import { TEnumSet, TList, TPoint } from "./System.js";
-import { hcl } from "./HCL.js";
-
-export let TClipType = {
+export var TClipType = {
     None: 0,
     Intersection: 1,
     Union: 2,
@@ -18,19 +8,19 @@ export let TClipType = {
     Xor: 4
 }
 
-let TPathType = {
+var TPathType = {
     Subject: 0, 
     Clip: 1
 }
 
-let TFillRule = {
+var TFillRule = {
     EvenOdd: 0, 
     NonZero: 1,
     Positive: 2,
     Negative: 3
 }
 
-let TVertexFlag = {
+var TVertexFlag = {
     OpenStart: 1, 
     OpenEnd: 1 << 1, 
     LocMax: 1 << 2, 
@@ -196,7 +186,7 @@ export class TRegion extends TList {
     _addPath(pointArray, pathType = TPathType.Subject, isOpen = false) {
         if (isOpen) {
             if (pathType == TPathType.Clip)
-                hcl.exception("只有主路径才能处于Open状态");
+                system.exception("只有主路径才能处于Open状态");
 
             this.FHasOpenPaths = true;
         }
@@ -233,7 +223,7 @@ export class TRegion extends TList {
             this.FScanLine = newSl;
         } else {
             let sl = this.FScanLine;
-            while ((sl.next != null) && (y <= sl.next.y))
+            while ((sl.next != null) && (Y <= sl.next.y))
                 sl = sl.next;
 
             if (y == sl.y)

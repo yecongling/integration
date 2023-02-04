@@ -1,15 +1,6 @@
-/*=======================================================
+import { TAnsiEncoding, TEncode, TObject, TUtf16Encoding, TUtf8Encoding, TList } from "./System.js";
 
-    Html Component Library 前端UI框架 V0.1
-    粘贴板功能单元
-    作者：荆通(18114532@qq.com)
-    QQ群：649023932
-
-=======================================================*/
-
-import { TAnsiEncoding, TEncode, TObject, TUtf16Encoding, TUtf8Encoding, TList, TStream } from "./System.js";
-
-export let TDataFormat = {
+export var TDataFormat = {
     AnsiText: 1,
     UnicodeText: 2,
     Bitmap: 3,
@@ -20,7 +11,7 @@ export let TDataFormat = {
     Custom: 8
 }
 
-export class TClipboard extends TObject {
+class TClipboard extends TObject {
     constructor() {
         super();
         this._customFormatID = TDataFormat.Custom;
@@ -147,48 +138,4 @@ export class TClipboard extends TObject {
     }
 }
 
-export class TLocalStorage {
-    constructor() {
-
-    }
-
-    setString(key, val) {
-        localStorage.setItem(key, val);
-    }
-
-    getString(key) {
-        return localStorage.getItem(key);
-    }
-
-    setStream(key, stream) {
-        this.setString(key, stream.buffer.toString());
-    }
-
-    getStream(key) {
-        let vs = this.getString(key);
-        let vBytes = vs.split(",");
-        let vStream = new TStream();
-        for (let i = 0, vLen = vBytes.length; i < vLen; i++)
-            vStream.writeByte(vBytes[i]);
-
-        vStream.position = 0;
-        return vStream;
-    }
-
-    removeKey(key) {
-        localStorage.removeItem(key);
-    }
-
-    hasKey(key) {
-        for (let i = 0; i < localStorage.length; i++) {
-            if (localStorage.key(i) == key)
-                return true;
-        }
-
-        return false;
-    }
-
-    clear() {
-        localStorage.clear();
-    }
-}
+export var clipboard = new TClipboard();

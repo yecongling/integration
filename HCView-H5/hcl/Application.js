@@ -1,40 +1,23 @@
-/*=======================================================
+import { theme, TModalResult, TMouseEventArgs } from "./Controls.js";
+import { TCustomForm, TForm, TFormShowState } from "./Forms.js";
+import { hcl } from "./Kernel.js";
+import { system, TList, TObject, TPoint, TRect } from "./System.js";
 
-    Html Component Library 前端UI框架 V0.1
-    应用程序控制单元
-    作者：荆通(18114532@qq.com)
-    QQ群：649023932
-
-=======================================================*/
-
-import { TMouseEventArgs, TMouseButton, TKey } from "./Controls.js";
-import { TCustomForm, TFormShowState } from "./Forms.js";
-import { hcl } from "./HCL.js";
-import { TList, TObject, TPoint, TRect } from "./System.js";
-import { TColor } from "./Graphics.js";
-
-export class TApplication extends TObject {
+class TApplication extends TObject {
     constructor() {
         super();
 
         this._updateCount = 0;
         this._runing = false;
         this.icon = new Image(16, 16);
-        this.forms = new TList();
-        this.forms.onAdded = (form) => {
-            if (this.forms.count == 1)
-                this.mainForm = form;
-        }
+        this.forms = new TList(false);
         this._activeForm = null;  // keybord相关操作时需要
         this._captureControl = null;
         this._mouseMoveForm = null;
 
         this.title = "HCL Application";
-        this.mainForm = null;
-
-        this.hclDesignControl = null;
-        this.hclDesignPt = new TPoint();
-        this.hclDesignDown = false;
+        this.mainForm = this.createMainForm();
+        this.mainForm.captionBar.controls.clear();
     }
 
     _getActiveForm() {
@@ -52,8 +35,6 @@ export class TApplication extends TObject {
             if (this._activeForm != null)
                 this._activeForm.deactivate();
 
-            //this._captureControl = null;
-            this._mouseMoveForm = form;
             this._activeForm = form;
             form.activate();
         } finally {
@@ -76,36 +57,21 @@ export class TApplication extends TObject {
     }
 
     _resize_() {
-        if (this.mainForm) {
-            this.mainForm.width = hcl.width;
-            this.mainForm.height = hcl.height;
-        }
+        this.mainForm.width = hcl.width;
+        this.mainForm.height = hcl.height;
     }
 
     setFocusControl_(control, accept) { }  // eslint-disable-line
 
     killFocusControl_(control) {
         hcl._killFocusControl_(this, control);
-    }
-
-    hclSelectControl(control) {
-        if (control !== this)
-            this.hclDesignControl = control;
-        else
-            this.hclDesignControl = null;
-
-        hcl.update();
-    }
+    }     
 
     controlVisible_(control, val) {
         if (val)
             this._showForm(control);
         else
             this._hideForm(control);
-    }
-
-    doRequestFocus_() {
-        return true;
     }
 
     beginUpdate() {
@@ -126,7 +92,7 @@ export class TApplication extends TObject {
 
     addForm(form) {
         if (!form.isClass(TCustomForm)) {
-            hcl.exception("application只能添加TCustomForm的子类！");
+            system.exception("application只能添加TCustomForm的子类！");
             return;
         }
 
@@ -168,18 +134,6 @@ export class TApplication extends TObject {
 
         return null;
     }
-
-    pointAtDesignControl(x, y) {
-        if (this.hclDesignControl != null) {
-            let vPt = this.hclDesignControl.clientToScreen(TPoint.Create(0, 0));
-            let vRect = this.hclDesignControl.clientRect();
-            vRect.offset(vPt.x, vPt.y);
-            if (vRect.pointInAt(x, y))
-                return true;
-        }
-
-        return false;
-    }
     
     removeForm(form) {
         this.removeControl(form);
@@ -191,6 +145,16 @@ export class TApplication extends TObject {
 
     releaseCapture() {
         this._captureControl = null;
+    }
+
+    createMainForm() {
+        if (this.mainForm == null) {
+            this.mainForm = new TForm(hcl.width, hcl.height);
+            this.mainForm.captionBar.captureParent = false;
+            this.addForm(this.mainForm);
+        }
+
+        return this.mainForm;
     }
 
     clientToScreen(point) {
@@ -207,29 +171,12 @@ export class TApplication extends TObject {
     }
 
     mouseDown(e) {
-        // if (hcl.design && this.pointAtDesignControl(e.x ,e.y)) {
-        //     this.hclDesignPt.reset(e.x, e.y);
-        //     this.hclDesignDown = e.button == TMouseButton.Left;
-        //     return;
-        // }
-
         this._activeForm = this._mouseMoveForm;
-        if (this._mouseMoveForm) {
-            let vMouseArgs = new TMouseEventArgs();
-            vMouseArgs.assign(e);
-            vMouseArgs.x -= this._mouseMoveForm.left;
-            vMouseArgs.y -= this._mouseMoveForm.top;
-            this._mouseMoveForm.mouseDown(vMouseArgs);
-        }
-
-        // 处理首次点击在mousedown里得到了desgncontrol然后直接拖动
-        if (hcl.design && this.pointAtDesignControl(e.x ,e.y)) {
-            this.hclDesignPt.reset(e.x, e.y);
-            this.hclDesignDown = e.button == TMouseButton.Left;
-            if (this._activeForm != null)
-                this._activeForm.deactivate();
-            return;
-        }
+        let vMouseArgs = new TMouseEventArgs();
+        vMouseArgs.assign(e);
+        vMouseArgs.x -= this._mouseMoveForm.left;
+        vMouseArgs.y -= this._mouseMoveForm.top;
+        this._mouseMoveForm.mouseDown(vMouseArgs);
     }
 
     // region mousemove
@@ -249,7 +196,7 @@ export class TApplication extends TObject {
         for (let i = this.forms.count - 1; i >= 0; i--) {
             vForm = this.forms[i];
             if (vForm.visible) {
-                if (vForm.showState == TFormShowState.ShowModel) {
+                if (vForm.modalResult == TModalResult.mrShowModel) {
                     this.doMouseMoveFromChange(vForm);
                     e.x -= vForm.left;
                     e.y -= vForm.top;
@@ -277,17 +224,6 @@ export class TApplication extends TObject {
     }
 
     mouseMove(e) {
-        if (hcl.design) {
-            if (this.hclDesignDown) {
-                this.hclDesignControl.left += e.x - this.hclDesignPt.x;
-                this.hclDesignControl.top += e.y - this.hclDesignPt.y;
-                this.hclDesignPt.reset(e.x, e.y);
-                return;
-            } else if (this.pointAtDesignControl(e.x, e.y)) {
-                //
-            }
-        }
-
         if (this._captureControl != null)
             this.doCaptureMouseMove(e);
         else
@@ -311,21 +247,12 @@ export class TApplication extends TObject {
             return;
         }
 
-        if (this._mouseMoveForm) {
-            e.x -= this._mouseMoveForm.left;
-            e.y -= this._mouseMoveForm.top;
-            this._mouseMoveForm.mouseUp(e);
-        }
+        e.x -= this._mouseMoveForm.left;
+        e.y -= this._mouseMoveForm.top;
+        this._mouseMoveForm.mouseUp(e);
     }
 
     mouseUp(e) {
-        if (hcl.design) {
-            this.hclDesignDown = false;
-            if (this.pointAtDesignControl(e.x, e.y)) {
-                return;
-            }
-        }
-
         if (this._captureControl != null)
             this.doCaptureMouseUp(e);
         else
@@ -354,30 +281,6 @@ export class TApplication extends TObject {
     }
 
     keyDown(e) {
-        if (hcl.design && this.hclDesignControl != null) {
-            switch (e.keyCode) {
-                case TKey.Left:
-                    this.hclDesignControl.left--;
-                    return;
-
-                case TKey.Up:
-                    this.hclDesignControl.top--;
-                    return;
-
-                case TKey.Right:
-                    this.hclDesignControl.left++;
-                    return;
-
-                case TKey.Down:
-                    this.hclDesignControl.top++;
-                    return;
-
-                case TKey.Escape:
-                    this.hclSelectControl(this.hclDesignControl.parent);
-                    return;
-            }
-        }
-
         if (this._activeForm != null)
             this._activeForm.keyDown(e);
         else
@@ -410,7 +313,7 @@ export class TApplication extends TObject {
     }
 
     createCaret(control, image, width, height) {
-        hcl.__createCaret(control, image, width, height);
+        hcl._createCaret_(control, image, width, height);
     }
 
     setCaretPos(x, y) {
@@ -451,47 +354,29 @@ export class TApplication extends TObject {
         let vForm = null;
         for (let i = 0; i < this.forms.count; i++) {
             vForm = this.forms[i];
-            if (vForm.showState < TFormShowState.Show)
+            if (vForm.showState < TFormShowState.fssShow)
                 continue;
             
             hclCanvas.save();
             try {
-                if (vForm.showState == TFormShowState.ShowModel) {
-                    hclCanvas.alpha = 0.5;
-                    hclCanvas.brush.color = TColor.Black;
-                    hclCanvas.fillBounds(0, 0, hcl.width, hcl.height);
-                    hclCanvas.alpha = 1;
-                }
-
                 hclCanvas.translate(vForm.left, vForm.top);
-                hclCanvas.clip(-hcl.theme.shadow, -hcl.theme.shadow, vForm.width + hcl.theme.shadow + hcl.theme.shadow, vForm.height + hcl.theme.shadow + hcl.theme.shadow);
+                //hclCanvas.clip(0, 0, form.width, form.height);
+                hclCanvas.clip(-theme.shadow, -theme.shadow, vForm.width + theme.shadow * 2, vForm.height + theme.shadow * 2);
                 vForm.paint(hclCanvas);
             } finally {
                 hclCanvas.restore();
             }
         }
-
-        if (hcl.design) {
-            if (this.hclDesignControl != null) {
-                let vPt = this.hclDesignControl.clientToScreen(TPoint.Create(0, 0));
-                hcl.theme.drawDesign(hclCanvas, vPt.x, vPt.y, this.hclDesignControl.width, this.hclDesignControl.height);
-            }
-        }
-    }
-
-    broadcast(message, wParam = 0, lParam = 0) {
-        for (let i = this.forms.count - 1; i >= 0; i--)
-            this.forms[i].broadcast(message, wParam, lParam);
     }
 
     run() {
-        hcl.applicationRun();
         this._runing = true;
-        if (this.mainForm)
-            this.mainForm.show();
+        this.mainForm.show();
     }
 
     get runing() {
         return this._runing;
     }
 }
+
+export var application = new TApplication();

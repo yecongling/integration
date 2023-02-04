@@ -1,20 +1,12 @@
-/*=======================================================
-
-    Html Component Library 前端UI框架 V0.1
-    基本控件单元
-    作者：荆通(18114532@qq.com)
-    QQ群：649023932
-
-=======================================================*/
-
-import { TColor, THCCanvas } from "./Graphics.js";
-import { TList, TObject, TPoint, TRect } from "./System.js";
-import { hcl } from "./HCL.js";
+import { TObject, TList, TRect, TPoint } from "./System.js";
+import { TMessage } from "./Messages.js";
+import { application } from "./Application.js";
+import { TBrushStyle, TPenStyle, TColor } from "./Graphics.js";
 
 /**
  * HCL枚举：对齐方式
  */
-export let TAlign = {
+export var TAlign = {
     None: 0,    // 无对齐
     Left: 1,    // 左对齐
     Top: 2,     // 顶对齐
@@ -23,29 +15,35 @@ export let TAlign = {
     Client: 5   // 充满客户区
 }
 
-export let TOrientation = {
+export var TOrientation = {
     Horizontal: 0, 
     Vertical: 1
 }
 
-export let TMouseStates = {
+export var TModalResult = {
+    Close: 0,
+    Ok: 1,
+    Cancel: 2
+}
+
+export var TMouseStates = {
     MouseIn: 1,
     MouseDown: 2
 }
 
-export let TShiftState = {
+export var TShiftState = {
     Shift: 1,
     Alt: 2,
     Ctrl: 3
 }
 
-export let TMouseButton = {
+export var TMouseButton = {
     Left: 1,
     Right: 2,
     Middle: 3
 }
 
-export let TCursors = {
+export var TCursors = {
     Default: 0,
     Arrow: 1,
     Cross: 2,
@@ -64,19 +62,19 @@ export let TCursors = {
     VertSplit: 15
 }
 
-export let THorizontalAlign = {
+export var THorizontalAlign = {
     Left: 0,
     Right: 1,
     Center: 2
 }
 
-export let TVerticalAlign = {
+export var TVerticalAlign = {
     Top: 0,
     Bottom: 1, 
     Center: 2
 }
 
-export let TKey = {
+export var TKey = {
     None: 0,
     LButton: 1,
     RButton: 2,
@@ -93,7 +91,6 @@ export let TKey = {
     ShiftKey: 16,
     ControlKey: 17,
     Menu: 18,
-    Alt: 18,
     Pause: 19,
     Capital: 20,
     CapsLock: 20,
@@ -216,9 +213,7 @@ export let TKey = {
     LControlKey: 162,
     RControlKey: 163,
     LMenu: 164,
-    LAlt: 164,
     RMenu: 165,
-    RAlt: 165,
     BrowserBack: 166,
     BrowserForward: 167,
     BrowserRefresh: 168,
@@ -271,12 +266,6 @@ export let TKey = {
     OemClear: 254
 }
 
-export let TMessage = {
-    Design: 10,
-    Broadcast: 1001,
-    Deactivate: 1002
-}
-
 export default class TPersistent extends TObject {
     constructor() {
         super();
@@ -307,25 +296,21 @@ export class TCaret {
 
     reset() {
         this.control = null;
-        this.controlScreenRect = new TRect();
         this.image = null;
+        this._data_ = null;
         this.left = 0;
         this.top = 0;
         this.width = 2;
         this.height = 16;
-        this.color = TColor.Black;
+        this.color = "black";
         this.shan = true;
         this.visible = false;
-    }
-
-    get rect() {
-        return TRect.CreateByBounds(this.left, this.top, this.width, this.height);
     }
 }
 
 export class TMouseEventArgs {
     constructor() {
-        this.shiftState = new Set([]);
+        this.shift = new Set([]);
         this.button = 0;
         this.x = 0;
         this.y = 0;
@@ -334,7 +319,7 @@ export class TMouseEventArgs {
     }
 
     assign(src) {
-        this.shiftState = src.shiftState;
+        this.shift = src.shift;
         this.button = src.button;
         this.x = src.x;
         this.y = src.y;
@@ -345,7 +330,7 @@ export class TMouseEventArgs {
 
 export class TKeyEventArgs {
     constructor() {
-        this.shiftState = new Set([]);
+        this.shift = new Set([]);
         /** 键名 */
         this.key = "";
         /** 键码 */
@@ -353,18 +338,156 @@ export class TKeyEventArgs {
     }
 
     assign(src) {
-        this.shiftState = new Set([...src.shiftState]);
+        this.shift = new Set([...src.shift]);
         this.key = src.key;
         this.keyCode = src.keyCode;
     }
 }
 
+/**
+ * HCL类：主题类(已实例化为theme，无需重复实例化)
+ */
+class TTheme {
+    constructor() {
+        this.iconSize = 16;
+        this.radioButtonWidth = 16;
+        this.checkBoxWidth = 16;
+        this.shadow = 10;
+        this.marginSpace = 5;
+        this.marginSpaceDouble = 10;
+        this.popupMenuImagePadding = 30;
+        this.dropDownButtonSize = 20;
+        this.dropDownButtonColor = 'black';
+
+        this.borderColor = "#848484";
+        this.borderHotColor = "green";
+        this.borderActiveColor = "blue";
+
+        this.backgroundStaticColor = "#f0f0f0";
+        this.backgroundLightColor = '#eaeaea';
+        this.backgroundHotColor = '#dcdcdc';
+        this.backgroundDownColor = '#c8c8c8';
+        this.backgroundContentColor = "#ffffff";
+        this.backgroundSelectColor = "#3390ff";
+
+        this.textColor = "black";
+        this.textDisableColor = "gray";
+    }
+
+    getCSSCursor(cursor) {
+        switch (cursor) {
+            case TCursors.Cross: 
+                return "crosshair";
+            
+            case TCursors.Drag:
+                return "grab";
+
+            case TCursors.HandPoint:
+                return "pointer";
+
+            case TCursors.HourGlass:
+                return "wait";
+
+            case TCursors.HoriSplit:
+                return "col-resize";
+
+            case TCursors.Ibeam:
+                return "text";
+
+            case TCursors.No:
+                return "not-allowed";
+
+            case TCursors.SizeAll:
+                return "all-scroll";
+
+            case TCursors.SizeNESW:
+                return "nesw-resize";
+
+            case TCursors.SizeNS:
+                return "ns-resize";
+
+            case TCursors.SizeNWSE:
+                return "nwse-resize";
+
+            case TCursors.SizeWE:
+                return "w-resize";
+
+            case TCursors.VertSplit:
+                return "row-resize";
+
+            default:
+                return "default";
+        }
+    }    
+
+    drawDropDown(hclCanvas, rect) {
+        hclCanvas.beginPath();
+        hclCanvas.pen.color = this.dropDownButtonColor;
+        let x = rect.left + Math.trunc((rect.width - 7) / 2);
+        let y = rect.top + Math.trunc((rect.height - 4) / 2);
+        hclCanvas.drawLine(x, y, x + 7, y);
+        hclCanvas.drawLine(x + 1, y + 1, x + 6, y + 1);
+        hclCanvas.drawLine(x + 2, y + 2, x + 5, y + 2);
+        hclCanvas.drawLine(x + 3, y + 3, x + 4, y + 3);
+        hclCanvas.paintPath();
+    }
+
+    drawDropRight(hclCanvas, rect) {
+        hclCanvas.pen.width = 1;
+        hclCanvas.pen.color = this.dropDownButtonColor;
+        hclCanvas.beginPath();
+        let x = rect.left + Math.trunc((rect.width - 4) / 2);
+        let y = rect.top + Math.trunc((rect.height - 7) / 2);
+        hclCanvas.drawLine(x, y, x, y + 7);
+        hclCanvas.drawLine(x + 1, y + 1, x + 1, y + 6);
+        hclCanvas.drawLine(x + 2, y + 2, x + 2, y + 5);
+        hclCanvas.drawLine(x + 3, y + 3, x + 3, y + 4);
+        hclCanvas.paintPath();
+    }
+
+    drawFrameControl(hclCanvas, rect, stateSet, style) {
+        switch (style) {
+            case TControlStyle.ButtonRadio: {
+                    hclCanvas.pen.color = theme.borderColor;
+                    hclCanvas.pen.style = TPenStyle.Solid;
+                    hclCanvas.pen.width = 1;
+                    hclCanvas.brush.style = TBrushStyle.Clear;
+                    hclCanvas.ellipseBoundsDriect(rect.left, rect.top, this.radioButtonWidth, this.radioButtonWidth);
+
+                    if (stateSet.has(TControlState.Checked)) {
+                        hclCanvas.brush.color = theme.backgroundDownColor;
+                        hclCanvas.brush.style = TBrushStyle.Solid;
+                        hclCanvas.pen.style = TPenStyle.Clear;
+                        rect.inFlate(-3, -3);
+                        hclCanvas.ellipseRectDriect(rect);
+                    }
+                }
+                break;
+
+            case TControlStyle.CheckBox:
+                hclCanvas.pen.color = theme.borderColor;
+                rect.resetBounds(rect.left, rect.top, this.checkBoxWidth, this.checkBoxWidth);
+                hclCanvas.rectangleRect(rect);
+
+                if (stateSet.has(TControlState.Checked)) {
+                    hclCanvas.font.color = TColor.Black;
+                    hclCanvas.font.size = 8;
+                    hclCanvas.textRect(rect, rect.left, rect.top, "√");
+                }
+                break;
+        }
+    }
+}
+
+/**
+ * HCL实例：主题类的实例
+ */
+export let theme = new TTheme();
+
 export class TControl extends TComponent {
     constructor() {
         super();
 
-        this.state_ = new Set([TControlState.Creating]);
-        this.designState = false;
         this._marginLeft = 0;
         this._marginTop = 0;
         this._marginRight = 0;
@@ -379,38 +502,21 @@ export class TControl extends TComponent {
         this._parent = null;
         this.canFocus = false;
         this._focused = false;
-        this.popupMenu_ = null;
+        this.popupMenu = null;
         this._rotate = 0;
         //this.rotateCenter = new TPoint();
         this.transparent = false;  // 背景透明
-        this.color_ = null;
-        this.alpha_ = 1;  // 整体不透明度
         this._updateCount = 0;
-        this.left_ = 0;
-        this.top_ = 0;
-        this.width_ = 75;
-        this.height_ = 25;
-        this.enabled_ = true;
+        this._left = 0;
+        this._top = 0;
+        this._width = 75;
+        this._height = 25;
+        this.enabled = true;
         this.visible_ = true;
-        this.hint_ = "";
         this.cursor_ = TCursors.Default;
         this.handle_ = 0;//application.requestHandle();
         this.mouseStates = new Set([]);
         this.tag = null;
-        this.state_.delete(TControlState.Creating);
-
-        this.onKillFocus = null;
-    }
-
-    hclSelect() {
-        hcl.application.hclSelectControl(this);
-    }
-
-    _paintexec(hclCanvas) {
-        if (!this.transparent)
-            this.doPaintBackground_(hclCanvas);
-            
-        this.doPaint_(hclCanvas);
     }
 
     _setBounds() { 
@@ -427,61 +533,25 @@ export class TControl extends TComponent {
         this.onResize();
     }
 
-    doRequestFocus_() {
-        if (!this.visible_ || !this.enabled_ || this.state_.has(TControlState.Creating))
-            return false;
-        else
-            return true;
-    }
-
-    doSetFocus_(accept) {
-        if (this.parent != null) {
-            let vParentCanFocus = true, vControl = this;
-            while (vControl.parent != null) {
-                vControl = vControl.parent;
-                if (!vControl.doRequestFocus_()) {
-                    vParentCanFocus = false;
-                    break;
-                }
-            }
-
-            if (vParentCanFocus) {
-                this._focused = accept;
-                this.parent.setFocusControl_(this, accept);
-            } else
-                this.killFocus();
-        }
+    doSetFocus_(accept) { 
+        this._focused = accept;
+        if (this.parent != null)
+            this.parent.setFocusControl_(this, accept);
     }
 
     doKillFocus_() { 
         this._focused = false;
-        if (this.onKillFocus)
-            this.onKillFocus();
-
         if (this.parent != null)
             this.parent.killFocusControl_(this);
     }
 
-    getHint_() {
-        return this.hint_;
-    }
-
-    setHint_(val) {
-        this.hint_ = val;
-    }
-
     added_(parent) {
         this._parent = parent;
-        if (this.visible_)
-            this.setFocus();
     }
 
     removed_() {
-        this.deactivate();
         this._parent = null;
     }
-
-    controlVisible_(control, val) { }
 
     doSetParent_(val) {
         if (this._parent != val) {
@@ -495,24 +565,9 @@ export class TControl extends TComponent {
         }
     }
 
-    doEnableChange_(val) {
-        if (!val)
-            this.doMouseLeave_();
-
-        this.update();
-    }
-
-    doVisibleChange_(val) {
-        this.state_.add(TControlState.VisibleChange);
-        this.update();
-        this.state_.delete(TControlState.VisibleChange);
+    doVisibleChange_(val) { 
         if (this._parent != null)
             this._parent.controlVisible_(this, val);
-
-        if (this.visible_ && this.onShow)
-            this.onShow();
-        else if (!this.visible_ && this.onHide)
-            this.onHide();
     }
 
     doSetMarginLeft_(val) {
@@ -557,7 +612,7 @@ export class TControl extends TComponent {
 
     doMouseEnter_() {
         this.mouseStates.add(TMouseStates.MouseIn);
-        hcl.application.setCursorBy(this);
+        application.setCursorBy(this);
         this.onMouseEnter();
     }
 
@@ -587,10 +642,8 @@ export class TControl extends TComponent {
             this.onMouseUp(e);
             if (e.button === TMouseButton.Left && this.clientRect().pointInAt(e.x, e.y))  // 不能用mouseIn，因为可能按下期间移出但并没有触发mouseLeave
                 this.doClick_();
-            else if (e.button === TMouseButton.Right) {
+            else if (e.button === TMouseButton.Right)
                 this.doContextMenu_(e.x, e.y);
-                this.onContextmenu();
-            }
         }
     }
 
@@ -614,33 +667,16 @@ export class TControl extends TComponent {
         this.onKeyUp(e);
     }
 
+    doContextMenu_() {
+        this.onContextmenu();
+    }
+
     doPaintBackground_(hclCanvas) {
         this.onPaintBackground(hclCanvas);
     }
 
     doPaint_(hclCanvas) {
         this.onPaint(hclCanvas);
-    }
-
-    doContextMenu_(x, y) {
-        if (this.popupMenu_ != null) {
-            let vPoint = this.clientToScreen(new TPoint(0, 0));
-            this.popupMenu_.popup(vPoint.x + x, vPoint.y + y);
-        }
-    }
-
-    doGetPopupMenu() {
-        return this.popupMenu_;
-    }
-
-    doSetPopupMenu(val) {
-        this.popupMenu_ = val;
-    }
-
-    setSize(w, h) {
-        this.width_ = w;
-        this.height_ = h;
-        this._setBounds();
     }
     
     clientRect() {
@@ -656,52 +692,52 @@ export class TControl extends TComponent {
     }
 
     mouseEnter() {
-        if (this.enabled_)
+        if (this.enabled)
             this.doMouseEnter_();
     }
 
     mouseLeave() {
-        if (this.enabled_)
+        if (this.enabled)
             this.doMouseLeave_();
     }
 
     mouseDown(e) {
-        if (this.enabled_)
+        if (this.enabled)
             this.doMouseDown_(e);
     }
 
     mouseWheel(e) {
-        if (this.enabled_)
+        if (this.enabled)
             this.doMouseWheel_(e);
     }
 
     mouseMove(e) {
-        if (this.enabled_)
+        if (this.enabled)
             this.doMouseMove_(e);
     }
 
     mouseUp(e) {
-        if (this.enabled_)
+        if (this.enabled)
             this.doMouseUp_(e);
     }
 
     dblClick(e) {
-        if (this.enabled_)
+        if (this.enabled)
             this.doDblClick_(e);
     }
 
     keyDown(e) {
-        if (this.enabled_)
+        if (this.enabled)
             this.doKeyDown_(e);
     }
 
     keyPress(e) {
-        if (this.enabled_)
+        if (this.enabled)
             this.doKeyPress_(e);
     }
 
     keyUp(e) {
-        if (this.enabled_)
+        if (this.enabled)
             this.doKeyUp_(e);
     }
 
@@ -712,17 +748,13 @@ export class TControl extends TComponent {
         super.dispose();
     }
 
-    broadcast(message, wParam = 0, lParam = 0) {
-        switch (message) {
-            case TMessage.Design:
-                this.designState = wParam;
+    broadcast(msg, wparam, lparam) {  // eslint-disable-line
+        if (msg == TMessage.Deactivate) {
+            if (this.mouseStates.count > 0) {
+                this.mouseStates.clear();
+                this.update();
+            }
         }
-    }
-
-    activate() { }
-
-    deactivate() {
-        this.killFocus();
     }
 
     reAlign() {
@@ -730,60 +762,36 @@ export class TControl extends TComponent {
     }
 
     offset(x, y) {
-        this.left_ = this.left_ + x;
-        this.top_ = this.top_ + y;
+        this._left = this._left + x;
+        this._top = this._top + y;
         this._setBounds();
     }
 
     setLocal(x, y) {
-        this.left_ = x;
-        this.top_ = y;
+        this._left = x;
+        this._top = y;
         this._setBounds();
     }
 
-    clientToScreenAt(x, y) {
-        return this.clientToScreen(TPoint.Create(x, y));
-    }
-
     clientToScreen(point) {
-        point.x += this.left_;
-        point.y += this.top_;
-        if (this.parent != null)
-            return this.parent.clientToScreen(point);
-        else
-            return point;
+        point.x += this.left;
+        point.y += this.top;
+        return this.parent.clientToScreen(point);
     }
 
-    isChildControl(control) {
-        let vControl = this;
-        while (vControl.parent != null) {
-            vControl = vControl.parent;
-            if (vControl === control)
-                return true;
-        }
-
-        return false;
-    }
-
-    getHintRect() {
-        return this.clientRect();
+    setSize(w, h) {
+        this._width = w;
+        this._height = h;
+        this._setBounds();
     }
 
     paint(hclCanvas) {
-        if (this._updateCount > 0)
-            return;
-
-        // 绘制前判断过了 this.visible
-        if (this.alpha_ != 1) {
-            hclCanvas.save();
-            try {
-                hclCanvas.alpha = this.alpha_;
-                this._paintexec(hclCanvas);
-            } finally {
-                hclCanvas.restore();
-            }
-        } else
-            this._paintexec(hclCanvas);
+        if (this.visible && (this._updateCount == 0)) {
+            if (!this.transparent)
+                this.doPaintBackground_(hclCanvas);
+            
+            this.doPaint_(hclCanvas);
+        }
     }
 
     paintTo(hclCanvas, x, y) {
@@ -797,18 +805,10 @@ export class TControl extends TComponent {
     }
 
     updateRect(rect) {
-        if (this._updateCount > 0)
-            return;
-
-        if (this.state_.has(TControlState.Aligning))
-            return;
-            
-        if (this.visible_ || this.state_.has(TControlState.VisibleChange)) {
-            if (this.parent != null)
-                this.parent.updateRect(rect.offset(this.left, this.top, true));
-            else  // 无parent时给一个绘制到其他空间的机会
-                this.onUpdate(rect);
-        }
+        if (this.parent != null)
+            this.parent.updateRect(rect.offset(this.left, this.top, true));
+        else  // 无parent时给一个绘制到其他空间的机会
+            this.onUpdate(rect);
     }
 
     update() {
@@ -819,8 +819,7 @@ export class TControl extends TComponent {
         if (!this._focused) {
             if (this.canFocus) {
                 this.doSetFocus_(true);
-                if (this._focused)
-                    this.update();
+                this.update();
             } else
                 this.doSetFocus_(false)
         }
@@ -847,86 +846,46 @@ export class TControl extends TComponent {
     }
 
     get left() {
-        return this.left_;
+        return this._left;
     }
 
     set left(val) {
-        if (this.left_ != val) {
-            this.left_ = val;
+        if (this._left != val) {
+            this._left = val;
             this._setBounds();
         }
     }
 
     get top() {
-        return this.top_;
+        return this._top;
     }
 
     set top(val) {
-        if (this.top_ != val) {
-            this.top_ = val;
+        if (this._top != val) {
+            this._top = val;
             this._setBounds();
         }
     }
 
-    get right() {
-        return this.left_ + this.width_;
-    }
-
-    set right(val) {
-        if (val > this.left_)
-            this.width = val - this.left_;
-    }
-
-    get bottom() {
-        return this.top_ + this.height_;
-    }
-
-    set bottom(val) {
-        if (val > this.top_)
-            this.height = val - this.top_;
-    }
-
     get width() {
-        return this.width_;
+        return this._width;
     }
 
     set width(val) {
-        if (this.width_ != val) {
-            this.width_ = val;
+        if (this._width != val) {
+            this._width = val;
             this._setBounds();
         }
     }
 
     get height() {
-        return this.height_;
+        return this._height;
     }
 
     set height(val) {
-        if (this.height_ != val) {
-            this.height_ = val;
+        if (this._height != val) {
+            this._height = val;
             this._setBounds();
-        }
-    }
-
-    get alpha() {
-        return this.alpha_;
-    }
-
-    set alpha(val) {
-        if (this.alpha_ != val) {
-            this.alpha_ = val;
-            this.update();
-        }
-    }
-
-    get color() {
-        return this.color_;
-    }
-
-    set color(val) {
-        if (this.color_ != val) {
-            this.color_ = val;
-            this.update();
         }
     }
 
@@ -939,14 +898,6 @@ export class TControl extends TComponent {
             this._rotate = val;
             this._setBounds();
         }
-    }
-
-    get hint() {
-        return this.getHint_();
-    }
-
-    set hint(val) {
-        this.setHint_(val);
     }
 
     get mouseIn() {
@@ -1029,17 +980,6 @@ export class TControl extends TComponent {
         this.doSetPaddingBottom_(val);
     }
 
-    get enabled() {
-        return this.enabled_;
-    }
-
-    set enabled(val) {
-        if (this.enabled_ != val) {
-            this.enabled_ = val;
-            this.doEnableChange_(val);
-        }
-    }
-
     get visible() {
         return this.visible_;
     }
@@ -1070,16 +1010,8 @@ export class TControl extends TComponent {
     set cursor(val) {
         if (this.cursor_ != val) {
             this.cursor_ = val;
-            hcl.application.setCursorBy(this);
+            application.setCursorBy(this);
         }
-    }
-
-    get popupMenu() {
-        return this.doGetPopupMenu();
-    }
-
-    set popupMenu(val) {
-        this.doSetPopupMenu(val);
     }
 
     onResize() { }
@@ -1118,22 +1050,38 @@ export class TControl extends TComponent {
 export class TPopupControl extends TControl {
     constructor() {
         super();
-        this.width_ = 100;
-        this.height_ = 100;
+        this._width = 100;
+        this._height = 100;
         this.dropDownStyle = false;
         this.popupLinkedList = null;
         this.forward = null;
         this.next = null;
         this.onClose = null;
-        this.onDone = null;
+    }
+
+    _doPaintShadow(hclCanvas, rect) {
+        hclCanvas.brush.color = theme.backgroundStaticColor;
+        hclCanvas.fillRectShadow(rect, theme.shadow);
     }
 
     doPaintBackground_(hclCanvas) {
-        let vRect = this.clientRect();
-        hcl.theme.drawShadow(hclCanvas, vRect, this.dropDownStyle);
+        let rect = this.clientRect();
+        if (this.dropDownStyle) {
+            hclCanvas.save();
+            try {
+                hclCanvas.clip(rect.left - theme.shadow, rect.top, rect.width + theme.shadow * 2, rect.bottom + theme.shadow);
+                this._doPaintShadow(hclCanvas, rect)
+            } finally {
+                hclCanvas.restore();
+            }
+        } else
+            this._doPaintShadow(hclCanvas, rect);
 
-        hclCanvas.brush.color = hcl.theme.backgroundStaticColor;
-        hclCanvas.fillRect(vRect);    
+        // hclCanvas.fillRect(rect);
+        // hclCanvas.brush.color = "#00000080";
+        // hclCanvas.fillBounds(rect.right, theme.shadow, theme.shadow, rect.bottom);
+        // hclCanvas.fillBounds(rect.left + theme.shadow, rect.bottom, rect.right - theme.shadow, theme.shadow);
+
         super.doPaintBackground_(hclCanvas);
     }
 
@@ -1142,7 +1090,7 @@ export class TPopupControl extends TControl {
     }
 
     updateRect(rect) {
-        hcl.application.updateRect(rect.offset(this.left, this.top, true));
+        application.updateRect(rect.offset(this.left, this.top, true));
     }
 
     update() {
@@ -1153,38 +1101,33 @@ export class TPopupControl extends TControl {
         this.left = x;
         this.top = y;
         this.visible = true;
-        hcl.application.trackPopupControl(this, root);
+        application.trackPopupControl(this, root);
     }
 
     popupControl(control) {
-        let point = control.clientToScreenAt(0, 0);
+        let point = control.clientToScreen(TPoint.Create(0, 0));
         this.popup(point.x, point.y + control.height, true);
     }
 
-    closePopup() {
+    closePopup() {  // 关闭popup链
+        application.closePopupControl(this.popupLinkedList.first);
+    }
+
+    close() {  // 关闭我之后的
+        application.closePopupControl(this);
         if (this.onClose != null)
             this.onClose();
     }
-
-    donePopup() {  // 完成popup链
-        hcl.application.closePopupControl(this.popupLinkedList.first);
-        if (this.onDone != null)
-            this.onDone();
-    }
-
-    close() {  // 我关闭后把我的后续popup链关闭(收起时关闭)
-        hcl.application.closePopupControl(this);
-    }
 }
 
-export let TScrollBarControl = {
+export var TScrollBarControl = {
     Bar: 0,
     LeftBtn: 1,
     Thum: 2,
     RightBtn: 3
 }
 
-export let TScrollBarCode = {
+export var TScrollBarCode = {
     LineUp: 0,
     LineDown: 1,
     PageUp: 2,
@@ -1199,30 +1142,29 @@ export let TScrollBarCode = {
 export class TScrollBar extends TControl {
     constructor() {
         super();
-        this.width_ = 100;
-        this.height_ = 20;
-        this.min_ = 0;
-        this.max_ = 0;
-        this.pageSize_ = 0;
-        this.position_ = 0;
-        this.range_ = 0;
-        this.precent_ = 0;
+        this._width = 100;
+        this._height = 20;
+        this._min = 0;
+        this._max = 0;
+        this._pageSize = 0;
+        this._position = 0;
+        this._range = 0;
+        this.percent_ = 0;
         this.leftBlank_ = 0;
         this.rightBlank_ = 0;
         this.buttonSize = 20;
-        this.btnStep_ = 5;
+        this._btnStep = 5;
         this.thumRect_ = new TRect();
         this.leftBtnRect_ = new TRect();
         this.rightBtnRect_ = new TRect();
         this.mouseDownPt_ = new TPoint();
         this.mouseDownControl_ = TScrollBarControl.Bar;
-        this.orientation_ = TOrientation.Horizontal;
-        this.align_ = TAlign.Bottom;
+        this._orientation = TOrientation.Horizontal;
         this._onScroll = null;
     }
 
     _reCalcButtonRect() {
-        if (this.orientation_ == TOrientation.Horizontal) {
+        if (this._orientation == TOrientation.Horizontal) {
             this.leftBtnRect_ = TRect.CreateByBounds(this.leftBlank_, 0, this.buttonSize, this.height);
             this.rightBtnRect_ = TRect.CreateByBounds(this.width - this.rightBlank_ - this.buttonSize, 0,
                 this.buttonSize, this.height);
@@ -1238,26 +1180,26 @@ export class TScrollBar extends TControl {
         let vPer = 0;
         let vThumHeight = 0;
 
-        if (this.orientation_ == TOrientation.Horizontal) {
+        if (this._orientation == TOrientation.Horizontal) {
             this.thumRect_.top = 0;
             this.thumRect_.bottom = this.height;
-            if (this.pageSize_ < this.range_) {
-                vPer = this.pageSize_ / this.range_;
+            if (this._pageSize < this._range) {
+                vPer = this._pageSize / this._range;
                 // 计算滑块的高度
                 vThumHeight = Math.round((this.width - this.leftBlank_ - this.rightBlank_ - 2 * this.buttonSize) * vPer);
                 if (vThumHeight < this.buttonSize)
                     vThumHeight = this.buttonSize;
 
-                this.precent_ = (this.width - this.leftBlank_ - this.rightBlank_ - 2 * this.buttonSize
-                    - vThumHeight) / (this.range_ - this.pageSize_);  // 界面可滚动范围和实际代表范围的比率
+                this.percent_ = (this.width - this.leftBlank_ - this.rightBlank_ - 2 * this.buttonSize
+                    - vThumHeight) / (this._range - this._pageSize);  // 界面可滚动范围和实际代表范围的比率
 
-                if (this.precent_ < 0)
+                if (this.percent_ < 0)
                     return;
 
-                if (this.precent_ == 0)
-                    this.precent_ = 1;
+                if (this.percent_ == 0)
+                    this.percent_ = 1;
 
-                this.thumRect_.left = this.leftBlank_ + this.buttonSize + Math.round(this.position_ * this.precent_);
+                this.thumRect_.left = this.leftBlank_ + this.buttonSize + Math.round(this._position * this.percent_);
                 this.thumRect_.right = this.thumRect_.left + vThumHeight;
             } else {
                 this.thumRect_.left = this.leftBlank_ + this.buttonSize;
@@ -1266,23 +1208,23 @@ export class TScrollBar extends TControl {
         } else {
             this.thumRect_.left = 0;
             this.thumRect_.right = this.width;
-            if (this.pageSize_ < this.range_) {
-                vPer = this.pageSize_ / this.range_;  // 计算滑块比例
+            if (this._pageSize < this._range) {
+                vPer = this._pageSize / this._range;  // 计算滑块比例
                 // 计算滑块的高度
                 vThumHeight = Math.round((this.height - this.leftBlank_ - this.rightBlank_ - 2 * this.buttonSize) * vPer);
                 if (vThumHeight < this.buttonSize)
                     vThumHeight = this.buttonSize;
 
-                this.precent_ = (this.height - this.leftBlank_ - this.rightBlank_ - 2 * this.buttonSize
-                    - vThumHeight) / (this.range_ - this.pageSize_);  // 界面可滚动范围和实际代表范围的比率
+                this.percent_ = (this.height - this.leftBlank_ - this.rightBlank_ - 2 * this.buttonSize
+                    - vThumHeight) / (this._range - this._pageSize);  // 界面可滚动范围和实际代表范围的比率
 
-                if (this.precent_ < 0)
+                if (this.percent_ < 0)
                     return;
 
-                if (this.precent_ == 0)
-                    this.precent_ = 1;
+                if (this.percent_ == 0)
+                    this.percent_ = 1;
 
-                this.thumRect_.top = this.leftBlank_ + this.buttonSize + Math.round(this.position_ * this.precent_);
+                this.thumRect_.top = this.leftBlank_ + this.buttonSize + Math.round(this._position * this.percent_);
                 this.thumRect_.bottom = this.thumRect_.top + vThumHeight;
                 //Scroll(scTrack, FPosition);  //鼠标移动改变滑块的垂直位置
             } else {  // 滚动轨道大于等于范围
@@ -1290,56 +1232,56 @@ export class TScrollBar extends TControl {
                 this.thumRect_.bottom = this.height - this.rightBlank_ - this.buttonSize;
             }
         }
-    }
+    }    
 
     _setOrientation(val) {
-        if (this.orientation_ != val) {
-            this.orientation_ = val;
+        if (this._orientation != val) {
+            this._orientation = val;
             if (val == TOrientation.Horizontal) {
-                this.height_ = this.buttonSize;
+                this._height = this.buttonSize;
                 this.align = TAlign.Bottom;
             } else {
-                this.width_ = this.buttonSize;
+                this._width = this.buttonSize;
                 this.align = TAlign.Right;
             }
         }
     }
 
     _setMin(val) {
-        if (this.min_ != val) {
-            if (val > this.max_)
-                this.min_ = this.max_;
+        if (this._min != val) {
+            if (val > this._max)
+                this._min = this._max;
             else
-                this.min_ = val;
+                this._min = val;
 
-            if (this.position_ < this.min_)
-                this.position_ = this.min_;
+            if (this._position < this._min)
+                this._position = this._min;
 
-            this.range_ = this.max_ - this.min_;
+            this._range = this._max - this._min;
             this._reCalcThumRect();
             this._updateRangRect();
         }
     }
 
     _setMax(val) {
-        if (this.max_ != val) {
-            if (val < this.min_)
-                this.max_ = this.min_;
+        if (this._max != val) {
+            if (val < this._min)
+                this._max = this._min;
             else
-                this.max_ = val;
+                this._max = val;
 
-            if (this.position_ + this.pageSize_ > this.max_)
-                this.position_ = Math.max(this.max_ - this.pageSize_, this.min_);
+            if (this._position + this._pageSize > this._max)
+                this._position = Math.max(this._max - this._pageSize, this._min);
 
-            this.range_ = this.max_ - this.min_;
+            this._range = this._max - this._min;
             this._reCalcThumRect();
             this._updateRangRect();
         }
     }
 
     _setPageSize(val) {
-        if (this.pageSize_ != val) {
-            this.pageSize_ = val;
+        if (this._pageSize != val) {
+            this._pageSize = val;
             this._reCalcThumRect();
             this._updateRangRect();
         }
@@ -1347,20 +1289,20 @@ export class TScrollBar extends TControl {
 
     _setPosition(val) {
         let vPos = 0;
-        if (val < this.min_)
-            vPos = this.min_;
-        else if (val + this.pageSize_ > this.max_)
-            vPos = Math.max(this.max_ - this.pageSize_, this.min_);
+        if (val < this._min)
+            vPos = this._min;
+        else if (val + this._pageSize > this._max)
+            vPos = Math.max(this._max - this._pageSize, this._min);
         else
             vPos = val;
 
-        if (this.position_ != vPos) {
-            this.position_ = vPos;
+        if (this._position != vPos) {
+            this._position = vPos;
             this._reCalcThumRect();
             this._updateRangRect();
 
             if (this._onScroll != null)
-                this._onScroll(TScrollBarCode.Position, this.position_);
+                this._onScroll(TScrollBarCode.Position, this._position);
         }
     }
 
@@ -1368,41 +1310,41 @@ export class TScrollBar extends TControl {
         let vPos = 0;
         switch (scrollCode) {
             case TScrollBarCode.LineUp:
-                vPos = this.position_ - this.btnStep_;
-                if (vPos < this.min_)
-                    vPos = this.min_;
+                vPos = this._position - this._btnStep;
+                if (vPos < this._min)
+                    vPos = this._min;
 
-                if (this.position_ != vPos)
+                if (this._position != vPos)
                     this.position = vPos;
 
                 break;
 
             case TScrollBarCode.LineDown:
-                vPos = this.position_ + this.btnStep_;
-                if (vPos > this.range_ - this.pageSize_)
-                    vPos = this.range_ - this.pageSize_;
+                vPos = this._position + this._btnStep;
+                if (vPos > this._range - this._pageSize)
+                    vPos = this._range - this._pageSize;
 
-                if (this.position_ != vPos)
+                if (this._position != vPos)
                     this.position = vPos;
 
                 break;
 
             case TScrollBarCode.PageUp:
-                vPos = this.position_ - this.pageSize_;
-                if (vPos < this.min_)
-                    vPos = this.min_;
+                vPos = this._position - this._pageSize;
+                if (vPos < this._min)
+                    vPos = this._min;
 
-                if (this.position_ != vPos)
+                if (this._position != vPos)
                     this.position = vPos;
 
                 break;
 
             case TScrollBarCode.PageDown:
-                vPos = this.position_ + this.pageSize_;
-                if (vPos > this.range_ - this.pageSize_)
-                    vPos = this.range_ - this.pageSize_;
+                vPos = this._position + this._pageSize;
+                if (vPos > this._range - this._pageSize)
+                    vPos = this._range - this._pageSize;
 
-                if (this.position_ != vPos)
+                if (this._position != vPos)
                     this.position = vPos;
 
                 break;
@@ -1443,16 +1385,16 @@ export class TScrollBar extends TControl {
 
         let vOffs = 0;
         if (e.button == TMouseButton.Left) {
-            if (this.orientation_ == TOrientation.Horizontal) {
+            if (this._orientation == TOrientation.Horizontal) {
                 if (this.mouseDownControl_ == TScrollBarControl.Thum) {
                     vOffs = e.x - this.mouseDownPt_.x;
-                    this.position = this.position_ + Math.round(vOffs / this.precent_);
+                    this.position = this._position + Math.round(vOffs / this.percent_);
                     this.mouseDownPt_.x = e.x;
                 }
             } else {
                 if (this.mouseDownControl_ == TScrollBarControl.Thum) {
                     vOffs = e.y - this.mouseDownPt_.y;
-                    this.position = this.position_ + Math.round(vOffs / this.precent_);
+                    this.position = this._position + Math.round(vOffs / this.percent_);
                     this.mouseDownPt_.y = e.y;
                 }
             }
@@ -1465,7 +1407,7 @@ export class TScrollBar extends TControl {
 
     _ptInLeftBlankArea(x, y) {
         if (this.leftBlank_ != 0) {
-            if (this.orientation_ == TOrientation.Horizontal)
+            if (this._orientation == TOrientation.Horizontal)
                 return TRect.CreateByBounds(0, 0, this.leftBlank_, this.height).pointInAt(x, y);
             else
                 return TRect.CreateByBounds(0, 0, this.width, this.leftBlank_).pointInAt(x, y);
@@ -1476,7 +1418,7 @@ export class TScrollBar extends TControl {
 
     _ptInRightBlankArea(x, y) {
         if (this.rightBlank_ != 0) {
-            if (this.orientation_ == TOrientation.Horizontal)
+            if (this._orientation == TOrientation.Horizontal)
                 return TRect.CreateByBounds(this.width - this.rightBlank_, 0, this.rightBlank_, this.height).pointInAt(x, y);
             else
                 return TRect.CreateByBounds(0, this.height - this.rightBlank_, this.width, this.rightBlank_).pointInAt(x, y);
@@ -1487,13 +1429,13 @@ export class TScrollBar extends TControl {
 
     doResize_() {
         super.doResize_();
-        if (this.orientation_ == TOrientation.Vertical)
-            this.pageSize_ = this.height;
+        if (this._orientation == TOrientation.Vertical)
+            this._pageSize = this.height;
         else
-            this.pageSize_ = this.width;
+            this._pageSize = this.width;
 
-        if (this.position_ + this.pageSize_ > this.max_)
-            this.position_ = Math.max(this.max_ - this.pageSize_, this.min_);
+        if (this._position + this._pageSize > this._max)
+            this._position = Math.max(this._max - this._pageSize, this._min);
 
         this._reCalcThumRect();
         this._reCalcButtonRect();
@@ -1506,19 +1448,19 @@ export class TScrollBar extends TControl {
     doDrawThumBefor_(hclCanvas, thumRect) { }  // eslint-disable-line
 
     paintToEx(hclCanvas) {
-        hclCanvas.brush.color = hcl.theme.backgroundStaticColor;
+        hclCanvas.brush.color = theme.backgroundStaticColor;
         hclCanvas.fillBounds(0, 0, this.width, this.height);
 
         let vRect = TRect.CreateByRect(this.thumRect_);
         hclCanvas.pen.width = 1;
-        if (this.orientation_ == TOrientation.Horizontal) {
+        if (this._orientation == TOrientation.Horizontal) {
             vRect.inFlate(0, -1);
             this.doDrawThumBefor_(hclCanvas, vRect);
-            hclCanvas.brush.color = hcl.theme.backgroundHotColor;
+            hclCanvas.brush.color = theme.backgroundHotColor;
             hclCanvas.fillRect(vRect);
 
-            hclCanvas.pen.color = hcl.theme.borderColor;
             hclCanvas.beginPath();
+            hclCanvas.pen.color = theme.borderColor;
             hclCanvas.drawLine(vRect.left, vRect.top, vRect.right, vRect.top);
             hclCanvas.drawLine(vRect.right, vRect.top, vRect.right, vRect.bottom);
             hclCanvas.drawLine(vRect.right, vRect.bottom - 1, vRect.left, vRect.bottom - 1);
@@ -1531,8 +1473,8 @@ export class TScrollBar extends TControl {
             hclCanvas.drawLine(vRect.left - 3, 5, vRect.left - 3, this.height - 5);
             hclCanvas.paintPath();
 
-            hclCanvas.pen.color = hcl.theme.backgroundHotColor;
             hclCanvas.beginPath();
+            hclCanvas.pen.color = theme.backgroundHotColor;
             // 左按钮
             vRect.left = this.leftBtnRect_.left + Math.trunc((this.leftBtnRect_.width - 4) / 2) + 4;
             vRect.top = this.leftBtnRect_.top + Math.trunc((this.leftBtnRect_.height - 7) / 2); 
@@ -1552,11 +1494,11 @@ export class TScrollBar extends TControl {
             // 滑块
             vRect.inFlate(-1, 0);
             this.doDrawThumBefor_(hclCanvas, vRect);
-            hclCanvas.brush.color = hcl.theme.backgroundHotColor;
+            hclCanvas.brush.color = theme.backgroundHotColor;
             hclCanvas.fillRect(vRect);
 
-            hclCanvas.pen.color = hcl.theme.borderColor;
             hclCanvas.beginPath();
+            hclCanvas.pen.color = theme.borderColor;
             hclCanvas.drawLine(vRect.left, vRect.top, vRect.right, vRect.top);
             hclCanvas.drawLine(vRect.right - 1, vRect.top, vRect.right - 1, vRect.bottom);
             hclCanvas.drawLine(vRect.right, vRect.bottom, vRect.left, vRect.bottom);
@@ -1568,8 +1510,8 @@ export class TScrollBar extends TControl {
             hclCanvas.drawLine(5, vRect.top + 3, this.width - 5, vRect.top + 3);
             hclCanvas.paintPath();
 
-            hclCanvas.pen.color = hcl.theme.backgroundHotColor;
             hclCanvas.beginPath();
+            hclCanvas.pen.color = theme.backgroundHotColor;
             // 上按钮
             vRect.left = this.leftBtnRect_.left + Math.trunc((this.leftBtnRect_.width - 7) / 2);
             vRect.top = this.leftBtnRect_.top + Math.trunc((this.leftBtnRect_.height - 4) / 2) + 4;
@@ -1590,7 +1532,7 @@ export class TScrollBar extends TControl {
     }
 
     get orientation() {
-        return this.orientation_;
+        return this._orientation;
     }
 
     set orientation(val) {
@@ -1598,7 +1540,7 @@ export class TScrollBar extends TControl {
     }
 
     get min() {
-        return this.min_;
+        return this._min;
     }
 
     set min(val) {
@@ -1606,7 +1548,7 @@ export class TScrollBar extends TControl {
     }
 
     get max() {
-        return this.max_;
+        return this._max;
     }
 
     set max(val) {
@@ -1614,7 +1556,7 @@ export class TScrollBar extends TControl {
     }
 
     get pageSize() {
-        return this.pageSize_();
+        return this._pageSize();
     }
 
     set pageSize(val) {
@@ -1622,7 +1564,7 @@ export class TScrollBar extends TControl {
     }
 
     get position() {
-        return this.position_;
+        return this._position;
     }
 
     set position(val) {
@@ -1630,12 +1572,12 @@ export class TScrollBar extends TControl {
     }
 
     get btnStep() {
-        return this.btnStep_;
+        return this._btnStep;
     }
 
     set btnStep(val) {
-        if (this.btnStep_ != val)
-            this.btnStep_ = val;
+        if (this._btnStep != val)
+            this._btnStep = val;
     }
 
     get onScroll() {
@@ -1647,214 +1589,85 @@ export class TScrollBar extends TControl {
     }
 }
 
-class TCustomProgress extends TControl {
+export class TProgressBar extends TControl {
     constructor() {
         super();
-        this.min_ = 0;
-        this.max_ = 100;
-        this.position_ = 0;
-        this.precent_ = 0;
-        this.width_ = 100;
-        this.height_ = 20;
-        this.onChange = null;
+        this._min = 0;
+        this._max = 100;
+        this._position = 0;
+        this._precent = 0;
+        this._width = 100;
+        this._height = 20;
     }
 
-    doReset() {
-        if (this.min_ > this.max_)
-            this.min_ = this.max_;
+    _reset() {
+        if (this._min > this._max)
+            this._min = this._max;
 
-        if (this.position_ < this.min_)
-            this.position_ = this.min_;
+        if (this._position < this._min)
+            this._position = this._min;
 
-        if (this.position_ > this.max_)
-            this.position_ = this.max_;
+        if (this._position > this._max)
+            this._position = this._max;
 
-        if (this.max_ > this.min_)  // 防止除0错
-            this.precent_ = (this.position_ - this.min_) / (this.max_ - this.min_);
+        if (this._max > this._min)  // 防止除0错
+            this._precent = (this._position - this._min) / (this._max - this._min);
         else
-            this.precent_ = 0;
-    }
+            this._precent = 0;
 
-    reset() {
-        this.doReset();
         this.update();
     }
 
     doPaintBackground_(hclCanvas) {
-        hclCanvas.brush.color = hcl.theme.backgroundStaticColor;
+        hclCanvas.brush.color = theme.backgroundStaticColor;
         hclCanvas.fillBounds(0, 0, this.width, this.height);
-        hclCanvas.brush.color = hcl.theme.backgroundDownColor;
-        hclCanvas.fillBounds(0, 0,  Math.trunc(this.width * this.precent_), this.height);
+        hclCanvas.brush.color = theme.backgroundLightColor;
+        hclCanvas.fillBounds(0, 0, Math.trunc(this.width * this._precent), this.height);
     }
 
     doPaint_(hclCanvas) { }  // eslint-disable-line
 
     get min() {
-        return this.min_;
+        return this._min;
     }
 
     set min(val) {
-        if (this.min_ != val) {
-            this.min_ = val;
-            this.reset();
+        if (this._min != val) {
+            this._min = val;
+            this._reset();
         }
     }
 
     get max() {
-        return this.max_;
+        return this._max;
     }
 
     set max(val) {
-        if (this.max_ != val) {
-            this.max_ = val;
-            this.reset();
+        if (this._max != val) {
+            this._max = val;
+            this._reset();
         }
     }
 
     get position() {
-        return this.position_;
+        return this._position;
     }
 
     set position(val) {
-        if (this.position_ != val) {
-            this.position_ = val;
-            this.reset();
-            if (this.onChange != null)
-                this.onChange();
+        if (this._position != val) {
+            this._position = val;
+            this._reset();
         }
     }
 }
 
-export class TProgressBar extends TCustomProgress {
-    constructor() {
-        super();
-        this.borderVisible_ = true;
-        this.percentVisible_ = true;
-    }
-
-    doPaintBackground_(hclCanvas) {
-        super.doPaintBackground_(hclCanvas);
-
-        if (this.percentVisible_) {
-            hclCanvas.font.assign(THCCanvas.DefaultFont);
-            let vLeft = Math.trunc(this.width * this.precent_)
-                - hclCanvas.textWidth(Math.trunc(this.precent_ * 100) + "%");
-
-            if (vLeft < 1)
-                vLeft = 1;
-
-            hclCanvas.textOut(vLeft, (this.height - THCCanvas.DefaultFont.height) / 2,
-                Math.trunc(this.precent_ * 100) + "%");
-        }
-
-        if (this.borderVisible_) {
-            hclCanvas.pen.width = 1;
-            hclCanvas.pen.color = hcl.theme.borderColor;
-            hclCanvas.rectangleBounds(0, 0, this.width, this.height);
-        }
-    }
-
-    get percentVisible() {
-        return this.percentVisible_;
-    }
-
-    set percentVisible(val) {
-        if (this.percentVisible_ != val) {
-            this.percentVisible_ = val;
-            this.update();
-        }
-    }
-
-    get borderVisible() {
-        return this.borderVisible_;
-    }
-
-    set borderVisible(val) {
-        if (this.borderVisible_ != val) {
-            this.borderVisible_ = val;
-            this.update();
-        }
-    }
-}
-
-export class TTrackBar extends TCustomProgress {
-    constructor() {
-        super();
-        this.thumHotRect_ = TRect.CreateByBounds(0, 2, hcl.theme.iconSize, this.height - 4);
-        this.thumRect_ = TRect.CreateByBounds(0, 0, hcl.theme.iconSize, this.height);
-        this.trackHeight_ = 5;
-        this.downPos_ = 0;
-        this.downX_ = 0;
-        this.orientation_ = TOrientation.Horizontal;
-    }
-
-    doReset() {
-        super.doReset();
-        let vPos = Math.trunc(this.width * this.precent_);
-        this.thumRect_.resetBounds(vPos - 8, (this.height - this.trackHeight_) / 2, hcl.theme.iconSize, this.trackHeight_);
-        this.thumHotRect_.resetBounds(this.thumRect_.left, 2, hcl.theme.iconSize, this.height - 4);
-    }
-
-    doPaintBackground_(hclCanvas) {
-        hclCanvas.brush.color = hcl.theme.backgroundDownColor;
-        hclCanvas.fillBounds(0, Math.trunc((this.height - this.trackHeight_) / 2), this.width, this.trackHeight_);
-        
-        hclCanvas.brush.color = hcl.theme.backgroundSelectColor;
-        if (this.mouseIn)
-            hclCanvas.fillRect(this.thumHotRect_);
-        else
-            hclCanvas.fillRect(this.thumRect_);
-    }
-
-    doMouseEnter_() {
-        super.doMouseEnter_();
-        this.update();
-    }
-
-    doMouseLeave_() {
-        super.doMouseLeave_();
-        this.update();
-    }
-
-    doMouseDown_(e) {
-        super.doMouseDown_(e);
-        if (this.thumHotRect_.pointInAt(e.x, e.y)) {
-            this.downPos_ = this.position_;
-            this.downX_ = e.x;
-        }
-        else
-            this.downX_ = -1;
-    }
-
-    doMouseMove_(e) {
-        super.doMouseMove_(e);
-
-        let vOffs = 0;
-        if (e.button == TMouseButton.Left) {
-            if (this.orientation_ == TOrientation.Horizontal) {
-                if (this.downX_ > 0) {
-                    vOffs = e.x - this.downX_;
-                    this.position = this.downPos_ + Math.round(vOffs / this.width * (this.max_ - this.min_));
-                }
-            } else {
-                if (this.downX_ > 0) {
-                    vOffs = e.y - this.downX_;
-                    this.position = this.downPos_ + Math.round(vOffs / this.height * (this.max_ - this.min_));
-                }
-            }
-        }
-    }
-}
-
-export let TControlState = {
+export var TControlState = {
     Creating: 1,
     Removing: 2,
-    Checked: 3,
-    Aligning: 4,
-    VisibleChange: 5
+    Checked: 3
 }
 
-export let TControlStyle = {
+export var TControlStyle = {
     ButtonRadio: 1,
     CheckBox: 2
 }
@@ -1864,27 +1677,24 @@ export class TWinControl extends TControl {
     constructor() {
         super();
 
-        this.state_.add(TControlState.Creating);
+        this.state_ = new Set([TControlState.Creating]);
         this.handle_ = 0;
         this.image = null;
+        
         this.controls = new TList();
         this.controls.onAdded = (control) => { this.doAddControl_(control); }
+        
         this.controls.onRemoved = (control) => { this.doRemoveControl_(control); }
+
         this._focusControl = null;
         this._captureControl = null;
         this._mouseMoveControl = null;
         this.state_.delete(TControlState.Creating);
-    }
+    }  
 
     doResize_() {
-        this.reAlign();
         super.doResize_();
-    }
-
-    added_(parent) {
-        super.added_(parent);
-        if (this.visible_ && !this.canFocus && this.focusControl != null)
-            this.focusControl.doSetFocus_(true);
+        this.reAlign();
     }
 
     doAddControl_(control) {
@@ -1892,8 +1702,43 @@ export class TWinControl extends TControl {
         control.added_(this);
         this.reAlignControl(control);
     }
-    
-    doAlign_() {
+
+    removed_() {
+        this.state_.add(TControlState.Removing);
+        super.removed_();
+        this.controls.clear();
+    }
+
+    doRemoveControl_(control) {
+        control.removed_();
+        this.reAlign();
+    }
+
+    childVisibleChange_(control, val) {  // eslint-disable-line
+        this.reAlign();
+    }
+
+    broadcast(msg, wparam, lparam) { 
+        let vControl = null;
+        for (let i = this.controls.count - 1; i >= 0; i--) {
+            vControl = this.controls[i];
+            if (vControl.visible)
+                vControl.broadcast(msg, wparam, lparam);
+        }
+    }
+
+    addControl(control) {
+        this.controls.add(control);
+    }
+
+    removeControl(control) {
+        this.controls.remove(control);
+    }
+
+    reAlign() {
+        if (this.state_.has(TControlState.Removing))
+            return;
+            
         let vLeft = this.paddingLeft;
         let vTop = this.paddingTop;
         let vRight = this.width - this.paddingRight;
@@ -1933,7 +1778,8 @@ export class TWinControl extends TControl {
             if (control.visible && (control.align == TAlign.Left)) {
                 control.left = vLeft + control.marginLeft;
                 control.top = vTop + control.marginTop;
-                control.height = vBottom - vTop - control.marginTop - control.marginBottom;
+                control.height = this.height - this.paddingBottom - this.paddingTop 
+                    - control.marginTop - control.marginBottom;
                 control.reAlign();
                 vLeft = control.left + control.width + control.marginRight;
             }
@@ -1946,7 +1792,8 @@ export class TWinControl extends TControl {
                 vRight = vRight - control.marginRight - control.width;
                 control.left = vRight;
                 control.top = vTop + control.marginTop;
-                control.height = vBottom - vTop - control.marginTop - control.marginBottom;
+                control.height = this.height - this.paddingTop - this.paddingBottom
+                    - control.marginTop - control.marginBottom;
                 control.reAlign();
                 vRight = control.left - control.marginLeft;
             }
@@ -1958,73 +1805,13 @@ export class TWinControl extends TControl {
             if (control.visible && (control.align == TAlign.Client)) {
                 control.left = vLeft + control.marginLeft;
                 control.top = vTop + control.marginTop;
-                control.width = vRight - vLeft - control.marginLeft - control.marginRight;
+                control.width = vRight - vLeft - control.marginLeft - control.marginTop;
                 control.height = vBottom - vTop - control.marginTop - control.marginBottom;
                 control.reAlign();
             }
         }
-    }
 
-    removed_() {
-        this.state_.add(TControlState.Removing);
-        super.removed_();
-        this.controls.clear();
-    }
-
-    doRemoveControl_(control) {
-        if (this._focusControl === control)
-            this._focusControl = null;
-
-        if (this._captureControl === control)
-            this._captureControl = null;
-
-        if (this._mouseMoveControl === control)
-            this._mouseMoveControl = null;
-
-        control.removed_();
-        //control = null; controls会根据ownsObjects处理为null
-        this.reAlign();
-    }
-
-    controlVisible_(control, val) {  // eslint-disable-line
-        if (!val && this.focusControl) {  // 隐藏不显示
-            if (this.focusControl == control || this.focusControl.isChildControl(control))
-                this.focusControl.killFocus();
-        }
-
-        this.reAlignControl(control);
-    }
-
-    insertControl(i, control) {
-        this.controls.insert(i, control);
-    }
-
-    addControl(control) {
-        this.controls.add(control);
-    }
-
-    removeControl(control) {
-        this.controls.remove(control);
-    }
-
-    reAlign() {
-        if (this.state_.has(TControlState.Creating))
-            return;
-
-        if (this.state_.has(TControlState.Aligning))  // 防止child reAlign时再次触发其parent的reAlign
-            return;
-        
-        if (this.state_.has(TControlState.Removing))
-            return;
-            
-        this.state_.add(TControlState.Aligning);
-        try {
-            this.doAlign_();
-            super.reAlign();
-        } finally {
-            this.state_.delete(TControlState.Aligning);
-            this.update();
-        }
+        super.reAlign();
     }
 
     reAlignControl(control) {
@@ -2042,7 +1829,7 @@ export class TWinControl extends TControl {
             }
         }
 
-        if (this.visible_ && this.parent != null)
+        if (this.parent != null)
             this.parent.setFocusControl_(control, accept);
     }
 
@@ -2050,19 +1837,6 @@ export class TWinControl extends TControl {
         this._focusControl = null;
         if (this.parent != null)
             this.parent.killFocusControl_(control);
-        else
-            hcl.application.killFocusControl_(control);
-    }
-
-    killFocus() {
-        if (this.focused)
-            super.killFocus();
-        else if (this._focusControl != null)
-            this._focusControl.killFocus();
-    }
-
-    deactivate() {
-        this.killFocus();
     }
 
     getControlIndexAt(x, y) {
@@ -2076,7 +1850,7 @@ export class TWinControl extends TControl {
         return -1;
     }
 
-    getControlAt(x, y, enabled = true) {  // 指定位置的control(不再进入control内部)
+    getControlAt(x, y, enabled = true) {
         let vIndex = this.getControlIndexAt(x, y);
         if (vIndex >= 0) {
             let vControl = this.controls[vIndex];
@@ -2089,7 +1863,7 @@ export class TWinControl extends TControl {
         return null;
     }
 
-    getControlAtPos(x, y, enabled = true) {  // 指定位置的control(进入control内部)
+    getControlAtPos(x, y, enabled = true) {
         let vControl = this.getControlAt(x, y, enabled);
         if (vControl != null) {
             if (vControl.isClass(TWinControl))
@@ -2123,28 +1897,16 @@ export class TWinControl extends TControl {
     }
 
     mouseDown(e) {
-        let vControl = this.getControlAt(e.x, e.y);
-
-        if (this.designState) {
-            if (vControl != null)
-                vControl.hclSelect();
-            else
-                this.hclSelect();
-        }
-
-        if (vControl != null) {
-            this._captureControl = vControl;
+        this._captureControl = this.getControlAt(e.x, e.y);
+        if (this._captureControl != null) {
             let vMouseArgs = new TMouseEventArgs();
             vMouseArgs.assign(e);
             vMouseArgs.x = e.x - this._captureControl.left;
             vMouseArgs.y = e.y - this._captureControl.top;
             this._captureControl.mouseDown(vMouseArgs);
-        } else {
-            if (this._focusControl != null)
-                this._focusControl.killFocus();
-
-            super.mouseDown(e);
         }
+        else
+            super.mouseDown(e);
     }
 
     mouseMove(e) {
@@ -2175,7 +1937,7 @@ export class TWinControl extends TControl {
             this._mouseMoveControl.mouseMove(vMouseArgs);
         }
         else {
-            hcl.application.setCursorBy(this);
+            application.setCursorBy(this);
             super.mouseMove(e);
         }
     }
@@ -2209,68 +1971,54 @@ export class TWinControl extends TControl {
     doKeyDown_(e) {
         if (this._focusControl != null)
             this._focusControl.keyDown(e);
-        else if (!this.keyPreview)  // 配合form的keyPreview避免不必要的Key事件触发
+        else
             super.doKeyDown_(e);
     }
 
     doKeyPress_(e) {
         if (this._focusControl != null)
             this._focusControl.keyPress(e);
-        else if (!this.keyPreview)  // 配合form的keyPreview避免不必要的Key事件触发
+        else
             super.doKeyPress_(e);
     }
 
     doKeyUp_(e) {
         if (this._focusControl != null)
             this._focusControl.keyUp(e);
-        else if (!this.keyPreview)  // 配合form的keyPreview避免不必要的Key事件触发
+        else
             super.doKeyUp_(e);
     }
 
     doPaintBackground_(hclCanvas) {
         if (this.image != null) 
-            hclCanvas.drawImage(0, 0, this.image.image);
+            hclCanvas.drawImage(this.image, 0, 0, this.width, this.height);
         else {
-            if (this.color != null)
-                hclCanvas.brush.color = this.color;
-            else
-                hclCanvas.brush.color = hcl.theme.backgroundStaticColor;
-                
+            hclCanvas.brush.color = theme.backgroundStaticColor;
             hclCanvas.fillBounds(0, 0, this.width, this.height);
         }
 
-        super.doPaintBackground_(hclCanvas);
+        super.doPaintBackground_();
     }
 
     doPaint_(hclCanvas) {
         let vControl = null;
         for (let i = 0; i < this.controls.count; i++) {
             vControl = this.controls[i];
-            if (!vControl.visible)
-                continue;
-
             hclCanvas.save();
             try {
                 // to do 处理旋转的区域
                 hclCanvas.translate(vControl.left, vControl.top);
-                if (vControl.drawShadow)  // 为实现emr数据元弹出窗体阴影临时加的
-                    hcl.theme.drawShadow(hclCanvas, TRect.CreateByBounds(0, 0, vControl.width, vControl.height), true);
-                
                 hclCanvas.clip(0, 0, vControl.width, vControl.height);
                 vControl.paint(hclCanvas);
             } finally {
                 hclCanvas.restore();
             }
         }
-
-        super.doPaint_(hclCanvas);
     }
 
-    broadcast(message, wParam = 0, lParam = 0) {
-        for (let i = 0; i < this.controls.count; i++)
-            this.controls[i].broadcast(message, wParam, lParam);
-
-        super.broadcast(message, wParam, lParam);
+    updateRect(rect) {
+        if (this.visible_ && this.parent != null)
+            this.parent.updateRect(rect.offset(this.left, this.top, true));
     }
 
     get handle() {
@@ -2286,79 +2034,4 @@ export class TCustomControl extends TWinControl {
     constructor() {
         super();
     }
-}
-
-export class TPopupWinControl extends TCustomControl {
-    constructor() {
-        super();
-        this.dropDownStyle = false;
-        this.popupLinkedList = null;
-        this.forward = null;
-        this.next = null;
-        this.onDone = null;
-    }
-
-    _doPaintShadow(hclCanvas, rect) {
-        hclCanvas.brush.color = hcl.theme.backgroundStaticColor;
-        hclCanvas.fillRectShadow(rect, hcl.theme.shadow);
-    }
-
-    doPaintBackground_(hclCanvas) {
-        let vRect = this.clientRect();
-        hcl.theme.drawShadow(hclCanvas, vRect, this.dropDownStyle);
-        super.doPaintBackground_(hclCanvas);
-    }
-
-    updateRect(rect) {
-        hcl.application.updateRect(rect.offset(this.left, this.top, true));
-    }
-
-    popup(x, y, root) {
-        this.left = x;
-        this.top = y;
-        this.visible = true;
-        hcl.application.trackPopupControl(this, root);
-    }
-
-    popupControl(control) {
-        let point = control.clientToScreenAt(0, 0);
-        this.popup(point.x, point.y + control.height, true);
-    }
-
-    donePopup() {  // 完成popup链
-        hcl.application.closePopupControl(this.popupLinkedList.first);
-        if (this.onDone != null)
-            this.onDone();
-    }
-
-    closePopup() {
-        this.deactivate();
-        if (this.onClose != null)
-            this.onClose();
-    }
-
-    close() {  // 我关闭后把我的后续popup链关闭
-        hcl.application.closePopupControl(this);
-    }
-
-    // _controlUpdate(rect) {
-    //     this.updateRect(rect.offset(this._winControl.left, this._winControl.top));
-    // }
-
-    // _setControl(val) {
-    //     if (this._winControl !== val) {
-    //         this._winControl = val;
-    //         this._winControl.onUpdate = (rect) => {
-    //             this._controlUpdate(rect);
-    //         }
-    //     }
-    // }
-
-    // get control() {
-    //     return this._winControl;
-    // }
-
-    // set control(val) {
-    //     this._setControl(val);
-    // }
 }
