@@ -23,6 +23,17 @@ public class ConvertUtil {
         return obj == null || "".equals(obj) || CommonConstant.STRING_NULL.equals(obj);
     }
 
+    public static boolean isNotEmpty(Object object) {
+        return object != null && !"".equals(object) && !object.equals(CommonConstant.STRING_NULL);
+    }
+
+    public static String getString(String s, String defval) {
+        if (isEmpty(s)) {
+            return (defval);
+        }
+        return (s.trim());
+    }
+
     /**
      * 随机数
      *

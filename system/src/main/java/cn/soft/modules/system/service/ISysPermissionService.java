@@ -1,8 +1,7 @@
 package cn.soft.modules.system.service;
 
-import cn.soft.modules.system.entity.SysPermission;
-
-import java.util.List;
+import cn.soft.common.api.vo.Result;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * @ClassName ISysPermissionService
@@ -19,5 +18,5 @@ public interface ISysPermissionService {
      * @param userId 用户ID
      * @return 权限数据
      */
-    List<SysPermission> queryByUser(String userId);
+    Result<JSONObject> queryByUser(String userId);
 }

@@ -85,7 +85,7 @@ VALUES ('00001', '2022-11-29 12:50:22', '00001', '2022-11-29 12:50:26', 'soap', 
         NULL, NULL, 0, 0, 'PRODUCER');
 
 /* 系统菜单表 */
-INSERT INTO `t_sys_permission` VALUES ('d7d6e2e4e2934f2c9385a623fd98c6f3', '', '系统管理', '/system', 'layouts/BasicLayout', NULL, NULL, 0, NULL, NULL, 4.00, 0, 'setting', 1, 0, NULL, 0, NULL, NULL, NULL, '2018-12-25 20:34:38', 'admin', '2019-03-31 22:19:52', 0, 0, NULL, NULL);
+INSERT INTO `t_sys_permission` VALUES ('d7d6e2e4e2934f2c9385a623fd98c6f3', '', '系统管理', '/system', '', NULL, NULL, 0, NULL, NULL, 4.00, 0, 'setting', 1, 0, NULL, 0, NULL, NULL, NULL, '2018-12-25 20:34:38', 'admin', '2019-03-31 22:19:52', 0, 0, NULL, NULL);
 INSERT INTO `t_sys_permission` VALUES ('1170592628746878978', 'd7d6e2e4e2934f2c9385a623fd98c6f3', '菜单管理', '/system/menu', 'system/Menu', NULL, NULL, 1, NULL, '1', 1.30, 0, NULL, 1, 1, 0, 0, 0, NULL, 'admin', '2019-09-08 15:00:05', 'admin', '2022-10-14 18:01:57', 0, 0, '1', 0);
-INSERT INTO `t_sys_permission` VALUES ('190c2b43bec6a5f7a4194a85db67d96a', 'd7d6e2e4e2934f2c9385a623fd98c6f3', '角色管理', '/system/roleUserList', 'system/RoleUserList', NULL, NULL, 1, NULL, NULL, 1.20, 0, NULL, 1, 1, 0, 0, NULL, NULL, 'admin', '2019-04-17 15:13:56', 'admin', '2019-12-25 09:36:31', 0, 0, NULL, 0);
-INSERT INTO `t_sys_permission` VALUES ('3f915b2769fc80648e92d04e84ca059d', 'd7d6e2e4e2934f2c9385a623fd98c6f3', '用户管理', '/system/user', 'system/UserList', NULL, NULL, 1, NULL, NULL, 1.10, 0, NULL, 1, 0, 1, 0, 0, NULL, NULL, '2018-12-25 20:34:38', 'admin', '2022-10-14 18:09:03', 0, 0, NULL, 0);
+INSERT INTO `t_sys_permission` VALUES ('190c2b43bec6a5f7a4194a85db67d96a', 'd7d6e2e4e2934f2c9385a623fd98c6f3', '角色管理', '/system/role', 'system/Role', NULL, NULL, 1, NULL, NULL, 1.20, 0, NULL, 1, 1, 0, 0, NULL, NULL, 'admin', '2019-04-17 15:13:56', 'admin', '2019-12-25 09:36:31', 0, 0, NULL, 0);
+INSERT INTO `t_sys_permission` VALUES ('3f915b2769fc80648e92d04e84ca059d', 'd7d6e2e4e2934f2c9385a623fd98c6f3', '用户管理', '/system/user', 'system/User', NULL, NULL, 1, NULL, NULL, 1.10, 0, NULL, 1, 0, 1, 0, 0, NULL, NULL, '2018-12-25 20:34:38', 'admin', '2022-10-14 18:09:03', 0, 0, NULL, 0);

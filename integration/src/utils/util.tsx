@@ -15,10 +15,14 @@ import BasicLayout from "@layouts/BasicLayout";
 export function handleRouter(routerList: RouteItem[], newArr: string[] = [], menuList: RouteObject[] = []) {
     routerList.forEach((item: RouteItem) => {
         let menu: RouteObject = {};
-        if(typeof item === "object" && item.path ) {
+        if(typeof item === "object" && item.path) {
             newArr.push(item.path);
             menu['path'] = item.path
-            menu['element'] = lazyLoad(React.lazy(() => import("@/pages/" + item.component)));
+            if (item.component.includes("layouts")) {
+                menu['element'] = lazyLoad(React.lazy(() => import("@/layouts/BasicLayout")));
+            } else {
+                menu['element'] = lazyLoad(React.lazy(() => import("@/pages/" + item.component)));
+            }
             menuList.push(menu);
         }
         if (item.children && item.children.length) {
