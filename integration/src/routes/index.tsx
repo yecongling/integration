@@ -2,7 +2,7 @@
  * 路由
  */
 import {RouteItem} from "/#/router";
-import {Navigate, useRoutes} from "react-router-dom";
+import {useRoutes} from "react-router-dom";
 import BasicLayout from "@layouts/BasicLayout";
 import Home from "@/pages/Home";
 import Login from "@/pages/user/Login";
@@ -11,7 +11,7 @@ import Home1 from "@/pages/Home1";
 export const rootRouter: RouteItem[] = [
     {
         path: "/",
-        element: <Navigate to="/home" />
+        element: <BasicLayout/>
     },
     {
         path: "/login",
