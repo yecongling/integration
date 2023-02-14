@@ -86,6 +86,7 @@ public class SysLoginServiceImpl extends BaseCommonServiceImpl implements ISysLo
         JSONObject obj = new JSONObject(new LinkedHashMap<>());
         obj.put("userInfo", sysUser);
         obj.put("token", sysUser.getId());
+        obj.put("status", "ok");
         result.setResult(obj);
         result.success("登录成功");
     }
