@@ -1,124 +1,29 @@
-import {MenuFoldOutlined, MenuUnfoldOutlined} from '@ant-design/icons';
-import type {ProLayoutProps, ProSettings} from '@ant-design/pro-components';
-import {PageContainer, ProFormRadio, ProLayout, SettingDrawer} from '@ant-design/pro-components';
-import {useState} from 'react';
-import defaultProps from './_defaultProps';
-
-export default () => {
-    const [pathname, setPathname] = useState('/welcome');
-    const [collapsed, setCollapsed] = useState(true);
-    const [position, setPosition] = useState<'header' | 'menu'>('header');
-    const [settings, setSetting] = useState<Partial<ProSettings> | undefined>({
-        layout: 'mix',
-    });
-    const children = (
-        <PageContainer>
-            <div
-                style={{
-                    height: '120vh',
-                    minHeight: 600,
-                }}
-            >
-                <ProFormRadio.Group
-                    label="按钮的位置"
-                    options={['header', 'menu'].map((value) => ({
-                        label: value,
-                        value,
-                    }))}
-                    fieldProps={{
-                        value: position,
-                        onChange: (e) => setPosition(e.target.value),
-                    }}
-                />
-            </div>
-        </PageContainer>
-    );
-    const props: ProLayoutProps = {
-        ...defaultProps,
-        location: {
-            pathname,
-        },
-        collapsed,
-        fixSiderbar: true,
-        collapsedButtonRender: false,
-        menuItemRender: (item, dom) => (
-            <a
-                onClick={() => {
-                    setPathname(item.path || '/welcome');
-                }}
-            >
-                {dom}
-            </a>
-        ),
-    };
-    if (position === 'menu') {
-        return (
-            <>
-                <ProLayout
-                    {...props}
-                    layout="mix"
-                    onCollapse={setCollapsed}
-                    postMenuData={(menuData) => {
-                        return [
-                            {
-                                icon: collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined/>,
-                                name: ' ',
-                                onTitleClick: () => setCollapsed(!collapsed),
-                            },
-                            ...(menuData || []),
-                        ];
-                    }}
-                    {...settings}
-                >
-                    {children}
-                </ProLayout>
-                <SettingDrawer
-                    pathname={pathname}
-                    enableDarkTheme
-                    getContainer={() => document.getElementById('test-pro-layout')}
-                    settings={settings}
-                    onSettingChange={(changeSetting) => {
-                        setSetting(changeSetting);
-                    }}
-                    disableUrlParams={false}
-                />
-            </>
-        );
-    }
+import React from "react";
+import {Layout} from "antd";
+import Header from "@layouts/Header";
+import "@styles/scss/layout/layout.scss";
+import LeftMenu from "@layouts/LeftMenu";
+import TagList from "@layouts/TagList";
+import Content from "@layouts/Content";
+/* 基础布局 */
+const BasicLayout: React.FC = () => {
     return (
-        <>
-            <ProLayout
-                {...props}
-                layout="mix"
-                onCollapse={setCollapsed}
-                headerContentRender={() => {
-                    return (
-                        <div
-                            onClick={() => setCollapsed(!collapsed)}
-                            style={{
-                                cursor: 'pointer',
-                                fontSize: '16px',
-                            }}
-                        >
-                            {collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined/>}
-                        </div>
-                    );
-                }}
-                {...settings}
-            >
-                {children}
-            </ProLayout>
-            <SettingDrawer
-                pathname={pathname}
-                enableDarkTheme
-                getContainer={() => document.getElementById('test-pro-layout')}
-                settings={settings}
-                onSettingChange={(changeSetting) => {
-                    setSetting(changeSetting);
-                }}
-                disableUrlParams={false}
-            />
-        </>
+        <Layout style={{minHeight: '100%'}}>
+            {/* 顶部 */}
+            <Header/>
+            <Layout>
+                {/* 左边菜单 */}
+                <LeftMenu/>
+                <Layout>
+                    <div className="tagsView-container">
+                        <TagList/>
+                    </div>
+                    {/* 中间内容区域 */}
+                    <Content/>
+                </Layout>
+            </Layout>
+        </Layout>
+    )
+}
 
-    );
-};
+export default BasicLayout;
