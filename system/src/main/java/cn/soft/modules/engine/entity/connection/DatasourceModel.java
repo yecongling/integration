@@ -13,7 +13,7 @@ public class DatasourceModel extends BaseModel {
 
     private static final long serialVersionUID = 4638946782786699715L;
     /* 连接ID 连接以 */
-    private String datasourceId;
+    private String id;
     /* 数据源名 */
     private String name;
     /* 数据源类型 */
@@ -39,12 +39,12 @@ public class DatasourceModel extends BaseModel {
     /* 最大连接池数量 */
     private Integer maxPoolSize;
 
-    public String getDatasourceId() {
-        return datasourceId;
+    public String getId() {
+        return id;
     }
 
-    public void setDatasourceId(String datasourceId) {
-        this.datasourceId = datasourceId;
+    public void setId(String datasourceId) {
+        this.id = datasourceId;
     }
 
     public String getName() {

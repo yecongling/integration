@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.soft.modules.engine.mapper.DatasourceMapper">
+
+    <!-- 建立映射 -->
+    <resultMap id="datasourceModel" type="cn.soft.modules.engine.entity.connection.DatasourceModel">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="datasource_type" property="datasourceType"/>
+        <result column="datasource_url" property="url"/>
+        <result column="test_query" property="testQuery"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="variable_password" property="variablePassword"/>
+        <result column="connection_timeout" property="connectionTimeout"/>
+        <result column="idle_timeout" property="idleTimeout"/>
+        <result column="max_lifetime" property="maxLifetime"/>
+        <result column="min_idle" property="minIdle"/>
+        <result column="max_pool_size" property="maxPoolSize"/>
+    </resultMap>
+
+    <!-- 查询数据源 -->
+    <select id="queryDatasource" resultMap="datasourceModel">
+        select *
+        from integration.t_data_source
+    </select>
+
+</mapper>

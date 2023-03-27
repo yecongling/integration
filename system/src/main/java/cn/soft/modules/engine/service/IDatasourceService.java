@@ -19,9 +19,11 @@ public interface IDatasourceService {
      * 查询所有的数据源信息
      *
      * @param datasource 查询条件
+     * @param pageNo -
+     * @param pageSize -
      * @return 数据源信息集合
      */
-    Result<List<DatasourceModel>> queryDatasource(DatasourceModel datasource);
+    Result<List<DatasourceModel>> queryDatasource(DatasourceModel datasource, int pageNo, int pageSize);
 
     /**
      * 添加数据源

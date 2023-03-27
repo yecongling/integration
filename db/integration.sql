@@ -132,22 +132,25 @@ CREATE TABLE `t_sys_permission`
 DROP TABLE IF EXISTS `t_data_source`;
 CREATE TABLE `t_data_source`
 (
-    `id`           varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL,
-    `code`         varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '数据源编码',
-    `name`         varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '数据源名称',
-    `remark`       varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
-    `db_type`      varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '数据库类型',
-    `db_driver`    varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '驱动类',
-    `db_url`       varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '数据源地址',
-    `db_name`      varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '数据库名称',
-    `db_username`  varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户名',
-    `db_password`  varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '密码',
-    `create_by`    varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '创建人',
-    `create_time`  datetime                                                      NULL DEFAULT NULL COMMENT '创建日期',
-    `update_by`    varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '更新人',
-    `update_time`  datetime                                                      NULL DEFAULT NULL COMMENT '更新日期',
-    PRIMARY KEY (`id`) USING BTREE,
-    UNIQUE INDEX `uk_sdc_rule_code` (`code`) USING BTREE
+    `id`                 varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL,
+    `name`               varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '数据源名称',
+    `remark`             varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+    `datasource_type`    varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '数据库类型',
+    `datasource_url`     varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '数据源地址',
+    `test_query`         varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '测试语句',
+    `username`           varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户名',
+    `password`           varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '密码',
+    `variable_password`   bit                                                           NULL DEFAULT NULL COMMENT '使用变量',
+    `connection_timeout` int                                                                default 30 NOT NULL COMMENT '连接超时时间',
+    `idle_timeout`       int                                                                default 30 NOT NULL COMMENT '闲置超时时间',
+    `max_lifetime`       int                                                                default 30 not null COMMENT '连接存活时间',
+    `min_idle`           int                                                                default 8 not null COMMENT '最小闲置连接数',
+    `max_pool_size`      int                                                                default 20 not null COMMENT '最大连接池数量',
+    `create_by`          varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '创建人',
+    `create_time`        datetime                                                      NULL DEFAULT NULL COMMENT '创建日期',
+    `update_by`          varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '更新人',
+    `update_time`        datetime                                                      NULL DEFAULT NULL COMMENT '更新日期',
+    PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci
