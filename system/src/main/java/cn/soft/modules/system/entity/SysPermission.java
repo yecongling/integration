@@ -156,9 +156,9 @@ public class SysPermission extends BaseModel {
         if (index) {
             this.id = "9502685863ab87f0ad1134142788a385";
             this.name = "首页";
-            this.component = "dashboard/Analysis";
-            this.componentName = "dashboard-analysis";
-            this.url = "/dashboard/analysis";
+            this.component = "Home";
+            this.componentName = "home";
+            this.url = "/home";
             this.icon = "home";
             this.menuType = 0;
             this.sortNo = 0.0;
