@@ -5,7 +5,7 @@
     <parent>
         <artifactId>spring-boot-starter-parent</artifactId>
         <groupId>org.springframework.boot</groupId>
-        <version>2.4.5</version>
+        <version>2.6.7</version>
     </parent>
     <groupId>cn.soft</groupId>
     <artifactId>integration</artifactId>
@@ -14,7 +14,7 @@
     <description>integration</description>
     <packaging>pom</packaging>
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <camel.version>3.7.4</camel.version>
         <!-- 持久层 -->
         <mybatis.version>2.2.0</mybatis.version>
@@ -100,13 +100,6 @@
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>hazelcast</artifactId>
-        </dependency>
-
-        <!-- 引入rocketMQ -->
-        <dependency>
-            <groupId>org.apache.rocketmq</groupId>
-            <artifactId>rocketmq-spring-boot-starter</artifactId>
-            <version>2.2.2</version>
         </dependency>
 
         <!-- 核心包 -->
