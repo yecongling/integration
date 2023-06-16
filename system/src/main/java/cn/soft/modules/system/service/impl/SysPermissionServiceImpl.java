@@ -56,6 +56,26 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     }
 
     /**
+     * 获取所有菜单 这里需要修改，处理成上下级的那种数据，和上面的路由的数据格式不一致
+     *
+     * @return 所有菜单
+     */
+    @Override
+    public Result<JSONObject> getAllPermission() throws Exception {
+        Result<JSONObject> result = new Result<>();
+        List<SysPermission> allPermission = sysPermissionMapper.getAllPermission();
+        // 构建菜单的上下级结构关系
+        JSONArray jsonArray = new JSONArray();
+        this.getPermissionJsonArray(jsonArray, allPermission, null);
+        // 路由菜单
+        JSONObject json = new JSONObject();
+        json.put("data", jsonArray);
+        result.setResult(json);
+        result.setCode(200);
+        return result;
+    }
+
+    /**
      * 获取菜单json数组
      *
      * @param array       json数组
@@ -88,7 +108,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
                         permissionList.add(json);
                         meta.put("permissionList", permissionList);
                     }
-                }else if (permission.getMenuType().equals(CommonConstant.MENU_TYPE_1) || permission.getMenuType().equals(CommonConstant.MENU_TYPE_0)) {
+                } else if (permission.getMenuType().equals(CommonConstant.MENU_TYPE_1) || permission.getMenuType().equals(CommonConstant.MENU_TYPE_0)) {
                     if (parentJSON.containsKey("children")) {
                         parentJSON.getJSONArray("children").add(json);
                     } else {
@@ -138,7 +158,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
             meta.put("title", permission.getName());
             String component = permission.getComponent();
             if (ConvertUtil.isNotEmpty(permission.getComponentName()) || ConvertUtil.isNotEmpty(component)) {
-                meta.put("componentName", ConvertUtil.getString(permission.getComponentName(),component.substring(component.lastIndexOf("/")+1)));
+                meta.put("componentName", ConvertUtil.getString(permission.getComponentName(), component.substring(component.lastIndexOf("/") + 1)));
             }
             if (ConvertUtil.isEmpty(permission.getParentId())) {
                 // 一级菜单跳转地址

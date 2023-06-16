@@ -19,4 +19,11 @@ public interface ISysPermissionService {
      * @return 权限数据
      */
     Result<JSONObject> queryByUser(String userId);
+
+    /**
+     * 获取所有菜单
+     *
+     * @return 所有菜单
+     */
+    Result<JSONObject> getAllPermission() throws Exception;
 }

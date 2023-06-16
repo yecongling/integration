@@ -3,7 +3,7 @@ greeting: Hello World
 # how often to trigger the timer (millis)
 myPeriod: 2000
 server:
-  port: 8082
+  port: 8080
   undertow:
     threads:
       io: 4

@@ -15,6 +15,15 @@
 
     <!-- 查询用户权限 -->
     <select id="queryByUser" parameterType="object" resultMap="SysPermission">
-        select * from t_sys_permission order by sort_no asc
+        select *
+        from t_sys_permission
+        order by sort_no asc
+    </select>
+
+    <!-- 查询所有菜单 -->
+    <select id="getAllPermission" resultMap="SysPermission">
+        select *
+        from t_sys_permission
+        order by sort_no asc
     </select>
 </mapper>

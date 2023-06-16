@@ -38,4 +38,14 @@ public class SysPermissionController {
     public Result<JSONObject> getUserPermissionByToken(HttpServletRequest request) {
         return sysPermissionService.queryByUser("");
     }
+
+    /**
+     * 获取所有菜单
+     *
+     * @return 菜单信息
+     */
+    @RequestMapping(value = "/getAllPermission", method = RequestMethod.POST)
+    public Result<JSONObject> getAllPermission() throws Exception{
+        return sysPermissionService.getAllPermission();
+    }
 }

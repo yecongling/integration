@@ -23,4 +23,11 @@ public interface SysPermissionMapper {
      * @return 用户权限
      */
     List<SysPermission> queryByUser(@Param("userId") String userId);
+
+    /**
+     * 获取所有菜单信息
+     *
+     * @return 菜单信息
+     */
+    List<SysPermission> getAllPermission();
 }
