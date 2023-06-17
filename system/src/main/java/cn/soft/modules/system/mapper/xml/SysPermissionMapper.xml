@@ -11,6 +11,7 @@
         <result column="is_leaf" property="leaf"/>
         <result column="menu_type" property="menuType"/>
         <result column="component_name" property="componentName"/>
+        <result column="sort_no" property="sortNo"/>
     </resultMap>
 
     <!-- 查询用户权限 -->

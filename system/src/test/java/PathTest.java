@@ -1,3 +1,6 @@
+import cn.soft.common.util.ConvertUtil;
+import cn.soft.common.util.PasswordUtil;
+
 /**
  * @ClassName PathTest
  * @Description TODO
@@ -7,7 +10,10 @@
  */
 public class PathTest {
 
-    public static void main(String[] args) {
-        System.out.println(System.getProperty("user.home"));
+    public static void main(String[] args) throws Exception {
+        String salt = ConvertUtil.randomGen(8);
+        String passwordEncode = PasswordUtil.encrypt("admin", "123123", salt);
+        System.out.println(salt);
+        System.out.println(passwordEncode);
     }
 }

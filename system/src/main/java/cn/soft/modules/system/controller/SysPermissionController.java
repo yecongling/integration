@@ -4,6 +4,7 @@ import cn.soft.common.api.vo.Result;
 import cn.soft.modules.system.service.ISysPermissionService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,10 +43,12 @@ public class SysPermissionController {
     /**
      * 获取所有菜单
      *
+     * @param object 请求参数
      * @return 菜单信息
      */
     @RequestMapping(value = "/getAllPermission", method = RequestMethod.POST)
-    public Result<JSONObject> getAllPermission() throws Exception{
+    public Result<JSONObject> getAllPermission(@RequestBody JSONObject object) throws Exception{
+        System.out.println("请求参数是：" + object.toJSONString());
         return sysPermissionService.getAllPermission();
     }
 }

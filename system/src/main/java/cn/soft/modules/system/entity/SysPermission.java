@@ -2,7 +2,9 @@ package cn.soft.modules.system.entity;
 
 import cn.soft.common.api.vo.BaseModel;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ClassName SysPermission
@@ -18,6 +20,11 @@ public class SysPermission extends BaseModel {
      * id
      */
     private String id;
+
+    /**
+     * 用在前台的key
+     */
+    private String key;
 
     /**
      * 父id
@@ -147,6 +154,11 @@ public class SysPermission extends BaseModel {
      * 外链菜单打开方式 0/内部打开 1/外部打开
      */
     private boolean internalOrExternal;
+
+    /**
+     * 下级子菜单（功能按钮）
+     */
+    private List<SysPermission> children;
 
     public SysPermission() {
 
@@ -388,5 +400,24 @@ public class SysPermission extends BaseModel {
 
     public void setInternalOrExternal(boolean internalOrExternal) {
         this.internalOrExternal = internalOrExternal;
+    }
+
+    public List<SysPermission> getChildren() {
+        if (children == null) {
+            children = new ArrayList<>();
+        }
+        return children;
+    }
+
+    public void setChildren(List<SysPermission> children) {
+        this.children = children;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

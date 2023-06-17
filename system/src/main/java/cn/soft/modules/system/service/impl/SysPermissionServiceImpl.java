@@ -9,10 +9,14 @@ import cn.soft.modules.system.mapper.SysPermissionMapper;
 import cn.soft.modules.system.service.ISysPermissionService;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName SysPermissionServiceImpl
@@ -65,14 +69,39 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         Result<JSONObject> result = new Result<>();
         List<SysPermission> allPermission = sysPermissionMapper.getAllPermission();
         // 构建菜单的上下级结构关系
-        JSONArray jsonArray = new JSONArray();
-        this.getPermissionJsonArray(jsonArray, allPermission, null);
+        List<SysPermission> sysPermissions = this.buildPermission(allPermission);
         // 路由菜单
         JSONObject json = new JSONObject();
-        json.put("data", jsonArray);
+        json.put("data", sysPermissions);
         result.setResult(json);
         result.setCode(200);
         return result;
+    }
+
+    /**
+     * 构建菜单数据
+     * @param permissions 查出来的菜单数据
+     * @return 构建好的菜单数据
+     */
+    private List<SysPermission> buildPermission(List<SysPermission> permissions) {
+        Map<String, SysPermission> idToPermissionMap = new HashMap<>();
+        for (SysPermission permission : permissions) {
+            idToPermissionMap.put(permission.getId(), permission);
+        }
+        List<SysPermission> roots = new ArrayList<>();
+        for (SysPermission permission : permissions) {
+            String parentId = permission.getParentId();
+            permission.setKey(permission.getId());
+            if (StringUtils.isBlank(parentId)) {
+                roots.add(permission);
+            } else {
+                SysPermission parent = idToPermissionMap.get(parentId);
+                if (parent != null) {
+                    parent.getChildren().add(permission);
+                }
+            }
+        }
+        return roots;
     }
 
     /**
