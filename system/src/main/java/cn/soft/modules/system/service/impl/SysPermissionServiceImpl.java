@@ -65,7 +65,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      * @return 所有菜单
      */
     @Override
-    public Result<JSONObject> getAllPermission() throws Exception {
+    public Result<JSONObject> getAllPermission() {
         Result<JSONObject> result = new Result<>();
         List<SysPermission> allPermission = sysPermissionMapper.getAllPermission();
         // 构建菜单的上下级结构关系
@@ -76,6 +76,19 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         result.setResult(json);
         result.setCode(200);
         return result;
+    }
+
+
+    /**
+     * 新增菜单
+     *
+     * @param permission 菜单
+     * @return 结果
+     */
+    @Override
+    public Result<Object> addPermission(SysPermission permission){
+        
+        return null;
     }
 
     /**

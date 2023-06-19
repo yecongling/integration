@@ -1,6 +1,7 @@
 package cn.soft.modules.system.service;
 
 import cn.soft.common.api.vo.Result;
+import cn.soft.modules.system.entity.SysPermission;
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -25,5 +26,14 @@ public interface ISysPermissionService {
      *
      * @return 所有菜单
      */
-    Result<JSONObject> getAllPermission() throws Exception;
+    Result<JSONObject> getAllPermission();
+
+    /**
+     * 新增菜单
+     *
+     * @param permission 菜单
+     * @return 结果
+     * @throws Exception sql异常
+     */
+    Result<Object> addPermission(SysPermission permission);
 }
