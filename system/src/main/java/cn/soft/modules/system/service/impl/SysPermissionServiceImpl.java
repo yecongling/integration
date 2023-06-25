@@ -87,7 +87,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      */
     @Override
     public Result<Object> addPermission(SysPermission permission){
-        
+        System.out.println("添加菜单");
         return null;
     }
 
