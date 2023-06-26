@@ -87,8 +87,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      */
     @Override
     public Result<Object> addPermission(SysPermission permission){
-        // 判断前端路径和前端组件必须是唯一的
-
+        System.out.println("添加菜单");
         return null;
     }
 

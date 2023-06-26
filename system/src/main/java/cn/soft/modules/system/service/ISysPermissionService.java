@@ -33,7 +33,6 @@ public interface ISysPermissionService {
      *
      * @param permission 菜单
      * @return 结果
-     * @throws Exception sql异常
      */
     Result<Object> addPermission(SysPermission permission);
 }
