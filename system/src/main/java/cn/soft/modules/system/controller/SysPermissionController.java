@@ -49,8 +49,7 @@ public class SysPermissionController {
      */
     @RequestMapping(value = "/getAllPermission", method = RequestMethod.POST)
     public Result<JSONObject> getAllPermission(@RequestBody JSONObject object) {
-        System.out.println("请求参数是：" + object.toJSONString());
-        return sysPermissionService.getAllPermission();
+        return sysPermissionService.getAllPermission(object);
     }
 
     /**

@@ -62,12 +62,13 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     /**
      * 获取所有菜单 这里需要修改，处理成上下级的那种数据，和上面的路由的数据格式不一致
      *
+     * @param params 查询参数
      * @return 所有菜单
      */
     @Override
-    public Result<JSONObject> getAllPermission() {
+    public Result<JSONObject> getAllPermission(JSONObject params) {
         Result<JSONObject> result = new Result<>();
-        List<SysPermission> allPermission = sysPermissionMapper.getAllPermission();
+        List<SysPermission> allPermission = sysPermissionMapper.getAllPermission(params);
         // 构建菜单的上下级结构关系
         List<SysPermission> sysPermissions = this.buildPermission(allPermission);
         // 路由菜单

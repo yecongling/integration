@@ -24,9 +24,10 @@ public interface ISysPermissionService {
     /**
      * 获取所有菜单
      *
+     * @param params 查询参数
      * @return 所有菜单
      */
-    Result<JSONObject> getAllPermission();
+    Result<JSONObject> getAllPermission(JSONObject params);
 
     /**
      * 新增菜单

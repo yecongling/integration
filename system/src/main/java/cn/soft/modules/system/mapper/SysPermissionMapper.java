@@ -1,6 +1,7 @@
 package cn.soft.modules.system.mapper;
 
 import cn.soft.modules.system.entity.SysPermission;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,7 +28,8 @@ public interface SysPermissionMapper {
     /**
      * 获取所有菜单信息
      *
+     * @param param 查询参数
      * @return 菜单信息
      */
-    List<SysPermission> getAllPermission();
+    List<SysPermission> getAllPermission(@Param("params")JSONObject param);
 }

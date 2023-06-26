@@ -22,9 +22,20 @@
     </select>
 
     <!-- 查询所有菜单 -->
-    <select id="getAllPermission" resultMap="SysPermission">
+    <select id="getAllPermission" resultMap="SysPermission" parameterType="object">
         select *
         from t_sys_permission
+        <where>
+            <if test="params.name != null and params.name != ''">
+                and INSTR(`name`, #{params.name}) > 0
+            </if>
+            <if test="params.menu_type != null and params.menu_type != '-1'">
+                and menu_type = #{params.menu_type}
+            </if>
+            <if test="params.show != null and params.show != '-1'">
+                and hidden = #{params.show}
+            </if>
+        </where>
         order by sort_no asc
     </select>
 </mapper>
