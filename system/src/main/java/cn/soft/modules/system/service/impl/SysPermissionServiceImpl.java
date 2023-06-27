@@ -112,6 +112,9 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
                 SysPermission parent = idToPermissionMap.get(parentId);
                 if (parent != null) {
                     parent.getChildren().add(permission);
+                } else {
+                    // 针对检索的结果有可能没有父级
+                    roots.add(permission);
                 }
             }
         }
