@@ -32,4 +32,12 @@ public interface SysPermissionMapper {
      * @return 菜单信息
      */
     List<SysPermission> getAllPermission(@Param("params")JSONObject param);
+
+    /**
+     * 添加菜单
+     *
+     * @param permission 菜单对象
+     * @return 受影响的行数
+     */
+    int addPermission(SysPermission permission);
 }

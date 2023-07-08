@@ -420,4 +420,6 @@ public class SysPermission extends BaseModel {
     public void setKey(String key) {
         this.key = key;
     }
+
+
 }

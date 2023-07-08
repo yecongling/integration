@@ -13,10 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @ClassName SysPermissionServiceImpl
@@ -88,8 +85,14 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      */
     @Override
     public Result<Object> addPermission(SysPermission permission){
-        System.out.println("添加菜单");
-        return null;
+        // 设置一些必要属性
+        Date date = new Date();
+        permission.setCreateTime(date);
+        permission.setUpdateTime(date);
+        permission.setCreateBy("admin");
+        permission.setUpdateBy("admin");
+        int i = sysPermissionMapper.addPermission(permission);
+        return Result.OK(i);
     }
 
     /**
