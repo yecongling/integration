@@ -85,7 +85,7 @@ CREATE TABLE `t_sys_user_role`
 DROP TABLE IF EXISTS `t_sys_permission`;
 CREATE TABLE `t_sys_permission`
 (
-    `id`                   varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  NOT NULL COMMENT '主键id',
+    `id`                   bigint(32) unsigned auto_increment NOT NULL COMMENT '主键id',
     `parent_id`            varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL COMMENT '父id',
     `name`                 varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单标题',
     `url`                  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '路径',
