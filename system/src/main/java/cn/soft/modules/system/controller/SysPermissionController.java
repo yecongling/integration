@@ -53,14 +53,46 @@ public class SysPermissionController {
     }
 
     /**
+     * 获取所有目录
+     *
+     * @return 目录
+     */
+    @RequestMapping(value = "/getDirectoryPermission", method = RequestMethod.POST)
+    public Result<JSONObject> getDirectoryPermission() {
+        return null;
+    }
+
+    /**
      * 新增菜单
      *
      * @param sysPermission 菜单信息对象
      * @return 新增成功或失败
      */
-    @RequestMapping(value = "/addPermission", method = RequestMethod.POST)
+     @RequestMapping(value = "/addPermission", method = RequestMethod.POST)
     public Result<Object> addPermission(@RequestBody SysPermission sysPermission) {
         return sysPermissionService.addPermission(sysPermission);
+    }
+
+    /**
+     * 修改菜单
+     *
+     * @param sysPermission 菜单信息对象
+     * @return 新增成功或失败
+     */
+    @RequestMapping(value = "/updatePermission", method = RequestMethod.POST)
+    public Result<Object> updatePermission(@RequestBody SysPermission sysPermission) {
+        return sysPermissionService.updatePermission(sysPermission);
+    }
+
+    /**
+     * 删除菜单
+     *
+     * @param id 菜单ID
+     * @return 新增成功或失败
+     */
+    @RequestMapping(value = "/deletePermission", method = RequestMethod.POST)
+    public Result<Object> deletePermission(@RequestBody String id) {
+        return sysPermissionService.deletePermission(id);
     }
 
 

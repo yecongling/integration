@@ -34,10 +34,33 @@ public interface SysPermissionMapper {
     List<SysPermission> getAllPermission(@Param("params")JSONObject param);
 
     /**
+     * 获取所有目录菜单
+     *
+     * @return 目录菜单
+     */
+    List<SysPermission> getDirectoryPermission();
+
+    /**
      * 添加菜单
      *
      * @param permission 菜单对象
      * @return 受影响的行数
      */
     int addPermission(SysPermission permission);
+
+    /**
+     * 更新菜单
+     *
+     * @param permission 菜单对象
+     * @return -
+     */
+    int updatePermission(SysPermission permission);
+
+    /**
+     * 删除菜单
+     *
+     * @param id 菜单ID
+     * @return -
+     */
+    int deletePermission(String id);
 }

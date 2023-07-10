@@ -39,6 +39,11 @@
         order by sort_no asc
     </select>
 
+    <!-- 获取所有目录菜单 -->
+    <select id="getDirectoryPermission" resultMap="SysPermission">
+        select * from integration.t_sys_permission where menu_type = 0 order by sort_no
+    </select>
+
     <!-- 新增菜单 -->
     <insert id="addPermission" useGeneratedKeys="true" keyProperty="id" parameterType="cn.soft.modules.system.entity.SysPermission">
         insert into integration.t_sys_permission (parent_id, name, url, component, component_name,
@@ -51,4 +56,16 @@
                    #{description}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{delFlag}, #{ruleFlag},
                    #{status}, #{internalOrExternal})
     </insert>
+
+    <!-- 更新菜单 -->
+    <update id="updatePermission" parameterType="cn.soft.modules.system.entity.SysPermission">
+        update integration.t_sys_permission set parent_id = #{parentId} where id = #{id}
+    </update>
+
+    <!-- 删除菜单 -->
+    <delete id="deletePermission" parameterType="string">
+        delete from integration.t_sys_permission where integration.t_sys_permission.id = #{id}
+    </delete>
+
+
 </mapper>

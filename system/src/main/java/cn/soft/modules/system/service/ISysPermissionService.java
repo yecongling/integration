@@ -30,10 +30,33 @@ public interface ISysPermissionService {
     Result<JSONObject> getAllPermission(JSONObject params);
 
     /**
+     * 获取所有目录菜单
+     *
+     * @return 目录菜单
+     */
+    Result<JSONObject> getDirectoryPermission();
+
+    /**
      * 新增菜单
      *
      * @param permission 菜单
      * @return 结果
      */
     Result<Object> addPermission(SysPermission permission);
+
+    /**
+     * 更新菜单
+     *
+     * @param permission 菜单对象
+     * @return 结果
+     */
+    Result<Object> updatePermission(SysPermission permission);
+
+    /**
+     * 删除菜单
+     *
+     * @param id 菜单ID
+     * @return -
+     */
+    Result<Object> deletePermission(String id);
 }

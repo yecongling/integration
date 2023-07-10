@@ -76,6 +76,15 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         return result;
     }
 
+    /**
+     * 获取所有目录菜单
+     *
+     * @return 目录菜单
+     */
+    @Override
+    public Result<JSONObject> getDirectoryPermission() {
+        return null;
+    }
 
     /**
      * 新增菜单
@@ -92,6 +101,29 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         permission.setCreateBy("admin");
         permission.setUpdateBy("admin");
         int i = sysPermissionMapper.addPermission(permission);
+        return Result.OK(i);
+    }
+
+    /**
+     * 更新菜单
+     *
+     * @param permission 菜单对象
+     * @return 结果
+     */
+    @Override
+    public Result<Object> updatePermission(SysPermission permission) {
+        return null;
+    }
+
+    /**
+     * 删除菜单
+     *
+     * @param id 菜单ID
+     * @return -
+     */
+    @Override
+    public Result<Object> deletePermission(String id) {
+        int i = sysPermissionMapper.deletePermission(id);
         return Result.OK(i);
     }
 
