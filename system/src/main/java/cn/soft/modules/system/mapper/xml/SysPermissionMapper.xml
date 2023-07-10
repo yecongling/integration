@@ -41,7 +41,7 @@
 
     <!-- 获取所有目录菜单 -->
     <select id="getDirectoryPermission" resultMap="SysPermission">
-        select * from integration.t_sys_permission where menu_type = 0 order by sort_no
+        select id, name, menu_type, parent_id, is_leaf from integration.t_sys_permission where menu_type = 0 order by sort_no
     </select>
 
     <!-- 新增菜单 -->

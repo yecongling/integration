@@ -83,7 +83,16 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      */
     @Override
     public Result<JSONObject> getDirectoryPermission() {
-        return null;
+        Result<JSONObject> result = new Result<>();
+        List<SysPermission> permissions = sysPermissionMapper.getDirectoryPermission();
+        // 将平级的菜单构建成上下结构的格式
+        JSONArray jsonArray = new JSONArray();
+        this.getPermissionDirectory(jsonArray, permissions, null);
+        // 路由菜单
+        JSONObject json = new JSONObject();
+        json.put("directory", jsonArray);
+        result.setResult(json);
+        return result;
     }
 
     /**
@@ -93,7 +102,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      * @return 结果
      */
     @Override
-    public Result<Object> addPermission(SysPermission permission){
+    public Result<Object> addPermission(SysPermission permission) {
         // 设置一些必要属性
         Date date = new Date();
         permission.setCreateTime(date);
@@ -129,6 +138,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
 
     /**
      * 构建菜单数据
+     *
      * @param permissions 查出来的菜单数据
      * @return 构建好的菜单数据
      */
@@ -206,6 +216,46 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     }
 
     /**
+     * 获取菜单json数组
+     *
+     * @param array       json数组
+     * @param permissions 菜单数据
+     * @param parentJSON  父级
+     */
+    private void getPermissionDirectory(JSONArray array, List<SysPermission> permissions, JSONObject parentJSON) {
+        for (SysPermission permission : permissions) {
+            if (permission.getMenuType() == null) {
+                continue;
+            }
+            String parentId = permission.getParentId();
+            JSONObject json = getPermissionDirectory(permission);
+            if (json == null) {
+                continue;
+            }
+            if (parentJSON == null && ConvertUtil.isEmpty(parentId)) {
+                array.add(json);
+                if (!permission.isLeaf()) {
+                    getPermissionJsonArray(array, permissions, json);
+                }
+            } else if (parentJSON != null && ConvertUtil.isNotEmpty(parentId) && parentId.equals(parentJSON.get("id"))) {
+                // 类型( 0：一级菜单 1：子菜单 2：按钮 )
+                if (permission.getMenuType().equals(CommonConstant.MENU_TYPE_1) || permission.getMenuType().equals(CommonConstant.MENU_TYPE_0)) {
+                    if (parentJSON.containsKey("children")) {
+                        parentJSON.getJSONArray("children").add(json);
+                    } else {
+                        JSONArray children = new JSONArray();
+                        children.add(json);
+                        parentJSON.put("children", children);
+                    }
+                    if (!permission.isLeaf()) {
+                        getPermissionDirectory(array, permissions, json);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * 根据菜单配置生成路由json
      *
      * @param permission 菜单权限
@@ -252,6 +302,24 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
                 meta.put("url", permission.getUrl());
             }
             json.put("meta", meta);
+        }
+        return json;
+    }
+
+    /**
+     * 根据菜单配置生成路由json
+     *
+     * @param permission 菜单权限
+     * @return json
+     */
+    private JSONObject getPermissionDirectory(SysPermission permission) {
+        JSONObject json = new JSONObject();
+        // 类型 0 一级菜单  1 子菜单  2 按钮
+        if (permission.getMenuType().equals(CommonConstant.MENU_TYPE_2)) {
+            return null;
+        } else if (permission.getMenuType().equals(CommonConstant.MENU_TYPE_0) || permission.getMenuType().equals(CommonConstant.MENU_TYPE_1)) {
+            json.put("value", permission.getId());
+            json.put("title", permission.getName());
         }
         return json;
     }

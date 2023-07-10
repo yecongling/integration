@@ -59,7 +59,7 @@ public class SysPermissionController {
      */
     @RequestMapping(value = "/getDirectoryPermission", method = RequestMethod.POST)
     public Result<JSONObject> getDirectoryPermission() {
-        return null;
+        return sysPermissionService.getDirectoryPermission();
     }
 
     /**
