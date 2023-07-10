@@ -91,6 +91,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         // 路由菜单
         JSONObject json = new JSONObject();
         json.put("directory", jsonArray);
+        result.setCode(200);
         result.setResult(json);
         return result;
     }
