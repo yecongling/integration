@@ -1,8 +1,8 @@
 package cn.soft.modules.engine.service.impl;
 
 import cn.soft.common.api.vo.Result;
-import cn.soft.modules.engine.core.EngineServiceCenter;
 import cn.soft.modules.base.service.impl.BaseCommonServiceImpl;
+import cn.soft.modules.engine.core.EngineServiceCenter;
 import cn.soft.modules.engine.entity.project.EndpointProperties;
 import cn.soft.modules.engine.entity.project.ProjectModel;
 import cn.soft.modules.engine.entity.project.Route;
@@ -34,6 +34,7 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
     }
 
     private EngineServiceCenter engineServiceCenter;
+
     @Autowired
     public void setEngineServiceCenter(EngineServiceCenter engineServiceCenter) {
         this.engineServiceCenter = engineServiceCenter;
@@ -48,6 +49,9 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
     @Override
     public Result<List<ProjectModel>> queryProjects(JSONObject param) {
         List<ProjectModel> allProject = projectManagerMapper.queryAllProject(param);
+        for (ProjectModel model : allProject) {
+            model.setKey(model.getProjectId());
+        }
         return Result.ok(allProject);
     }
 

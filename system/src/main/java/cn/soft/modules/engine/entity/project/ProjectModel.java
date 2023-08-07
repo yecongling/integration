@@ -2,6 +2,7 @@ package cn.soft.modules.engine.entity.project;
 
 import cn.soft.common.api.vo.BaseModel;
 
+import java.io.Serial;
 import java.util.List;
 
 /**
@@ -10,7 +11,12 @@ import java.util.List;
  */
 public class ProjectModel extends BaseModel {
 
+    @Serial
     private static final long serialVersionUID = 2394196668840811356L;
+
+    /* 用在前台的key */
+    private String key;
+
     /**
      * 项目ID 以project_开头
      */
@@ -123,5 +129,13 @@ public class ProjectModel extends BaseModel {
 
     public void setLinks(List<Link> links) {
         this.links = links;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

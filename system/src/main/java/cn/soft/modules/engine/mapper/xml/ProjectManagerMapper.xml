@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.soft.modules.engine.mapper.ProjectManagerMapper">
+
+    <!-- 项目表和项目实体的映射 -->
+    <resultMap id="project" type="cn.soft.modules.engine.entity.project.ProjectModel">
+        <result column="name" property="projectName"/>
+        <result column="id" property="projectId"/>
+        <result column="type" property="projectType"/>
+        <result column="priority" property="projectPriority"/>
+        <result column="description" property="description"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
     <!-- 属性表和实体字段映射 -->
     <resultMap id="properties" type="cn.soft.modules.engine.entity.project.EndpointProperties">
         <result column="endpoint_type_name" property="endpointTypeName"/>
@@ -31,13 +42,13 @@
     </resultMap>
 
     <!-- 查询所有项目信息 -->
-    <select id="queryAllProject" resultType="cn.soft.modules.engine.entity.project.ProjectModel" parameterType="object">
+    <select id="queryAllProject" resultMap="project" parameterType="object">
         select id, name, type, log_type, status, priority, description from integration.t_engine_project
         <where>
             <if test="name != null and name != ''">
                 and instr(#{name}, name) > 0
             </if>
-            <if test="type != null and type != ''">
+            <if test="type != null and type != '' and type != '-1'">
                 and type = #{type}
             </if>
             <if test="status != null and status != ''">
@@ -71,16 +82,16 @@
     <!-- 查询路由信息 -->
     <select id="queryRoutes" parameterType="list" resultMap="route">
         select id,
-               `name`,
-               `description`,
-               debug,
-               deep_clone,
-               processing_strategy,
-               thread_count,
-               x,
-               y,
-               nodes,
-               links
+        `name`,
+        `description`,
+        debug,
+        deep_clone,
+        processing_strategy,
+        thread_count,
+        x,
+        y,
+        nodes,
+        links
         from integration.t_engine_route
         <if test="routeIDs != null and routeIDs.size() > 0">
             <where>
