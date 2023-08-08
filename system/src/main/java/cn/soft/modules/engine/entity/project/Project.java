@@ -9,7 +9,7 @@ import java.util.List;
  * 项目model封装
  * 基本和数据库中项目表字段对应
  */
-public class ProjectModel extends BaseModel {
+public class Project extends BaseModel {
 
     @Serial
     private static final long serialVersionUID = 2394196668840811356L;

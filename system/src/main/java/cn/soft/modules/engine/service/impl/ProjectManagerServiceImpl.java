@@ -4,7 +4,7 @@ import cn.soft.common.api.vo.Result;
 import cn.soft.modules.base.service.impl.BaseCommonServiceImpl;
 import cn.soft.modules.engine.core.EngineServiceCenter;
 import cn.soft.modules.engine.entity.project.EndpointProperties;
-import cn.soft.modules.engine.entity.project.ProjectModel;
+import cn.soft.modules.engine.entity.project.Project;
 import cn.soft.modules.engine.entity.project.Route;
 import cn.soft.modules.engine.mapper.ProjectManagerMapper;
 import cn.soft.modules.engine.service.IProjectManagerService;
@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,9 +48,9 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
      * @return 所有项目信息
      */
     @Override
-    public Result<List<ProjectModel>> queryProjects(JSONObject param) {
-        List<ProjectModel> allProject = projectManagerMapper.queryAllProject(param);
-        for (ProjectModel model : allProject) {
+    public Result<List<Project>> queryProjects(JSONObject param) {
+        List<Project> allProject = projectManagerMapper.queryAllProject(param);
+        for (Project model : allProject) {
             model.setKey(model.getProjectId());
         }
         return Result.ok(allProject);
@@ -62,33 +63,42 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
      * @return 项目model
      */
     @Override
-    public Result<ProjectModel> queryProjectById(String projectId) {
-        ProjectModel projectModel = projectManagerMapper.queryProjectInfoByID(projectId);
+    public Result<Project> queryProjectById(String projectId) {
+        Project project = projectManagerMapper.queryProjectInfoByID(projectId);
         // 后续添加查询其对应的终端、路由组件、连线等数据
 
-        return Result.ok(projectModel);
+        return Result.ok(project);
     }
 
     /**
      * 新增服务信息
      *
-     * @param projectModel 项目对象
+     * @param project 项目对象
      * @return 保存结果
      */
     @Override
-    public Result<JSONObject> addProject(ProjectModel projectModel) {
-        return null;
+    public Result<Object> addProject(Project project) {
+        // 新增，添加创建、更新时间、操作员
+        project.setCreateTime(new Date());
+        project.setCreateBy("ycl");
+        project.setUpdateBy("ycl");
+        project.setUpdateTime(new Date());
+        int i = projectManagerMapper.addProject(project);
+        return Result.ok(i);
     }
 
     /**
      * 修改项目信息
      *
-     * @param projectModel 项目对象
+     * @param project 项目对象
      * @return 修改结果
      */
     @Override
-    public Result<JSONObject> updateProject(ProjectModel projectModel) {
-        return null;
+    public Result<Object> updateProject(Project project) {
+        project.setUpdateBy("admin");
+        project.setUpdateTime(new Date());
+        int i = projectManagerMapper.updateProject(project);
+        return Result.ok(i);
     }
 
     /**

@@ -2,7 +2,7 @@ package cn.soft.modules.engine.service;
 
 import cn.soft.common.api.vo.Result;
 import cn.soft.modules.engine.entity.project.EndpointProperties;
-import cn.soft.modules.engine.entity.project.ProjectModel;
+import cn.soft.modules.engine.entity.project.Project;
 import cn.soft.modules.engine.entity.project.Route;
 import com.alibaba.fastjson.JSONObject;
 
@@ -22,7 +22,7 @@ public interface IProjectManagerService {
      * @param param 项目查询条件
      * @return 所有项目信息
      */
-    Result<List<ProjectModel>> queryProjects(JSONObject param);
+    Result<List<Project>> queryProjects(JSONObject param);
 
     /**
      * 通过项目ID查询项目信息（包括项目包含的终端、路由、组件、连线）
@@ -30,23 +30,23 @@ public interface IProjectManagerService {
      * @param projectId 项目ID
      * @return 项目model
      */
-    Result<ProjectModel> queryProjectById(String projectId);
+    Result<Project> queryProjectById(String projectId);
 
     /**
      * 新增服务信息
      *
-     * @param projectModel 项目对象
+     * @param project 项目对象
      * @return 保存结果
      */
-    Result<JSONObject> addProject(ProjectModel projectModel);
+    Result<Object> addProject(Project project);
 
     /**
      * 修改项目信息
      *
-     * @param projectModel 项目对象
+     * @param project 项目对象
      * @return 修改结果
      */
-    Result<JSONObject> updateProject(ProjectModel projectModel);
+    Result<Object> updateProject(Project project);
 
     /**
      * 根据项目ID查找项目信息 并发布该服务

@@ -1,7 +1,7 @@
 package cn.soft.modules.engine.mapper;
 
 import cn.soft.modules.engine.entity.project.EndpointProperties;
-import cn.soft.modules.engine.entity.project.ProjectModel;
+import cn.soft.modules.engine.entity.project.Project;
 import cn.soft.modules.engine.entity.project.Route;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.annotations.Mapper;
@@ -25,7 +25,23 @@ public interface ProjectManagerMapper {
      * @param param 检索条件
      * @return 返回所有项目信息
      */
-    List<ProjectModel> queryAllProject(JSONObject param);
+    List<Project> queryAllProject(JSONObject param);
+
+    /**
+     * 添加项目
+     *
+     * @param project 项目信息
+     * @return 结果
+     */
+    int addProject(Project project);
+
+    /**
+     * 更新项目
+     *
+     * @param project 项目信息
+     * @return 结果
+     */
+    int updateProject(Project project);
 
     /**
      * 根据项目ID查询项目信息
@@ -33,7 +49,7 @@ public interface ProjectManagerMapper {
      * @param projectId 项目ID
      * @return 项目信息
      */
-    ProjectModel queryProjectInfoByID(@Param("projectId") String projectId);
+    Project queryProjectInfoByID(@Param("projectId") String projectId);
 
     /**
      * 查询终端的配置属性

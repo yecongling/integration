@@ -1,11 +1,11 @@
 package cn.soft.modules.engine.controller;
 
+import cn.soft.common.api.vo.Result;
 import cn.soft.modules.engine.entity.project.EndpointProperties;
-import cn.soft.modules.engine.entity.project.ProjectModel;
+import cn.soft.modules.engine.entity.project.Project;
 import cn.soft.modules.engine.entity.project.Route;
 import cn.soft.modules.engine.service.IProjectManagerService;
 import com.alibaba.fastjson.JSONObject;
-import cn.soft.common.api.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +38,7 @@ public class ProjectManagerController {
      * @return 所有的项目信息
      */
     @RequestMapping("/queryProjects")
-    public Result<List<ProjectModel>> queryProject(@RequestBody(required = false) JSONObject param) {
+    public Result<List<Project>> queryProject(@RequestBody(required = false) JSONObject param) {
         return projectManagerService.queryProjects(param);
     }
 
@@ -49,37 +49,37 @@ public class ProjectManagerController {
      * @return 项目model
      */
     @GetMapping("/queryProjectById/{projectId}")
-    public Result<ProjectModel> queryProjectById(@PathVariable("projectId") String projectId) {
+    public Result<Project> queryProjectById(@PathVariable("projectId") String projectId) {
         return projectManagerService.queryProjectById(projectId);
     }
 
     /**
      * 新增项目信息
      *
-     * @param projectModel 封装的项目对象
+     * @param project 封装的项目对象
      * @return 返回保存结果
      */
-    @RequestMapping("/addProject")
-    public Result<JSONObject> addProject(@RequestBody ProjectModel projectModel) {
-        return projectManagerService.addProject(projectModel);
+    @PostMapping("/addProject")
+    public Result<Object> addProject(@RequestBody Project project) {
+        return projectManagerService.addProject(project);
     }
 
     /**
      * 修改项目信息
      *
-     * @param projectModel 项目对象
+     * @param project 项目对象
      * @return 修改结果
      */
-    @RequestMapping("/updateProject")
-    public Result<JSONObject> updateProject(@RequestBody ProjectModel projectModel) {
-        return projectManagerService.updateProject(projectModel);
+    @PostMapping("/updateProject")
+    public Result<Object> updateProject(@RequestBody Project project) {
+        return projectManagerService.updateProject(project);
     }
 
     /**
      * （取消）发布服务
      *
      * @param projectID 服务ID
-     * @param status 状态 是发布服务还是取消  还是半启动
+     * @param status    状态 是发布服务还是取消  还是半启动
      * @return 发布结果
      */
     @GetMapping("/publishService/")
