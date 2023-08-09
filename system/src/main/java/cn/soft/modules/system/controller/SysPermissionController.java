@@ -57,7 +57,7 @@ public class SysPermissionController {
      *
      * @return 目录
      */
-    @RequestMapping(value = "/getDirectoryPermission", method = RequestMethod.POST)
+    @RequestMapping(value = "/getDirectoryPermission", method = RequestMethod.GET)
     public Result<JSONObject> getDirectoryPermission() {
         return sysPermissionService.getDirectoryPermission();
     }
