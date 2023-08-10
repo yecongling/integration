@@ -50,7 +50,7 @@ public interface ISysPermissionService {
      * @param permission 菜单对象
      * @return 结果
      */
-    Result<Object> updatePermission(SysPermission permission);
+    Result<String> updatePermission(SysPermission permission);
 
     /**
      * 删除菜单

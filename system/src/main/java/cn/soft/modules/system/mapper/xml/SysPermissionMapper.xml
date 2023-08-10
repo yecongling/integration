@@ -18,7 +18,7 @@
     <select id="queryByUser" parameterType="object" resultMap="SysPermission">
         select *
         from t_sys_permission
-        order by sort_no asc
+        order by sort_no
     </select>
 
     <!-- 查询所有菜单 -->
@@ -41,30 +41,64 @@
 
     <!-- 获取所有目录菜单 -->
     <select id="getDirectoryPermission" resultMap="SysPermission">
-        select id, name, menu_type, parent_id, is_leaf from integration.t_sys_permission where menu_type = 0 order by sort_no
+        select id, name, menu_type, parent_id, is_leaf
+        from integration.t_sys_permission
+        where menu_type = 0
+        order by sort_no
     </select>
 
     <!-- 新增菜单 -->
-    <insert id="addPermission" useGeneratedKeys="true" keyProperty="id" parameterType="cn.soft.modules.system.entity.SysPermission">
+    <insert id="addPermission" useGeneratedKeys="true" keyProperty="id"
+            parameterType="cn.soft.modules.system.entity.SysPermission">
         insert into integration.t_sys_permission (parent_id, name, url, component, component_name,
                                                   redirect, menu_type, perms, perms_type, sort_no, always_show,
                                                   icon, is_route, is_leaf, keep_alive, hidden, hide_tab,
                                                   description, create_by, create_time, update_by, update_time,
                                                   del_flag, rule_flag, status, internal_or_external)
             value (#{parentId}, #{name}, #{url}, #{component}, #{componentName}, #{redirect}, #{menuType}, #{perms},
-                   #{permsType}, #{sortNo}, #{alwaysShow}, #{icon}, #{route}, #{leaf}, #{keepAlive}, #{hidden},#{hideTab},
+                   #{permsType}, #{sortNo}, #{alwaysShow}, #{icon}, #{route}, #{leaf}, #{keepAlive}, #{hidden},
+                   #{hideTab},
                    #{description}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{delFlag}, #{ruleFlag},
                    #{status}, #{internalOrExternal})
     </insert>
 
     <!-- 更新菜单 -->
     <update id="updatePermission" parameterType="cn.soft.modules.system.entity.SysPermission">
-        update integration.t_sys_permission set parent_id = #{parentId} where id = #{id}
+        update integration.t_sys_permission
+        set parent_id            = #{parentId},
+            name                 = #{name},
+            url                  = #{url},
+            component            = #{component},
+            component_name       = #{componentName},
+            redirect             = #{redirect},
+            menu_type            = #{menuType},
+            perms                = #{perms},
+            perms_type           = #{permsType},
+            sort_no              = #{sortNo},
+            always_show          = #{alwaysShow},
+            icon                 = #{icon},
+            is_route             = #{route},
+            is_leaf              = #{leaf},
+            keep_alive           = #{keepAlive},
+            hidden               = #{hidden},
+            hide_tab             = #{hideTab},
+            description          = #{description},
+            create_by            = #{createBy},
+            create_time          = #{createTime},
+            update_by            = #{updateBy},
+            update_time          = #{updateTime},
+            del_flag             = #{delFlag},
+            rule_flag            = #{ruleFlag},
+            status               = #{status},
+            internal_or_external = #{internalOrExternal}
+        where id = #{id}
     </update>
 
     <!-- 删除菜单 -->
     <delete id="deletePermission" parameterType="string">
-        delete from integration.t_sys_permission where integration.t_sys_permission.id = #{id}
+        delete
+        from integration.t_sys_permission
+        where id = #{id}
     </delete>
 
 

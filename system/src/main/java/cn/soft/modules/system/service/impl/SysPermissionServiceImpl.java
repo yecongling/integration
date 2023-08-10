@@ -111,7 +111,10 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         permission.setCreateBy("admin");
         permission.setUpdateBy("admin");
         int i = sysPermissionMapper.addPermission(permission);
-        return Result.OK(i);
+        if (i > 0) {
+            return Result.ok("新增菜单成功");
+        }
+        return Result.error("新增菜单失败");
     }
 
     /**
@@ -121,8 +124,18 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      * @return 结果
      */
     @Override
-    public Result<Object> updatePermission(SysPermission permission) {
-        return null;
+    public Result<String> updatePermission(SysPermission permission) {
+        // 设置一些必要属性
+        Date date = new Date();
+        permission.setCreateTime(date);
+        permission.setUpdateTime(date);
+        permission.setCreateBy("admin");
+        permission.setUpdateBy("admin");
+        int i = sysPermissionMapper.updatePermission(permission);
+        if (i > 0) {
+            return Result.ok("修改菜单成功");
+        }
+        return Result.error("菜单修改失败");
     }
 
     /**

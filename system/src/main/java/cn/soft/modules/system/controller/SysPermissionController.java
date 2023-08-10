@@ -80,7 +80,7 @@ public class SysPermissionController {
      * @return 新增成功或失败
      */
     @RequestMapping(value = "/updatePermission", method = RequestMethod.POST)
-    public Result<Object> updatePermission(@RequestBody SysPermission sysPermission) {
+    public Result<String> updatePermission(@RequestBody SysPermission sysPermission) {
         return sysPermissionService.updatePermission(sysPermission);
     }
 

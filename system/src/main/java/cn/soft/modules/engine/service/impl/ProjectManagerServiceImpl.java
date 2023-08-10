@@ -77,14 +77,17 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
      * @return 保存结果
      */
     @Override
-    public Result<Object> addProject(Project project) {
+    public Result<String> addProject(Project project) {
         // 新增，添加创建、更新时间、操作员
         project.setCreateTime(new Date());
         project.setCreateBy("ycl");
         project.setUpdateBy("ycl");
         project.setUpdateTime(new Date());
         int i = projectManagerMapper.addProject(project);
-        return Result.ok(i);
+        if (i > 0) {
+            return Result.ok("新增项目成功");
+        }
+        return Result.error("新增项目失败");
     }
 
     /**

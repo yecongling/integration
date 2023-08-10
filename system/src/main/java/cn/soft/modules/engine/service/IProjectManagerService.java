@@ -38,7 +38,7 @@ public interface IProjectManagerService {
      * @param project 项目对象
      * @return 保存结果
      */
-    Result<Object> addProject(Project project);
+    Result<String> addProject(Project project);
 
     /**
      * 修改项目信息

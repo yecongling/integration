@@ -60,7 +60,7 @@ public class ProjectManagerController {
      * @return 返回保存结果
      */
     @PostMapping("/addProject")
-    public Result<Object> addProject(@RequestBody Project project) {
+    public Result<String> addProject(@RequestBody Project project) {
         return projectManagerService.addProject(project);
     }
 
