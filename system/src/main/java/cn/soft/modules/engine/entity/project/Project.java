@@ -20,7 +20,7 @@ public class Project extends BaseModel {
     /**
      * 项目ID 以project_开头
      */
-    private String projectId;
+    private String id;
 
     /**
      * 项目名称
@@ -42,7 +42,7 @@ public class Project extends BaseModel {
     private Integer projectPriority;
 
     /* 项目状态  0 - 全部停止   1 - 部分已启动  2 - 全部启动 */
-    private Integer status;
+    private Integer status = 0;
 
     /* 项目中所含的路由ID */
     private List<Route> routes;
@@ -51,12 +51,12 @@ public class Project extends BaseModel {
     /* 项目包含的连线-针对第一个编辑器对象中的 */
     private List<Link> links;
 
-    public String getProjectId() {
-        return projectId;
+    public String getId() {
+        return id;
     }
 
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getProjectName() {

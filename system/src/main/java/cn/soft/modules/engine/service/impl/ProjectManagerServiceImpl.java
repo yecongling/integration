@@ -51,7 +51,7 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
     public Result<List<Project>> queryProjects(JSONObject param) {
         List<Project> allProject = projectManagerMapper.queryAllProject(param);
         for (Project model : allProject) {
-            model.setKey(model.getProjectId());
+            model.setKey(model.getId());
         }
         return Result.ok(allProject);
     }
@@ -101,7 +101,10 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
         project.setUpdateBy("admin");
         project.setUpdateTime(new Date());
         int i = projectManagerMapper.updateProject(project);
-        return Result.ok(i);
+        if (i > 0) {
+            return Result.ok("修改项目成功");
+        }
+        return Result.error("修改项目失败");
     }
 
     /**

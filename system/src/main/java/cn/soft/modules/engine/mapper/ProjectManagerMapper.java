@@ -46,10 +46,10 @@ public interface ProjectManagerMapper {
     /**
      * 根据项目ID查询项目信息
      *
-     * @param projectId 项目ID
+     * @param id 项目ID
      * @return 项目信息
      */
-    Project queryProjectInfoByID(@Param("projectId") String projectId);
+    Project queryProjectInfoByID(@Param("id") String id);
 
     /**
      * 查询终端的配置属性
