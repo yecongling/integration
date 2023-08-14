@@ -42,14 +42,14 @@
     </resultMap>
 
     <!-- 查询所有项目信息 -->
-    <select id="queryAllProject" resultMap="project" parameterType="object">
+    <select id="queryAllProject" resultMap="project" parameterType="cn.soft.modules.engine.entity.project.Project">
         select id, name, type, log_type, status, priority, description from integration.t_engine_project
         <where>
             <if test="name != null and name != ''">
                 and instr(#{name}, name) > 0
             </if>
             <if test="type != null and type != '' and type != '-1'">
-                and type = #{type}
+                and type = #{projectType}
             </if>
             <if test="status != null and status != ''">
                 and `status` = #{status}
@@ -79,7 +79,12 @@
         where integration.t_engine_project.id = #{id}
     </update>
 
-
+    <!-- 删除项目 -->
+    <delete id="deleteProject" parameterType="string">
+        delete
+        from t_engine_project
+        where id = #{id}
+    </delete>
 
     <!-- 根据项目ID查询项目信息 -->
     <select id="queryProjectInfoByID" parameterType="string"

@@ -110,6 +110,21 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
     }
 
     /**
+     * 删除菜单
+     *
+     * @param projectId 项目ID
+     * @return 删除结果
+     */
+    @Override
+    public Result<Object> deleteProject(String projectId) {
+        boolean b = projectManagerMapper.deleteProject(projectId);
+        if (b) {
+            return Result.ok("删除成功");
+        }
+        return Result.error("删除失败");
+    }
+
+    /**
      * 发布服务
      *
      * @param projectId 项目编号

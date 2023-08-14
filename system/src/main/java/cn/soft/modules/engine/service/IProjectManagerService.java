@@ -49,6 +49,14 @@ public interface IProjectManagerService {
     Result<Object> updateProject(Project project);
 
     /**
+     * 删除菜单
+     *
+     * @param projectId 项目ID
+     * @return 删除结果
+     */
+    Result<Object> deleteProject(String projectId);
+
+    /**
      * 根据项目ID查找项目信息 并发布该服务
      *
      * @param projectId 项目ID

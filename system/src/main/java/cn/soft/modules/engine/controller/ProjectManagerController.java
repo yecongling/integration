@@ -76,6 +76,17 @@ public class ProjectManagerController {
     }
 
     /**
+     * 删除项目
+     *
+     * @param projectId 项目ID
+     * @return 删除结果
+     */
+    @PostMapping("/deleteProject/{projectId}")
+    public Result<Object> deleteProject(@PathVariable String projectId) {
+        return projectManagerService.deleteProject(projectId);
+    }
+
+    /**
      * （取消）发布服务
      *
      * @param projectID 服务ID

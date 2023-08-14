@@ -44,6 +44,14 @@ public interface ProjectManagerMapper {
     int updateProject(Project project);
 
     /**
+     * 删除项目
+     *
+     * @param projectId 项目ID
+     * @return 结果
+     */
+    boolean deleteProject(@Param("id") String projectId);
+
+    /**
      * 根据项目ID查询项目信息
      *
      * @param id 项目ID
