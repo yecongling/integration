@@ -4,6 +4,7 @@ import cn.soft.common.api.vo.Result;
 import cn.soft.common.constant.CommonConstant;
 import cn.soft.common.constant.SymbolConstant;
 import cn.soft.common.util.ConvertUtil;
+import cn.soft.common.util.UUIDUtil;
 import cn.soft.modules.system.entity.SysPermission;
 import cn.soft.modules.system.mapper.SysPermissionMapper;
 import cn.soft.modules.system.service.ISysPermissionService;
@@ -106,6 +107,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     public Result<Object> addPermission(SysPermission permission) {
         // 设置一些必要属性
         Date date = new Date();
+        permission.setId(UUIDUtil.getUniqueId());
         permission.setCreateTime(date);
         permission.setUpdateTime(date);
         permission.setCreateBy("admin");

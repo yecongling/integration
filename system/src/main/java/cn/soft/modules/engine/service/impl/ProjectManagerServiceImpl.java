@@ -1,6 +1,7 @@
 package cn.soft.modules.engine.service.impl;
 
 import cn.soft.common.api.vo.Result;
+import cn.soft.common.util.UUIDUtil;
 import cn.soft.modules.base.service.impl.BaseCommonServiceImpl;
 import cn.soft.modules.engine.core.EngineServiceCenter;
 import cn.soft.modules.engine.entity.project.EndpointProperties;
@@ -83,6 +84,7 @@ public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements 
         project.setCreateBy("ycl");
         project.setUpdateBy("ycl");
         project.setUpdateTime(new Date());
+        project.setId(UUIDUtil.getUniqueId());
         int i = projectManagerMapper.addProject(project);
         if (i > 0) {
             return Result.ok("新增项目成功");

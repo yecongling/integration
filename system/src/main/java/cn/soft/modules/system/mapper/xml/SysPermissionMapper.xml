@@ -50,12 +50,12 @@
     <!-- 新增菜单 -->
     <insert id="addPermission" useGeneratedKeys="true" keyProperty="id"
             parameterType="cn.soft.modules.system.entity.SysPermission">
-        insert into integration.t_sys_permission (parent_id, name, url, component, component_name,
+        insert into integration.t_sys_permission (id, parent_id, name, url, component, component_name,
                                                   redirect, menu_type, perms, perms_type, sort_no, always_show,
                                                   icon, is_route, is_leaf, keep_alive, hidden, hide_tab,
                                                   description, create_by, create_time, update_by, update_time,
                                                   del_flag, rule_flag, status, internal_or_external)
-            value (#{parentId}, #{name}, #{url}, #{component}, #{componentName}, #{redirect}, #{menuType}, #{perms},
+            value (#{id}, #{parentId}, #{name}, #{url}, #{component}, #{componentName}, #{redirect}, #{menuType}, #{perms},
                    #{permsType}, #{sortNo}, #{alwaysShow}, #{icon}, #{route}, #{leaf}, #{keepAlive}, #{hidden},
                    #{hideTab},
                    #{description}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{delFlag}, #{ruleFlag},
