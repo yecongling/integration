@@ -132,7 +132,7 @@ CREATE TABLE `t_sys_permission`
 DROP TABLE IF EXISTS `t_data_source`;
 CREATE TABLE `t_data_source`
 (
-    `id`                 varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL,
+    `id`                 varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL,
     `name`               varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '数据源名称',
     `remark`             varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
     `datasource_type`    varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '数据库类型',
