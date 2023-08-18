@@ -25,4 +25,35 @@
         from integration.t_engine_datasource
     </select>
 
+    <!-- 新增数据源 -->
+    <insert id="addDataSource" parameterType="cn.soft.modules.engine.entity.connection.DatasourceModel">
+        insert into t_engine_datasource (id, name, remark, datasource_type, datasource_url, test_query, username,
+                                         password, variable_password, connection_timeout, idle_timeout, max_lifetime,
+                                         min_idle, max_pool_size, create_by, create_time, update_by, update_time)
+        VALUES ( #{id}, #{name}, #{remark}, #{datasourceType}, #{url}, #{testQuery}, #{username}, #{password}
+               , #{variablePassword}
+               , #{connectionTimeout}, #{idleTimeout}, #{maxLifetime}, #{minIdle}, #{maxPoolSize}, #{createBy}
+               , #{createTime}, #{updateBy}, #{updateTime})
+    </insert>
+
+    <!-- 更新数据源 -->
+    <update id="updateDataSource" parameterType="cn.soft.modules.engine.entity.connection.DatasourceModel">
+        update t_engine_datasource
+        set name               = #{name},
+            remark             = #{remark},
+            datasource_type    = #{datasourceType},
+            datasource_url     = #{url},
+            test_query         = #{testQuery},
+            username           = #{username},
+            password           = #{password},
+            variable_password  = #{variablePassword},
+            connection_timeout = #{connectionTimeout},
+            idle_timeout       = #{idleTimeout},
+            max_lifetime       = #{maxLifetime},
+            min_idle           = #{minIdle},
+            max_pool_size      = #{maxPoolSize},
+            update_by          = #{updateBy},
+            update_time        = #{updateTime}
+        where id = #{id}
+    </update>
 </mapper>

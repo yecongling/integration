@@ -25,4 +25,20 @@ public interface DatasourceMapper {
      */
     List<DatasourceModel> queryDatasource(DatasourceModel model, int pageNo, int pageSize);
 
+    /**
+     * 新增数据源
+     *
+     * @param model 数据源对象
+     * @return 新增的结果
+     */
+    int addDataSource(DatasourceModel model);
+
+    /**
+     * 更新数据源
+     *
+     * @param model 数据源
+     * @return 结果
+     */
+    int updateDataSource(DatasourceModel model);
+
 }

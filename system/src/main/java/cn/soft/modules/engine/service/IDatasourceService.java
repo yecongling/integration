@@ -31,7 +31,7 @@ public interface IDatasourceService {
      * @param datasource 数据源
      * @return 新增结果
      */
-    Result<JSONObject> addDatasource(DatasourceModel datasource);
+    Result<Object> addDatasource(DatasourceModel datasource);
 
     /**
      * 修改数据源信息

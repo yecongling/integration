@@ -1,6 +1,7 @@
 package cn.soft.modules.engine.service.impl;
 
 import cn.soft.common.api.vo.Result;
+import cn.soft.common.util.UUIDUtil;
 import cn.soft.modules.engine.entity.connection.DatasourceModel;
 import cn.soft.modules.engine.mapper.DatasourceMapper;
 import cn.soft.modules.engine.service.IDatasourceService;
@@ -8,6 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,8 +50,17 @@ public class DatasourceServiceImpl implements IDatasourceService {
      * @return 新增结果
      */
     @Override
-    public Result<JSONObject> addDatasource(DatasourceModel datasource) {
-        return null;
+    public Result<Object> addDatasource(DatasourceModel datasource) {
+        datasource.setId(UUIDUtil.getUniqueId());
+        datasource.setCreateBy("admin");
+        datasource.setCreateTime(new Date());
+        datasource.setUpdateBy("admin");
+        datasource.setUpdateTime(new Date());
+        int i = datasourceMapper.addDataSource(datasource);
+        if (i > 0) {
+            return Result.ok("新增数据源成功");
+        }
+        return Result.error("新增数据源失败");
     }
 
     /**

@@ -4,6 +4,7 @@ import cn.soft.common.api.vo.Result;
 import cn.soft.modules.engine.entity.connection.DatasourceModel;
 import cn.soft.modules.engine.service.IDatasourceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,10 +37,21 @@ public class DataSourceController {
      * @param pageSize        页大小
      * @return 数据
      */
-    @RequestMapping("/queryDatasource")
+    @PostMapping("/queryDatasource")
     public Result<List<DatasourceModel>> queryDatasource(DatasourceModel datasourceModel,
                                                          @RequestParam(name = "pageNo", defaultValue = "1") int pageNo,
                                                          @RequestParam(name = "pageSize", defaultValue = "10") int pageSize) {
         return datasourceService.queryDatasource(datasourceModel, pageNo, pageSize);
+    }
+
+    /**
+     * 新增数据源
+     *
+     * @param model 数据源对象
+     * @return 结果
+     */
+    @PostMapping("/addDataSource")
+    public Result<Object> addDataSource(DatasourceModel model) {
+        return datasourceService.addDatasource(model);
     }
 }

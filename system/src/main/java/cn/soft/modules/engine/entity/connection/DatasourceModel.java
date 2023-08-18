@@ -39,6 +39,9 @@ public class DatasourceModel extends BaseModel {
     /* 最大连接池数量 */
     private Integer maxPoolSize;
 
+    /* 备注 */
+    private String remark;
+
     public String getId() {
         return id;
     }
@@ -141,5 +144,13 @@ public class DatasourceModel extends BaseModel {
 
     public void setMaxPoolSize(Integer maxPoolSize) {
         this.maxPoolSize = maxPoolSize;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }
