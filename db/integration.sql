@@ -129,8 +129,8 @@ CREATE TABLE `t_sys_permission`
 
 /*  ============== 以下是引擎部分需要的=================*/
 
-DROP TABLE IF EXISTS `t_data_source`;
-CREATE TABLE `t_data_source`
+DROP TABLE IF EXISTS `t_engine_datasource`;
+CREATE TABLE `t_engine_datasource`
 (
     `id`                 varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL,
     `name`               varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '数据源名称',
