@@ -22,7 +22,7 @@
     <!-- 查询数据源 -->
     <select id="queryDatasource" resultMap="datasourceModel">
         select *
-        from integration.t_data_source
+        from integration.t_engine_datasource
     </select>
 
 </mapper>
