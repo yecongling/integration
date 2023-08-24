@@ -1,8 +1,8 @@
-package cn.soft.common.websocket
+package cn.soft.common.websocket;
 
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
-import org.springframework.web.socket.server.standard.ServerEndpointExporter
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 /**
  * @ClassName WebSocketConfig
