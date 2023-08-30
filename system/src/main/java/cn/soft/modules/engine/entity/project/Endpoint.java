@@ -2,6 +2,7 @@ package cn.soft.modules.engine.entity.project;
 
 import cn.soft.common.api.vo.BaseModel;
 
+import java.io.Serial;
 import java.util.Map;
 
 /**
@@ -12,6 +13,7 @@ import java.util.Map;
  * @Version 1.0
  */
 public class Endpoint extends BaseModel {
+    @Serial
     private static final long serialVersionUID = -4983389133257246176L;
     /* 终端ID 构成格式endpoint_type_id type是终端类型 */
     private String endpointId;

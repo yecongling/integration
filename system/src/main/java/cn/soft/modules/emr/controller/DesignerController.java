@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2022/11/25 12:56
  * @Version 1.0
  */
-@RestController
+@RestController(value = "emrDesigner")
 @RequestMapping("/emr/design")
 public class DesignerController {
 }

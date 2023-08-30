@@ -20,7 +20,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @RestController
-@RequestMapping("/sys/project")
+@RequestMapping("/engine/project")
 public class ProjectManagerController {
 
     /* 注入项目管理service */
