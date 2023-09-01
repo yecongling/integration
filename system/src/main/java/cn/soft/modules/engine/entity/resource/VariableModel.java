@@ -2,6 +2,8 @@ package cn.soft.modules.engine.entity.resource;
 
 import cn.soft.common.api.vo.BaseModel;
 
+import java.io.Serial;
+
 /**
  * @ClassName VariableModel
  * @Description 系统变量
@@ -11,6 +13,7 @@ import cn.soft.common.api.vo.BaseModel;
  **/
 public class VariableModel extends BaseModel {
 
+    @Serial
     private static final long serialVersionUID = 8967226505071996202L;
     /* 变量id 以variable_开头 */
     private String variableId;

@@ -2,6 +2,8 @@ package cn.soft.modules.engine.entity.resource;
 
 import cn.soft.common.api.vo.BaseModel;
 
+import java.io.Serial;
+
 /**
  * @ClassName ResourceModel t_sys_resource
  * @Description 资源实体类（分不同的资源类型，存储不同的资源字段）
@@ -11,6 +13,7 @@ import cn.soft.common.api.vo.BaseModel;
  **/
 public class ResourceModel extends BaseModel {
 
+    @Serial
     private static final long serialVersionUID = -748992583545822380L;
 
 

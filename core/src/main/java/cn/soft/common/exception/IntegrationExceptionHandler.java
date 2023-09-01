@@ -13,9 +13,25 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class IntegrationExceptionHandler {
 
+    /**
+     * 处理空指针返回
+     *
+     * @param e 空指针
+     * @return 错误信息
+     */
+    @ExceptionHandler(NullPointerException.class)
+    public Result<Object> doNullPointerException(NullPointerException e) {
+        return Result.error("空指针异常" + e.getMessage());
+    }
+
+    /**
+     * 处理其他异常
+     *
+     * @param e 异常
+     * @return 返回消息
+     */
     @ExceptionHandler(Exception.class)
-    public Result<Object> handleException(Exception e) {
-        System.out.println("输出异常:" + e.getMessage());
-        return Result.error("我搞了个异常");
+    public Result<Object> doException(Exception e) {
+        return Result.error(e.getMessage());
     }
 }

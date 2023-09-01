@@ -1,6 +1,10 @@
 package cn.soft.modules.engine.mapper;
 
+import cn.soft.modules.engine.entity.project.Endpoint;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @ClassName DesignerMapper
@@ -11,5 +15,13 @@ import org.apache.ibatis.annotations.Mapper;
  **/
 @Mapper
 public interface DesignerMapper {
+
+    /**
+     * 查询endpoint
+     *
+     * @param param 参数
+     * @return endpoints
+     */
+    public List<Endpoint> getEndpoints(JSONObject param);
 
 }

@@ -1,8 +1,8 @@
 package cn.soft.modules.engine.controller;
 
-import cn.soft.common.api.vo.Result;
 import cn.soft.modules.emr.service.DesignerService;
 import cn.soft.modules.engine.entity.project.Endpoint;
+import cn.soft.modules.engine.service.IDesignerService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,10 +23,10 @@ import java.util.List;
 @RequestMapping("/engine/designer")
 public class DesignerController {
 
-    private DesignerService designerService;
+    private IDesignerService designerService;
 
     @Autowired
-    public void setDesignerService(DesignerService designerService) {
+    public void setDesignerService(IDesignerService designerService) {
         this.designerService = designerService;
     }
 
@@ -37,7 +37,7 @@ public class DesignerController {
      * @return endpoint
      */
     @PostMapping("/getEndpointService")
-    public Result<List<Endpoint>> getEndpointService(@RequestBody(required = false) JSONObject param) {
-        return null;
+    public List<Endpoint> getEndpointService(@RequestBody JSONObject param) {
+        return designerService.getEndpoints(param);
     }
 }

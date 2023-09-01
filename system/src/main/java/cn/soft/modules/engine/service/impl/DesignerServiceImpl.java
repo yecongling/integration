@@ -28,13 +28,13 @@ public class DesignerServiceImpl extends BaseCommonServiceImpl implements IDesig
     }
 
     /**
-     * 查询endpoint
+     * 根据项目获取其对应的endpoint服务
      *
-     * @param params 参数
+     * @param params 查询参数，包括项目ID
      * @return endpoints
      */
     @Override
-    public List<Endpoint> getEndpointService(JSONObject params) {
+    public List<Endpoint> getEndpoints(JSONObject params) {
         return null;
     }
 }
