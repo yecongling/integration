@@ -10,5 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @Version 1.0
  */
 @Mapper
-public interface DesignerMapper {
+public interface EmrDesignerMapper {
 }

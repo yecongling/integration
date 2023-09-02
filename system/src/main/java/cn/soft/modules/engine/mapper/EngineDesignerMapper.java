@@ -14,7 +14,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Mapper
-public interface DesignerMapper {
+public interface EngineDesignerMapper {
 
     /**
      * 查询endpoint
