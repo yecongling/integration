@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.net.integration.system.modules.engine.mapper.ProjectManagerMapper">
+
+    <!-- 项目表和项目实体的映射 -->
+    <resultMap id="project" type="cn.net.integration.system.modules.engine.entity.project.Project">
+        <result column="name" property="projectName"/>
+        <result column="id" property="id"/>
+        <result column="type" property="projectType"/>
+        <result column="priority" property="projectPriority"/>
+        <result column="description" property="description"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <!-- 属性表和实体字段映射 -->
+    <resultMap id="properties" type="cn.net.integration.system.modules.engine.entity.project.EndpointProperties">
+        <result column="endpoint_type_name" property="endpointTypeName"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="allowed_values" property="allowedValues"/>
+        <result column="required" property="required"/>
+        <result column="default_value" property="defaultValue"/>
+        <result column="endpoint_modes" property="endpointModes"/>
+        <result column="masked" property="masked"/>
+        <result column="modeRequired" property="modeRequired"/>
+        <result column="applies_to" property="appliesTo"/>
+    </resultMap>
+
+    <!-- 路由表和实体字段的映射 -->
+    <resultMap id="route" type="cn.net.integration.system.modules.engine.entity.project.Route">
+        <result column="id" property="routeId"/>
+        <result column="name" property="routeName"/>
+        <result column="description" property="description"/>
+        <result column="debug" property="debug"/>
+        <result column="deep_clone" property="deepClone"/>
+        <result column="processing_strategy" property="processingStrategy"/>
+        <result column="thread_count" property="threadCount"/>
+        <result column="x" property="x"/>
+        <result column="y" property="y"/>
+        <result column="nodes" property="nodes"/>
+        <result column="links" property="links"/>
+    </resultMap>
+
+    <!-- 查询所有项目信息 -->
+    <select id="queryAllProject" resultMap="project" parameterType="cn.net.integration.system.modules.engine.entity.project.Project">
+        select id, name, type, log_type, status, priority, description from integration.t_engine_project
+        <where>
+            <if test="name != null and name != ''">
+                and instr(#{name}, name) > 0
+            </if>
+            <if test="type != null and type != '' and type != '-1'">
+                and type = #{projectType}
+            </if>
+            <if test="status != null and status != ''">
+                and `status` = #{status}
+            </if>
+        </where>
+    </select>
+
+    <!-- 新增项目 -->
+    <insert id="addProject" parameterType="cn.net.integration.system.modules.engine.entity.project.Project" useGeneratedKeys="true" keyProperty="id">
+        insert into integration.t_engine_project (id, create_by, create_time, update_by, update_time, name, type, log_type,
+                                                  status, priority, description)
+        values (#{id}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{projectName}, #{projectType}, #{logType},
+                #{status}, #{projectPriority}, #{description})
+    </insert>
+
+    <!-- 更新项目 -->
+    <update id="updateProject" parameterType="cn.net.integration.system.modules.engine.entity.project.Project">
+        update integration.t_engine_project
+        set integration.t_engine_project.update_by   = #{updateBy},
+            integration.t_engine_project.update_time = #{updateTime},
+            integration.t_engine_project.name        = #{projectName},
+            integration.t_engine_project.type        = #{projectType},
+            integration.t_engine_project.log_type    = #{logType},
+            integration.t_engine_project.status      = #{status},
+            integration.t_engine_project.priority    = #{projectPriority},
+            integration.t_engine_project.description = #{description}
+        where integration.t_engine_project.id = #{id}
+    </update>
+
+    <!-- 删除项目 -->
+    <delete id="deleteProject" parameterType="string">
+        delete
+        from t_engine_project
+        where id = #{id}
+    </delete>
+
+    <!-- 根据项目ID查询项目信息 -->
+    <select id="queryProjectInfoByID" parameterType="string"
+            resultType="cn.net.integration.system.modules.engine.entity.project.Project">
+        select id, `name`, type, log_type, `status`, priority, `description`
+        from integration.t_engine_project
+        where id = #{id}
+    </select>
+
+    <!-- 查询终端配置属性（也适用于后期维护该表时的查询） -->
+    <select id="queryEndpointProperties" parameterType="object" resultMap="properties">
+        select endpoint_type_name,
+               `name`,
+               type,
+               required,
+               allowed_values,
+               default_value,
+               endpoint_modes,
+               masked,
+               modeRequired,
+               applies_to
+        from integration.t_engine_ep_properties
+    </select>
+    <!-- 查询路由信息 -->
+    <select id="queryRoutes" parameterType="list" resultMap="route">
+        select id,
+        `name`,
+        `description`,
+        debug,
+        deep_clone,
+        processing_strategy,
+        thread_count,
+        x,
+        y,
+        nodes,
+        links
+        from integration.t_engine_route
+        <if test="routeIDs != null and routeIDs.size() > 0">
+            <where>
+                and id in
+                <foreach collection="list" item="routeId" index="index" open="(" close=")" separator=",">
+                    #{routeId}
+                </foreach>
+            </where>
+        </if>
+    </select>
+</mapper>

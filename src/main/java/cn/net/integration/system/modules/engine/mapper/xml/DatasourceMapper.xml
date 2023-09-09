@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.net.integration.system.modules.engine.mapper.DatasourceMapper">
+
+    <!-- 建立映射 -->
+    <resultMap id="datasourceModel" type="cn.net.integration.system.modules.engine.entity.connection.DatasourceModel">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="datasource_type" property="datasourceType"/>
+        <result column="datasource_url" property="url"/>
+        <result column="test_query" property="testQuery"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="variable_password" property="variablePassword"/>
+        <result column="connection_timeout" property="connectionTimeout"/>
+        <result column="idle_timeout" property="idleTimeout"/>
+        <result column="max_lifetime" property="maxLifetime"/>
+        <result column="min_idle" property="minIdle"/>
+        <result column="max_pool_size" property="maxPoolSize"/>
+    </resultMap>
+
+    <!-- 查询数据源 -->
+    <select id="queryDatasource" resultMap="datasourceModel">
+        select *
+        from integration.t_engine_datasource
+    </select>
+
+    <!-- 新增数据源 -->
+    <insert id="addDataSource" parameterType="cn.net.integration.system.modules.engine.entity.connection.DatasourceModel">
+        insert into t_engine_datasource (id, name, remark, datasource_type, datasource_url, test_query, username,
+                                         password, variable_password, connection_timeout, idle_timeout, max_lifetime,
+                                         min_idle, max_pool_size, create_by, create_time, update_by, update_time)
+        VALUES ( #{id}, #{name}, #{remark}, #{datasourceType}, #{url}, #{testQuery}, #{username}, #{password}
+               , #{variablePassword}
+               , #{connectionTimeout}, #{idleTimeout}, #{maxLifetime}, #{minIdle}, #{maxPoolSize}, #{createBy}
+               , #{createTime}, #{updateBy}, #{updateTime})
+    </insert>
+
+    <!-- 更新数据源 -->
+    <update id="updateDataSource" parameterType="cn.net.integration.system.modules.engine.entity.connection.DatasourceModel">
+        update t_engine_datasource
+        set name               = #{name},
+            remark             = #{remark},
+            datasource_type    = #{datasourceType},
+            datasource_url     = #{url},
+            test_query         = #{testQuery},
+            username           = #{username},
+            password           = #{password},
+            variable_password  = #{variablePassword},
+            connection_timeout = #{connectionTimeout},
+            idle_timeout       = #{idleTimeout},
+            max_lifetime       = #{maxLifetime},
+            min_idle           = #{minIdle},
+            max_pool_size      = #{maxPoolSize},
+            update_by          = #{updateBy},
+            update_time        = #{updateTime}
+        where id = #{id}
+    </update>
+</mapper>
