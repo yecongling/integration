@@ -42,13 +42,13 @@
     </resultMap>
 
     <!-- 查询所有项目信息 -->
-    <select id="queryAllProject" resultMap="project" parameterType="cn.net.integration.modules.engine.entity.project.Project">
+    <select id="queryAllProject" resultMap="project" parameterType="object">
         select id, name, type, log_type, status, priority, description from integration.t_engine_project
         <where>
             <if test="name != null and name != ''">
                 and instr(#{name}, name) > 0
             </if>
-            <if test="type != null and type != '' and type != '-1'">
+            <if test="projectType != null and type != '' and projectType != '-1'">
                 and type = #{projectType}
             </if>
             <if test="status != null and status != ''">
