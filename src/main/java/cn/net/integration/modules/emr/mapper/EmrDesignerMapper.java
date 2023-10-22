@@ -1,6 +1,7 @@
 package cn.net.integration.modules.emr.mapper;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,5 +23,6 @@ public interface EmrDesignerMapper {
      * @param param 查询参数
      * @return 分类信息
      */
+    @MapKey("id")
     List<Map<String, Object>> getEmrCategory(@Param("param")JSONObject param);
 }
