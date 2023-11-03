@@ -48,13 +48,29 @@ spring:
       # 数据库连接超时时间,默认30秒，即30000
       connection-timeout: 30000
       connection-test-query: SELECT 1
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration,org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration,org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
-#    slave:
-#      url: jdbc:mysql://rm-2vc3ee45i9034fua7zo.mysql.cn-chengdu.rds.aliyuncs.com:3306/integration?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
-#      username: ycl
-#      password: Ycl499475142!
-#      driver-class-name: com.mysql.cj.jdbc.Driver
+#  autoconfigure:
+  #    exclude:
+  #    slave:
+  #      url: jdbc:mysql://rm-2vc3ee45i9034fua7zo.mysql.cn-chengdu.rds.aliyuncs.com:3306/integration?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+  #      username: ycl
+  #      password: Ycl499475142!
+  #      driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      connect-timeout: 180000
+      database: 0
+      lettuce:
+        pool:
+          # 最大阻塞等待时间，负数表示没有限制
+          max-wait: -1
+          # 连接池中的最大空闲连接
+          max-idle: 5
+          # 连接池中的最小空闲连接
+          min-idle: 0
+          # 连接池中最大连接数，负数表示没有限制
+          max-active: 20
 camel:
   springboot:
     backlog-tracing: false
