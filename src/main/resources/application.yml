@@ -55,22 +55,22 @@ spring:
   #      username: ycl
   #      password: Ycl499475142!
   #      driver-class-name: com.mysql.cj.jdbc.Driver
-  data:
-    redis:
-      host: 127.0.0.1
-      port: 6379
-      connect-timeout: 180000
-      database: 0
-      lettuce:
-        pool:
-          # 最大阻塞等待时间，负数表示没有限制
-          max-wait: -1
-          # 连接池中的最大空闲连接
-          max-idle: 5
-          # 连接池中的最小空闲连接
-          min-idle: 0
-          # 连接池中最大连接数，负数表示没有限制
-          max-active: 20
+#  data:
+#    redis:
+#      host: 127.0.0.1
+#      port: 6379
+#      connect-timeout: 180000
+#      database: 0
+#      lettuce:
+#        pool:
+#          # 最大阻塞等待时间，负数表示没有限制
+#          max-wait: -1
+#          # 连接池中的最大空闲连接
+#          max-idle: 5
+#          # 连接池中的最小空闲连接
+#          min-idle: 0
+#          # 连接池中最大连接数，负数表示没有限制
+#          max-active: 20
 camel:
   springboot:
     backlog-tracing: false
