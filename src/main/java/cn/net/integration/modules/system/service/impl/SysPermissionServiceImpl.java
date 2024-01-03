@@ -303,10 +303,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
             // 外链菜单打开方式
             meta.put("internalOrExternal", permission.isInternalOrExternal());
             meta.put("title", permission.getName());
-            String component = permission.getComponent();
-            if (ConvertUtil.isNotEmpty(permission.getComponentName()) || ConvertUtil.isNotEmpty(component)) {
-                meta.put("componentName", ConvertUtil.getString(permission.getComponentName(), component.substring(component.lastIndexOf("/") + 1)));
-            }
+            meta.put("componentName", permission.getComponentName());
             if (ConvertUtil.isEmpty(permission.getParentId())) {
                 // 一级菜单跳转地址
                 json.put("redirect", permission.getRedirect());
