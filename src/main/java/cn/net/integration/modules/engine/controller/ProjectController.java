@@ -21,7 +21,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/engine/project")
-public class ProjectManagerController {
+public class ProjectController {
 
     /* 注入项目管理service */
     private IProjectManagerService projectManagerService;

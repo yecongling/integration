@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.net.integration.modules.engine.mapper.DBResourceMapper">
+
+    <!-- 查询数据库资源 -->
+    <select id="queryDBResource" parameterType="cn.net.integration.modules.engine.entity.resource.DBResourceModel"
+            resultType="cn.net.integration.modules.engine.entity.resource.DBResourceModel">
+
+    </select>
+</mapper>
