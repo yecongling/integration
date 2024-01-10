@@ -4,6 +4,8 @@ import cn.net.integration.core.common.api.vo.Result;
 import cn.net.integration.modules.system.entity.SysLoginModel;
 import cn.net.integration.modules.system.service.ISysLoginService;
 import com.alibaba.fastjson.JSONObject;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/sys")
+@Tag(name = "登录控制器", description = "登录模块使用")
 public class SysLoginController {
 
     private cn.net.integration.modules.system.service.ISysLoginService ISysLoginService;
@@ -34,6 +37,7 @@ public class SysLoginController {
      * @param loginModel 登录对象
      * @return 返回登录结果
      */
+    @Operation(summary = "登录方法", description = "登录方法")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Result<JSONObject> login(@RequestBody SysLoginModel loginModel) throws Exception{
         return ISysLoginService.login(loginModel);
