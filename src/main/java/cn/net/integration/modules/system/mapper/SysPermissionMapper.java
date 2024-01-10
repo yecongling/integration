@@ -2,6 +2,7 @@ package cn.net.integration.modules.system.mapper;
 
 import cn.net.integration.modules.system.entity.SysPermission;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * @Version 1.0
  */
 @Mapper
-public interface SysPermissionMapper {
+public interface SysPermissionMapper extends BaseMapper<SysPermission> {
 
     /**
      * 查询用户权限

@@ -6,6 +6,7 @@ import cn.net.integration.modules.engine.entity.connection.DatasourceModel;
 import cn.net.integration.modules.engine.mapper.DatasourceMapper;
 import cn.net.integration.modules.engine.service.IDatasourceService;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Service
-public class DatasourceServiceImpl implements IDatasourceService {
+public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, DatasourceModel> implements IDatasourceService {
 
     private DatasourceMapper datasourceMapper;
 

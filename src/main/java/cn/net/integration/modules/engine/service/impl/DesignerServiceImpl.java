@@ -1,10 +1,10 @@
 package cn.net.integration.modules.engine.service.impl;
 
-import cn.net.integration.core.base.service.impl.BaseCommonServiceImpl;
 import cn.net.integration.modules.engine.entity.project.Endpoint;
 import cn.net.integration.modules.engine.mapper.EngineDesignerMapper;
 import cn.net.integration.modules.engine.service.IDesignerService;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Service(value = "engineDesignerService")
-public class DesignerServiceImpl extends BaseCommonServiceImpl implements IDesignerService {
+public class DesignerServiceImpl extends ServiceImpl<EngineDesignerMapper, Endpoint> implements IDesignerService {
 
     private EngineDesignerMapper engineDesignerMapper;
 

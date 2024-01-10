@@ -10,6 +10,7 @@ import cn.net.integration.modules.system.mapper.SysPermissionMapper;
 import cn.net.integration.modules.system.service.ISysPermissionService;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ import java.util.*;
  * @Version 1.0
  */
 @Service
-public class SysPermissionServiceImpl implements ISysPermissionService {
+public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysPermission> implements ISysPermissionService {
     private SysPermissionMapper sysPermissionMapper;
 
     @Autowired

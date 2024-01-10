@@ -1,6 +1,7 @@
 package cn.net.integration.modules.engine.mapper;
 
 import cn.net.integration.modules.engine.entity.resource.DBResourceModel;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * @Version 1.0
  */
 @Mapper
-public interface DBResourceMapper {
+public interface DBResourceMapper extends BaseMapper<DBResourceModel> {
 
     /**
      * 查询数据库资源

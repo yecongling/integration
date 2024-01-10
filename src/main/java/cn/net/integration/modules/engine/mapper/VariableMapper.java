@@ -1,5 +1,7 @@
 package cn.net.integration.modules.engine.mapper;
 
+import cn.net.integration.modules.engine.entity.resource.VariableModel;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,6 +12,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @Version 1.0
  **/
 @Mapper
-public interface VariableMapper {
+public interface VariableMapper extends BaseMapper<VariableModel> {
 
 }

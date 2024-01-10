@@ -4,6 +4,7 @@ import cn.net.integration.modules.engine.entity.resource.DBResourceModel;
 import cn.net.integration.modules.engine.mapper.DBResourceMapper;
 import cn.net.integration.modules.engine.service.DBResourceService;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @Service
-public class DBResourceServiceImpl implements DBResourceService {
+public class DBResourceServiceImpl extends ServiceImpl<DBResourceMapper, DBResourceModel> implements DBResourceService {
     private DBResourceMapper dbResourceMapper;
 
     @Autowired

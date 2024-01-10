@@ -3,7 +3,7 @@
 <mapper namespace="cn.net.integration.modules.engine.mapper.EngineDesignerMapper">
 
     <!-- 查询endpoints -->
-    <select id="getEndpoints">
+    <select id="getEndpoints" resultType="cn.net.integration.modules.engine.entity.project.Endpoint">
 
     </select>
 </mapper>

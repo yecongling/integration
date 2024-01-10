@@ -3,6 +3,7 @@ package cn.net.integration.modules.engine.service;
 import cn.net.integration.core.common.api.vo.Result;
 import cn.net.integration.modules.engine.entity.connection.DatasourceModel;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * @Date 2022/11/22 12:54
  * @Version 1.0
  */
-public interface IDatasourceService {
+public interface IDatasourceService extends IService<DatasourceModel> {
 
     /**
      * 查询所有的数据源信息

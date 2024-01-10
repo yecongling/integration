@@ -1,5 +1,7 @@
 package cn.net.integration.modules.engine.mapper;
 
+import cn.net.integration.modules.engine.entity.resource.ResourceModel;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,5 +12,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @Version 1.0
  */
 @Mapper
-public interface ResourceMapper {
+public interface ResourceMapper extends BaseMapper<ResourceModel> {
 }

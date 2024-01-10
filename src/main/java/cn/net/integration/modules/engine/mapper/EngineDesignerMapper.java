@@ -2,6 +2,7 @@ package cn.net.integration.modules.engine.mapper;
 
 import cn.net.integration.modules.engine.entity.project.Endpoint;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Mapper
-public interface EngineDesignerMapper {
+public interface EngineDesignerMapper extends BaseMapper<Endpoint> {
 
     /**
      * 查询endpoint

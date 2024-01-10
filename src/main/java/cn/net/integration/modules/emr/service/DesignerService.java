@@ -1,6 +1,8 @@
 package cn.net.integration.modules.emr.service;
 
+import cn.net.integration.modules.emr.entity.Designer;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +14,7 @@ import java.util.Map;
  * @Date 2022/11/25 12:57
  * @Version 1.0
  */
-public interface DesignerService {
+public interface DesignerService extends IService<Designer> {
 
     /**
      * 查询所有的文书种类

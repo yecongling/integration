@@ -1,6 +1,7 @@
 package cn.net.integration.modules.engine.mapper;
 
 import cn.net.integration.modules.engine.entity.connection.DatasourceModel;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Mapper
-public interface DatasourceMapper {
+public interface DatasourceMapper extends BaseMapper<DatasourceModel> {
 
     /**
      * 查询数据源

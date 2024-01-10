@@ -2,6 +2,7 @@ package cn.net.integration.modules.engine.service;
 
 import cn.net.integration.modules.engine.entity.project.Endpoint;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @Date 2023/8/30 22:37
  * @Version 1.0
  **/
-public interface IDesignerService {
+public interface IDesignerService extends IService<Endpoint> {
 
     /**
      * 根据项目获取其对应的endpoint服务

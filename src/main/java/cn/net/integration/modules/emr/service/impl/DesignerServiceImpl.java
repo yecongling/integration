@@ -1,8 +1,10 @@
 package cn.net.integration.modules.emr.service.impl;
 
-import cn.net.integration.core.base.service.impl.BaseCommonServiceImpl;
+import cn.net.integration.modules.emr.entity.Designer;
+import cn.net.integration.modules.emr.mapper.EmrDesignerMapper;
 import cn.net.integration.modules.emr.service.DesignerService;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @Service
-public class DesignerServiceImpl extends BaseCommonServiceImpl implements DesignerService {
+public class DesignerServiceImpl extends ServiceImpl<EmrDesignerMapper, Designer> implements DesignerService {
 
     /**
      * 查询所有的文书种类

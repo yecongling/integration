@@ -4,6 +4,7 @@ import cn.net.integration.modules.engine.entity.project.EndpointProperties;
 import cn.net.integration.modules.engine.entity.project.Project;
 import cn.net.integration.modules.engine.entity.project.Route;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,7 +18,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Mapper
-public interface ProjectManagerMapper {
+public interface ProjectManagerMapper extends BaseMapper<Project> {
 
     /**
      * 查询所有项目信息

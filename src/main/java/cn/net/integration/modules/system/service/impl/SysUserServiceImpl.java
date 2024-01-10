@@ -1,6 +1,5 @@
 package cn.net.integration.modules.system.service.impl;
 
-import cn.net.integration.core.base.service.impl.BaseCommonServiceImpl;
 import cn.net.integration.core.common.api.vo.Result;
 import cn.net.integration.core.common.constant.CommonConstant;
 import cn.net.integration.core.common.util.ConvertUtil;
@@ -11,6 +10,7 @@ import cn.net.integration.modules.system.mapper.SysUserMapper;
 import cn.net.integration.modules.system.mapper.SysUserRoleMapper;
 import cn.net.integration.modules.system.service.ISysUserService;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import java.util.Date;
  * @Version 1.0
  */
 @Service
-public class SysUserServiceImpl extends BaseCommonServiceImpl implements ISysUserService {
+public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
 
     private SysUserMapper userMapper;
 

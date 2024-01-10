@@ -4,6 +4,7 @@ package cn.net.integration.modules.system.service;
 import cn.net.integration.core.common.api.vo.Result;
 import cn.net.integration.modules.system.entity.SysPermission;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * @ClassName ISysPermissionService
@@ -12,7 +13,7 @@ import com.alibaba.fastjson.JSONObject;
  * @Date 2022/12/22 12:04
  * @Version 1.0
  */
-public interface ISysPermissionService {
+public interface ISysPermissionService extends IService<SysPermission> {
 
     /**
      * 获取登录用户所拥有的权限

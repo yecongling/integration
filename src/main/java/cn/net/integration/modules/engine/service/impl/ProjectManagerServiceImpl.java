@@ -1,6 +1,5 @@
 package cn.net.integration.modules.engine.service.impl;
 
-import cn.net.integration.core.base.service.impl.BaseCommonServiceImpl;
 import cn.net.integration.core.common.api.vo.Result;
 import cn.net.integration.core.common.util.UUIDUtil;
 import cn.net.integration.modules.engine.core.EngineServiceCenter;
@@ -10,6 +9,7 @@ import cn.net.integration.modules.engine.entity.project.Route;
 import cn.net.integration.modules.engine.mapper.ProjectManagerMapper;
 import cn.net.integration.modules.engine.service.IProjectManagerService;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Service
-public class ProjectManagerServiceImpl extends BaseCommonServiceImpl implements IProjectManagerService {
+public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper, Project> implements IProjectManagerService {
 
     /* 注入项目管理mapper */
     private ProjectManagerMapper projectManagerMapper;

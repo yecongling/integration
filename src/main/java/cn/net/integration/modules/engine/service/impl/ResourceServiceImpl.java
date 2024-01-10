@@ -1,7 +1,9 @@
 package cn.net.integration.modules.engine.service.impl;
 
-import cn.net.integration.core.base.service.impl.BaseCommonServiceImpl;
+import cn.net.integration.modules.engine.entity.resource.ResourceModel;
+import cn.net.integration.modules.engine.mapper.ResourceMapper;
 import cn.net.integration.modules.engine.service.IResourceService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,5 +14,5 @@ import org.springframework.stereotype.Service;
  * @Version 1.0
  **/
 @Service
-public class ResourceServiceImpl extends BaseCommonServiceImpl implements IResourceService {
+public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, ResourceModel> implements IResourceService {
 }

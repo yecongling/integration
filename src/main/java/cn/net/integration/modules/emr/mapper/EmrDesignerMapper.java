@@ -1,6 +1,8 @@
 package cn.net.integration.modules.emr.mapper;
 
+import cn.net.integration.modules.emr.entity.Designer;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -16,7 +18,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @Mapper
-public interface EmrDesignerMapper {
+public interface EmrDesignerMapper extends BaseMapper<Designer> {
 
     /**
      * 查询所有的文书分类

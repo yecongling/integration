@@ -4,6 +4,7 @@ package cn.net.integration.modules.system.service;
 import cn.net.integration.core.common.api.vo.Result;
 import cn.net.integration.modules.system.entity.SysUser;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.service.IService;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
@@ -13,7 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
  * @Date 2022/11/4 13:01
  * @Version 1.0
  */
-public interface ISysUserService {
+public interface ISysUserService extends IService<SysUser> {
 
     /**
      * 用户注册

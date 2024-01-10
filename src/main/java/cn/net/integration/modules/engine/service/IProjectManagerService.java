@@ -5,6 +5,7 @@ import cn.net.integration.modules.engine.entity.project.EndpointProperties;
 import cn.net.integration.modules.engine.entity.project.Project;
 import cn.net.integration.modules.engine.entity.project.Route;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * @Date 2022/10/20 12:57
  * @Version 1.0
  */
-public interface IProjectManagerService {
+public interface IProjectManagerService extends IService<Project> {
 
     /**
      * 查询所有项目信息

@@ -1,6 +1,7 @@
 package cn.net.integration.modules.system.mapper;
 
 import cn.net.integration.modules.system.entity.SysUserRole;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -11,7 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @Version 1.0
  */
 @Mapper
-public interface SysUserRoleMapper {
+public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
 
     /**
      * 添加用户角色关系
