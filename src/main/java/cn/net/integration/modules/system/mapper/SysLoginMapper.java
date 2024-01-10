@@ -1,6 +1,7 @@
 package cn.net.integration.modules.system.mapper;
 
 import cn.net.integration.modules.system.entity.SysUser;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,7 +13,7 @@ import org.apache.ibatis.annotations.Param;
  * @Version 1.0
  */
 @Mapper
-public interface SysLoginMapper {
+public interface SysLoginMapper extends BaseMapper<SysUser> {
 
     /**
      * 根据用户名查询用户信息

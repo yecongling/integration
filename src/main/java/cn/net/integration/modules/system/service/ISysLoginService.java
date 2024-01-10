@@ -5,6 +5,7 @@ import cn.net.integration.core.common.api.vo.Result;
 import cn.net.integration.modules.system.entity.SysLoginModel;
 import cn.net.integration.modules.system.entity.SysUser;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * @ClassName SysLoginService
@@ -13,7 +14,7 @@ import com.alibaba.fastjson.JSONObject;
  * @Date 2022/10/28 11:01
  * @Version 1.0
  */
-public interface ISysLoginService {
+public interface ISysLoginService extends IService<SysUser> {
 
     /**
      * 登录逻辑

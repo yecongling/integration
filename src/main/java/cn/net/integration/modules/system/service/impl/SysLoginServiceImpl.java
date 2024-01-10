@@ -1,8 +1,6 @@
 package cn.net.integration.modules.system.service.impl;
 
-import cn.net.integration.core.base.service.impl.BaseCommonServiceImpl;
 import cn.net.integration.core.common.api.vo.Result;
-import cn.net.integration.core.common.constant.CommonConstant;
 import cn.net.integration.core.common.system.vo.LoginUser;
 import cn.net.integration.core.common.util.PasswordUtil;
 import cn.net.integration.modules.system.entity.SysLoginModel;
@@ -10,6 +8,7 @@ import cn.net.integration.modules.system.entity.SysUser;
 import cn.net.integration.modules.system.mapper.SysLoginMapper;
 import cn.net.integration.modules.system.service.ISysLoginService;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ import java.util.LinkedHashMap;
  * @Version 1.0
  */
 @Service
-public class SysLoginServiceImpl extends BaseCommonServiceImpl implements ISysLoginService {
+public class SysLoginServiceImpl extends ServiceImpl<SysLoginMapper, SysUser> implements ISysLoginService {
 
     private SysLoginMapper sysLoginMapper;
 
@@ -40,7 +39,7 @@ public class SysLoginServiceImpl extends BaseCommonServiceImpl implements ISysLo
      * @return 登录结果
      */
     @Override
-    public Result<JSONObject> login(SysLoginModel loginModel) throws Exception{
+    public Result<JSONObject> login(SysLoginModel loginModel) throws Exception {
         Result<JSONObject> result;
         String username = loginModel.getUsername();
         String password = loginModel.getPassword();
@@ -61,7 +60,6 @@ public class SysLoginServiceImpl extends BaseCommonServiceImpl implements ISysLo
         loadUserInfo(sysUser, result);
         LoginUser loginUser = new LoginUser();
         BeanUtils.copyProperties(sysUser, loginUser);
-        this.addLog("用户名: " + username + ",登录成功！", CommonConstant.LOG_TYPE_1, null, loginUser);
         return result;
     }
 

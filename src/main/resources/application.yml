@@ -88,6 +88,8 @@ spring:
 camel:
   springboot:
     backlog-tracing: false
-mybatis:
+mybatis-plus:
   mapper-locations: classpath:cn/net/integration/**/mapper/xml/*Mapper.xml
-
+springdoc:
+  swagger-ui:
+    path: /swagger
