@@ -1,6 +1,7 @@
 package cn.net.integration.modules.engine.entity.resource;
 
 import cn.net.integration.core.common.api.vo.BaseModel;
+import com.baomidou.mybatisplus.annotation.TableId;
 
 import java.io.Serial;
 
@@ -16,6 +17,7 @@ public class VariableModel extends BaseModel {
     @Serial
     private static final long serialVersionUID = 8967226505071996202L;
     /* 变量id 以variable_开头 */
+    @TableId("id")
     private String variableId;
     /* 变量名 */
     private String variableName;

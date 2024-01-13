@@ -32,8 +32,8 @@
             <if test="params.menu_type != null and params.menu_type != '-1'">
                 and menu_type = #{params.menu_type}
             </if>
-            <if test="params.show != null and params.show != '-1'">
-                and hidden = #{params.show}
+            <if test="params.hidden != null and params.hidden != '-1'">
+                and hidden = #{params.hidden}
             </if>
         </where>
         order by sort_no asc
