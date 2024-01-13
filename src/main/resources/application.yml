@@ -93,3 +93,5 @@ mybatis-plus:
 springdoc:
   swagger-ui:
     path: /swagger
+sa-token:
+  token-prefix: integration

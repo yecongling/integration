@@ -1,5 +1,6 @@
 package cn.net.integration.core.common.exception;
 
+import cn.dev33.satoken.exception.NotLoginException;
 import cn.net.integration.core.common.api.vo.Result;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -33,5 +34,16 @@ public class IntegrationExceptionHandler {
     @ExceptionHandler(Exception.class)
     public Result<Object> doException(Exception e) {
         return Result.error(e.getMessage());
+    }
+
+    /**
+     * 未登录异常
+     *
+     * @param e 异常
+     * @return 数据
+     */
+    @ExceptionHandler(NotLoginException.class)
+    public Result<Object> noLoginException(NotLoginException e) {
+        return new Result<>(403, e.getMessage());
     }
 }

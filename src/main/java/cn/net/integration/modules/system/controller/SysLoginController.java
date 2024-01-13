@@ -1,5 +1,8 @@
 package cn.net.integration.modules.system.controller;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
+import cn.dev33.satoken.stp.StpUtil;
+import cn.dev33.satoken.util.SaResult;
 import cn.net.integration.core.common.api.vo.Result;
 import cn.net.integration.modules.system.entity.SysLoginModel;
 import cn.net.integration.modules.system.service.ISysLoginService;
@@ -39,8 +42,15 @@ public class SysLoginController {
      */
     @Operation(summary = "登录方法", description = "登录方法")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Result<JSONObject> login(@RequestBody SysLoginModel loginModel) throws Exception{
-        return ISysLoginService.login(loginModel);
+    public SaResult login(@RequestBody SysLoginModel loginModel) throws Exception {
+        Result<JSONObject> result = ISysLoginService.login(loginModel);
+        if (result.isSuccess()) {
+            // 会话登录
+            StpUtil.login(100001);
+            SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
+            return SaResult.data(tokenInfo);
+        }
+        return SaResult.error(result.getMessage());
     }
 
 }
