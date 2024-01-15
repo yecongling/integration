@@ -1,6 +1,7 @@
 package cn.net.integration.modules.system.service.impl;
 
 import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.spring.event.Publisher;
 import cn.net.integration.core.common.system.vo.LoginUser;
 import cn.net.integration.core.common.util.PasswordUtil;
 import cn.net.integration.modules.system.entity.SysLoginModel;
@@ -9,6 +10,7 @@ import cn.net.integration.modules.system.mapper.SysLoginMapper;
 import cn.net.integration.modules.system.service.ISysLoginService;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,10 +28,16 @@ import java.util.LinkedHashMap;
 public class SysLoginServiceImpl extends ServiceImpl<SysLoginMapper, SysUser> implements ISysLoginService {
 
     private SysLoginMapper sysLoginMapper;
+    private Publisher publisher;
 
     @Autowired
     public void setSysLoginMapper(SysLoginMapper sysLoginMapper) {
         this.sysLoginMapper = sysLoginMapper;
+    }
+
+    @Autowired
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 
     /**
@@ -39,7 +47,7 @@ public class SysLoginServiceImpl extends ServiceImpl<SysLoginMapper, SysUser> im
      * @return 登录结果
      */
     @Override
-    public Result<JSONObject> login(SysLoginModel loginModel) throws Exception {
+    public Result<JSONObject> login(SysLoginModel loginModel, HttpServletRequest request) throws Exception {
         Result<JSONObject> result;
         String username = loginModel.getUsername();
         String password = loginModel.getPassword();
@@ -60,6 +68,8 @@ public class SysLoginServiceImpl extends ServiceImpl<SysLoginMapper, SysUser> im
         loadUserInfo(sysUser, result);
         LoginUser loginUser = new LoginUser();
         BeanUtils.copyProperties(sysUser, loginUser);
+        // 异步发送消息（用于记录操作员的登录信息）
+        publisher.sendMsg(username, request);
         return result;
     }
 
@@ -71,6 +81,9 @@ public class SysLoginServiceImpl extends ServiceImpl<SysLoginMapper, SysUser> im
      */
     @Override
     public Result<JSONObject> checkUserIsEffective(SysUser sysUser) {
+        if (sysUser == null) {
+            return Result.error("账号不存在!");
+        }
         return new Result<>();
     }
 

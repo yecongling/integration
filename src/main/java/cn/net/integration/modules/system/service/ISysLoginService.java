@@ -6,6 +6,7 @@ import cn.net.integration.modules.system.entity.SysLoginModel;
 import cn.net.integration.modules.system.entity.SysUser;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * @ClassName SysLoginService
@@ -20,9 +21,10 @@ public interface ISysLoginService extends IService<SysUser> {
      * 登录逻辑
      *
      * @param loginModel 登录对象
+     * @param request    请求对象
      * @return 登录结果
      */
-    Result<JSONObject> login(SysLoginModel loginModel) throws Exception;
+    Result<JSONObject> login(SysLoginModel loginModel, HttpServletRequest request) throws Exception;
 
     /**
      * 校验用户是否有效

@@ -9,6 +9,7 @@ import cn.net.integration.modules.system.service.ISysLoginService;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,8 +43,8 @@ public class SysLoginController {
      */
     @Operation(summary = "登录方法", description = "登录方法")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public SaResult login(@RequestBody SysLoginModel loginModel) throws Exception {
-        Result<JSONObject> result = ISysLoginService.login(loginModel);
+    public SaResult login(@RequestBody SysLoginModel loginModel, HttpServletRequest request) throws Exception {
+        Result<JSONObject> result = ISysLoginService.login(loginModel, request);
         if (result.isSuccess()) {
             // 会话登录
             StpUtil.login(100001);
