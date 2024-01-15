@@ -1,5 +1,6 @@
 package cn.net.integration.modules.system.controller;
 
+import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
@@ -11,10 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @ClassName SysLoginController
@@ -46,12 +44,30 @@ public class SysLoginController {
     public SaResult login(@RequestBody SysLoginModel loginModel, HttpServletRequest request) throws Exception {
         Result<JSONObject> result = ISysLoginService.login(loginModel, request);
         if (result.isSuccess()) {
+            SaLoginModel model = new SaLoginModel();
+            model.setIsLastingCookie(false);
+            model.setTimeout(300L);
+            model.setIsWriteHeader(true);
             // 会话登录
-            StpUtil.login(100001);
+            StpUtil.login(loginModel.getUsername());
             SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
             return SaResult.data(tokenInfo);
         }
         return SaResult.error(result.getMessage());
+    }
+
+    /**
+     * 退出登录
+     *
+     * @param userId 用户ID
+     * @return 返回退出登录结果
+     * @throws Exception 异常
+     */
+    @Operation(summary = "退出登录")
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    public SaResult logout(@RequestParam String userId) throws Exception {
+        StpUtil.logout(userId);
+        return SaResult.ok();
     }
 
 }
