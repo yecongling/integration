@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "登录控制器", description = "登录模块使用")
 public class SysLoginController {
 
-    private cn.net.integration.modules.system.service.ISysLoginService ISysLoginService;
+    private ISysLoginService ISysLoginService;
 
     @Autowired
     public void setSysLoginService(ISysLoginService ISysLoginService) {
@@ -61,11 +61,10 @@ public class SysLoginController {
      *
      * @param userId 用户ID
      * @return 返回退出登录结果
-     * @throws Exception 异常
      */
     @Operation(summary = "退出登录")
     @RequestMapping(value = "logout", method = RequestMethod.GET)
-    public SaResult logout(@RequestParam String userId) throws Exception {
+    public SaResult logout(@RequestParam String userId) {
         StpUtil.logout(userId);
         return SaResult.ok();
     }
