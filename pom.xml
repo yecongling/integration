@@ -10,7 +10,7 @@
     </parent>
     <groupId>cn.net</groupId>
     <artifactId>integration</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>integration</name>
     <description>integration</description>
     <properties>
