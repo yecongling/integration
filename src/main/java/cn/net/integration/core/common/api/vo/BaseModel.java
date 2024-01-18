@@ -1,5 +1,6 @@
 package cn.net.integration.core.common.api.vo;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,6 +9,7 @@ import java.util.Date;
  * 封装子model公用部分
  */
 public class BaseModel implements Serializable {
+    @Serial
     private static final long serialVersionUID = 2261134664715644382L;
 
     /**

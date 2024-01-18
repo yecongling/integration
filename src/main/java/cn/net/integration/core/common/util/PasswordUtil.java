@@ -44,7 +44,7 @@ public class PasswordUtil {
      */
     public static String encrypt(String plaintext, String password, String salt) throws Exception {
         Key key = getPbeKey(password);
-        byte[] encipheredData = null;
+        byte[] encipheredData;
         PBEParameterSpec parameterSpec = new PBEParameterSpec(salt.getBytes(), ITERATION_COUNT);
         Cipher cipher = Cipher.getInstance(ALGORITHM);
         cipher.init(Cipher.ENCRYPT_MODE, key, parameterSpec);
@@ -77,8 +77,8 @@ public class PasswordUtil {
      * @return 16进制字符串
      */
     public static String bytesToHexString(byte[] src) {
-        StringBuilder stringBuilder = new StringBuilder("");
-        if (src == null || src.length <= 0) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (src == null || src.length == 0) {
             return null;
         }
         for (byte b : src) {

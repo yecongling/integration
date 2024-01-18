@@ -99,6 +99,6 @@ public class SysLoginServiceImpl extends ServiceImpl<SysLoginMapper, SysUser> im
         obj.put("token", sysUser.getId());
         obj.put("status", "ok");
         result.setResult(obj);
-        result.success("登录成功");
+        result.setMessage("登录成功");
     }
 }
