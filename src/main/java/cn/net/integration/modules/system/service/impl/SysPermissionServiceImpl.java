@@ -115,7 +115,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
         permission.setUpdateBy("admin");
         int i = sysPermissionMapper.addPermission(permission);
         if (i > 0) {
-            return Result.ok("新增菜单成功");
+            return Result.success("新增菜单成功");
         }
         return Result.error("新增菜单失败");
     }
@@ -136,7 +136,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
         permission.setUpdateBy("admin");
         int i = sysPermissionMapper.updatePermission(permission);
         if (i > 0) {
-            return Result.ok("修改菜单成功");
+            return Result.success("修改菜单成功");
         }
         return Result.error("菜单修改失败");
     }
@@ -150,7 +150,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
     @Override
     public Result<Object> deletePermission(String id) {
         int i = sysPermissionMapper.deletePermission(id);
-        return Result.OK(i);
+        return Result.success(i);
     }
 
     /**

@@ -14,11 +14,6 @@ public class Result<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 成功标志
-     */
-    private boolean success = true;
-
-    /**
      * 返回处理消息
      */
     private String message = "";
@@ -42,81 +37,71 @@ public class Result<T> implements Serializable {
     }
 
     /**
-     * 兼容VUE3版token失效不跳转登录页面
+     * 构造器
      *
-     * @param code
-     * @param message
+     * @param code    编码
+     * @param message 消息
      */
     public Result(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    public Result<T> success(String message) {
-        this.message = message;
-        this.code = 200;
-        this.success = true;
-        return this;
+    public boolean isSuccess() {
+        return this.code == 200;
     }
 
-    public static <T> Result<T> ok() {
+    /**
+     * 返回成功
+     *
+     * @param <T>
+     * @return
+     */
+    public static <T> Result<T> success() {
         Result<T> r = new Result<T>();
-        r.setSuccess(true);
-        r.setCode(200);
-        return r;
-    }
-
-    public static <T> Result<T> ok(String msg) {
-        Result<T> r = new Result<T>();
-        r.setSuccess(true);
-        r.setCode(200);
-        r.setResult((T) msg);
-        r.setMessage(msg);
-        return r;
-    }
-
-    public static <T> Result<T> ok(T data) {
-        Result<T> r = new Result<T>();
-        r.setSuccess(true);
-        r.setCode(200);
-        r.setResult(data);
-        return r;
-    }
-
-    public static <T> Result<T> OK() {
-        Result<T> r = new Result<T>();
-        r.setSuccess(true);
         r.setCode(200);
         return r;
     }
 
     /**
-     * 此方法是为了兼容升级所创建
+     * 返回成功
      *
      * @param msg
      * @param <T>
      * @return
      */
-    public static <T> Result<T> OK(String msg) {
+    public static <T> Result<T> success(String msg) {
         Result<T> r = new Result<T>();
-        r.setSuccess(true);
         r.setCode(200);
-        r.setMessage(msg);
         r.setResult((T) msg);
+        r.setMessage(msg);
         return r;
     }
 
-    public static <T> Result<T> OK(T data) {
+    /**
+     * 返回成功
+     *
+     * @param data
+     * @param <T>
+     * @return
+     */
+    public static <T> Result<T> success(T data) {
         Result<T> r = new Result<T>();
-        r.setSuccess(true);
         r.setCode(200);
         r.setResult(data);
         return r;
     }
 
-    public static <T> Result<T> OK(String msg, T data) {
+    /**
+     * 返回成功
+     *
+     * @param msg
+     * @param data
+     * @param <T>
+     * @return
+     */
+    public static <T> Result<T> success(String msg, T data) {
         Result<T> r = new Result<T>();
-        r.setSuccess(true);
         r.setCode(200);
         r.setMessage(msg);
         r.setResult(data);
@@ -125,7 +110,6 @@ public class Result<T> implements Serializable {
 
     public static <T> Result<T> error(String msg, T data) {
         Result<T> r = new Result<T>();
-        r.setSuccess(false);
         r.setCode(500);
         r.setMessage(msg);
         r.setResult(data);
@@ -140,23 +124,13 @@ public class Result<T> implements Serializable {
         Result<T> r = new Result<T>();
         r.setCode(code);
         r.setMessage(msg);
-        r.setSuccess(false);
         return r;
     }
 
     public Result<T> error500(String message) {
         this.message = message;
         this.code = 500;
-        this.success = false;
         return this;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
     }
 
     public String getMessage() {

@@ -54,7 +54,7 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
         for (Project model : allProject) {
             model.setKey(model.getId());
         }
-        return Result.ok(allProject);
+        return Result.success(allProject);
     }
 
     /**
@@ -68,7 +68,7 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
         Project project = projectManagerMapper.queryProjectInfoByID(projectId);
         // 后续添加查询其对应的终端、路由组件、连线等数据
 
-        return Result.ok(project);
+        return Result.success(project);
     }
 
     /**
@@ -87,7 +87,7 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
         project.setId(UUIDUtil.getUniqueId());
         int i = projectManagerMapper.addProject(project);
         if (i > 0) {
-            return Result.ok("新增项目成功");
+            return Result.success("新增项目成功");
         }
         return Result.error("新增项目失败");
     }
@@ -104,7 +104,7 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
         project.setUpdateTime(new Date());
         int i = projectManagerMapper.updateProject(project);
         if (i > 0) {
-            return Result.ok("修改项目成功");
+            return Result.success("修改项目成功");
         }
         return Result.error("修改项目失败");
     }
@@ -119,7 +119,7 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
     public Result<Object> deleteProject(String projectId) {
         boolean b = projectManagerMapper.deleteProject(projectId);
         if (b) {
-            return Result.ok("删除成功");
+            return Result.success("删除成功");
         }
         return Result.error("删除失败");
     }
@@ -156,7 +156,7 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
     public Result<List<EndpointProperties>> queryEndpointProperties() {
         JSONObject param = new JSONObject();
         List<EndpointProperties> properties = projectManagerMapper.queryEndpointProperties(param);
-        return Result.OK(properties);
+        return Result.success(properties);
     }
 
     /**

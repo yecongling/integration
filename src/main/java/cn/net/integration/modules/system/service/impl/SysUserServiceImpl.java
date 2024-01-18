@@ -65,14 +65,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUser sysUser = userMapper.getUserByName(username);
         if (sysUser != null) {
             result.setMessage("用户名已注册");
-            result.setSuccess(false);
+            result.setCode(500);
             return result;
         }
         // 根据手机号验证用户是否存在
         SysUser byPhone = userMapper.getUserByPhone(phone);
         if (byPhone != null) {
             result.setMessage("该手机号已注册");
-            result.setSuccess(false);
+            result.setCode(500);
             return result;
         }
         try {

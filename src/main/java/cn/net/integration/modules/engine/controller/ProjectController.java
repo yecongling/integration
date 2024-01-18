@@ -119,7 +119,7 @@ public class ProjectController {
         List<String> ids = new ArrayList<>();
         ids.add("route_123456");
         List<Route> routes = projectManagerService.queryRoutes(ids);
-        return Result.ok(routes);
+        return Result.success(routes);
     }
 
 }

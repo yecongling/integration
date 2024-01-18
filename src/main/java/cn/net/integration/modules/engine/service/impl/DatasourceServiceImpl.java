@@ -41,7 +41,7 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
     @Override
     public Result<List<DatasourceModel>> queryDatasource(DatasourceModel datasource, int pageNo, int pageSize) {
         List<DatasourceModel> models = datasourceMapper.queryDatasource(datasource, pageNo, pageSize);
-        return Result.OK(models);
+        return Result.success(models);
     }
 
     /**
@@ -59,7 +59,7 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
         datasource.setUpdateTime(new Date());
         int i = datasourceMapper.addDataSource(datasource);
         if (i > 0) {
-            return Result.ok("新增数据源成功");
+            return Result.success("新增数据源成功");
         }
         return Result.error("新增数据源失败");
     }

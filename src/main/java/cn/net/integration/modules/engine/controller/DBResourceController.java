@@ -42,6 +42,6 @@ public class DBResourceController {
                                           @RequestParam(name = "pageNo", defaultValue = "1") int pageNo,
                                           @RequestParam(name = "pageSize", defaultValue = "10") int pageSize) {
         List<Map<String, Object>> maps = dbResourceService.queryDBResource(param, pageNo, pageSize);
-        return Result.OK(maps);
+        return Result.success(maps);
     }
 }
