@@ -5,7 +5,6 @@ import cn.net.integration.core.common.util.UUIDUtil;
 import cn.net.integration.modules.engine.entity.connection.DatasourceModel;
 import cn.net.integration.modules.engine.mapper.DatasourceMapper;
 import cn.net.integration.modules.engine.service.IDatasourceService;
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,8 +70,8 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
      * @return 修改结果
      */
     @Override
-    public Result<JSONObject> updateDatasource(DatasourceModel datasource) {
-        return null;
+    public boolean updateDatasource(DatasourceModel datasource) {
+        return true;
     }
 
     /**
@@ -82,7 +81,8 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
      * @return 测试连接结果
      */
     @Override
-    public Result<JSONObject> testConnection(DatasourceModel datasource) {
-        return null;
+    public boolean testConnection(DatasourceModel datasource) {
+
+        return true;
     }
 }

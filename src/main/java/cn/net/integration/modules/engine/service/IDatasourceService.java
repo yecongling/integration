@@ -2,7 +2,6 @@ package cn.net.integration.modules.engine.service;
 
 import cn.net.integration.core.common.api.vo.Result;
 import cn.net.integration.modules.engine.entity.connection.DatasourceModel;
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -40,7 +39,7 @@ public interface IDatasourceService extends IService<DatasourceModel> {
      * @param datasource 数据源
      * @return 修改结果
      */
-    Result<JSONObject> updateDatasource(DatasourceModel datasource);
+    boolean updateDatasource(DatasourceModel datasource);
 
     /**
      * 检测连接是否可用
@@ -48,5 +47,5 @@ public interface IDatasourceService extends IService<DatasourceModel> {
      * @param datasource 数据源
      * @return 测试连接结果
      */
-    Result<JSONObject> testConnection(DatasourceModel datasource);
+    boolean testConnection(DatasourceModel datasource);
 }

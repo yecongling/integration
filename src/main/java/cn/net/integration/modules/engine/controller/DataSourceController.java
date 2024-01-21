@@ -54,4 +54,15 @@ public class DataSourceController {
     public Result<Object> addDataSource(DatasourceModel model) {
         return datasourceService.addDatasource(model);
     }
+
+    /**
+     * 测试数据库连接是否可用
+     *
+     * @param model 数据源模型数据
+     * @return true 连接成功 false 失败
+     */
+    @PostMapping("/testConnection")
+    public boolean testConnection(DatasourceModel model) {
+        return datasourceService.testConnection(model);
+    }
 }

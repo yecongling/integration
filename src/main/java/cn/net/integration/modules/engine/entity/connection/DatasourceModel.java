@@ -3,6 +3,8 @@ package cn.net.integration.modules.engine.entity.connection;
 
 import cn.net.integration.core.common.api.vo.BaseModel;
 
+import java.io.Serial;
+
 /**
  * @ClassName DatasourceModel
  * @Description 系统数据源连接实体配置
@@ -11,7 +13,7 @@ import cn.net.integration.core.common.api.vo.BaseModel;
  * @Version 1.0
  **/
 public class DatasourceModel extends BaseModel {
-
+    @Serial
     private static final long serialVersionUID = 4638946782786699715L;
     /* 连接ID 连接以 */
     private String id;
