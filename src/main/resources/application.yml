@@ -81,3 +81,9 @@ springdoc:
     path: /swagger
 sa-token:
   token-prefix: integration
+# 文件上传绝对路径
+my.upload.path: /root/integration/upload/
+# 文件上传根目录
+direPath: upload
+# 文件上传的根目录的上级绝对路径
+rootPath: /root/integration
