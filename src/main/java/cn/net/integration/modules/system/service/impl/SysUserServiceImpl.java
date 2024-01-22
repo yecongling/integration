@@ -5,9 +5,8 @@ import cn.net.integration.core.common.constant.CommonConstant;
 import cn.net.integration.core.common.util.ConvertUtil;
 import cn.net.integration.core.common.util.PasswordUtil;
 import cn.net.integration.modules.system.entity.SysUser;
-import cn.net.integration.modules.system.entity.SysRole;
-import cn.net.integration.modules.system.mapper.SysUserMapper;
 import cn.net.integration.modules.system.mapper.RoleMapper;
+import cn.net.integration.modules.system.mapper.SysUserMapper;
 import cn.net.integration.modules.system.service.ISysUserService;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -88,8 +87,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             user.setDelFlag(CommonConstant.DEL_FLAG_0);
             user.setActivitySync(CommonConstant.ACT_SYNC_0);
             // 默认临时角色
-            this.addUserWithRole(user, "ee8626f80f7c2619917b6236f3a7f02b");
-            result.success("注册成功");
+//            this.addUserWithRole(user, "ee8626f80f7c2619917b6236f3a7f02b");
+            Result.success("注册成功");
         } catch (Exception e) {
             result.error500("注册失败， 原因： " + e.getMessage());
         }
@@ -106,14 +105,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public void addUserWithRole(SysUser user, String roles) {
         userMapper.saveUser(user);
-        if (StringUtils.isNotEmpty(roles)) {
-            String[] arr = roles.split(",");
-            // 后续添加角色和用户关联表的数据
-            for (String roleId : arr) {
-                SysRole userRole = new SysRole(user.getId(), roleId);
-                userRoleMapper.addUserRole(userRole);
-            }
-        }
+//        if (StringUtils.isNotEmpty(roles)) {
+//            String[] arr = roles.split(",");
+//            // 后续添加角色和用户关联表的数据
+//            for (String roleId : arr) {
+//                SysRole userRole = new SysRole(roleId);
+//                userRoleMapper.addUserRole(userRole);
+//            }
+//        }
     }
 
     /**
