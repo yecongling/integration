@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/sys")
 @Tag(name = "登录控制器", description = "登录模块使用")
-public class SysLoginController {
+public class LoginController {
 
     private ISysLoginService ISysLoginService;
 

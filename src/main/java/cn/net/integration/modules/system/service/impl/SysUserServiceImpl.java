@@ -5,9 +5,9 @@ import cn.net.integration.core.common.constant.CommonConstant;
 import cn.net.integration.core.common.util.ConvertUtil;
 import cn.net.integration.core.common.util.PasswordUtil;
 import cn.net.integration.modules.system.entity.SysUser;
-import cn.net.integration.modules.system.entity.SysUserRole;
+import cn.net.integration.modules.system.entity.SysRole;
 import cn.net.integration.modules.system.mapper.SysUserMapper;
-import cn.net.integration.modules.system.mapper.SysUserRoleMapper;
+import cn.net.integration.modules.system.mapper.RoleMapper;
 import cn.net.integration.modules.system.service.ISysUserService;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -35,10 +35,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         this.userMapper = userMapper;
     }
 
-    private SysUserRoleMapper userRoleMapper;
+    private RoleMapper userRoleMapper;
 
     @Autowired
-    public void setUserRoleMapper(SysUserRoleMapper userRoleMapper) {
+    public void setUserRoleMapper(RoleMapper userRoleMapper) {
         this.userRoleMapper = userRoleMapper;
     }
 
@@ -110,7 +110,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             String[] arr = roles.split(",");
             // 后续添加角色和用户关联表的数据
             for (String roleId : arr) {
-                SysUserRole userRole = new SysUserRole(user.getId(), roleId);
+                SysRole userRole = new SysRole(user.getId(), roleId);
                 userRoleMapper.addUserRole(userRole);
             }
         }

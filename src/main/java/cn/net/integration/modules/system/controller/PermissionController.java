@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/sys/permission")
-public class SysPermissionController {
+public class PermissionController {
 
     private ISysPermissionService sysPermissionService;
 

@@ -3,6 +3,8 @@ package cn.net.integration.modules.system.entity;
 import cn.net.integration.core.common.api.vo.BaseModel;
 import cn.net.integration.core.common.util.SnowFlakeUtil;
 
+import java.io.Serial;
+
 /**
  * @ClassName SysUserRole
  * @Description 用户角色关联信息对象
@@ -10,7 +12,8 @@ import cn.net.integration.core.common.util.SnowFlakeUtil;
  * @Date 2022/11/8 13:01
  * @Version 1.0
  */
-public class SysUserRole extends BaseModel {
+public class SysRole extends BaseModel {
+    @Serial
     private static final long serialVersionUID = 905627383669213208L;
 
     /* 表ID 主键 */
@@ -20,11 +23,11 @@ public class SysUserRole extends BaseModel {
     /* 角色ID */
     private String roleId;
 
-    public SysUserRole() {
+    public SysRole() {
         this.id = String.valueOf(new SnowFlakeUtil(16, 16).nextId());
     }
 
-    public SysUserRole(String userId, String roleId) {
+    public SysRole(String userId, String roleId) {
         this.id = String.valueOf(new SnowFlakeUtil(16, 16).nextId());
         this.userId = userId;
         this.roleId = roleId;
