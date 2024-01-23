@@ -14,11 +14,4 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface RoleMapper extends BaseMapper<SysRole> {
 
-    /**
-     * 添加用户角色关系
-     *
-     * @param userRole 用户角色关联对象
-     * @return 受影响的行数
-     */
-    Integer addUserRole(SysRole userRole);
 }
