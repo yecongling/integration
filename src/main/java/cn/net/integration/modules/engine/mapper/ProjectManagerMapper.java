@@ -1,8 +1,6 @@
 package cn.net.integration.modules.engine.mapper;
 
-import cn.net.integration.modules.engine.entity.project.EndpointProperties;
-import cn.net.integration.modules.engine.entity.project.Project;
-import cn.net.integration.modules.engine.entity.project.Route;
+import cn.net.integration.modules.engine.entity.project.*;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -51,6 +49,30 @@ public interface ProjectManagerMapper extends BaseMapper<Project> {
      * @return 结果
      */
     boolean deleteProject(@Param("id") String projectId);
+
+    /**
+     * 查询项目所包含的endpoint
+     *
+     * @param projectId 项目ID
+     * @return 多个 endpoints
+     */
+    List<Endpoint> getEndpointsByProjectId(@Param("id") String projectId);
+
+    /**
+     * 查询项目所包含的route
+     *
+     * @param projectId 项目ID
+     * @return 多个路由
+     */
+    List<Route> getRoutsByProjectId(@Param("id") String projectId);
+
+    /**
+     * 查询项目包含的消息收发器
+     *
+     * @param projectId 项目ID
+     * @return 消息收发器
+     */
+    List<MessageSendReceiver> getMessageSR(@Param("id") String projectId);
 
     /**
      * 根据项目ID查询项目信息

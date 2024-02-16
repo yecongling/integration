@@ -3,6 +3,7 @@ package cn.net.integration.modules.engine.entity.project;
 
 import cn.net.integration.core.common.api.vo.BaseModel;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
  * @Version 1.0
  */
 public class EndpointProperties extends BaseModel {
+    @Serial
     private static final long serialVersionUID = -1947498305784507756L;
     /* 终端类型名 主键 */
     private String endpointTypeName;

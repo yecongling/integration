@@ -140,7 +140,7 @@ CREATE TABLE `t_engine_datasource`
     `test_query`         varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '测试语句',
     `username`           varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户名',
     `password`           varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '密码',
-    `variable_password`   bit                                                           NULL DEFAULT NULL COMMENT '使用变量',
+    `variable_password`  bit                                                           NULL DEFAULT NULL COMMENT '使用变量',
     `connection_timeout` int                                                                default 30 NOT NULL COMMENT '连接超时时间',
     `idle_timeout`       int                                                                default 30 NOT NULL COMMENT '闲置超时时间',
     `max_lifetime`       int                                                                default 30 not null COMMENT '连接存活时间',
@@ -160,7 +160,7 @@ CREATE TABLE `t_engine_datasource`
 drop table if exists `t_engine_project`;
 create table `t_engine_project`
 (
-    `id`          varchar(32) character set utf8mb4 collate utf8mb4_general_ci not null comment '项目ID',
+    `id`          varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null comment '项目ID',
     `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL     DEFAULT NULL COMMENT '创建人',
     `create_time` datetime                                                     NULL     DEFAULT NULL COMMENT '创建日期',
     `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL     DEFAULT NULL COMMENT '更新人',
@@ -185,7 +185,7 @@ create table `t_engine_project`
 drop table if exists `t_engine_variable`;
 create table `t_engine_variable`
 (
-    `id`          varchar(32) character set utf8mb4 collate utf8mb4_general_ci  not null comment '变量ID',
+    `id`          varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null comment '变量ID',
     `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '创建人',
     `create_time` datetime                                                      NULL DEFAULT NULL COMMENT '创建日期',
     `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '更新人',
@@ -234,8 +234,8 @@ drop table if exists `t_engine_route`;
 create table t_engine_route
 (
     id                  varchar(32)                      not null comment '路由唯一ID',
-    name                nvarchar(128)                    not null comment '路由名字',
-    description         nvarchar(256)                    null comment '描述',
+    name                varchar(128)                    not null comment '路由名字',
+    description         varchar(256)                    null comment '描述',
     debug               tinyint     default 0            not null comment '启用调试模式',
     deep_clone          tinyint     default 0            not null comment '启用深度克隆',
     processing_strategy varchar(12) default 'SEQUENTIAL' not null comment '处理策略',
@@ -249,4 +249,21 @@ create table t_engine_route
 ) engine = InnoDB
   character set = utf8mb4
   collate = utf8mb4_general_ci comment '引擎路由表'
+  row_format = DYNAMIC;
+
+/* 新建端点表 字段还未添加完毕，后续还需要添加更多的其它字段 */
+drop table if exists `t_engine_endpoint`;
+create table t_engine_endpoint
+(
+    `id`          varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null comment '端点唯一ID',
+    `name`        varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null comment '端点名字',
+    `description` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci null comment '描述',
+    `project_id`  varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci comment '所属项目ID（也可能同时属于多个项目，也可能不属于任何项目，提前配置的）',
+    `type`        varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null comment '类型（如http、soap、DB、FTP……）',
+    `mode`        varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null comment '模式，进出或进、出模式',
+    PRIMARY KEY (`id`) USING BTREE,
+    index `idx_endpoint_id` (`id`) using btree
+) engine = InnoDB
+  character set = utf8mb4
+  collate = utf8mb4_general_ci comment '引擎端点表'
   row_format = DYNAMIC;

@@ -1,9 +1,7 @@
 package cn.net.integration.modules.engine.service;
 
 import cn.net.integration.core.common.api.vo.Result;
-import cn.net.integration.modules.engine.entity.project.EndpointProperties;
-import cn.net.integration.modules.engine.entity.project.Project;
-import cn.net.integration.modules.engine.entity.project.Route;
+import cn.net.integration.modules.engine.entity.project.*;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -58,10 +56,34 @@ public interface IProjectManagerService extends IService<Project> {
     Result<Object> deleteProject(String projectId);
 
     /**
+     * 查询项目所包含的endpoint
+     *
+     * @param projectId 项目ID
+     * @return 多个 endpoints
+     */
+    List<Endpoint> getEndpointsByProjectId(String projectId);
+
+    /**
+     * 查询项目所包含的route
+     *
+     * @param projectId 项目ID
+     * @return 多个路由
+     */
+    List<Route> getRoutsByProjectId(String projectId);
+
+    /**
+     * 查询项目包含的消息收发器
+     *
+     * @param projectId 项目ID
+     * @return 消息收发器
+     */
+    List<MessageSendReceiver> getMessageSR(String projectId);
+
+    /**
      * 根据项目ID查找项目信息 并发布该服务
      *
      * @param projectId 项目ID
-     * @param status 状态 是发布服务还是取消  还是半启动
+     * @param status    状态 是发布服务还是取消  还是半启动
      * @return 发布服务结果
      */
     Result<JSONObject> publishService(String projectId, Integer status);

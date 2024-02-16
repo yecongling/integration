@@ -2,6 +2,7 @@ package cn.net.integration.modules.engine.entity.project;
 
 import cn.net.integration.core.common.api.vo.BaseModel;
 
+import java.io.Serial;
 import java.util.Map;
 
 /**
@@ -12,6 +13,7 @@ import java.util.Map;
  * @Version 1.0
  */
 public class Node extends BaseModel {
+    @Serial
     private static final long serialVersionUID = 6182673725006132140L;
     /* 节点ID */
     private String nodeId;

@@ -2,6 +2,8 @@ package cn.net.integration.modules.engine.entity.project;
 
 import cn.net.integration.core.common.api.vo.BaseModel;
 
+import java.io.Serial;
+
 /**
  * @ClassName Link
  * @Description 连接实例对象
@@ -10,6 +12,7 @@ import cn.net.integration.core.common.api.vo.BaseModel;
  * @Version 1.0
  */
 public class Link extends BaseModel {
+    @Serial
     private static final long serialVersionUID = 3292722748249655220L;
 
     /* 源节点ID */

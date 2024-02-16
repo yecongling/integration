@@ -2,6 +2,7 @@ package cn.net.integration.modules.engine.entity.project;
 
 import cn.net.integration.core.common.api.vo.BaseModel;
 
+import java.io.Serial;
 import java.util.List;
 
 /**
@@ -12,6 +13,7 @@ import java.util.List;
  * @Version 1.0
  */
 public class Route extends BaseModel {
+    @Serial
     private static final long serialVersionUID = 3272368134709013107L;
 
     /* 路由ID 以route_开头 */

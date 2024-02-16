@@ -3,9 +3,7 @@ package cn.net.integration.modules.engine.service.impl;
 import cn.net.integration.core.common.api.vo.Result;
 import cn.net.integration.core.common.util.UUIDUtil;
 import cn.net.integration.modules.engine.core.EngineServiceCenter;
-import cn.net.integration.modules.engine.entity.project.EndpointProperties;
-import cn.net.integration.modules.engine.entity.project.Project;
-import cn.net.integration.modules.engine.entity.project.Route;
+import cn.net.integration.modules.engine.entity.project.*;
 import cn.net.integration.modules.engine.mapper.ProjectManagerMapper;
 import cn.net.integration.modules.engine.service.IProjectManagerService;
 import com.alibaba.fastjson.JSONObject;
@@ -122,6 +120,40 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
             return Result.success("删除成功");
         }
         return Result.error("删除失败");
+    }
+
+    /**
+     * 查询项目所包含的endpoint
+     *
+     * @param projectId 项目ID
+     * @return 多个 endpoints
+     */
+    @Override
+    public List<Endpoint> getEndpointsByProjectId(String projectId) {
+
+        return null;
+    }
+
+    /**
+     * 查询项目所包含的route
+     *
+     * @param projectId 项目ID
+     * @return 多个路由
+     */
+    @Override
+    public List<Route> getRoutsByProjectId(String projectId) {
+        return null;
+    }
+
+    /**
+     * 查询项目包含的消息收发器
+     *
+     * @param projectId 项目ID
+     * @return 消息收发器
+     */
+    @Override
+    public List<MessageSendReceiver> getMessageSR(String projectId) {
+        return null;
     }
 
     /**
