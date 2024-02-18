@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.List;
 
 /**
- * @TODO 项目管理service接口
+ * 项目管理service接口
  * @Author ycl
  * @Date 2022/10/20 12:57
  * @Version 1.0
@@ -78,6 +78,13 @@ public interface IProjectManagerService extends IService<Project> {
      * @return 消息收发器
      */
     List<MessageSendReceiver> getMessageSR(String projectId);
+
+    /**
+     * 查询项目包含的分组信息
+     * @param projectId 项目ID
+     * @return 分组信息
+     */
+    List<Group> getGroup(String projectId);
 
     /**
      * 根据项目ID查找项目信息 并发布该服务

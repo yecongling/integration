@@ -157,6 +157,17 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
     }
 
     /**
+     * 查询项目包含的分组信息
+     *
+     * @param projectId 项目ID
+     * @return 分组信息
+     */
+    @Override
+    public List<Group> getGroup(String projectId) {
+        return null;
+    }
+
+    /**
      * 发布服务
      *
      * @param projectId 项目编号

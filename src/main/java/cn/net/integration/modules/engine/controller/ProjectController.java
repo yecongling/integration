@@ -1,16 +1,16 @@
 package cn.net.integration.modules.engine.controller;
 
 import cn.net.integration.core.common.api.vo.Result;
-import cn.net.integration.modules.engine.entity.project.EndpointProperties;
-import cn.net.integration.modules.engine.entity.project.Project;
-import cn.net.integration.modules.engine.entity.project.Route;
+import cn.net.integration.modules.engine.entity.project.*;
 import cn.net.integration.modules.engine.service.IProjectManagerService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName ProjectManagerController
@@ -82,8 +82,32 @@ public class ProjectController {
      * @return 删除结果
      */
     @DeleteMapping("/deleteProject")
-    public Result<Object> deleteProject(@RequestParam(name = "projectId", required = true) String projectId) {
+    public Result<Object> deleteProject(@RequestParam(name = "projectId") String projectId) {
         return projectManagerService.deleteProject(projectId);
+    }
+
+    /**
+     * 查询项目包含的组件信息，其中包括端点、路由、消息收发器
+     *
+     * @param projectId 项目ID
+     * @return 数据
+     */
+    @GetMapping("/queryComponents")
+    public Object queryEndpointsByProjectId(@RequestParam(name = "projectId") String projectId) {
+        // 端点
+        List<Endpoint> endpoints = projectManagerService.getEndpointsByProjectId(projectId);
+        Map<String, Object> result = new HashMap<>();
+        result.put("endpoints", endpoints);
+        // 路由
+        List<Route> routsByProjectId = projectManagerService.getRoutsByProjectId(projectId);
+        result.put("routes", routsByProjectId);
+        // 消息收发器
+        List<MessageSendReceiver> messageSR = projectManagerService.getMessageSR(projectId);
+        result.put("messageSR", messageSR);
+        // 分组
+        List<Group> group = projectManagerService.getGroup(projectId);
+        result.put("group", group);
+        return result;
     }
 
     /**
