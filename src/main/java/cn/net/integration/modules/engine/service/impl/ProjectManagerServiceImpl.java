@@ -130,8 +130,7 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
      */
     @Override
     public List<Endpoint> getEndpointsByProjectId(String projectId) {
-
-        return null;
+        return projectManagerMapper.getEndpointsByProjectId(projectId);
     }
 
     /**
@@ -142,7 +141,7 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
      */
     @Override
     public List<Route> getRoutsByProjectId(String projectId) {
-        return null;
+        return projectManagerMapper.getRoutsByProjectId(projectId);
     }
 
     /**
@@ -153,7 +152,7 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
      */
     @Override
     public List<MessageSendReceiver> getMessageSR(String projectId) {
-        return null;
+        return projectManagerMapper.getMessageSR(projectId);
     }
 
     /**
@@ -164,7 +163,7 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
      */
     @Override
     public List<Group> getGroup(String projectId) {
-        return null;
+        return projectManagerMapper.getGroup(projectId);
     }
 
     /**

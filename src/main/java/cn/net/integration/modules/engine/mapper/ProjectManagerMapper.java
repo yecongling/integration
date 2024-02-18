@@ -75,6 +75,14 @@ public interface ProjectManagerMapper extends BaseMapper<Project> {
     List<MessageSendReceiver> getMessageSR(@Param("id") String projectId);
 
     /**
+     * 查询项目包含的分组信息
+     *
+     * @param projectId 项目ID
+     * @return 分组信息
+     */
+    List<Group> getGroup(@Param("id") String projectId);
+
+    /**
      * 根据项目ID查询项目信息
      *
      * @param id 项目ID

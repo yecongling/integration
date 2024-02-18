@@ -50,6 +50,11 @@
 
     </resultMap>
 
+    <!-- 分组信息表和实体对象的映射 -->
+    <resultMap id="group" type="cn.net.integration.modules.engine.entity.project.Group">
+
+    </resultMap>
+
     <!-- 查询所有项目信息 -->
     <select id="queryAllProject" resultMap="project" parameterType="object">
         select id, name, type, log_type, status, priority, description from integration.t_engine_project
@@ -100,16 +105,23 @@
 
     <!-- 查询项目所包含的endpoint -->
     <select id="getEndpointsByProjectId" resultMap="endpoint">
-
+        select * from t_engine_endpoint where project_id = #{id}
     </select>
 
     <!-- 查询项目所包含的route -->
     <select id="getRoutsByProjectId" resultMap="route">
-
+        select *
+        from t_engine_route
+        where project_id = #{id};
     </select>
 
     <!-- 查询项目包含的消息收发器 -->
     <select id="getMessageSR" resultMap="messageSR">
+
+    </select>
+
+    <!-- 查询项目包含的分组信息 -->
+    <select id="getGroup" resultMap="group">
 
     </select>
 

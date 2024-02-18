@@ -234,6 +234,7 @@ drop table if exists `t_engine_route`;
 create table t_engine_route
 (
     id                  varchar(32)                      not null comment '路由唯一ID',
+    project_id          varchar(32)                     null comment '所属项目',
     name                varchar(128)                    not null comment '路由名字',
     description         varchar(256)                    null comment '描述',
     debug               tinyint     default 0            not null comment '启用调试模式',
