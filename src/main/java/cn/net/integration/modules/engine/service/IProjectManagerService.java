@@ -56,37 +56,6 @@ public interface IProjectManagerService extends IService<Project> {
     Result<Object> deleteProject(String projectId);
 
     /**
-     * 查询项目所包含的endpoint
-     *
-     * @param projectId 项目ID
-     * @return 多个 endpoints
-     */
-    List<Endpoint> getEndpointsByProjectId(String projectId);
-
-    /**
-     * 查询项目所包含的route
-     *
-     * @param projectId 项目ID
-     * @return 多个路由
-     */
-    List<Route> getRoutsByProjectId(String projectId);
-
-    /**
-     * 查询项目包含的消息收发器
-     *
-     * @param projectId 项目ID
-     * @return 消息收发器
-     */
-    List<MessageSendReceiver> getMessageSR(String projectId);
-
-    /**
-     * 查询项目包含的分组信息
-     * @param projectId 项目ID
-     * @return 分组信息
-     */
-    List<Group> getGroup(String projectId);
-
-    /**
      * 根据项目ID查找项目信息 并发布该服务
      *
      * @param projectId 项目ID
@@ -94,21 +63,5 @@ public interface IProjectManagerService extends IService<Project> {
      * @return 发布服务结果
      */
     Result<JSONObject> publishService(String projectId, Integer status);
-
-    /**
-     * 查询终端属性配置
-     *
-     * @return 返回终端的属性配置
-     */
-    Result<List<EndpointProperties>> queryEndpointProperties();
-
-    /**
-     * 查询路由
-     *
-     * @param routeIds 需要查询的路由ID
-     * @return 返回多个路由信息
-     */
-    List<Route> queryRoutes(List<String> routeIds);
-
 
 }

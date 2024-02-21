@@ -50,37 +50,6 @@ public interface ProjectManagerMapper extends BaseMapper<Project> {
      */
     boolean deleteProject(@Param("id") String projectId);
 
-    /**
-     * 查询项目所包含的endpoint
-     *
-     * @param projectId 项目ID
-     * @return 多个 endpoints
-     */
-    List<Endpoint> getEndpointsByProjectId(@Param("id") String projectId);
-
-    /**
-     * 查询项目所包含的route
-     *
-     * @param projectId 项目ID
-     * @return 多个路由
-     */
-    List<Route> getRoutsByProjectId(@Param("id") String projectId);
-
-    /**
-     * 查询项目包含的消息收发器
-     *
-     * @param projectId 项目ID
-     * @return 消息收发器
-     */
-    List<MessageSendReceiver> getMessageSR(@Param("id") String projectId);
-
-    /**
-     * 查询项目包含的分组信息
-     *
-     * @param projectId 项目ID
-     * @return 分组信息
-     */
-    List<Group> getGroup(@Param("id") String projectId);
 
     /**
      * 根据项目ID查询项目信息
@@ -89,20 +58,4 @@ public interface ProjectManagerMapper extends BaseMapper<Project> {
      * @return 项目信息
      */
     Project queryProjectInfoByID(@Param("id") String id);
-
-    /**
-     * 查询终端的配置属性
-     *
-     * @param params 筛选条件
-     * @return 终端配置属性
-     */
-    List<EndpointProperties> queryEndpointProperties(@Param("query") JSONObject params);
-
-    /**
-     * 通过路由ID查询路由信息（可能包含多个路由）
-     *
-     * @param routeIDs 路由ID
-     * @return 流程数据
-     */
-    List<Route> queryRoutes(List<String> routeIDs);
 }

@@ -3,7 +3,7 @@ package cn.net.integration.modules.engine.service.impl;
 import cn.net.integration.core.common.api.vo.Result;
 import cn.net.integration.core.common.util.UUIDUtil;
 import cn.net.integration.modules.engine.core.EngineServiceCenter;
-import cn.net.integration.modules.engine.entity.project.*;
+import cn.net.integration.modules.engine.entity.project.Project;
 import cn.net.integration.modules.engine.mapper.ProjectManagerMapper;
 import cn.net.integration.modules.engine.service.IProjectManagerService;
 import com.alibaba.fastjson.JSONObject;
@@ -11,7 +11,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -123,50 +122,6 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
     }
 
     /**
-     * 查询项目所包含的endpoint
-     *
-     * @param projectId 项目ID
-     * @return 多个 endpoints
-     */
-    @Override
-    public List<Endpoint> getEndpointsByProjectId(String projectId) {
-        return projectManagerMapper.getEndpointsByProjectId(projectId);
-    }
-
-    /**
-     * 查询项目所包含的route
-     *
-     * @param projectId 项目ID
-     * @return 多个路由
-     */
-    @Override
-    public List<Route> getRoutsByProjectId(String projectId) {
-        return projectManagerMapper.getRoutsByProjectId(projectId);
-    }
-
-    /**
-     * 查询项目包含的消息收发器
-     *
-     * @param projectId 项目ID
-     * @return 消息收发器
-     */
-    @Override
-    public List<MessageSendReceiver> getMessageSR(String projectId) {
-        return projectManagerMapper.getMessageSR(projectId);
-    }
-
-    /**
-     * 查询项目包含的分组信息
-     *
-     * @param projectId 项目ID
-     * @return 分组信息
-     */
-    @Override
-    public List<Group> getGroup(String projectId) {
-        return projectManagerMapper.getGroup(projectId);
-    }
-
-    /**
      * 发布服务
      *
      * @param projectId 项目编号
@@ -189,31 +144,4 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
         return null;
     }
 
-    /**
-     * 查询终端属性配置
-     *
-     * @return 返回终端的属性配置
-     */
-    @Override
-    public Result<List<EndpointProperties>> queryEndpointProperties() {
-        JSONObject param = new JSONObject();
-        List<EndpointProperties> properties = projectManagerMapper.queryEndpointProperties(param);
-        return Result.success(properties);
-    }
-
-    /**
-     * 查询路由
-     *
-     * @param routeIds 需要查询的路由ID
-     * @return 返回多个路由信息
-     */
-    @Override
-    public List<Route> queryRoutes(List<String> routeIds) {
-        List<Route> routes = projectManagerMapper.queryRoutes(routeIds);
-        // 仅仅是为了返回（后续需要更改的）
-        if (routes.isEmpty()) {
-            return new ArrayList<>();
-        }
-        return routes;
-    }
 }

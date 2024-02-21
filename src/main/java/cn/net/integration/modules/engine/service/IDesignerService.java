@@ -1,6 +1,7 @@
 package cn.net.integration.modules.engine.service;
 
-import cn.net.integration.modules.engine.entity.project.Endpoint;
+import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.modules.engine.entity.project.*;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -21,5 +22,51 @@ public interface IDesignerService extends IService<Endpoint> {
      * @param params 查询参数，包括项目ID
      * @return endpoints
      */
-    public List<Endpoint> getEndpoints(JSONObject params);
+    List<Endpoint> getEndpoints(JSONObject params);
+
+    /**
+     * 查询项目所包含的endpoint
+     *
+     * @param projectId 项目ID
+     * @return 多个 endpoints
+     */
+    List<Endpoint> getEndpointsByProjectId(String projectId);
+
+    /**
+     * 查询项目所包含的route
+     *
+     * @param projectId 项目ID
+     * @return 多个路由
+     */
+    List<Route> getRoutsByProjectId(String projectId);
+
+    /**
+     * 查询项目包含的消息收发器
+     *
+     * @param projectId 项目ID
+     * @return 消息收发器
+     */
+    List<MessageSendReceiver> getMessageSR(String projectId);
+
+    /**
+     * 查询项目包含的分组信息
+     * @param projectId 项目ID
+     * @return 分组信息
+     */
+    List<Group> getGroup(String projectId);
+
+    /**
+     * 查询终端属性配置
+     *
+     * @return 返回终端的属性配置
+     */
+    Result<List<EndpointProperties>> queryEndpointProperties();
+
+    /**
+     * 查询路由
+     *
+     * @param routeIds 需要查询的路由ID
+     * @return 返回多个路由信息
+     */
+    List<Route> queryRoutes(List<String> routeIds);
 }

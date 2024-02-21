@@ -12,49 +12,6 @@
         <result column="status" property="status"/>
     </resultMap>
 
-    <!-- 属性表和实体字段映射 -->
-    <resultMap id="properties" type="cn.net.integration.modules.engine.entity.project.EndpointProperties">
-        <result column="endpoint_type_name" property="endpointTypeName"/>
-        <result column="name" property="name"/>
-        <result column="type" property="type"/>
-        <result column="allowed_values" property="allowedValues"/>
-        <result column="required" property="required"/>
-        <result column="default_value" property="defaultValue"/>
-        <result column="endpoint_modes" property="endpointModes"/>
-        <result column="masked" property="masked"/>
-        <result column="modeRequired" property="modeRequired"/>
-        <result column="applies_to" property="appliesTo"/>
-    </resultMap>
-
-    <!-- 端点表和实体对象的映射 -->
-    <resultMap id="endpoint" type="cn.net.integration.modules.engine.entity.project.Endpoint">
-
-    </resultMap>
-
-    <!-- 路由表和实体字段的映射 -->
-    <resultMap id="route" type="cn.net.integration.modules.engine.entity.project.Route">
-        <result column="id" property="routeId"/>
-        <result column="name" property="routeName"/>
-        <result column="description" property="description"/>
-        <result column="debug" property="debug"/>
-        <result column="deep_clone" property="deepClone"/>
-        <result column="processing_strategy" property="processingStrategy"/>
-        <result column="thread_count" property="threadCount"/>
-        <result column="x" property="x"/>
-        <result column="y" property="y"/>
-        <result column="nodes" property="nodes"/>
-        <result column="links" property="links"/>
-    </resultMap>
-    <!-- 消息发送接收器和实体对象的映射 -->
-    <resultMap id="messageSR" type="cn.net.integration.modules.engine.entity.project.MessageSendReceiver">
-
-    </resultMap>
-
-    <!-- 分组信息表和实体对象的映射 -->
-    <resultMap id="group" type="cn.net.integration.modules.engine.entity.project.Group">
-
-    </resultMap>
-
     <!-- 查询所有项目信息 -->
     <select id="queryAllProject" resultMap="project" parameterType="object">
         select id, name, type, log_type, status, priority, description from integration.t_engine_project
@@ -103,28 +60,6 @@
         where id = #{id}
     </delete>
 
-    <!-- 查询项目所包含的endpoint -->
-    <select id="getEndpointsByProjectId" resultMap="endpoint">
-        select * from t_engine_endpoint where project_id = #{id}
-    </select>
-
-    <!-- 查询项目所包含的route -->
-    <select id="getRoutsByProjectId" resultMap="route">
-        select *
-        from t_engine_route
-        where project_id = #{id};
-    </select>
-
-    <!-- 查询项目包含的消息收发器 -->
-    <select id="getMessageSR" resultMap="messageSR">
-
-    </select>
-
-    <!-- 查询项目包含的分组信息 -->
-    <select id="getGroup" resultMap="group">
-
-    </select>
-
     <!-- 根据项目ID查询项目信息 -->
     <select id="queryProjectInfoByID" parameterType="string"
             resultType="cn.net.integration.modules.engine.entity.project.Project">
@@ -133,41 +68,4 @@
         where id = #{id}
     </select>
 
-    <!-- 查询终端配置属性（也适用于后期维护该表时的查询） -->
-    <select id="queryEndpointProperties" parameterType="object" resultMap="properties">
-        select endpoint_type_name,
-               `name`,
-               type,
-               required,
-               allowed_values,
-               default_value,
-               endpoint_modes,
-               masked,
-               modeRequired,
-               applies_to
-        from integration.t_engine_ep_properties
-    </select>
-    <!-- 查询路由信息 -->
-    <select id="queryRoutes" parameterType="list" resultMap="route">
-        select id,
-        `name`,
-        `description`,
-        debug,
-        deep_clone,
-        processing_strategy,
-        thread_count,
-        x,
-        y,
-        nodes,
-        links
-        from integration.t_engine_route
-        <if test="routeIDs != null and routeIDs.size() > 0">
-            <where>
-                and id in
-                <foreach collection="list" item="routeId" index="index" open="(" close=")" separator=",">
-                    #{routeId}
-                </foreach>
-            </where>
-        </if>
-    </select>
 </mapper>
