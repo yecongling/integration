@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serial;
 import java.util.Date;
 
 /**
@@ -17,6 +18,7 @@ import java.util.Date;
  **/
 public class SysUser extends BaseModel {
 
+    @Serial
     private static final long serialVersionUID = -3557717365698975454L;
 
     /**

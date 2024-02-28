@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 /**
  * @ClassName SysUserController
@@ -47,5 +49,16 @@ public class UserController {
     @GetMapping("/getUserInfo")
     public Result<JSONObject> getUserInfo(HttpServletRequest request) {
         return userService.getUserInfo(request);
+    }
+
+    /**
+     * 查询用户数据
+     *
+     * @param params 查询参数
+     * @return 用户信息
+     */
+    @PostMapping("/queryUsers")
+    public List<SysUser> queryUsers(@RequestBody JSONObject params) {
+        return null;
     }
 }
