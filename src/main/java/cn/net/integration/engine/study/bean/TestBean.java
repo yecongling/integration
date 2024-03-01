@@ -14,6 +14,7 @@ public class TestBean {
     private String say;
 
     public String saySomething(String body) {
+        this.say = body;
         return String.format("%s I am invoked %d times", say, ++counter);
     }
 }

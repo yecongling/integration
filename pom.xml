@@ -91,7 +91,11 @@
             <groupId>org.apache.camel.springboot</groupId>
             <artifactId>camel-timer-starter</artifactId>
         </dependency>
-
+        <!-- Stream -->
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-stream-starter</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.baomidou</groupId>

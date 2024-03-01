@@ -12,9 +12,9 @@ public class SpringbootRouter extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("timer:hello?period={{myPeriod}}&repeatCount=1").routeId("hello")
+        from("timer:hello?period=100&repeatCount=10").routeId("hello")
                 // and call the bean
-                .bean(TestBean::new, "saySomething")
+                .bean(TestBean::new, "saySomething('235')")
                 .process(new SpringbootProcessor())
                 // and print it to system out via stream component
                 .to("stream:out");

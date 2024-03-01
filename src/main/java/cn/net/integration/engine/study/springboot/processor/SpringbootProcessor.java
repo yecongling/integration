@@ -19,6 +19,7 @@ public class SpringbootProcessor implements Processor {
         System.out.println(exchange);
         System.out.println(exchange.getIn().getBody());
         // 改掉body内容
+        System.out.println("调用处理器");
 
     }
 }
