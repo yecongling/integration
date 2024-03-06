@@ -19,12 +19,12 @@ import java.util.List;
 public interface SysPermissionMapper extends BaseMapper<SysPermission> {
 
     /**
-     * 查询用户权限
+     * 查询用户权限，是根据用户所处的角色
      *
-     * @param userId 用户ID
+     * @param roleId 角色ID
      * @return 用户权限
      */
-    List<SysPermission> queryByUser(@Param("userId") String userId);
+    List<SysPermission> queryByUser(@Param("roleId") String roleId);
 
     /**
      * 获取所有菜单信息

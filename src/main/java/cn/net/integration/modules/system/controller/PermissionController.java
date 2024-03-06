@@ -6,10 +6,7 @@ import cn.net.integration.modules.system.service.ISysPermissionService;
 import com.alibaba.fastjson.JSONObject;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -31,14 +28,14 @@ public class PermissionController {
     }
 
     /**
-     * 查询当前用户所拥有的菜单权限和按钮权限
+     * 查询当前用户角色所拥有的菜单权限和按钮权限
      *
-     * @param request 请求
+     * @param roleId 角色id
      * @return 权限列表
      */
-    @RequestMapping(value = "/getUserPermissionByToken", method = RequestMethod.GET)
-    public Result<JSONObject> getUserPermissionByToken(HttpServletRequest request) {
-        return sysPermissionService.queryByUser("");
+    @RequestMapping(value = "/getUserPermissionByRole", method = RequestMethod.GET)
+    public Object getUserPermissionByToken(@RequestParam(name = "roleId") String roleId) {
+        return sysPermissionService.queryByUser(roleId);
     }
 
     /**

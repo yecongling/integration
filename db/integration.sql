@@ -127,6 +127,28 @@ CREATE TABLE `t_sys_permission`
   ROW_FORMAT = Dynamic;
 
 
+/*  系统角色和菜单关联表  */
+-- ----------------------------
+-- Table structure for t_sys_role_permission
+-- ----------------------------
+DROP TABLE IF EXISTS `t_sys_role_permission`;
+CREATE TABLE `t_sys_role_permission`
+(
+    `id`            varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci   NOT NULL,
+    `role_id`       varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci   NULL DEFAULT NULL COMMENT '角色id',
+    `permission_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci   NULL DEFAULT NULL COMMENT '权限id',
+    `data_rule_ids` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '数据权限ids',
+    `operate_date`  datetime                                                 NULL DEFAULT NULL COMMENT '操作时间',
+    `operate_ip`    varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL COMMENT '操作ip',
+    PRIMARY KEY (`id`) USING BTREE,
+    INDEX `idx_srp_role_per_id` (`role_id`, `permission_id`) USING BTREE,
+    INDEX `idx_srp_role_id` (`role_id`) USING BTREE,
+    INDEX `idx_srp_permission_id` (`permission_id`) USING BTREE
+) ENGINE = InnoDB
+  CHARACTER SET = utf8
+  COLLATE = utf8_general_ci COMMENT = '角色权限表'
+  ROW_FORMAT = Dynamic;
+
 /*  ============== 以下是引擎部分需要的=================*/
 
 DROP TABLE IF EXISTS `t_engine_datasource`;
@@ -234,9 +256,9 @@ drop table if exists `t_engine_route`;
 create table t_engine_route
 (
     id                  varchar(32)                      not null comment '路由唯一ID',
-    project_id          varchar(32)                     null comment '所属项目',
-    name                varchar(128)                    not null comment '路由名字',
-    description         varchar(256)                    null comment '描述',
+    project_id          varchar(32)                      null comment '所属项目',
+    name                varchar(128)                     not null comment '路由名字',
+    description         varchar(256)                     null comment '描述',
     debug               tinyint     default 0            not null comment '启用调试模式',
     deep_clone          tinyint     default 0            not null comment '启用深度克隆',
     processing_strategy varchar(12) default 'SEQUENTIAL' not null comment '处理策略',

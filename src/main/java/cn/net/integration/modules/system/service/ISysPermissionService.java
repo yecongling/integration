@@ -21,7 +21,7 @@ public interface ISysPermissionService extends IService<SysPermission> {
      * @param userId 用户ID
      * @return 权限数据
      */
-    Result<JSONObject> queryByUser(String userId);
+    Object queryByUser(String userId);
 
     /**
      * 获取所有菜单

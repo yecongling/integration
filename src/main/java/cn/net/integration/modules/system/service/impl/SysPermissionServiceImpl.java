@@ -34,28 +34,20 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
     }
 
     /**
-     * 获取登录用户所拥有的权限
+     * 获取登录用户所拥有的权限，根据角色查询菜单信息
      *
-     * @param userId 用户ID
+     * @param roleId 角色ID
      * @return 权限数据
      */
     @Override
-    public Result<JSONObject> queryByUser(String userId) {
-        Result<JSONObject> result = new Result<>();
-        try {
-            // 根据userId获取对应的菜单
-            List<SysPermission> permissions = sysPermissionMapper.queryByUser(userId);
-            // 将平级的菜单构建成上下结构的格式
-            JSONArray jsonArray = new JSONArray();
-            this.getPermissionJsonArray(jsonArray, permissions, null);
-            // 路由菜单
-            JSONObject json = new JSONObject();
-            json.put("menu", jsonArray);
-            result.setResult(json);
-        } catch (Exception e) {
-            result.error500("查询失败：" + e.getMessage());
-        }
-        return result;
+    public Object queryByUser(String roleId) {
+        // 根据userId获取对应的菜单
+        List<SysPermission> permissions = sysPermissionMapper.queryByUser(roleId);
+        // 将平级的菜单构建成上下结构的格式
+        JSONArray jsonArray = new JSONArray();
+        this.getPermissionJsonArray(jsonArray, permissions, null);
+        // 路由菜单
+        return jsonArray;
     }
 
     /**
