@@ -23,6 +23,7 @@ import java.util.List;
 public class UserController {
 
     private ISysUserService userService;
+
     @Autowired
     public void setUserService(ISysUserService userService) {
         this.userService = userService;
@@ -41,17 +42,6 @@ public class UserController {
     }
 
     /**
-     * 获取用户信息
-     *
-     * @param request 请求
-     * @return 用户信息
-     */
-    @GetMapping("/getUserInfo")
-    public Result<JSONObject> getUserInfo(HttpServletRequest request) {
-        return userService.getUserInfo(request);
-    }
-
-    /**
      * 查询用户数据
      *
      * @param params 查询参数
@@ -59,6 +49,6 @@ public class UserController {
      */
     @PostMapping("/queryUsers")
     public List<SysUser> queryUsers(@RequestBody JSONObject params) {
-        return null;
+        return userService.queryUserInfo(params);
     }
 }

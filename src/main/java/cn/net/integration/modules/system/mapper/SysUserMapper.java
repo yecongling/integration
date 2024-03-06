@@ -37,4 +37,5 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * @param user 用户
      */
     void saveUser(SysUser user);
+
 }

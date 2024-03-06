@@ -9,6 +9,7 @@ import cn.net.integration.modules.system.mapper.RoleMapper;
 import cn.net.integration.modules.system.mapper.SysUserMapper;
 import cn.net.integration.modules.system.service.ISysUserService;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ClassName SysUserServiceImpl
@@ -116,13 +118,18 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     /**
-     * 获取用户信息
+     * 查询所有用户信息
      *
-     * @param request 请求
+     * @param user 查询的用户参数
      * @return 用户信息
      */
     @Override
-    public Result<JSONObject> getUserInfo(HttpServletRequest request) {
-        return null;
+    public List<SysUser> queryUserInfo(JSONObject user) {
+        QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
+        wrapper.eq("username", user.getString("username"));
+        wrapper.eq("real_name", user.getString("real_name"));
+        wrapper.eq("sex", user.getString("sex"));
+        wrapper.eq("status", user.getString("status"));
+        return userMapper.selectList(wrapper);
     }
 }

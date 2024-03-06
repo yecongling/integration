@@ -7,6 +7,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.util.List;
+
 /**
  * @ClassName SysUserService
  * @Description 系统用户service接口
@@ -34,10 +36,10 @@ public interface ISysUserService extends IService<SysUser> {
     void addUserWithRole(SysUser user, String roles);
 
     /**
-     * 获取用户信息
+     * 查询所有用户信息
      *
-     * @param request 请求
+     * @param user 查询的用户参数
      * @return 用户信息
      */
-    Result<JSONObject> getUserInfo(HttpServletRequest request);
+    List<SysUser> queryUserInfo(JSONObject user);
 }

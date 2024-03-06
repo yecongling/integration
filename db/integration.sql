@@ -13,7 +13,7 @@ CREATE TABLE `t_sys_user`
     `email`          varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL COMMENT '电子邮件',
     `phone`          varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL COMMENT '电话',
     `org_code`       varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL COMMENT '登录会话的机构编码',
-    `status`         tinyint(1)                                              NULL DEFAULT NULL COMMENT '性别(1-正常,2-冻结)',
+    `status`         tinyint(1)                                              NULL DEFAULT NULL COMMENT '状态(1-正常,2-冻结)',
     `del_flag`       tinyint(1)                                              NULL DEFAULT NULL COMMENT '删除状态(0-正常,1-已删除)',
     `third_id`       varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '第三方登录的唯一标识',
     `third_type`     varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '第三方类型',
