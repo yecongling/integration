@@ -151,6 +151,36 @@ CREATE TABLE `t_sys_role_permission`
 
 /*  ============== 以下是引擎部分需要的=================*/
 
+
+/* 资源类型表 */
+
+DROP DATABASE IF EXISTS `t_engine_resource_category`;
+CREATE TABLE `t_engine_resource_category`
+(
+    `id`        varchar(32) character set utf8 collate utf8_general_ci  not null,
+    `parent_id` varchar(32) character set utf8 collate utf8_general_ci  NULL default null comment '上级id',
+    `name`      varchar(100) character set utf8 collate utf8_general_ci NOT NULL comment '分类名称',
+    primary key (`id`) using btree
+) engine = InnoDB
+  character set = utf8
+  COLLATE = utf8_general_ci COMMENT = '引擎资源类型表'
+  ROW_FORMAT = Dynamic;
+
+
+/* 资源表 包括众多资源，如JDBC驱动、JSON数据模式、XSD数据模式、XSLT、SSL秘钥、证书、对称加密秘钥、WSDL、DLL */
+DROP DATABASE IF EXISTS `t_engine_resource`;
+CREATE TABLE `t_engine_resource`
+(
+    `id`          varchar(32) character set utf8 collate utf8_general_ci  not null,
+    `category_id` varchar(32) character set utf8 collate utf8_general_ci  not null comment '分类id',
+    `name`        varchar(100) character set utf8 collate utf8_general_ci not null comment '资源名称',
+    primary key (`id`) using btree
+) engine = InnoDB
+  character set = utf8
+  COLLATE = utf8_general_ci COMMENT = '引擎资源表'
+  ROW_FORMAT = Dynamic;
+
+/* 数据库资源 */
 DROP TABLE IF EXISTS `t_engine_datasource`;
 CREATE TABLE `t_engine_datasource`
 (
