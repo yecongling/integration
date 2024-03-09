@@ -1,5 +1,6 @@
-package cn.net.integration.core.common.netty;
+package cn.net.integration.core.common.netty.server;
 
+import cn.net.integration.core.common.netty.config.ProjectInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
