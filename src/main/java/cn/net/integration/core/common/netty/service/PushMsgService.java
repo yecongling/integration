@@ -20,5 +20,5 @@ public interface PushMsgService {
      * 推送给所有用户
      * @param msg 消息
      */
-    void puMsgToAll(String msg);
+    void pushMsgToAll(String msg);
 }

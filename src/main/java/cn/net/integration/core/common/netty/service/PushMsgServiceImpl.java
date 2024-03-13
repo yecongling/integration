@@ -37,7 +37,7 @@ public class PushMsgServiceImpl implements PushMsgService{
      * @param msg 消息
      */
     @Override
-    public void puMsgToAll(String msg) {
+    public void pushMsgToAll(String msg) {
         NettyConfig.getChannelGroup().writeAndFlush(new TextWebSocketFrame(msg));
     }
 }
