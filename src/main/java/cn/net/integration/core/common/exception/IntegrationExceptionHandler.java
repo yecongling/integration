@@ -2,6 +2,9 @@ package cn.net.integration.core.common.exception;
 
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.netty.service.PushMsgService;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -14,6 +17,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class IntegrationExceptionHandler {
 
+    // 消息推送服务
+    private PushMsgService pushMsgService;
+
+    @Autowired
+    public void setPushMsgService(PushMsgService pushMsgService) {
+        this.pushMsgService = pushMsgService;
+    }
+
     /**
      * 处理空指针返回
      *
@@ -22,6 +33,7 @@ public class IntegrationExceptionHandler {
      */
     @ExceptionHandler(NullPointerException.class)
     public Result<Object> doNullPointerException(NullPointerException e) {
+        pushMsgService.pushMsgToOne("", ExceptionUtils.getStackTrace(e));
         return Result.error("空指针异常" + e.getMessage());
     }
 
@@ -33,6 +45,7 @@ public class IntegrationExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public Result<Object> doException(Exception e) {
+        pushMsgService.pushMsgToOne("", ExceptionUtils.getStackTrace(e));
         return Result.error(e.getMessage());
     }
 
@@ -44,6 +57,7 @@ public class IntegrationExceptionHandler {
      */
     @ExceptionHandler(NotLoginException.class)
     public Result<Object> noLoginException(NotLoginException e) {
+        pushMsgService.pushMsgToOne("", ExceptionUtils.getStackTrace(e));
         return new Result<>(403, e.getMessage());
     }
 }

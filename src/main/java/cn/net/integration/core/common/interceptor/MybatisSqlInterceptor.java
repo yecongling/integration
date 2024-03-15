@@ -1,5 +1,8 @@
 package cn.net.integration.core.common.interceptor;
 
+import cn.net.integration.core.common.netty.service.PushMsgService;
+import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -15,6 +18,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -39,9 +43,19 @@ import java.util.regex.Matcher;
                 Object.class, RowBounds.class, ResultHandler.class})})
 public class MybatisSqlInterceptor implements Interceptor {
 
+    private PushMsgService pushMsgService;
+
+    @Autowired
+    public void setPushMsgService(PushMsgService pushMsgService) {
+        this.pushMsgService = pushMsgService;
+    }
+
     private final Logger logger = LoggerFactory.getLogger(MybatisSqlInterceptor.class);
 
     public Object intercept(Invocation invocation) throws Throwable {
+        JSONObject map = new JSONObject();
+        String msg = "";
+        String type = "";
         try {
             // 获取xml中的一个select/update/insert/delete节点，是一条SQL语句
             MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
@@ -51,12 +65,20 @@ public class MybatisSqlInterceptor implements Interceptor {
                 parameter = invocation.getArgs()[1];
             }
             String id = mappedStatement.getId(); // 获取到节点的id,即sql语句的id
+            map.put("id", id);
             BoundSql boundSql = mappedStatement.getBoundSql(parameter); // BoundSql就是封装myBatis最终产生的sql类
             Configuration configuration = mappedStatement.getConfiguration(); // 获取节点的配置
-            String sql = showSql(configuration, boundSql); // 获取到最终的sql语句
-            logger.info("mybatis拦截解析: \n ID: \t{}\n SQL: \t{}", id, sql);
+            msg = showSql(configuration, boundSql); // 获取到最终的sql语句
+            type = "sql";
         } catch (Exception e) {
-            e.printStackTrace();
+            // 如果是发生了异常，将错误信息推送给前台
+            msg = ExceptionUtils.getStackTrace(e);
+            type = "exception";
+        } finally {
+            map.put("msg", msg);
+            map.put("type", type);
+            // 通过websocket将执行的SQL语句发送到前端进行监控   先暂时发送给所有人
+            pushMsgService.pushMsgToOne("", map.toJSONString());
         }
         // 执行完上面的任务后，不改变原有的sql执行过程
         return invocation.proceed();
