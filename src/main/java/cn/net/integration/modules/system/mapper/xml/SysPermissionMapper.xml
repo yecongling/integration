@@ -16,7 +16,15 @@
 
     <!-- 查询用户权限，根据角色id查询 -->
     <select id="queryByUser" parameterType="object" resultMap="SysPermission">
-        select a.* from t_sys_permission a left join t_sys_role_permission b on a.id = b.permission_id where b.role_id = #{roleId} order by a.sort_no
+        <choose>
+            <when test="roleId == 'admin'">
+                select * from integration.t_sys_permission order by sort_no
+            </when>
+            <otherwise>
+                select a.* from t_sys_permission a left join t_sys_role_permission b on a.id = b.permission_id where
+                b.role_id = #{roleId} order by a.sort_no
+            </otherwise>
+        </choose>
     </select>
 
     <!-- 查询所有菜单 -->
@@ -53,7 +61,8 @@
                                                   icon, is_route, is_leaf, keep_alive, hidden, hide_tab,
                                                   description, create_by, create_time, update_by, update_time,
                                                   del_flag, rule_flag, status, internal_or_external)
-            value (#{id}, #{parentId}, #{name}, #{url}, #{component}, #{componentName}, #{redirect}, #{menuType}, #{perms},
+            value (#{id}, #{parentId}, #{name}, #{url}, #{component}, #{componentName}, #{redirect}, #{menuType},
+                   #{perms},
                    #{permsType}, #{sortNo}, #{alwaysShow}, #{icon}, #{route}, #{leaf}, #{keepAlive}, #{hidden},
                    #{hideTab},
                    #{description}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{delFlag}, #{ruleFlag},
