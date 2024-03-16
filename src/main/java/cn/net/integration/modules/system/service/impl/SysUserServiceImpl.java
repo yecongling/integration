@@ -11,7 +11,6 @@ import cn.net.integration.modules.system.service.ISysUserService;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,7 +81,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             String passwordEncode = PasswordUtil.encrypt(username, password, salt);
             user.setSalt(salt);
             user.setUsername(username);
-            user.setRealname(username);
+            user.setRealName(username);
             user.setPassword(passwordEncode);
             user.setPhone(phone);
             user.setStatus(CommonConstant.USER_UNFREEZE);
@@ -126,10 +125,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public List<SysUser> queryUserInfo(JSONObject user) {
         QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
-        wrapper.eq("username", user.getString("username"));
-        wrapper.eq("real_name", user.getString("real_name"));
-        wrapper.eq("sex", user.getString("sex"));
-        wrapper.eq("status", user.getString("status"));
+        wrapper.eq(StringUtils.isBlank(user.getString("username")), "username", user.getString("username"));
+        wrapper.eq(StringUtils.isBlank(user.getString("real_name")), "real_name", user.getString("real_name"));
+        wrapper.eq(StringUtils.isBlank(user.getString("sex")), "sex", user.getString("sex"));
+        wrapper.eq(StringUtils.isBlank(user.getString("status")), "status", user.getString("status"));
         return userMapper.selectList(wrapper);
     }
 }

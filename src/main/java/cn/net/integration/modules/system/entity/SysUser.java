@@ -2,6 +2,9 @@ package cn.net.integration.modules.system.entity;
 
 import cn.net.integration.core.common.api.vo.BaseModel;
 import cn.net.integration.core.common.util.SnowFlakeUtil;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,6 +19,7 @@ import java.util.Date;
  * @Date 2022/10/30 22:04
  * @Version 1.0
  **/
+@TableName(value = "t_sys_user")
 public class SysUser extends BaseModel {
 
     @Serial
@@ -24,6 +28,7 @@ public class SysUser extends BaseModel {
     /**
      * id
      */
+    @TableId
     private String id;
 
     /**
@@ -34,7 +39,8 @@ public class SysUser extends BaseModel {
     /**
      * 真实姓名
      */
-    private String realname;
+    @TableField(value = "real_name")
+    private String realName;
 
     /**
      * 密码
@@ -182,12 +188,12 @@ public class SysUser extends BaseModel {
         this.username = username;
     }
 
-    public String getRealname() {
-        return realname;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setRealname(String realname) {
-        this.realname = realname;
+    public void setRealName(String real_name) {
+        this.realName = real_name;
     }
 
     public String getPassword() {

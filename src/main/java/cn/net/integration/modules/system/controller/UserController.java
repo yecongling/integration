@@ -4,9 +4,11 @@ import cn.net.integration.core.common.api.vo.Result;
 import cn.net.integration.modules.system.entity.SysUser;
 import cn.net.integration.modules.system.service.ISysUserService;
 import com.alibaba.fastjson.JSONObject;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -47,8 +49,8 @@ public class UserController {
      * @param params 查询参数
      * @return 用户信息
      */
-    @PostMapping("/queryUsers")
-    public List<SysUser> queryUsers(@RequestBody JSONObject params) {
+    @PostMapping("/getAllUser")
+    public List<SysUser> getAllUser(@RequestBody JSONObject params) {
         return userService.queryUserInfo(params);
     }
 }
