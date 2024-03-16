@@ -6,6 +6,8 @@ import cn.net.integration.modules.system.entity.SysPermission;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * @ClassName ISysPermissionService
  * @Description 菜单权限业务层
@@ -29,7 +31,7 @@ public interface ISysPermissionService extends IService<SysPermission> {
      * @param params 查询参数
      * @return 所有菜单
      */
-    Result<JSONObject> getAllPermission(JSONObject params);
+    List<SysPermission> getAllPermission(JSONObject params);
 
     /**
      * 获取所有目录菜单

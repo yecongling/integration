@@ -1,5 +1,7 @@
 package cn.net.integration.core.common.interceptor;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
+import cn.dev33.satoken.stp.StpUtil;
 import cn.net.integration.core.common.netty.service.PushMsgService;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -77,8 +79,12 @@ public class MybatisSqlInterceptor implements Interceptor {
         } finally {
             map.put("msg", msg);
             map.put("type", type);
-            // 通过websocket将执行的SQL语句发送到前端进行监控   先暂时发送给所有人
-            pushMsgService.pushMsgToOne("", map.toJSONString());
+            SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
+            if (tokenInfo.isLogin) {
+                // 通过websocket将执行的SQL语句发送到前端进行监控   先暂时发送给所有人
+//                pushMsgService.pushMsgToOne("", map.toJSONString());
+                System.out.println(tokenInfo.tokenValue);
+            }
         }
         // 执行完上面的任务后，不改变原有的sql执行过程
         return invocation.proceed();

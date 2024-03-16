@@ -57,17 +57,10 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
      * @return 所有菜单
      */
     @Override
-    public Result<JSONObject> getAllPermission(JSONObject params) {
-        Result<JSONObject> result = new Result<>();
+    public List<SysPermission> getAllPermission(JSONObject params) {
         List<SysPermission> allPermission = sysPermissionMapper.getAllPermission(params);
         // 构建菜单的上下级结构关系
-        List<SysPermission> sysPermissions = this.buildPermission(allPermission);
-        // 路由菜单
-        JSONObject json = new JSONObject();
-        json.put("data", sysPermissions);
-        result.setResult(json);
-        result.setCode(200);
-        return result;
+        return this.buildPermission(allPermission);
     }
 
     /**

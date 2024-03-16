@@ -4,7 +4,6 @@ import cn.net.integration.core.common.api.vo.Result;
 import cn.net.integration.modules.system.entity.SysPermission;
 import cn.net.integration.modules.system.service.ISysPermissionService;
 import com.alibaba.fastjson.JSONObject;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,8 +44,8 @@ public class PermissionController {
      * @return 菜单信息
      */
     @RequestMapping(value = "/getAllPermission", method = RequestMethod.POST)
-    public Result<JSONObject> getAllPermission(@RequestBody JSONObject object) {
-        return sysPermissionService.getAllPermission(object);
+    public Result<Object> getAllPermission(@RequestBody JSONObject object) {
+        return Result.success(sysPermissionService.getAllPermission(object));
     }
 
     /**
