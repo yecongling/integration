@@ -1,6 +1,6 @@
 package cn.net.integration.modules.engine.service.impl;
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.core.common.util.UUIDUtil;
 import cn.net.integration.modules.engine.entity.connection.DatasourceModel;
 import cn.net.integration.modules.engine.mapper.DatasourceMapper;
@@ -38,9 +38,9 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
      * @return 数据源信息集合
      */
     @Override
-    public Result<List<DatasourceModel>> queryDatasource(DatasourceModel datasource, int pageNo, int pageSize) {
+    public Response<List<DatasourceModel>> queryDatasource(DatasourceModel datasource, int pageNo, int pageSize) {
         List<DatasourceModel> models = datasourceMapper.queryDatasource(datasource, pageNo, pageSize);
-        return Result.success(models);
+        return Response.success(models);
     }
 
     /**
@@ -50,7 +50,7 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
      * @return 新增结果
      */
     @Override
-    public Result<Object> addDatasource(DatasourceModel datasource) {
+    public Response<Object> addDatasource(DatasourceModel datasource) {
         datasource.setId(UUIDUtil.getUniqueId());
         datasource.setCreateBy("admin");
         datasource.setCreateTime(new Date());
@@ -58,9 +58,9 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
         datasource.setUpdateTime(new Date());
         int i = datasourceMapper.addDataSource(datasource);
         if (i > 0) {
-            return Result.success("新增数据源成功");
+            return Response.success("新增数据源成功");
         }
-        return Result.error("新增数据源失败");
+        return Response.error("新增数据源失败");
     }
 
     /**

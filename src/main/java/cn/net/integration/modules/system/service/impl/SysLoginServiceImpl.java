@@ -1,6 +1,6 @@
 package cn.net.integration.modules.system.service.impl;
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.core.common.spring.event.Publisher;
 import cn.net.integration.core.common.system.vo.LoginUser;
 import cn.net.integration.core.common.util.PasswordUtil;
@@ -47,30 +47,30 @@ public class SysLoginServiceImpl extends ServiceImpl<SysLoginMapper, SysUser> im
      * @return 登录结果
      */
     @Override
-    public Result<JSONObject> login(SysLoginModel loginModel, HttpServletRequest request) throws Exception {
-        Result<JSONObject> result;
+    public Response<JSONObject> login(SysLoginModel loginModel, HttpServletRequest request) throws Exception {
+        Response<JSONObject> response;
         String username = loginModel.getUsername();
         String password = loginModel.getPassword();
         SysUser sysUser = sysLoginMapper.getSysUserByUsername(username);
         // 校验用户信息
-        result = this.checkUserIsEffective(sysUser);
-        if (!result.isSuccess()) {
-            return result;
+        response = this.checkUserIsEffective(sysUser);
+        if (!response.isSuccess()) {
+            return response;
         }
         // 校验用户名密码是否正确
         String encrypt = PasswordUtil.encrypt(username, password, sysUser.getSalt());
         String sysPassword = sysUser.getPassword();
         if (!sysPassword.equals(encrypt)) {
-            result.error500("用户名或密码错误");
-            return result;
+            response.error500("用户名或密码错误");
+            return response;
         }
         // 用户登录信息
-        loadUserInfo(sysUser, result);
+        loadUserInfo(sysUser, response);
         LoginUser loginUser = new LoginUser();
         BeanUtils.copyProperties(sysUser, loginUser);
         // 异步发送消息（用于记录操作员的登录信息）
         publisher.sendMsg(username, request);
-        return result;
+        return response;
     }
 
     /**
@@ -80,25 +80,25 @@ public class SysLoginServiceImpl extends ServiceImpl<SysLoginMapper, SysUser> im
      * @return 校验结果
      */
     @Override
-    public Result<JSONObject> checkUserIsEffective(SysUser sysUser) {
+    public Response<JSONObject> checkUserIsEffective(SysUser sysUser) {
         if (sysUser == null) {
-            return Result.error("账号不存在!");
+            return Response.error("账号不存在!");
         }
-        return new Result<>();
+        return new Response<>();
     }
 
     /**
      * 加载用户信息
      *
      * @param sysUser 用户
-     * @param result  返回结果
+     * @param response  返回结果
      */
-    private void loadUserInfo(SysUser sysUser, Result<JSONObject> result) {
+    private void loadUserInfo(SysUser sysUser, Response<JSONObject> response) {
         JSONObject obj = new JSONObject(new LinkedHashMap<>());
         obj.put("userInfo", sysUser);
         obj.put("token", sysUser.getId());
         obj.put("status", "ok");
-        result.setResult(obj);
-        result.setMessage("登录成功");
+        response.setResult(obj);
+        response.setMessage("登录成功");
     }
 }

@@ -1,6 +1,6 @@
 package cn.net.integration.modules.engine.service;
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.modules.engine.entity.connection.DatasourceModel;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -23,7 +23,7 @@ public interface IDatasourceService extends IService<DatasourceModel> {
      * @param pageSize -
      * @return 数据源信息集合
      */
-    Result<List<DatasourceModel>> queryDatasource(DatasourceModel datasource, int pageNo, int pageSize);
+    Response<List<DatasourceModel>> queryDatasource(DatasourceModel datasource, int pageNo, int pageSize);
 
     /**
      * 添加数据源
@@ -31,7 +31,7 @@ public interface IDatasourceService extends IService<DatasourceModel> {
      * @param datasource 数据源
      * @return 新增结果
      */
-    Result<Object> addDatasource(DatasourceModel datasource);
+    Response<Object> addDatasource(DatasourceModel datasource);
 
     /**
      * 修改数据源信息

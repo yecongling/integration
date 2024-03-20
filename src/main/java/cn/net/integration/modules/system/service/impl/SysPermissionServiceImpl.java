@@ -1,6 +1,6 @@
 package cn.net.integration.modules.system.service.impl;
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.core.common.constant.CommonConstant;
 import cn.net.integration.core.common.constant.SymbolConstant;
 import cn.net.integration.core.common.util.ConvertUtil;
@@ -69,8 +69,8 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
      * @return 目录菜单
      */
     @Override
-    public Result<JSONObject> getDirectoryPermission() {
-        Result<JSONObject> result = new Result<>();
+    public Response<JSONObject> getDirectoryPermission() {
+        Response<JSONObject> response = new Response<>();
         List<SysPermission> permissions = sysPermissionMapper.getDirectoryPermission();
         // 将平级的菜单构建成上下结构的格式
         JSONArray jsonArray = new JSONArray();
@@ -78,9 +78,9 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
         // 路由菜单
         JSONObject json = new JSONObject();
         json.put("directory", jsonArray);
-        result.setCode(200);
-        result.setResult(json);
-        return result;
+        response.setCode(200);
+        response.setResult(json);
+        return response;
     }
 
     /**
@@ -90,7 +90,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
      * @return 结果
      */
     @Override
-    public Result<Object> addPermission(SysPermission permission) {
+    public Response<Object> addPermission(SysPermission permission) {
         // 设置一些必要属性
         Date date = new Date();
         permission.setId(UUIDUtil.getUniqueId());
@@ -100,9 +100,9 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
         permission.setUpdateBy("admin");
         int i = sysPermissionMapper.addPermission(permission);
         if (i > 0) {
-            return Result.success("新增菜单成功");
+            return Response.success("新增菜单成功");
         }
-        return Result.error("新增菜单失败");
+        return Response.error("新增菜单失败");
     }
 
     /**
@@ -112,7 +112,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
      * @return 结果
      */
     @Override
-    public Result<String> updatePermission(SysPermission permission) {
+    public Response<String> updatePermission(SysPermission permission) {
         // 设置一些必要属性
         Date date = new Date();
         permission.setCreateTime(date);
@@ -121,9 +121,9 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
         permission.setUpdateBy("admin");
         int i = sysPermissionMapper.updatePermission(permission);
         if (i > 0) {
-            return Result.success("修改菜单成功");
+            return Response.success("修改菜单成功");
         }
-        return Result.error("菜单修改失败");
+        return Response.error("菜单修改失败");
     }
 
     /**
@@ -133,9 +133,9 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
      * @return -
      */
     @Override
-    public Result<Object> deletePermission(String id) {
+    public Response<Object> deletePermission(String id) {
         int i = sysPermissionMapper.deletePermission(id);
-        return Result.success(i);
+        return Response.success(i);
     }
 
     /**

@@ -1,6 +1,6 @@
 package cn.net.integration.modules.engine.service.impl;
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.modules.engine.entity.project.*;
 import cn.net.integration.modules.engine.mapper.EngineDesignerMapper;
 import cn.net.integration.modules.engine.service.IDesignerService;
@@ -90,10 +90,10 @@ public class DesignerServiceImpl extends ServiceImpl<EngineDesignerMapper, Endpo
      * @return 返回终端的属性配置
      */
     @Override
-    public Result<List<EndpointProperties>> queryEndpointProperties() {
+    public Response<List<EndpointProperties>> queryEndpointProperties() {
         JSONObject param = new JSONObject();
         List<EndpointProperties> properties = engineDesignerMapper.queryEndpointProperties(param);
-        return Result.success(properties);
+        return Response.success(properties);
     }
 
     /**

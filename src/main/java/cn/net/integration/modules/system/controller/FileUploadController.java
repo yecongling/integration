@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @ClassName FileUploadController
- * @Description 文件上传controller
+ * @Description 文件上传controller 需要支持大小文件的上传，还要支持文件分片上传、断点续传等功能
  * @Author yeconglin
  * @Date 2024/1/3 15:22
  * @Version 1.0

@@ -1,6 +1,6 @@
 package cn.net.integration.modules.emr.controller;
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.modules.emr.service.DesignerService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class DesignerController {
      * @return 文书种类信息
      */
     @PostMapping("/getCategory")
-    public Result<Object> getEmrCategory(@RequestBody JSONObject param) {
+    public Response<Object> getEmrCategory(@RequestBody JSONObject param) {
         List<Map<String, Object>> category = designerService.getEmrCategory(param);
 
         return null;

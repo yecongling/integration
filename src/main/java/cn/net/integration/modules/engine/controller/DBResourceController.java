@@ -1,6 +1,6 @@
 package cn.net.integration.modules.engine.controller;
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.modules.engine.service.DBResourceService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +36,11 @@ public class DBResourceController {
      * @return 数据库资源
      */
     @GetMapping("/getAll")
-    public Result<Object> queryDBResource(@RequestParam JSONObject param,
-                                          @RequestParam(name = "pageNo", defaultValue = "1") int pageNo,
-                                          @RequestParam(name = "pageSize", defaultValue = "10") int pageSize) {
+    public Response<Object> queryDBResource(@RequestParam JSONObject param,
+                                            @RequestParam(name = "pageNo", defaultValue = "1") int pageNo,
+                                            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize) {
         List<Map<String, Object>> maps = dbResourceService.queryDBResource(param, pageNo, pageSize);
-        return Result.success(maps);
+        return Response.success(maps);
     }
 
     /**

@@ -1,9 +1,10 @@
 package cn.net.integration.modules.system.controller;
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.modules.system.entity.SysUser;
 import cn.net.integration.modules.system.service.ISysUserService;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,7 +40,7 @@ public class UserController {
      * @return 返回注册结果
      */
     @PostMapping("/register")
-    public Result<JSONObject> userRegister(@RequestBody JSONObject data, SysUser user) {
+    public Response<JSONObject> userRegister(@RequestBody JSONObject data, SysUser user) {
         return userService.register(data, user);
     }
 
@@ -52,5 +53,30 @@ public class UserController {
     @PostMapping("/getAllUser")
     public List<SysUser> getAllUser(@RequestBody JSONObject params) {
         return userService.queryUserInfo(params);
+    }
+
+    /**
+     * 更新用户信息
+     * @param user 用户对象
+     * @return 更新结果
+     */
+    @PostMapping("/updateUser")
+    public boolean updateUser(@RequestBody SysUser user) {
+        // 进行参数判定（用户id必传）
+        String id = user.getId();
+        if (StringUtils.isBlank(id)) {
+            throw new RuntimeException("传入的用户ID为空，无法进行用户信息更改！");
+        }
+        return userService.updateUser(user);
+    }
+
+    /**
+     * 分配用户权限，相对于给用户分配角色
+     * @param params 用户信息和角色信息
+     * @return 结果
+     */
+    @PostMapping("/assignPermission")
+    public String assignPermission(@RequestBody JSONObject params) {
+        return "";
     }
 }

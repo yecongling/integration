@@ -1,6 +1,6 @@
 package cn.net.integration.modules.engine.controller;
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.modules.engine.entity.project.*;
 import cn.net.integration.modules.engine.service.IDesignerService;
 import com.alibaba.fastjson.JSONObject;
@@ -71,7 +71,7 @@ public class DesignerController {
      * @return 终端属性配置
      */
     @GetMapping("/endpointProperties")
-    public Result<List<EndpointProperties>> queryEndpointProperties() {
+    public Response<List<EndpointProperties>> queryEndpointProperties() {
         return designerService.queryEndpointProperties();
     }
 
@@ -81,10 +81,10 @@ public class DesignerController {
      * @return 返回路由信息
      */
     @RequestMapping("/queryRoutes")
-    public Result<List<Route>> queryRoutes() {
+    public Response<List<Route>> queryRoutes() {
         List<String> ids = new ArrayList<>();
         ids.add("route_123456");
         List<Route> routes = designerService.queryRoutes(ids);
-        return Result.success(routes);
+        return Response.success(routes);
     }
 }

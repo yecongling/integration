@@ -1,7 +1,7 @@
 package cn.net.integration.modules.system.service;
 
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.modules.system.entity.SysLoginModel;
 import cn.net.integration.modules.system.entity.SysUser;
 import com.alibaba.fastjson.JSONObject;
@@ -24,7 +24,7 @@ public interface ISysLoginService extends IService<SysUser> {
      * @param request    请求对象
      * @return 登录结果
      */
-    Result<JSONObject> login(SysLoginModel loginModel, HttpServletRequest request) throws Exception;
+    Response<JSONObject> login(SysLoginModel loginModel, HttpServletRequest request) throws Exception;
 
     /**
      * 校验用户是否有效
@@ -32,5 +32,5 @@ public interface ISysLoginService extends IService<SysUser> {
      * @param sysUser 用户信息
      * @return 校验结果
      */
-    Result<JSONObject> checkUserIsEffective(SysUser sysUser) throws Exception;
+    Response<JSONObject> checkUserIsEffective(SysUser sysUser) throws Exception;
 }

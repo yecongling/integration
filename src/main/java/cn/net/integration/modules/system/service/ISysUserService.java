@@ -1,11 +1,10 @@
 package cn.net.integration.modules.system.service;
 
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.modules.system.entity.SysUser;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
-import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public interface ISysUserService extends IService<SysUser> {
      * @param user 用户
      * @return 注册结果
      */
-    Result<JSONObject> register(JSONObject jsonObject, SysUser user);
+    Response<JSONObject> register(JSONObject jsonObject, SysUser user);
 
     /**
      * 添加用户和用户角色的关系
@@ -42,4 +41,11 @@ public interface ISysUserService extends IService<SysUser> {
      * @return 用户信息
      */
     List<SysUser> queryUserInfo(JSONObject user);
+
+    /**
+     * 更新用户信息
+     * @param user 用户信息
+     * @return true 更新成功 false 更新失败
+     */
+    boolean updateUser(SysUser user);
 }

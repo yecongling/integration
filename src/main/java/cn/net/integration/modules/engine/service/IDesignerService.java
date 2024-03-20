@@ -1,6 +1,6 @@
 package cn.net.integration.modules.engine.service;
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.modules.engine.entity.project.*;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -60,7 +60,7 @@ public interface IDesignerService extends IService<Endpoint> {
      *
      * @return 返回终端的属性配置
      */
-    Result<List<EndpointProperties>> queryEndpointProperties();
+    Response<List<EndpointProperties>> queryEndpointProperties();
 
     /**
      * 查询路由

@@ -1,6 +1,6 @@
 package cn.net.integration.modules.engine.service;
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.modules.engine.entity.project.*;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -21,7 +21,7 @@ public interface IProjectManagerService extends IService<Project> {
      * @param param 项目查询条件
      * @return 所有项目信息
      */
-    Result<List<Project>> queryProjects(JSONObject param);
+    Response<List<Project>> queryProjects(JSONObject param);
 
     /**
      * 通过项目ID查询项目信息（包括项目包含的终端、路由、组件、连线）
@@ -29,7 +29,7 @@ public interface IProjectManagerService extends IService<Project> {
      * @param projectId 项目ID
      * @return 项目model
      */
-    Result<Project> queryProjectById(String projectId);
+    Response<Project> queryProjectById(String projectId);
 
     /**
      * 新增服务信息
@@ -37,7 +37,7 @@ public interface IProjectManagerService extends IService<Project> {
      * @param project 项目对象
      * @return 保存结果
      */
-    Result<String> addProject(Project project);
+    Response<String> addProject(Project project);
 
     /**
      * 修改项目信息
@@ -45,7 +45,7 @@ public interface IProjectManagerService extends IService<Project> {
      * @param project 项目对象
      * @return 修改结果
      */
-    Result<Object> updateProject(Project project);
+    Response<Object> updateProject(Project project);
 
     /**
      * 删除菜单
@@ -53,7 +53,7 @@ public interface IProjectManagerService extends IService<Project> {
      * @param projectId 项目ID
      * @return 删除结果
      */
-    Result<Object> deleteProject(String projectId);
+    Response<Object> deleteProject(String projectId);
 
     /**
      * 根据项目ID查找项目信息 并发布该服务
@@ -62,6 +62,6 @@ public interface IProjectManagerService extends IService<Project> {
      * @param status    状态 是发布服务还是取消  还是半启动
      * @return 发布服务结果
      */
-    Result<JSONObject> publishService(String projectId, Integer status);
+    Response<JSONObject> publishService(String projectId, Integer status);
 
 }

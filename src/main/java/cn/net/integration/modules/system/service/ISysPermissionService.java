@@ -1,7 +1,7 @@
 package cn.net.integration.modules.system.service;
 
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.modules.system.entity.SysPermission;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -38,7 +38,7 @@ public interface ISysPermissionService extends IService<SysPermission> {
      *
      * @return 目录菜单
      */
-    Result<JSONObject> getDirectoryPermission();
+    Response<JSONObject> getDirectoryPermission();
 
     /**
      * 新增菜单
@@ -46,7 +46,7 @@ public interface ISysPermissionService extends IService<SysPermission> {
      * @param permission 菜单
      * @return 结果
      */
-    Result<Object> addPermission(SysPermission permission);
+    Response<Object> addPermission(SysPermission permission);
 
     /**
      * 更新菜单
@@ -54,7 +54,7 @@ public interface ISysPermissionService extends IService<SysPermission> {
      * @param permission 菜单对象
      * @return 结果
      */
-    Result<String> updatePermission(SysPermission permission);
+    Response<String> updatePermission(SysPermission permission);
 
     /**
      * 删除菜单
@@ -62,5 +62,5 @@ public interface ISysPermissionService extends IService<SysPermission> {
      * @param id 菜单ID
      * @return -
      */
-    Result<Object> deletePermission(String id);
+    Response<Object> deletePermission(String id);
 }

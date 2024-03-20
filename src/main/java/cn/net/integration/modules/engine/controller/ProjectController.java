@@ -1,6 +1,6 @@
 package cn.net.integration.modules.engine.controller;
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.modules.engine.entity.project.Project;
 import cn.net.integration.modules.engine.service.IProjectManagerService;
 import com.alibaba.fastjson.JSONObject;
@@ -35,7 +35,7 @@ public class ProjectController {
      * @return 所有的项目信息
      */
     @RequestMapping("/queryProjects")
-    public Result<List<Project>> queryProject(@RequestBody(required = false) JSONObject param) {
+    public Response<List<Project>> queryProject(@RequestBody(required = false) JSONObject param) {
         return projectManagerService.queryProjects(param);
     }
 
@@ -46,7 +46,7 @@ public class ProjectController {
      * @return 项目model
      */
     @GetMapping("/queryProjectById/{projectId}")
-    public Result<Project> queryProjectById(@PathVariable("projectId") String projectId) {
+    public Response<Project> queryProjectById(@PathVariable("projectId") String projectId) {
         return projectManagerService.queryProjectById(projectId);
     }
 
@@ -57,7 +57,7 @@ public class ProjectController {
      * @return 返回保存结果
      */
     @PostMapping("/addProject")
-    public Result<String> addProject(@RequestBody Project project) {
+    public Response<String> addProject(@RequestBody Project project) {
         return projectManagerService.addProject(project);
     }
 
@@ -68,7 +68,7 @@ public class ProjectController {
      * @return 修改结果
      */
     @PostMapping("/updateProject")
-    public Result<Object> updateProject(@RequestBody Project project) {
+    public Response<Object> updateProject(@RequestBody Project project) {
         return projectManagerService.updateProject(project);
     }
 
@@ -79,7 +79,7 @@ public class ProjectController {
      * @return 删除结果
      */
     @DeleteMapping("/deleteProject")
-    public Result<Object> deleteProject(@RequestParam(name = "projectId") String projectId) {
+    public Response<Object> deleteProject(@RequestParam(name = "projectId") String projectId) {
         return projectManagerService.deleteProject(projectId);
     }
 
@@ -92,7 +92,7 @@ public class ProjectController {
      * @return 发布结果
      */
     @GetMapping("/publishService/")
-    public Result<JSONObject> publishService(@RequestParam("projectID") String projectID, @RequestParam("status") Integer status) {
+    public Response<JSONObject> publishService(@RequestParam("projectID") String projectID, @RequestParam("status") Integer status) {
         // 需要添加状态参数
         return projectManagerService.publishService(projectID, status);
     }

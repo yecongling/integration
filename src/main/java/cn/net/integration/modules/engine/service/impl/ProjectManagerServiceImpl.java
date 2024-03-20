@@ -1,6 +1,6 @@
 package cn.net.integration.modules.engine.service.impl;
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.core.common.util.UUIDUtil;
 import cn.net.integration.modules.engine.core.EngineServiceCenter;
 import cn.net.integration.modules.engine.entity.project.Project;
@@ -46,12 +46,12 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
      * @return 所有项目信息
      */
     @Override
-    public Result<List<Project>> queryProjects(JSONObject param) {
+    public Response<List<Project>> queryProjects(JSONObject param) {
         List<Project> allProject = projectManagerMapper.queryAllProject(param);
         for (Project model : allProject) {
             model.setKey(model.getId());
         }
-        return Result.success(allProject);
+        return Response.success(allProject);
     }
 
     /**
@@ -61,11 +61,11 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
      * @return 项目model
      */
     @Override
-    public Result<Project> queryProjectById(String projectId) {
+    public Response<Project> queryProjectById(String projectId) {
         Project project = projectManagerMapper.queryProjectInfoByID(projectId);
         // 后续添加查询其对应的终端、路由组件、连线等数据
 
-        return Result.success(project);
+        return Response.success(project);
     }
 
     /**
@@ -75,7 +75,7 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
      * @return 保存结果
      */
     @Override
-    public Result<String> addProject(Project project) {
+    public Response<String> addProject(Project project) {
         // 新增，添加创建、更新时间、操作员
         project.setCreateTime(new Date());
         project.setCreateBy("ycl");
@@ -84,9 +84,9 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
         project.setId(UUIDUtil.getUniqueId());
         int i = projectManagerMapper.addProject(project);
         if (i > 0) {
-            return Result.success("新增项目成功");
+            return Response.success("新增项目成功");
         }
-        return Result.error("新增项目失败");
+        return Response.error("新增项目失败");
     }
 
     /**
@@ -96,14 +96,14 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
      * @return 修改结果
      */
     @Override
-    public Result<Object> updateProject(Project project) {
+    public Response<Object> updateProject(Project project) {
         project.setUpdateBy("admin");
         project.setUpdateTime(new Date());
         int i = projectManagerMapper.updateProject(project);
         if (i > 0) {
-            return Result.success("修改项目成功");
+            return Response.success("修改项目成功");
         }
-        return Result.error("修改项目失败");
+        return Response.error("修改项目失败");
     }
 
     /**
@@ -113,12 +113,12 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
      * @return 删除结果
      */
     @Override
-    public Result<Object> deleteProject(String projectId) {
+    public Response<Object> deleteProject(String projectId) {
         boolean b = projectManagerMapper.deleteProject(projectId);
         if (b) {
-            return Result.success("删除成功");
+            return Response.success("删除成功");
         }
-        return Result.error("删除失败");
+        return Response.error("删除失败");
     }
 
     /**
@@ -128,7 +128,7 @@ public class ProjectManagerServiceImpl extends ServiceImpl<ProjectManagerMapper,
      * @return 发布的结果
      */
     @Override
-    public Result<JSONObject> publishService(String projectId, Integer status) {
+    public Response<JSONObject> publishService(String projectId, Integer status) {
         JSONObject result;
         // 这里后续考虑更改，使用枚举或者自定义常量
         if (status == 1) {

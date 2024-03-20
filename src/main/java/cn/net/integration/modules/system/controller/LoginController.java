@@ -4,7 +4,7 @@ import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.modules.system.entity.SysLoginModel;
 import cn.net.integration.modules.system.service.ISysLoginService;
 import com.alibaba.fastjson.JSONObject;
@@ -42,8 +42,8 @@ public class LoginController {
     @Operation(summary = "登录方法", description = "登录方法")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public SaResult login(@RequestBody SysLoginModel loginModel, HttpServletRequest request) throws Exception {
-        Result<JSONObject> result = ISysLoginService.login(loginModel, request);
-        if (result.isSuccess()) {
+        Response<JSONObject> response = ISysLoginService.login(loginModel, request);
+        if (response.isSuccess()) {
             SaLoginModel model = new SaLoginModel();
             model.setIsLastingCookie(false);
             model.setTimeout(300L);
@@ -53,7 +53,7 @@ public class LoginController {
             SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
             return SaResult.data(tokenInfo);
         }
-        return SaResult.error(result.getMessage());
+        return SaResult.error(response.getMessage());
     }
 
     /**

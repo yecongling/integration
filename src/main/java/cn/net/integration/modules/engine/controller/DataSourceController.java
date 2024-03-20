@@ -1,6 +1,6 @@
 package cn.net.integration.modules.engine.controller;
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.modules.engine.entity.connection.DatasourceModel;
 import cn.net.integration.modules.engine.service.IDatasourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +38,9 @@ public class DataSourceController {
      * @return 数据
      */
     @PostMapping("/queryDatasource")
-    public Result<List<DatasourceModel>> queryDatasource(DatasourceModel datasourceModel,
-                                                         @RequestParam(name = "pageNo", defaultValue = "1") int pageNo,
-                                                         @RequestParam(name = "pageSize", defaultValue = "10") int pageSize) {
+    public Response<List<DatasourceModel>> queryDatasource(DatasourceModel datasourceModel,
+                                                           @RequestParam(name = "pageNo", defaultValue = "1") int pageNo,
+                                                           @RequestParam(name = "pageSize", defaultValue = "10") int pageSize) {
         return datasourceService.queryDatasource(datasourceModel, pageNo, pageSize);
     }
 
@@ -51,7 +51,7 @@ public class DataSourceController {
      * @return 结果
      */
     @PostMapping("/addDataSource")
-    public Result<Object> addDataSource(DatasourceModel model) {
+    public Response<Object> addDataSource(DatasourceModel model) {
         return datasourceService.addDatasource(model);
     }
 

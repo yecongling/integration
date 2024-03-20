@@ -8,7 +8,7 @@ import java.io.Serializable;
  *
  * @param <T>
  */
-public class Result<T> implements Serializable {
+public class Response<T> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -33,7 +33,7 @@ public class Result<T> implements Serializable {
      */
     private long timestamp = System.currentTimeMillis();
 
-    public Result() {
+    public Response() {
     }
 
     /**
@@ -42,7 +42,7 @@ public class Result<T> implements Serializable {
      * @param code    编码
      * @param message 消息
      */
-    public Result(Integer code, String message) {
+    public Response(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -57,8 +57,8 @@ public class Result<T> implements Serializable {
      * @param <T>
      * @return
      */
-    public static <T> Result<T> success() {
-        Result<T> r = new Result<T>();
+    public static <T> Response<T> success() {
+        Response<T> r = new Response<T>();
         r.setCode(200);
         return r;
     }
@@ -70,8 +70,8 @@ public class Result<T> implements Serializable {
      * @param <T>
      * @return
      */
-    public static <T> Result<T> success(String msg) {
-        Result<T> r = new Result<T>();
+    public static <T> Response<T> success(String msg) {
+        Response<T> r = new Response<T>();
         r.setCode(200);
         r.setResult((T) msg);
         r.setMessage(msg);
@@ -85,8 +85,8 @@ public class Result<T> implements Serializable {
      * @param <T>
      * @return
      */
-    public static <T> Result<T> success(T data) {
-        Result<T> r = new Result<T>();
+    public static <T> Response<T> success(T data) {
+        Response<T> r = new Response<T>();
         r.setCode(200);
         r.setResult(data);
         return r;
@@ -100,34 +100,34 @@ public class Result<T> implements Serializable {
      * @param <T>
      * @return
      */
-    public static <T> Result<T> success(String msg, T data) {
-        Result<T> r = new Result<T>();
+    public static <T> Response<T> success(String msg, T data) {
+        Response<T> r = new Response<T>();
         r.setCode(200);
         r.setMessage(msg);
         r.setResult(data);
         return r;
     }
 
-    public static <T> Result<T> error(String msg, T data) {
-        Result<T> r = new Result<T>();
+    public static <T> Response<T> error(String msg, T data) {
+        Response<T> r = new Response<T>();
         r.setCode(500);
         r.setMessage(msg);
         r.setResult(data);
         return r;
     }
 
-    public static <T> Result<T> error(String msg) {
+    public static <T> Response<T> error(String msg) {
         return error(500, msg);
     }
 
-    public static <T> Result<T> error(int code, String msg) {
-        Result<T> r = new Result<T>();
+    public static <T> Response<T> error(int code, String msg) {
+        Response<T> r = new Response<T>();
         r.setCode(code);
         r.setMessage(msg);
         return r;
     }
 
-    public Result<T> error500(String message) {
+    public Response<T> error500(String message) {
         this.message = message;
         this.code = 500;
         return this;

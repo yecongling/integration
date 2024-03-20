@@ -1,6 +1,6 @@
 package cn.net.integration.modules.system.controller;
 
-import cn.net.integration.core.common.api.vo.Result;
+import cn.net.integration.core.common.api.vo.Response;
 import cn.net.integration.modules.system.entity.SysPermission;
 import cn.net.integration.modules.system.service.ISysPermissionService;
 import com.alibaba.fastjson.JSONObject;
@@ -44,8 +44,8 @@ public class PermissionController {
      * @return 菜单信息
      */
     @RequestMapping(value = "/getAllPermission", method = RequestMethod.POST)
-    public Result<Object> getAllPermission(@RequestBody JSONObject object) {
-        return Result.success(sysPermissionService.getAllPermission(object));
+    public Response<Object> getAllPermission(@RequestBody JSONObject object) {
+        return Response.success(sysPermissionService.getAllPermission(object));
     }
 
     /**
@@ -54,7 +54,7 @@ public class PermissionController {
      * @return 目录
      */
     @RequestMapping(value = "/getDirectoryPermission", method = RequestMethod.GET)
-    public Result<JSONObject> getDirectoryPermission() {
+    public Response<JSONObject> getDirectoryPermission() {
         return sysPermissionService.getDirectoryPermission();
     }
 
@@ -65,7 +65,7 @@ public class PermissionController {
      * @return 新增成功或失败
      */
      @RequestMapping(value = "/addPermission", method = RequestMethod.POST)
-    public Result<Object> addPermission(@RequestBody SysPermission sysPermission) {
+    public Response<Object> addPermission(@RequestBody SysPermission sysPermission) {
         return sysPermissionService.addPermission(sysPermission);
     }
 
@@ -76,7 +76,7 @@ public class PermissionController {
      * @return 新增成功或失败
      */
     @RequestMapping(value = "/updatePermission", method = RequestMethod.POST)
-    public Result<String> updatePermission(@RequestBody SysPermission sysPermission) {
+    public Response<String> updatePermission(@RequestBody SysPermission sysPermission) {
         return sysPermissionService.updatePermission(sysPermission);
     }
 
@@ -87,7 +87,7 @@ public class PermissionController {
      * @return 新增成功或失败
      */
     @RequestMapping(value = "/deletePermission", method = RequestMethod.POST)
-    public Result<Object> deletePermission(@RequestBody String id) {
+    public Response<Object> deletePermission(@RequestBody String id) {
         return sysPermissionService.deletePermission(id);
     }
 
