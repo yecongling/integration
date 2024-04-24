@@ -1,0 +1,9 @@
+# Project exclude paths
+/integration-system-admin/target/
+/integration-system-base/target/
+/integration-module-platform/target/
+/integration-module-system/target/
+/integration-system-framework/target/
+.idea
+/integration-system-admin/integration-system-admin.iml
+/integration-system-admin/.mvn
