@@ -13,7 +13,7 @@ public class Response<T> implements Serializable {
     // 返回代码
     private int code;
     // 返回消息
-    private String msg;
+    private String msg = "";
     // 返回数据
     private T data;
 

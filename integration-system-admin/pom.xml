@@ -5,10 +5,10 @@
 	<parent>
 		<groupId>cn.net.integration</groupId>
 		<artifactId>integration</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</parent>
 	<artifactId>integration-system-admin</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>integration-system-admin</name>
 	<description>integration-system-admin</description>
 	<properties>
@@ -20,10 +20,17 @@
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 
+		<!-- 系统管理部分 -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<groupId>cn.net.integration</groupId>
+			<artifactId>integration-module-system</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<!-- 平台部分 -->
+		<dependency>
+			<groupId>cn.net.integration</groupId>
+			<artifactId>integration-module-platform</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 
