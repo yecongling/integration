@@ -36,5 +36,12 @@ spring:
       connection-test-query: SELECT 1
   data:
     redis:
-      repositories:
-        enabled: false
+      host: localhost
+      port: 6379
+      password: Ycl499475142!
+      database: 0
+      lettuce:
+        pool:
+          max-idle: 16
+          max-active: 32
+          min-idle: 8
