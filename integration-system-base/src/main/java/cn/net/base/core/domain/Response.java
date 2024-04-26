@@ -36,6 +36,37 @@ public class Response<T> implements Serializable {
         this.data = data;
     }
 
+    public boolean isSuccess() {
+        return this.code == 200;
+    }
+
+    /**
+     * 返回成功
+     *
+     * @param <T> 类型
+     * @return 结果
+     */
+    public static <T> Response<T> success() {
+        Response<T> r = new Response<T>();
+        r.setCode(200);
+        return r;
+    }
+
+    /**
+     * 返回成功
+     *
+     * @param msg 消息
+     * @param <T> 类型
+     * @return 结果
+     */
+    public static <T> Response<T> success(String msg) {
+        Response<T> r = new Response<T>();
+        r.setCode(200);
+        r.setData((T) msg);
+        r.setMsg(msg);
+        return r;
+    }
+
     /**
      * 返回成功
      *
@@ -48,6 +79,47 @@ public class Response<T> implements Serializable {
         response.setData(data);
         response.setCode(200);
         return response;
+    }
+
+    /**
+     * 返回成功
+     *
+     * @param msg  信息
+     * @param data 数据
+     * @param <T>  类型
+     * @return 结果
+     */
+    public static <T> Response<T> success(String msg, T data) {
+        Response<T> r = new Response<T>();
+        r.setCode(200);
+        r.setMsg(msg);
+        r.setData(data);
+        return r;
+    }
+
+    public static <T> Response<T> error(String msg, T data) {
+        Response<T> r = new Response<T>();
+        r.setCode(500);
+        r.setMsg(msg);
+        r.setData(data);
+        return r;
+    }
+
+    public static <T> Response<T> error(String msg) {
+        return error(500, msg);
+    }
+
+    public static <T> Response<T> error(int code, String msg) {
+        Response<T> r = new Response<T>();
+        r.setCode(code);
+        r.setMsg(msg);
+        return r;
+    }
+
+    public Response<T> error500(String message) {
+        this.msg = message;
+        this.code = 500;
+        return this;
     }
 
     public int getCode() {
