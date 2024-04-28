@@ -93,6 +93,9 @@ public interface CommonConstant {
      */
     String PREFIX_USER_TOKEN = "prefix_user_token_";
 
+    // 用户token前缀
+    String USER_TOKEN_PREFIX = "user_token_";
+
     /**
      * 登录二维码
      */

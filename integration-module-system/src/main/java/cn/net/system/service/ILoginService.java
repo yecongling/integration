@@ -17,5 +17,5 @@ public interface ILoginService {
      * @param user 用户信息
      * @return 返回登录结果
      */
-    Response<SysUser> login(SysUser user);
+    Response<SysUser> login(SysUser user) throws Exception;
 }

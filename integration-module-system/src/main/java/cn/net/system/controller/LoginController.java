@@ -33,7 +33,7 @@ public class LoginController {
      * @return 返回登录结果
      */
     @PostMapping("/login")
-    public Response<SysUser> login(@RequestBody @Valid SysUser user, BindingResult errors) {
+    public Response<SysUser> login(@RequestBody @Valid SysUser user, BindingResult errors) throws Exception{
         Response<SysUser> response = new Response<>();
         // 如果校验有误，返回登录失败以及错误信息
         if (errors.hasErrors()) {

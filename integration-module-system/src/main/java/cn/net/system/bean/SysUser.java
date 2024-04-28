@@ -1,6 +1,7 @@
 package cn.net.system.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
@@ -27,6 +28,12 @@ public class SysUser implements Serializable {
     @NotEmpty(message = "密码不能为空！")
     @Size(min = 8, message = "密码长度不能小于8！")
     private String password;
+
+    /**
+     * md5密码盐
+     */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String salt;
 
     // 登录选择的角色
     private String roleId;
@@ -67,5 +74,21 @@ public class SysUser implements Serializable {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
