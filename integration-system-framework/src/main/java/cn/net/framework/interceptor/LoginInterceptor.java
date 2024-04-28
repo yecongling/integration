@@ -11,12 +11,10 @@ import org.springframework.web.servlet.HandlerInterceptor;
 /**
  * 自定义的登录拦截器，用于验证用户登录权限
  */
-@Component
 public class LoginInterceptor implements HandlerInterceptor {
 
     private final RedisUtil redisUtil;
 
-    @Autowired
     public LoginInterceptor(RedisUtil redisUtil) {
         this.redisUtil = redisUtil;
     }
@@ -40,15 +38,17 @@ public class LoginInterceptor implements HandlerInterceptor {
         response.setHeader("Access-Control-Allow-Credentials", "true");
         // 判定request的header是否携带token，并从Redis中获取token，判定token是否失效
         String token = request.getHeader("token");
-        Object o = redisUtil.get(token);
-        System.out.println(o);
         if (StringUtils.isBlank(token)) {
-            response.setStatus(401);
-            response.getWriter().write("token已失效或不存在！请重新登录");
+            response.setStatus(403);
+            response.getWriter().write("用户未登录，无法进行业务请求！");
             return false;
         }
         // 从redis中获取数据，判定token是否有效
-
+        if (!redisUtil.hasKey(token)) {
+            response.setStatus(403);
+            response.getWriter().write("token已失效或不存在！请重新登录");
+            return false;
+        }
         // 这里先默认放过，后面实际添加验证
         return true;
     }

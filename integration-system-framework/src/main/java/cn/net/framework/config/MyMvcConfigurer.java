@@ -30,6 +30,6 @@ public class MyMvcConfigurer implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor(redisUtil))
                 .addPathPatterns("/**")  // 拦截所有请求
-                .excludePathPatterns("/login"); // 排除不拦截的路径
+                .excludePathPatterns("/system/login"); // 排除不拦截的路径
     }
 }

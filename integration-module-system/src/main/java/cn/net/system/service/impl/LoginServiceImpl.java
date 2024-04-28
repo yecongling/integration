@@ -3,6 +3,7 @@ package cn.net.system.service.impl;
 import cn.net.base.constant.CommonConstant;
 import cn.net.base.core.domain.Response;
 import cn.net.base.utils.PasswordUtils;
+import cn.net.base.utils.UUIDUtils;
 import cn.net.framework.event.Producer;
 import cn.net.framework.redis.RedisUtil;
 import cn.net.system.bean.SysUser;
@@ -10,6 +11,8 @@ import cn.net.system.mapper.UserMapper;
 import cn.net.system.service.ILoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 /**
  * @ClassName LoginServiceImpl
@@ -58,11 +61,14 @@ public class LoginServiceImpl implements ILoginService {
         }
         // 验证角色
         // 验证账号状态
+        if (Objects.equals(sysUser.getStatus(), CommonConstant.USER_FREEZE)) {
+            return Response.error("该账号已冻结，冻结时间：" + sysUser.getUpdateTime().toString());
+        }
         // 登录成功后获取向前端返回token
-        String token = "";
+        String token = UUIDUtils.getUniqueId();
         // token有效期30分钟
-        redisUtil.set(CommonConstant.USER_TOKEN_PREFIX + username, token, 1800);
-        // 发送消息用于记录
+        redisUtil.set(token, CommonConstant.USER_TOKEN_PREFIX + username, 1800);
+        // 发送消息用于记录登录
         producer.publishEvent("");
         return Response.success(token);
     }
