@@ -1,6 +1,10 @@
 package cn.net.system.mapper;
 
+import cn.net.system.bean.Menu;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @ClassName MenuMapper
@@ -11,4 +15,12 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface MenuMapper {
+
+    /**
+     * 查询用户菜单，是根据用户所处的角色
+     *
+     * @param roleId 角色ID
+     * @return 用户权限
+     */
+    List<Menu> queryByUser(@Param("roleId") String roleId);
 }

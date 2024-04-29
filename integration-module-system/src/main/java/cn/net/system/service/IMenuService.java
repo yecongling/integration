@@ -1,5 +1,7 @@
 package cn.net.system.service;
 
+import com.alibaba.fastjson.JSONArray;
+
 /**
  * @ClassName IMenuService
  * @Description 查询菜单信息的service
@@ -8,4 +10,12 @@ package cn.net.system.service;
  * @Version 1.0
  */
 public interface IMenuService {
+
+    /**
+     * 根据角色获取菜单
+     *
+     * @param roleId 角色id
+     * @return 菜单信息
+     */
+    JSONArray getMenusByRole(String roleId);
 }
