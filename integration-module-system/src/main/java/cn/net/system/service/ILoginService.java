@@ -18,4 +18,12 @@ public interface ILoginService {
      * @return 返回登录结果
      */
     Response<SysUser> login(SysUser user) throws Exception;
+
+    /**
+     * 退出登录
+     *
+     * @param userId 用户ID
+     * @return 返回退出登录结果
+     */
+    Response<Object> logout(String userId) throws Exception;
 }

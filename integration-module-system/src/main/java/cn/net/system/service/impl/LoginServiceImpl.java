@@ -4,6 +4,7 @@ import cn.net.base.constant.CommonConstant;
 import cn.net.base.core.domain.Response;
 import cn.net.base.utils.PasswordUtils;
 import cn.net.base.utils.UUIDUtils;
+import cn.net.framework.event.BaseEvent;
 import cn.net.framework.event.Producer;
 import cn.net.framework.redis.RedisUtil;
 import cn.net.system.bean.SysUser;
@@ -27,12 +28,12 @@ public class LoginServiceImpl implements ILoginService {
     private final UserMapper userMapper;
 
     // 消息生产者
-    private final Producer producer;
+    private final Producer<Object> producer;
     // redis相关的类
     private final RedisUtil redisUtil;
 
     @Autowired
-    public LoginServiceImpl(UserMapper userMapper, Producer producer, RedisUtil redisUtil) {
+    public LoginServiceImpl(UserMapper userMapper, Producer<Object> producer, RedisUtil redisUtil) {
         this.userMapper = userMapper;
         this.producer = producer;
         this.redisUtil = redisUtil;
@@ -68,8 +69,21 @@ public class LoginServiceImpl implements ILoginService {
         String token = UUIDUtils.getUniqueId();
         // token有效期30分钟
         redisUtil.set(token, CommonConstant.USER_TOKEN_PREFIX + username, 1800);
-        // 发送消息用于记录登录
-        producer.publishEvent("");
+        // 发送消息用于记录登录日志
+        BaseEvent<Object> event = new BaseEvent<>(sysUser, "login");
+        producer.publishEvent(event);
         return Response.success(token);
+    }
+
+    /**
+     * 退出登录
+     *
+     * @param userId 用户ID
+     * @return 返回退出登录结果
+     */
+    @Override
+    public Response<Object> logout(String userId) throws Exception {
+
+        return null;
     }
 }

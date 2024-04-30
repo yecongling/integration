@@ -14,13 +14,14 @@ import org.springframework.stereotype.Component;
  * @Version 1.0
  */
 @Component
-public class Producer {
+public class Producer<T> {
 
     // 定义日志
     private static final Logger logger = LoggerFactory.getLogger(Producer.class);
 
     // 定义发送消息的组件
     private final ApplicationEventPublisher publisher;
+
     @Autowired
     public Producer(ApplicationEventPublisher publisher) {
         this.publisher = publisher;
@@ -28,12 +29,12 @@ public class Producer {
 
     /**
      * 推送事件
+     *
      * @param event 事件对象
      */
-    public void publishEvent(Object event) {
+    public void publishEvent(BaseEvent<T> event) {
         // 构造待发送的消息
         publisher.publishEvent(event);
-        logger.info("Spring事件驱动模型-发送消息：{}", event);
     }
 
 }

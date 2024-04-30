@@ -106,6 +106,8 @@ public interface CommonConstant {
      */
     String LOGIN_QRCODE_TOKEN = "LQT:";
 
+    // 登录操作
+    String LOGIN_OPERATION = "login";
 
     /**
      * 0：一级菜单
