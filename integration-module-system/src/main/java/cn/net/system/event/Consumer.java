@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * @Date 2024/4/24 22:00
  * @Version 1.0
  */
-@Component
+@Component(value = "system_consumer")
 @Async // 允许异步执行
 public class Consumer implements ApplicationListener<BaseEvent<Object>> {
 
