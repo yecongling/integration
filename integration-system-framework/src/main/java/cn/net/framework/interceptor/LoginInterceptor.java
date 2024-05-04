@@ -1,11 +1,11 @@
 package cn.net.framework.interceptor;
 
+import cn.net.base.core.domain.Response;
 import cn.net.framework.redis.RedisUtil;
+import com.alibaba.fastjson.JSONObject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 /**
@@ -38,15 +38,18 @@ public class LoginInterceptor implements HandlerInterceptor {
         response.setHeader("Access-Control-Allow-Credentials", "true");
         // 判定request的header是否携带token，并从Redis中获取token，判定token是否失效
         String token = request.getHeader("token");
+        Response<String> result = new Response<>();
         if (StringUtils.isBlank(token)) {
-            response.setStatus(403);
-            response.getWriter().write("用户未登录，无法进行业务请求！");
+            result.setCode(403);
+            result.setMsg("用户未登录，无法进行业务请求！");
+            response.getWriter().write(JSONObject.toJSONString(result));
             return false;
         }
         // 从redis中获取数据，判定token是否有效
         if (!redisUtil.hasKey(token)) {
-            response.setStatus(403);
-            response.getWriter().write("token已失效或不存在！请重新登录");
+            result.setCode(403);
+            result.setMsg("会话已失效！请重新登录");
+            response.getWriter().write(JSONObject.toJSONString(result));
             return false;
         }
         // 这里先默认放过，后面实际添加验证
