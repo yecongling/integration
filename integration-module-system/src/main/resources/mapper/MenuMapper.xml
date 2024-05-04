@@ -2,8 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.net.system.mapper.MenuMapper">
 
+    <!-- 通过<resultMap>映射实体类属性名和表的字段名对应关系 -->
+    <resultMap id="SysPermission" type="cn.net.system.bean.Menu">
+        <!-- result属性映射非匹配字段 -->
+        <result column="is_route" property="route"/>
+        <result column="keep_alive" property="keepAlive"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="is_leaf" property="leaf"/>
+        <result column="menu_type" property="menuType"/>
+        <result column="component_name" property="componentName"/>
+        <result column="sort_no" property="sortNo"/>
+    </resultMap>
+
     <!-- 查询用户权限，根据角色id查询 -->
-    <select id="queryByUser" parameterType="object" resultType="cn.net.system.bean.Menu">
+    <select id="queryByUser" parameterType="object" resultMap="SysPermission">
         <choose>
             <when test="roleId == 'admin'">
                 select * from integration.t_sys_permission order by sort_no
