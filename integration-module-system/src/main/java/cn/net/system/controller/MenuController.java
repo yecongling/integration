@@ -1,12 +1,13 @@
 package cn.net.system.controller;
 
+import cn.net.system.bean.Menu;
 import cn.net.system.service.IMenuService;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @ClassName MenuController
@@ -23,6 +24,17 @@ public class MenuController {
     @Autowired
     public MenuController(IMenuService menuService) {
         this.menuService = menuService;
+    }
+
+    /**
+     * 查询所有菜单
+     *
+     * @param menu 菜单查询条件
+     * @return 菜单信息
+     */
+    @PostMapping("/getAllMenus")
+    public List<Menu> getAllMenus(@RequestBody JSONObject menu) {
+        return menuService.getAllMenus(menu);
     }
 
     /**

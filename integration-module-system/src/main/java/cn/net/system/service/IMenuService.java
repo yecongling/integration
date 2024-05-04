@@ -1,6 +1,10 @@
 package cn.net.system.service;
 
+import cn.net.system.bean.Menu;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.List;
 
 /**
  * @ClassName IMenuService
@@ -10,6 +14,14 @@ import com.alibaba.fastjson.JSONArray;
  * @Version 1.0
  */
 public interface IMenuService {
+
+    /**
+     * 获取所有菜单
+     *
+     * @param menu 菜单查询条件
+     * @return 符合条件的菜单
+     */
+    List<Menu> getAllMenus(JSONObject menu);
 
     /**
      * 根据角色获取菜单

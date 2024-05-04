@@ -8,10 +8,14 @@ import cn.net.system.mapper.MenuMapper;
 import cn.net.system.service.IMenuService;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName MenuServiceImpl
@@ -31,6 +35,19 @@ public class MenuServiceImpl implements IMenuService {
     }
 
     /**
+     * 获取所有菜单
+     *
+     * @param menu 菜单查询条件
+     * @return 符合条件的菜单
+     */
+    @Override
+    public List<Menu> getAllMenus(JSONObject menu) {
+        List<Menu> allMenus = menuMapper.getAllMenus(menu);
+        // 构建菜单的上下级关系
+        return this.buildMenus(allMenus);
+    }
+
+    /**
      * 根据角色获取菜单
      *
      * @param roleId 角色id
@@ -45,6 +62,36 @@ public class MenuServiceImpl implements IMenuService {
         this.getPermissionJsonArray(jsonArray, permissions, null);
         // 路由菜单
         return jsonArray;
+    }
+
+    /**
+     * 构建菜单的上下级关系
+     *
+     * @param menus 所有菜单
+     * @return 构件上树形结构的菜单数据
+     */
+    private List<Menu> buildMenus(List<Menu> menus) {
+        Map<String, Menu> idToPermissionMap = new HashMap<>();
+        for (Menu menu : menus) {
+            idToPermissionMap.put(menu.getId(), menu);
+        }
+        List<Menu> roots = new ArrayList<>();
+        for (Menu menu : menus) {
+            String parentId = menu.getParentId();
+            menu.setKey(menu.getId());
+            if (StringUtils.isBlank(parentId)) {
+                roots.add(menu);
+            } else {
+                Menu parent = idToPermissionMap.get(parentId);
+                if (parent != null) {
+                    parent.getChildren().add(menu);
+                } else {
+                    // 针对检索的结果有可能没有父级
+                    roots.add(menu);
+                }
+            }
+        }
+        return roots;
     }
 
     /**
