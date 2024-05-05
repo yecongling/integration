@@ -1,4 +1,4 @@
-package cn.net.base.core.domain;
+package cn.net.base.core;
 
 import java.io.Serial;
 import java.io.Serializable;

@@ -1,6 +1,6 @@
 package cn.net.system.service;
 
-import cn.net.base.core.domain.Response;
+import cn.net.base.core.Response;
 import cn.net.system.bean.SysUser;
 
 /**

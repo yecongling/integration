@@ -1,6 +1,6 @@
 package cn.net.system.controller;
 
-import cn.net.base.core.domain.Response;
+import cn.net.base.core.Response;
 import cn.net.system.bean.SysUser;
 import cn.net.system.service.ILoginService;
 import io.swagger.v3.oas.annotations.Operation;

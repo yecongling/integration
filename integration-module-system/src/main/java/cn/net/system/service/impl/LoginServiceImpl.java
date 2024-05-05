@@ -1,7 +1,7 @@
 package cn.net.system.service.impl;
 
 import cn.net.base.constant.CommonConstant;
-import cn.net.base.core.domain.Response;
+import cn.net.base.core.Response;
 import cn.net.base.utils.PasswordUtils;
 import cn.net.base.utils.UUIDUtils;
 import cn.net.framework.event.BaseEvent;

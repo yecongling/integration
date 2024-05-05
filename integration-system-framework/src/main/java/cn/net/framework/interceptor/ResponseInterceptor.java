@@ -1,6 +1,6 @@
 package cn.net.framework.interceptor;
 
-import cn.net.base.core.domain.Response;
+import cn.net.base.core.Response;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;

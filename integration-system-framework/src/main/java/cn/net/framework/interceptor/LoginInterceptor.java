@@ -1,6 +1,6 @@
 package cn.net.framework.interceptor;
 
-import cn.net.base.core.domain.Response;
+import cn.net.base.core.Response;
 import cn.net.framework.redis.RedisUtil;
 import com.alibaba.fastjson.JSONObject;
 import jakarta.servlet.http.HttpServletRequest;
