@@ -48,4 +48,14 @@ public class MenuController {
     public JSONArray getMenusByRole(@RequestParam(name = "roleId") String roleId) {
         return menuService.getMenusByRole(roleId);
     }
+
+    /**
+     * 获取所有一级菜单（当前登录用户持有的）
+     *
+     * @return 菜单
+     */
+    @GetMapping("/getDirectoryMenu")
+    public List<Menu> getDirectoryMenu() {
+        return null;
+    }
 }
