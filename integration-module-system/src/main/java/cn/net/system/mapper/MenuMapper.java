@@ -36,7 +36,8 @@ public interface MenuMapper {
     /**
      * 查询目录 - 一级菜单
      *
+     * @param roleId 角色ID
      * @return 一级菜单
      */
-    List<Menu> getDirectory();
+    List<Menu> getDirectory(@Param("roleId") String roleId);
 }

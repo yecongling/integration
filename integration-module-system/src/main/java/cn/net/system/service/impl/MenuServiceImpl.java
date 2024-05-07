@@ -67,13 +67,14 @@ public class MenuServiceImpl implements IMenuService {
     /**
      * 获取一级菜单，用于构建菜单的上级
      *
+     * @param roleId 角色ID
      * @return 目录
      */
     @Override
-    public JSONArray getDirectory() {
-        List<Menu> directory = menuMapper.getDirectory();
+    public JSONArray getDirectory(String roleId) {
+        List<Menu> directory = menuMapper.getDirectory(roleId);
         JSONArray jsonArray = new JSONArray();
-        this.getPermissionJsonArray(jsonArray, directory, null);
+        this.getDirectory(jsonArray, directory, null);
         return jsonArray;
     }
 
@@ -105,6 +106,46 @@ public class MenuServiceImpl implements IMenuService {
             }
         }
         return roots;
+    }
+
+    /**
+     * 获取菜单json数组
+     *
+     * @param array       json数组
+     * @param permissions 菜单数据
+     * @param parentJSON  父级
+     */
+    private void getDirectory(JSONArray array, List<Menu> permissions, JSONObject parentJSON) {
+        for (Menu menu : permissions) {
+            if (menu.getMenuType() == null) {
+                continue;
+            }
+            String parentId = menu.getParentId();
+            JSONObject json = getPermissionDirectory(menu);
+            if (json == null) {
+                continue;
+            }
+            if (parentJSON == null && ConvertUtils.isEmpty(parentId)) {
+                array.add(json);
+                if (!menu.isLeaf()) {
+                    getPermissionJsonArray(array, permissions, json);
+                }
+            } else if (parentJSON != null && ConvertUtils.isNotEmpty(parentId) && parentId.equals(parentJSON.get("id"))) {
+                // 类型( 0：一级菜单 1：子菜单 2：按钮 )
+                if (menu.getMenuType().equals(CommonConstant.MENU_TYPE_1) || menu.getMenuType().equals(CommonConstant.MENU_TYPE_0)) {
+                    if (parentJSON.containsKey("children")) {
+                        parentJSON.getJSONArray("children").add(json);
+                    } else {
+                        JSONArray children = new JSONArray();
+                        children.add(json);
+                        parentJSON.put("children", children);
+                    }
+                    if (!menu.isLeaf()) {
+                        getDirectory(array, permissions, json);
+                    }
+                }
+            }
+        }
     }
 
     /**

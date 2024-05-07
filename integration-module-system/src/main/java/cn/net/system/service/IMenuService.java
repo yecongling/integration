@@ -33,7 +33,8 @@ public interface IMenuService {
 
     /**
      * 获取一级菜单，用于构建菜单的上级
+     * @param roleId 角色ID
      * @return 目录
      */
-    JSONArray getDirectory();
+    JSONArray getDirectory(String roleId);
 }

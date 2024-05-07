@@ -52,10 +52,11 @@ public class MenuController {
     /**
      * 获取所有一级菜单（当前登录用户持有的）
      *
+     * @param roleId 角色ID
      * @return 菜单
      */
     @GetMapping("/getDirectoryMenu")
-    public JSONArray getDirectoryMenu() {
-        return menuService.getDirectory();
+    public JSONArray getDirectoryMenu(@RequestParam(name = "roleId") String roleId) {
+        return menuService.getDirectory(roleId);
     }
 }
