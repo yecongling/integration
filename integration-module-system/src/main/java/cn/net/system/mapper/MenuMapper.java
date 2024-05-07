@@ -32,4 +32,11 @@ public interface MenuMapper {
      * @return 用户权限
      */
     List<Menu> queryByUser(@Param("roleId") String roleId);
+
+    /**
+     * 查询目录 - 一级菜单
+     *
+     * @return 一级菜单
+     */
+    List<Menu> getDirectory();
 }

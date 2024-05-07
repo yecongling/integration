@@ -30,4 +30,10 @@ public interface IMenuService {
      * @return 菜单信息
      */
     JSONArray getMenusByRole(String roleId);
+
+    /**
+     * 获取一级菜单，用于构建菜单的上级
+     * @return 目录
+     */
+    JSONArray getDirectory();
 }

@@ -55,7 +55,7 @@ public class MenuController {
      * @return 菜单
      */
     @GetMapping("/getDirectoryMenu")
-    public List<Menu> getDirectoryMenu() {
-        return null;
+    public JSONArray getDirectoryMenu() {
+        return menuService.getDirectory();
     }
 }

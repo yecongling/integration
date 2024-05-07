@@ -44,4 +44,17 @@
             </otherwise>
         </choose>
     </select>
+
+    <!-- 查询一级菜单 -->
+    <select id="getDirectory" resultMap="menu">
+        <choose>
+            <when test="roleId == 'admin'">
+                select * from integration.t_sys_permission where del_flag = 0 and menu_type = 0 order by sort_no
+            </when>
+            <otherwise>
+                select a.* from t_sys_permission a left join t_sys_role_permission b on a.id = b.permission_id where
+                b.role_id = #{roleId} and a.del_flag = 0 and menu_type = 0 order by a.sort_no
+            </otherwise>
+        </choose>
+    </select>
 </mapper>

@@ -65,6 +65,19 @@ public class MenuServiceImpl implements IMenuService {
     }
 
     /**
+     * 获取一级菜单，用于构建菜单的上级
+     *
+     * @return 目录
+     */
+    @Override
+    public JSONArray getDirectory() {
+        List<Menu> directory = menuMapper.getDirectory();
+        JSONArray jsonArray = new JSONArray();
+        this.getPermissionJsonArray(jsonArray, directory, null);
+        return jsonArray;
+    }
+
+    /**
      * 构建菜单的上下级关系
      *
      * @param menus 所有菜单
