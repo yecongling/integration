@@ -1,4 +1,4 @@
-package cn.ydyksoft.platform.bean;
+package cn.net.platform.bean;
 
 import java.io.Serial;
 import java.io.Serializable;

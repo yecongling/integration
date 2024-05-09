@@ -1,4 +1,4 @@
-package cn.ydyksoft;
+package cn.net;
 
 public class Main {
     public static void main(String[] args) {

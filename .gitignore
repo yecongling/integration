@@ -3,7 +3,12 @@
 /integration-system-base/target/
 /integration-module-platform/target/
 /integration-module-system/target/
+/integration-module-engine/target
 /integration-system-framework/target/
 .idea
 /integration-system-admin/integration-system-admin.iml
 /integration-system-admin/.mvn
+/integration-module-engine/.mvn
+/integration-module-engine/.mvnw
+/integration-module-engine/.mvnw.cmd
+/integration-module-engine/integration-system-admin.iml

@@ -17,7 +17,7 @@ import java.util.List;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/menu")
+@RequestMapping("/system/menu")
 public class MenuController {
     private final IMenuService menuService;
 

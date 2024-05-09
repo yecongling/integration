@@ -1,7 +1,7 @@
-package cn.ydyksoft.platform.service.impl;
+package cn.net.platform.service.impl;
 
-import cn.ydyksoft.platform.mapper.ProjectMapper;
-import cn.ydyksoft.platform.service.IProjectService;
+import cn.net.platform.mapper.ProjectMapper;
+import cn.net.platform.service.IProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

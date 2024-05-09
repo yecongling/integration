@@ -1,4 +1,4 @@
-package cn.ydyksoft.platform.mapper;
+package cn.net.platform.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

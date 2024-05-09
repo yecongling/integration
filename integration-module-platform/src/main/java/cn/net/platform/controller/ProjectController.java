@@ -1,6 +1,6 @@
-package cn.ydyksoft.platform.controller;
+package cn.net.platform.controller;
 
-import cn.ydyksoft.platform.service.IProjectService;
+import cn.net.platform.service.IProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

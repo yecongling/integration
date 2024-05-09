@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.net.engine.mapper.ProjectDesignMapper">
+
+    <!-- 项目表和项目实体的映射 -->
+    <resultMap id="project" type="cn.net.engine.bean.project.Project">
+        <result column="name" property="projectName"/>
+        <result column="id" property="id"/>
+        <result column="type" property="projectType"/>
+        <result column="priority" property="projectPriority"/>
+        <result column="description" property="description"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <!-- 查询所有项目信息 -->
+    <select id="getAllProjects" parameterType="cn.net.engine.bean.project.Project" resultMap="project">
+        select id, name, type, log_type, status, priority, description from integration.t_engine_project
+        <where>
+            <if test="name != null and name != ''">
+                and instr(#{name}, name) > 0
+            </if>
+            <if test="projectType != null and type != '' and projectType != '-1'">
+                and type = #{projectType}
+            </if>
+            <if test="status != null and status != ''">
+                and `status` = #{status}
+            </if>
+        </where>
+    </select>
+
+    <!-- 新增项目 -->
+    <insert id="addProject" parameterType="cn.net.engine.bean.project.Project"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into integration.t_engine_project (id, create_by, create_time, update_by, update_time, name, type,
+                                                  log_type,
+                                                  status, priority, description)
+        values (#{id}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{projectName}, #{projectType},
+                #{logType},
+                #{status}, #{projectPriority}, #{description})
+    </insert>
+
+    <!-- 更新项目 -->
+    <update id="updateProject" parameterType="cn.net.engine.bean.project.Project">
+        update integration.t_engine_project
+        set integration.t_engine_project.update_by   = #{updateBy},
+            integration.t_engine_project.update_time = #{updateTime},
+            integration.t_engine_project.name        = #{projectName},
+            integration.t_engine_project.type        = #{projectType},
+            integration.t_engine_project.log_type    = #{logType},
+            integration.t_engine_project.status      = #{status},
+            integration.t_engine_project.priority    = #{projectPriority},
+            integration.t_engine_project.description = #{description}
+        where integration.t_engine_project.id = #{id}
+    </update>
+
+    <!-- 删除项目 -->
+    <delete id="deleteProject" parameterType="string">
+        delete
+        from integration.t_engine_project
+        where id = #{id}
+    </delete>
+
+    <!-- 根据项目ID查询项目信息 -->
+    <select id="queryProjectInfoByID" parameterType="string"
+            resultType="cn.net.engine.bean.project.Project">
+        select id, `name`, type, log_type, `status`, priority, `description`
+        from integration.t_engine_project
+        where id = #{id}
+    </select>
+
+</mapper>

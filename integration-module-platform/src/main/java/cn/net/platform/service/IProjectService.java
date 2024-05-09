@@ -1,4 +1,4 @@
-package cn.ydyksoft.platform.service;
+package cn.net.platform.service;
 
 /**
  * @ClassName ProjectService
