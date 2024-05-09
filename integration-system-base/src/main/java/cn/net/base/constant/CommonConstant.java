@@ -118,9 +118,12 @@ public interface CommonConstant {
      */
     Integer MENU_TYPE_1 = 1;
     /**
-     * 2：按钮权限
+     * 2：子路由
      */
     Integer MENU_TYPE_2 = 2;
+
+    /* 3：按钮权限 */
+    Integer MENU_TYPE_3 = 3;
 
     /**
      * 通告对象类型（USER:指定用户，ALL:全体用户）

@@ -171,8 +171,8 @@ public class MenuServiceImpl implements IMenuService {
                     getPermissionJsonArray(array, permissions, json);
                 }
             } else if (parentJSON != null && ConvertUtils.isNotEmpty(parentId) && parentId.equals(parentJSON.get("id"))) {
-                // 类型( 0：一级菜单 1：子菜单 2：按钮 )
-                if (permission.getMenuType().equals(CommonConstant.MENU_TYPE_2)) {
+                // 类型( 0：一级菜单 1：子菜单 2：子路由  3：按钮 )
+                if (permission.getMenuType().equals(CommonConstant.MENU_TYPE_3)) {
                     JSONObject meta = parentJSON.getJSONObject("meta");
                     if (meta.containsKey("permissionList")) {
                         meta.getJSONArray("permissionList").add(json);
@@ -191,6 +191,15 @@ public class MenuServiceImpl implements IMenuService {
                     }
                     if (!permission.isLeaf()) {
                         getPermissionJsonArray(array, permissions, json);
+                    }
+                } else if (permission.getMenuType().equals(CommonConstant.MENU_TYPE_2)) {
+                    // 处理子路由，即不能再左边菜单列表中进行路由的菜单，但是页面内部又要能路由过去的
+                    if (parentJSON.containsKey("childrenRoute")) {
+                        parentJSON.getJSONArray("childrenRoute").add(json);
+                    } else {
+                        JSONArray jsonArray = new JSONArray();
+                        jsonArray.add(json);
+                        parentJSON.put("childrenRoute", jsonArray);
                     }
                 }
             }
