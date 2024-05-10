@@ -44,10 +44,9 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketF
      *
      * @param ctx context
      * @param msg frame
-     * @throws Exception exception
      */
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) {
         log.info("服务器收到消息:{}", msg.text());
         // 获取用户id，关联channel
         JSONObject jsonObject = JSONUtil.parseObj(msg.text());
@@ -62,14 +61,24 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketF
     }
 
     /**
+     * 断开连接
+     *
+     * @param ctx ctx
+     */
+    @Override
+    public void handlerRemoved(ChannelHandlerContext ctx) {
+        log.info("客户端断开连接：[{}]", ctx.channel().id().asLongText());
+        removeUserId(ctx);
+    }
+
+    /**
      * 异常处理
      *
      * @param ctx   ctx
      * @param cause 异常
-     * @throws Exception exception
      */
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         log.info("异常：{}", cause.getMessage());
         // 删除通道
         NettyConfig.getChannelGroup().remove(ctx.channel());

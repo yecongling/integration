@@ -1,5 +1,6 @@
 package cn.net.framework.interceptor;
 
+import cn.net.framework.netty.service.PushMsgService;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.ibatis.executor.Executor;
@@ -15,6 +16,7 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -38,6 +40,12 @@ import java.util.regex.Matcher;
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class,
                 Object.class, RowBounds.class, ResultHandler.class})})
 public class MybatisSqlInterceptor implements Interceptor {
+
+    private PushMsgService pushMsgService;
+    @Autowired
+    public void setPushMsgService(PushMsgService pushMsgService) {
+        this.pushMsgService = pushMsgService;
+    }
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -67,6 +75,7 @@ public class MybatisSqlInterceptor implements Interceptor {
             map.put("type", type);
         }
         // 这里是需要把执行后的结果进行消息的推送
+        pushMsgService.pushMsgToOne("admin", JSONObject.toJSONString(map));
         // 执行完上面的任务后，不改变原有的sql执行过程
         return invocation.proceed();
     }
