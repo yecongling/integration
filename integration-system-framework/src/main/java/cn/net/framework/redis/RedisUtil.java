@@ -96,7 +96,7 @@ public class RedisUtil {
      * @param key   键
      * @param value 值
      */
-    public void set(String key, String value) {
+    public void set(String key, Object value) {
         redisTemplate.opsForValue().set(key, value);
     }
 
@@ -107,7 +107,7 @@ public class RedisUtil {
      * @param value 值
      * @param time  时间(秒) -1为无期限
      */
-    public void set(String key, String value, long time) {
+    public void set(String key, Object value, long time) {
         if (time > 0) {
             redisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
         } else {
@@ -528,4 +528,6 @@ public class RedisUtil {
     public void rightPop(String key, long timeout, TimeUnit unit) {
         redisTemplate.opsForList().rightPop(key, timeout, unit);
     }
+
+
 }
