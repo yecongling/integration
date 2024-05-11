@@ -9,6 +9,7 @@ import cn.net.framework.utils.ServletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -71,7 +72,11 @@ public class ProjectDesignServiceImpl implements IProjectDesignService {
         System.out.println(sysOpr);
         // 设置主键
         project.setId(UUIDUtils.getUniqueId());
-        // 设置操作人
+        // 设置操作人、操作时间
+        project.setCreateBy(sysOpr.getUserName());
+        project.setUpdateBy(sysOpr.getUserName());
+        project.setCreateTime(new Date());
+        project.setUpdateTime(new Date());
 
         return projectDesignMapper.addProject(project) > 0;
     }
