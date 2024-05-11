@@ -1,6 +1,8 @@
 package cn.net.framework.interceptor;
 
+import cn.net.base.bean.SysOpr;
 import cn.net.framework.netty.service.PushMsgService;
+import cn.net.framework.utils.ServletUtils;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.ibatis.executor.Executor;
@@ -47,6 +49,13 @@ public class MybatisSqlInterceptor implements Interceptor {
         this.pushMsgService = pushMsgService;
     }
 
+    private ServletUtils servletUtils;
+
+    @Autowired
+    public void setServletUtils(ServletUtils servletUtils) {
+        this.servletUtils = servletUtils;
+    }
+
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         JSONObject map = new JSONObject();
@@ -75,7 +84,10 @@ public class MybatisSqlInterceptor implements Interceptor {
             map.put("type", type);
         }
         // 这里是需要把执行后的结果进行消息的推送
-        pushMsgService.pushMsgToOne("admin", JSONObject.toJSONString(map));
+        SysOpr sysOpr = servletUtils.getSysOpr();
+        if (sysOpr != null) {
+            pushMsgService.pushMsgToOne(sysOpr.getUserId(), JSONObject.toJSONString(map));
+        }
         // 执行完上面的任务后，不改变原有的sql执行过程
         return invocation.proceed();
     }

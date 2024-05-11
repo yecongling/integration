@@ -1,8 +1,11 @@
 package cn.net.engine.service.impl;
 
+import cn.net.base.bean.SysOpr;
+import cn.net.base.utils.UUIDUtils;
 import cn.net.engine.bean.project.Project;
 import cn.net.engine.mapper.ProjectDesignMapper;
 import cn.net.engine.service.IProjectDesignService;
+import cn.net.framework.utils.ServletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,13 @@ public class ProjectDesignServiceImpl implements IProjectDesignService {
     @Autowired
     public void setProjectDesignMapper(ProjectDesignMapper projectDesignMapper) {
         this.projectDesignMapper = projectDesignMapper;
+    }
+
+    private ServletUtils servletUtils;
+
+    @Autowired
+    public void setServletUtils(ServletUtils servletUtils) {
+        this.servletUtils = servletUtils;
     }
 
     /**
@@ -56,6 +66,13 @@ public class ProjectDesignServiceImpl implements IProjectDesignService {
      */
     @Override
     public boolean addProject(Project project) {
+        // 获取操作员
+        SysOpr sysOpr = servletUtils.getSysOpr();
+        System.out.println(sysOpr);
+        // 设置主键
+        project.setId(UUIDUtils.getUniqueId());
+        // 设置操作人
+
         return projectDesignMapper.addProject(project) > 0;
     }
 

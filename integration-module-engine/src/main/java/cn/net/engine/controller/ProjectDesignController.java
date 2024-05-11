@@ -1,5 +1,6 @@
 package cn.net.engine.controller;
 
+import cn.net.base.bean.SysOpr;
 import cn.net.engine.bean.project.Project;
 import cn.net.engine.service.IProjectDesignService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,8 @@ public class ProjectDesignController {
      * @return 返回保存结果
      */
     @PostMapping("/addProject")
-    public boolean addProject(@RequestBody Project project) {
+    public boolean addProject(@RequestBody Project project, SysOpr sysOpr) {
+        System.out.println("当前登录的操作员" + sysOpr);
         return projectDesignService.addProject(project);
     }
 
