@@ -1,5 +1,6 @@
 package cn.net.system.bean;
 
+import cn.net.base.bean.SysOpr;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,7 +20,7 @@ import java.util.Date;
  * @Version 1.0
  */
 @JsonIgnoreProperties(value = {"password"}, allowSetters = true)
-public class SysUser implements Serializable {
+public class SysUser extends SysOpr implements Serializable {
     @Serial
     private static final long serialVersionUID = -1283938764867538048L;
 

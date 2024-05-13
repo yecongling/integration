@@ -8,18 +8,16 @@
         <result column="id" property="id"/>
         <result column="type" property="projectType"/>
         <result column="priority" property="projectPriority"/>
-        <result column="description" property="description"/>
-        <result column="status" property="status"/>
     </resultMap>
 
     <!-- 查询所有项目信息 -->
     <select id="getAllProjects" parameterType="cn.net.engine.bean.project.Project" resultMap="project">
         select id, name, type, log_type, status, priority, description from integration.t_engine_project
         <where>
-            <if test="name != null and name != ''">
-                and instr(#{name}, name) > 0
+            <if test="projectName != null and projectName != ''">
+                and instr(#{projectName}, `name`) > 0
             </if>
-            <if test="projectType != null and type != '' and projectType != '-1'">
+            <if test="projectType != null and projectType != '' and projectType != '-1'">
                 and type = #{projectType}
             </if>
             <if test="status != null and status != ''">

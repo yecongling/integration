@@ -1,5 +1,6 @@
 package cn.net.system.service.impl;
 
+import cn.net.base.bean.SysOpr;
 import cn.net.base.constant.CommonConstant;
 import cn.net.base.core.Response;
 import cn.net.base.utils.PasswordUtils;
@@ -67,8 +68,11 @@ public class LoginServiceImpl implements ILoginService {
         }
         // 登录成功后获取向前端返回token
         String token = UUIDUtils.getUniqueId();
+        SysOpr sysOpr = new SysOpr();
+        sysOpr.setUserId(sysUser.getUserId());
+        sysOpr.setUserName(sysUser.getUsername());
         // token有效期30分钟
-        redisUtil.set(token, CommonConstant.USER_TOKEN_PREFIX + username, 1800);
+        redisUtil.set(token, sysOpr, 1800);
         // 发送消息用于记录登录日志
         BaseEvent<Object> event = new BaseEvent<>(sysUser, "login");
         producer.publishEvent(event);

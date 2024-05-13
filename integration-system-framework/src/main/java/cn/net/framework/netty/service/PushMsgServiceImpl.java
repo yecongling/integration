@@ -3,6 +3,7 @@ package cn.net.framework.netty.service;
 import cn.net.framework.netty.config.NettyConfig;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -19,14 +20,17 @@ public class PushMsgServiceImpl implements PushMsgService{
     /**
      * 推送消息给制定用户
      *
-     * @param useId 用户id
+     * @param userId 用户id
      * @param msg   消息
      */
     @Override
-    public void pushMsgToOne(String useId, String msg) {
-        Channel channel = NettyConfig.getChannel(useId);
+    public void pushMsgToOne(String userId, String msg) {
+        if (StringUtils.isBlank(userId)) {
+            return;
+        }
+        Channel channel = NettyConfig.getChannel(userId);
         if (Objects.isNull(channel)) {
-            throw new RuntimeException("未连接socket服务器");
+            return;
         }
         channel.writeAndFlush(new TextWebSocketFrame(msg));
     }

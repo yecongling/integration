@@ -32,6 +32,12 @@
 			<artifactId>integration-module-platform</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		<!-- 引擎部分 -->
+		<dependency>
+			<groupId>cn.net.integration</groupId>
+			<artifactId>integration-module-engine</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
