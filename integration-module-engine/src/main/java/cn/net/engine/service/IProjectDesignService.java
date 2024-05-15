@@ -1,6 +1,7 @@
 package cn.net.engine.service;
 
 import cn.net.engine.bean.project.Project;
+import cn.net.engine.bean.project.Router;
 
 import java.util.List;
 
@@ -51,4 +52,20 @@ public interface IProjectDesignService {
      * @return 删除结果
      */
     boolean deleteProject(String projectId);
+
+    /**
+     * 改变服务状态 例如服务发布、取消发布
+     *
+     * @param project 服务信息
+     * @return 返回改变后的状态 成功 - 失败（带异常信息）
+     */
+    Object changeServiceStatus(Project project);
+
+    /**
+     * 构建路由的执行流程数据
+     *
+     * @param projectId 项目id
+     * @return 流程数据
+     */
+    List<Router> buildRouterProcess(String projectId);
 }
