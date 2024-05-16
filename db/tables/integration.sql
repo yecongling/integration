@@ -1,3 +1,10 @@
+/* 更高效的mysql8中的分页查询
+   SELECT * FROM (
+    SELECT *, ROW_NUMBER() OVER (ORDER BY id) AS row_num FROM t_sys_permission tsp
+) AS temp
+WHERE row_num BETWEEN 0 AND 10;
+ */
+
 /*  新建用户信息表 */
 DROP TABLE IF EXISTS `t_sys_user`;
 CREATE TABLE `t_sys_user`
