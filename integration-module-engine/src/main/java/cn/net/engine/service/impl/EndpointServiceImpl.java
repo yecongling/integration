@@ -1,0 +1,83 @@
+package cn.net.engine.service.impl;
+
+import cn.net.engine.bean.project.Endpoint;
+import cn.net.engine.service.IEndpointService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @ClassName EndpointServiceImpl
+ * @Description 端点服务实现类
+ * @Author ycl
+ * @Date 2024/5/31 下午5:22
+ * @Version 1.0
+ */
+@Service
+public class EndpointServiceImpl implements IEndpointService {
+    /**
+     * 根据端点信息进行检索（端点表格界面-这里检索的时候不查询对应的详细的配置信息）
+     *
+     * @param endpoint 检索条件
+     * @return 端点列表
+     */
+    @Override
+    public List<Endpoint> getEndpoints(Endpoint endpoint) {
+        return List.of();
+    }
+
+    /**
+     * 根据id查询端点
+     *
+     * @param endpointId 终端id
+     * @return 终端信息
+     */
+    @Override
+    public Endpoint getEndpoint(String endpointId) {
+        return null;
+    }
+
+    /**
+     * 查询终端的类型，用于在配置终端的时候选择其对应的类型
+     *
+     * @return 查询到的Endpoint类型
+     */
+    @Override
+    public List<Map<String, Object>> getEndpointTypes() {
+        return List.of();
+    }
+
+    /**
+     * 添加端点
+     *
+     * @param endpoint 端点信息
+     * @return true、false
+     */
+    @Override
+    public boolean addEndpoint(Endpoint endpoint) {
+        return false;
+    }
+
+    /**
+     * 更新端点
+     *
+     * @param endpoint 端点
+     * @return true、false
+     */
+    @Override
+    public boolean updateEndpoint(Endpoint endpoint) {
+        return false;
+    }
+
+    /**
+     * 删除端点
+     *
+     * @param endpointId 端点信息
+     * @return true、false
+     */
+    @Override
+    public boolean deleteEndpoint(String endpointId) {
+        return false;
+    }
+}

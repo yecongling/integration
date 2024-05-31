@@ -33,6 +33,9 @@ public class Endpoint implements Serializable {
     // 所属项目
     private String projectId;
 
+    // 端点状态
+    private String status;
+
     // 配置
     List<EndpointConfig> configs;
 
@@ -82,6 +85,14 @@ public class Endpoint implements Serializable {
 
     public void setProjectId(String projectId) {
         this.projectId = projectId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<EndpointConfig> getConfigs() {

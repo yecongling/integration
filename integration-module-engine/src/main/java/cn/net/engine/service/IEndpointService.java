@@ -20,7 +20,7 @@ public interface IEndpointService {
      * @param endpoint 检索条件
      * @return 端点列表
      */
-    List<Endpoint> getEndpoint(Endpoint endpoint);
+    List<Endpoint> getEndpoints(Endpoint endpoint);
 
     /**
      * 根据id查询端点
