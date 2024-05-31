@@ -268,7 +268,7 @@ create table `t_engine_ep_properties`
     `create_time`        datetime                                                     NULL     DEFAULT NULL COMMENT '创建日期',
     `update_by`          varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL     DEFAULT NULL COMMENT '更新人',
     `update_time`        datetime                                                     NULL     DEFAULT NULL COMMENT '更新日期',
-    `endpoint_type_name` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null COMMENT '终端类型名',
+    `endpoint_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null COMMENT '终端类型名',
     `name`               varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null COMMENT '属性名',
     `title`              varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci null     default null COMMENT '标题',
     `type`               varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci null     default null COMMENT '类型',
@@ -279,8 +279,8 @@ create table `t_engine_ep_properties`
     `masked`             tinyint(1)                                                   not null default 0 COMMENT '标记',
     `modeRequired`       tinyint(1)                                                   not null default 0 COMMENT '模式必填',
     `applies_to`         varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null COMMENT '用于哪一端 生产-PRODUCER（IN/IN_OUT） 消费-CONSUMER（OUT/OUT_IN）',
-    primary key (`endpoint_type_name`, `name`, `applies_to`) using BTREE,
-    index `idx_variable_ep_type_name` (`endpoint_type_name`) using btree,
+    primary key (`endpoint_id`, `name`, `applies_to`) using BTREE,
+    index `idx_variable_ep_type_name` (`endpoint_id`) using btree,
     index `idx_variable_applies_to` (`applies_to`) using btree,
     index `idx_variable_name` (`name`) using btree
 ) ENGINE = InnoDB
