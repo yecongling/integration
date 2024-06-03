@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotEmpty;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,11 +34,23 @@ public class Endpoint implements Serializable {
     // 所属项目
     private String projectId;
 
-    // 端点状态
-    private String status;
+    // 端点状态 1-正常运行 2-部分异常 3 - 异常运行 4 - 未运行
+    private Integer status = 4;
 
-    // 配置
-    List<EndpointConfig> configs;
+    // 删除标记
+    private boolean delFlag = false;
+
+    // 配置数据
+    private String configs;
+
+    private String createBy;
+    private String updateBy;
+    private Date createTime;
+    private Date updateTime;
+    /**
+     * 配置列表
+     */
+    private List<EndpointConfig> configList;
 
     public String getId() {
         return id;
@@ -87,19 +100,67 @@ public class Endpoint implements Serializable {
         this.projectId = projectId;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public List<EndpointConfig> getConfigs() {
+    public boolean isDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(boolean delFlag) {
+        this.delFlag = delFlag;
+    }
+
+    public String getConfigs() {
         return configs;
     }
 
-    public void setConfigs(List<EndpointConfig> configs) {
+    public void setConfigs(String configs) {
         this.configs = configs;
+    }
+
+    public List<EndpointConfig> getConfigList() {
+        return configList;
+    }
+
+    public void setConfigList(List<EndpointConfig> configList) {
+        this.configList = configList;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }
