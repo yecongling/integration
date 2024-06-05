@@ -14,6 +14,8 @@ import cn.net.system.service.ILoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -47,7 +49,7 @@ public class LoginServiceImpl implements ILoginService {
      * @return 返回登录结果
      */
     @Override
-    public Response<SysUser> login(SysUser user) throws Exception {
+    public Response<Object> login(SysUser user) throws Exception {
         // 先从数据库中根据用户名查询用户是否存在
         SysUser sysUser = userMapper.getUserByUsername(user.getUsername());
         if (sysUser == null) {
@@ -76,7 +78,11 @@ public class LoginServiceImpl implements ILoginService {
         // 发送消息用于记录登录日志
         BaseEvent<Object> event = new BaseEvent<>(sysUser, "login");
         producer.publishEvent(event);
-        return Response.success(token);
+        Map<String, Object> data = new HashMap<>();
+        data.put("token", token);
+        data.put("homePath", "/home");
+        data.put("roleId", "admin");
+        return Response.success(data);
     }
 
     /**

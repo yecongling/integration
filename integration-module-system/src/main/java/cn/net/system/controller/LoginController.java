@@ -34,8 +34,8 @@ public class LoginController {
      */
     @Operation(summary = "登录方法", description = "登录方法")
     @PostMapping("/login")
-    public Response<SysUser> login(@RequestBody @Valid SysUser user, BindingResult errors) throws Exception {
-        Response<SysUser> response = new Response<>();
+    public Response<Object> login(@RequestBody @Valid SysUser user, BindingResult errors) throws Exception {
+        Response<Object> response = new Response<>();
         // 如果校验有误，返回登录失败以及错误信息
         if (errors.hasErrors()) {
             response.setCode(500);
