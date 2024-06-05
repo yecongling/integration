@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * @ClassName TerminalController
- * @Description 终端管理接口
+ * @ClassName EndpointController
+ * @Description 端点管理接口
  * @Author ycl
  * @Date 2024/5/31 上午9:16
  * @Version 1.0
@@ -34,7 +34,7 @@ public class EndpointController {
      * @return 端点数据
      */
     @PostMapping("/getEndpoints")
-    public Response<List<Endpoint>> getEndpoints(@RequestBody Endpoint endpoint) {
+    public Response<List<Endpoint>> getEndpoints(@RequestBody(required = false) Endpoint endpoint) {
         List<Endpoint> endpoints = endpointService.getEndpoints(endpoint);
         return Response.success(endpoints);
     }

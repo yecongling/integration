@@ -1,6 +1,7 @@
 package cn.net.engine.bean.project;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -26,8 +27,8 @@ public class Endpoint implements Serializable {
     @NotEmpty(message = "端点类型不能为空")
     private String type;
     // endpoint模式
-    @NotEmpty(message = "端点模式不能为空")
-    private EndpointModeEnum mode;
+    @NotNull(message = "端点模式不能为空")
+    private String mode;
     // endpoint描述
     private String description;
 
@@ -76,11 +77,11 @@ public class Endpoint implements Serializable {
         this.type = type;
     }
 
-    public @NotEmpty EndpointModeEnum getMode() {
+    public @NotEmpty String getMode() {
         return mode;
     }
 
-    public void setMode(@NotEmpty EndpointModeEnum mode) {
+    public void setMode(String mode) {
         this.mode = mode;
     }
 
