@@ -354,3 +354,20 @@ create table t_engine_endpoint
   character set = utf8mb4
   collate = utf8mb4_general_ci comment '引擎端点表'
   row_format = DYNAMIC;
+
+/* 端点类型表 */
+drop table if exists `t_engine_endpoint_type`;
+create table if not exists integration.t_engine_endpoint_type
+(
+    name            varchar(16) charset utf8mb4 COLLATE utf8mb4_general_ci       not null comment '类型名',
+    supported_modes varchar(32) charset utf8mb4 COLLATE utf8mb4_general_ci       not null comment '支持的模式',
+    create_by       varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null comment '创建人',
+    create_time     datetime                                                     not null comment '创建时间',
+    update_by       varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci null comment '更新人',
+    update_time     datetime                                                     not null comment '更新时间',
+    PRIMARY KEY (`name`) USING BTREE,
+    index `idx_endpoint_name` (`name`) using btree
+) engine = InnoDB
+  character set = utf8mb4
+    comment '端点类型表'
+  row_format = DYNAMIC;

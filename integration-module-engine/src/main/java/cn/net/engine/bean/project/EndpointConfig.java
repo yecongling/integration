@@ -1,5 +1,6 @@
 package cn.net.engine.bean.project;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,7 +12,8 @@ import java.util.Date;
  * @Version 1.0
  */
 public class EndpointConfig implements Serializable {
-
+    @Serial
+    private static final long serialVersionUID = 1L;
     // 配置名称
     private String name;
     // 配置标题

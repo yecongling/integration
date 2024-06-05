@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.net.engine.mapper.EndpointTypeMapper">
+    <!-- 首先建立表和实体的映射(字段不同的情况) -->
+    <resultMap id="endpointType" type="cn.net.engine.bean.project.EndpointType">
+        <result column="create_by" property="createBy"/>
+        <result column="supported_modes" property="supportedModes"/>
+        <result column="create_time" property="createTime" javaType="Date"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <!-- 可以关联 - 如果内部有其他关联的对象时可使用，如果是集合的时候 collection -->
+        <collection property="properties" javaType="cn.net.engine.bean.project.EndpointConfig">
+            <result property="name" column="config_name"/>
+            <result property="title" column="config_title"/>
+            <result property="type" column="config_type"/>
+            <result property="appliesTo" column="config_appliesTo"/>
+            <result property="defaultValue" column="default_value"/>
+            <result property="allowedValues" column="allowed_values"/>
+            <result property="modeRequired" column="mode_required"/>
+        </collection>
+    </resultMap>
+
+    <!-- 获取所有端点类型-包括配置 -->
+    <select id="getEndpointTypes" parameterType="cn.net.engine.bean.project.EndpointType" resultMap="endpointType">
+        select type.name,
+               supported_modes,
+               teep.name           as config_name,
+               teep.title          as config_title,
+               teep.type           as config_type,
+               teep.applies_to     as config_appliesTo,
+               teep.default_value  as default_value,
+               teep.allowed_values as allowed_values,
+               teep.mode_required  as mode_required,
+               teep.tips,
+               teep.masked
+        from t_engine_endpoint_type type
+                 left join integration.t_engine_ep_properties teep on type.name = teep.endpoint_type
+        <where>
+            <if test="name != null and name != ''">
+                and teep.name = #{name}
+            </if>
+            <if test="supportedModes != null and supportedModes != ''">
+                and instr(supported_modes, #{supportedModes}) > 0
+            </if>
+        </where>
+    </select>
+</mapper>
