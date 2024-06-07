@@ -20,16 +20,8 @@ public class CamelHttpRoute {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("jetty:http://localhost:8081/myEndpoint")
-                        .to("log:httpRequest")
-                        .process(exchange -> {
-                            // 处理 HTTP 请求逻辑
-                            String body = exchange.getIn().getBody(String.class);
-                            // 进行业务处理
-                            String response = "Response to HTTP request: " + body;
-                            // 设置响应
-                            exchange.getMessage().setBody(response);
-                        });
+//                from("file-watch:/home/ycl/jt_work/camel-test")
+//                        .log("File event: ${header.CamelFileEventType} occurred on file ${header.CamelFileName} at ${header.CamelFileLastModified}");
             }
         };
     }
