@@ -253,44 +253,43 @@ public class MenuServiceImpl implements IMenuService {
      * @return json
      */
     private JSONObject getPermissionJsonObject(Menu permission) {
-        JSONObject json = new JSONObject();
-        // 类型 0 一级菜单  1 子菜单  2 按钮
-        if (permission.getMenuType().equals(CommonConstant.MENU_TYPE_2)) {
+        // 类型 0 一级菜单  1 子菜单  2 子路由 3 按钮
+        if (permission.getMenuType().equals(CommonConstant.MENU_TYPE_3)) {
             return null;
-        } else if (permission.getMenuType().equals(CommonConstant.MENU_TYPE_0) || permission.getMenuType().equals(CommonConstant.MENU_TYPE_1)) {
-            json.put("id", permission.getId());
-            // 表示生成路由
-            json.put("route", permission.isRoute() ? "1" : "0");
-            json.put("path", permission.getUrl());
-            if (ConvertUtils.isNotEmpty(permission.getComponentName())) {
-                json.put("name", permission.getComponentName());
-            } else {
-                json.put("name", urlToRouteName(permission.getUrl()));
-            }
-            // 元数据
-            JSONObject meta = new JSONObject();
-            // 是否隐藏路由，默认都显示
-            if (permission.isHidden()) {
-                json.put("hidden", true);
-            }
-            json.put("component", permission.getComponent());
-            meta.put("keepAlive", permission.isKeepAlive());
-            // 外链菜单打开方式
-            meta.put("internalOrExternal", permission.isInternalOrExternal());
-            meta.put("title", permission.getName());
-            meta.put("componentName", permission.getComponentName());
-            if (ConvertUtils.isEmpty(permission.getParentId())) {
-                // 一级菜单跳转地址
-                json.put("redirect", permission.getRedirect());
-            }
-            if (ConvertUtils.isNotEmpty(permission.getIcon())) {
-                meta.put("icon", permission.getIcon());
-            }
-            if (isWwwHttpUrl(permission.getUrl())) {
-                meta.put("url", permission.getUrl());
-            }
-            json.put("meta", meta);
         }
+        JSONObject json = new JSONObject();
+        json.put("id", permission.getId());
+        // 表示生成路由
+        json.put("route", permission.isRoute() ? "1" : "0");
+        json.put("path", permission.getUrl());
+        if (ConvertUtils.isNotEmpty(permission.getComponentName())) {
+            json.put("name", permission.getComponentName());
+        } else {
+            json.put("name", urlToRouteName(permission.getUrl()));
+        }
+        // 元数据
+        JSONObject meta = new JSONObject();
+        // 是否隐藏路由，默认都显示
+        if (permission.isHidden()) {
+            json.put("hidden", true);
+        }
+        json.put("component", permission.getComponent());
+        meta.put("keepAlive", permission.isKeepAlive());
+        // 外链菜单打开方式
+        meta.put("internalOrExternal", permission.isInternalOrExternal());
+        meta.put("title", permission.getName());
+        meta.put("componentName", permission.getComponentName());
+        if (ConvertUtils.isEmpty(permission.getParentId())) {
+            // 一级菜单跳转地址
+            json.put("redirect", permission.getRedirect());
+        }
+        if (ConvertUtils.isNotEmpty(permission.getIcon())) {
+            meta.put("icon", permission.getIcon());
+        }
+        if (isWwwHttpUrl(permission.getUrl())) {
+            meta.put("url", permission.getUrl());
+        }
+        json.put("meta", meta);
         return json;
     }
 
