@@ -345,7 +345,7 @@ create table t_engine_endpoint
     `mode`        varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null comment '模式，进出或进、出模式',
     `status`      int                                                           not null default 1 comment '状态 1-正常 2-部分异常 3-异常',
     `del_flag`    bit                                                           not null default 0 comment '删除标记 1 - 删除 0 - 未删除',
-    `configs`     json comment '配置数据',
+    `configs`     text null comment '配置数据',
     PRIMARY KEY (`id`, `type`, `mode`) USING BTREE,
     index `idx_endpoint_id` (`id`) using btree,
     index `idx_endpoint_type` (`type`) using btree,
