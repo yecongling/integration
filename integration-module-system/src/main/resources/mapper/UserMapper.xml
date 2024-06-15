@@ -6,4 +6,9 @@
     <select id="getUserByUsername" parameterType="string" resultType="cn.net.system.bean.SysUser">
         select * from t_sys_user where username = #{username}
     </select>
+
+    <!-- 查询所有用户信息 -->
+    <select id="getAllSysUser" parameterType="cn.net.system.bean.SysUser" resultType="cn.net.system.bean.SysUser">
+
+    </select>
 </mapper>

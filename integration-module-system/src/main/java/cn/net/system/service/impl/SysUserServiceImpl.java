@@ -1,22 +1,30 @@
-package cn.net.system.controller;
+package cn.net.system.service.impl;
 
 import cn.net.base.core.Response;
 import cn.net.system.bean.SysUser;
-import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.*;
+import cn.net.system.mapper.UserMapper;
+import cn.net.system.service.ISysUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * @ClassName SysUserController
- * @Description 系统用户控制器接口
+ * @ClassName UserServiceImpl
+ * @Description 用户service实现类
  * @Author ycl
- * @Date 2024/5/31 上午9:08
+ * @Date 2024/4/28 下午1:52
  * @Version 1.0
  */
-@RestController
-@RequestMapping("/system/user")
-public class SysUserController {
+@Service
+public class SysUserServiceImpl implements ISysUserService {
+
+    private final UserMapper userMapper;
+
+    @Autowired
+    public SysUserServiceImpl(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     /**
      * 查询所有的用户
@@ -24,7 +32,7 @@ public class SysUserController {
      * @param sysUser 查询条件
      * @return 所有用户
      */
-    @PostMapping("/getAllUsers")
+    @Override
     public Response<List<SysUser>> getAllUsers(SysUser sysUser) {
         return null;
     }
@@ -35,8 +43,8 @@ public class SysUserController {
      * @param id id
      * @return 用户信息
      */
-    @GetMapping("/getUserById/{id}")
-    public Response<SysUser> getUserById(@PathVariable String id) {
+    @Override
+    public Response<SysUser> getUserById(String id) {
         return null;
     }
 
@@ -46,8 +54,8 @@ public class SysUserController {
      * @param sysUser 用户信息
      * @return 新增结果
      */
-    @PostMapping("/addUser")
-    public Response<SysUser> addUser(@RequestBody @Valid SysUser sysUser) {
+    @Override
+    public Response<SysUser> addUser(SysUser sysUser) {
         return null;
     }
 
@@ -57,8 +65,8 @@ public class SysUserController {
      * @param sysUser 用户信息
      * @return 更新结果
      */
-    @PostMapping("/updateUser")
-    public Response<SysUser> updateUser(@Valid @RequestBody SysUser sysUser) {
+    @Override
+    public Response<SysUser> updateUser(SysUser sysUser) {
         return null;
     }
 
@@ -68,10 +76,8 @@ public class SysUserController {
      * @param id 用户id
      * @return 结果
      */
-    @DeleteMapping("/deleteUser/{id}")
-    public Response<SysUser> deleteUser(@PathVariable String id) {
+    @Override
+    public Response<SysUser> deleteUser(String id) {
         return null;
     }
-
-
 }
