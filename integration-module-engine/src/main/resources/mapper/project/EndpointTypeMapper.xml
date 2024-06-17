@@ -20,6 +20,18 @@
         </collection>
     </resultMap>
 
+    <!-- 根据名称查询端点类型数据条数 -->
+    <select id="getEndpointTypeByName" parameterType="string" resultType="int">
+        select count(1)
+        from t_engine_endpoint_type
+        where name = #{name}
+    </select>
+
+    <!-- 根据id查询端点类型 -->
+    <select id="getEndpointTypeById" parameterType="string" resultType="cn.net.engine.bean.project.EndpointType">
+        select name, supported_modes from t_engine_endpoint_type where id = #{id}
+    </select>
+
     <!-- 获取所有端点类型-包括配置 -->
     <select id="getEndpointTypes" parameterType="cn.net.engine.bean.project.EndpointType" resultMap="endpointType">
         select type.name,
@@ -47,7 +59,22 @@
 
     <!-- 新增端点类型 -->
     <insert id="addEndpointType" parameterType="cn.net.engine.bean.project.EndpointType">
-        insert into t_engine_endpoint_type (name, supported_modes, create_by, create_time, update_by, update_time)
-        VALUES (#{name}, #{supportedModes}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime})
+        insert into t_engine_endpoint_type (id, name, supported_modes, create_by, create_time, update_by, update_time)
+        VALUES (#{id}, #{name}, #{supportedModes}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime})
     </insert>
+
+    <!-- 更新端点类型表 -->
+    <update id="updateEndpointType" parameterType="cn.net.engine.bean.project.EndpointType">
+        update t_engine_endpoint_type
+        set name            = #{name},
+            supported_modes = #{supportedModes},
+            update_by       = #{updateBy},
+            update_time     = #{updateTime}
+        where id = #{id}
+    </update>
+
+    <!-- 删除端点类型表 -->
+    <delete id="deleteEndpointType" parameterType="string">
+        delete from t_engine_endpoint_type where id = #{id}
+    </delete>
 </mapper>

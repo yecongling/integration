@@ -49,9 +49,15 @@ public interface EndpointConfigMapper {
     /**
      * 删除端点配置
      *
-     * @param name 端点名
-     * @param type 端点类型
+     * @param id 主键
      * @return 受影响的行数
      */
-    int deleteEndpointConfig(@Param("name") String name, @Param("type") String type);
+    int deleteEndpointConfig(@Param("id") String id);
+
+    /**
+     * 根据端点类型删除
+     * @param endpointType 端点类型
+     * @return 受影响的行数
+     */
+    int deleteEndpointConfigs(@Param("endpointType") String endpointType);
 }

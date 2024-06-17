@@ -18,6 +18,7 @@ public class EndpointType implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private String id;
     // 端点类型名称
     @NotEmpty(message = "端点类型不能为空")
     private String name;
@@ -31,6 +32,14 @@ public class EndpointType implements Serializable {
     private String updateBy;
     private Date createTime;
     private Date updateTime;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

@@ -40,8 +40,8 @@ public interface IEndpointTypeService {
     /**
      * 删除端点类型
      *
-     * @param endpointTypeName 端点名称
+     * @param endpointTypeId 端点id
      * @return true 成功 false 失败
      */
-    boolean deleteEndpointType(String endpointTypeName);
+    boolean deleteEndpointType(String endpointTypeId);
 }

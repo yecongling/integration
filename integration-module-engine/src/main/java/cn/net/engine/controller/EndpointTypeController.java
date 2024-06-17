@@ -63,11 +63,11 @@ public class EndpointTypeController {
     /**
      * 删除端点类型
      *
-     * @param endpointTypeName 端点类型名
+     * @param endpointTypeId 端点类型id
      * @return true 成功 false 失败
      */
-    @DeleteMapping("/deleteEndpointType/{endpointTypeName}")
-    public Response<Boolean> deleteEndpointType(@PathVariable String endpointTypeName) {
-        return Response.success(endpointTypeService.deleteEndpointType(endpointTypeName));
+    @DeleteMapping("/deleteEndpointType/{endpointTypeId}")
+    public Response<Boolean> deleteEndpointType(@PathVariable String endpointTypeId) {
+        return Response.success(endpointTypeService.deleteEndpointType(endpointTypeId));
     }
 }

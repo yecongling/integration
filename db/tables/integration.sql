@@ -277,6 +277,7 @@ create table `t_engine_variable`
 drop table if exists `t_engine_ep_properties`;
 create table `t_engine_ep_properties`
 (
+    id               varchar(32)                                                  not null comment '端点类型唯一ID',
     `create_by`      varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
     `create_time`    datetime                                                     NOT NULL COMMENT '创建日期',
     `update_by`      varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
@@ -293,7 +294,8 @@ create table `t_engine_ep_properties`
     `mode_required`  tinyint(1)                                                   not null default 0 COMMENT '模式必填',
     `applies_to`     varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null COMMENT '用于哪一端 生产-PRODUCER（IN/IN_OUT） 消费-CONSUMER（OUT/OUT_IN）',
     `tips`           text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci        NUll COMMENT '提示信息',
-    primary key (`endpoint_type`, `name`, `applies_to`) using BTREE,
+    primary key (`id`) using BTREE,
+    index `idx_variable_ep_id` (`endpoint_type`) using btree,
     index `idx_variable_ep_type_name` (`endpoint_type`) using btree,
     index `idx_variable_applies_to` (`applies_to`) using btree,
     index `idx_variable_name` (`name`) using btree
@@ -345,7 +347,7 @@ create table t_engine_endpoint
     `mode`        varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null comment '模式，进出或进、出模式',
     `status`      int                                                           not null default 1 comment '状态 1-正常 2-部分异常 3-异常',
     `del_flag`    bit                                                           not null default 0 comment '删除标记 1 - 删除 0 - 未删除',
-    `configs`     text null comment '配置数据',
+    `configs`     text                                                          null comment '配置数据',
     PRIMARY KEY (`id`, `type`, `mode`) USING BTREE,
     index `idx_endpoint_id` (`id`) using btree,
     index `idx_endpoint_type` (`type`) using btree,
@@ -359,14 +361,15 @@ create table t_engine_endpoint
 drop table if exists `t_engine_endpoint_type`;
 create table if not exists integration.t_engine_endpoint_type
 (
+    id              varchar(32)                                                  not null comment '端点类型唯一ID',
     name            varchar(16) charset utf8mb4 COLLATE utf8mb4_general_ci       not null comment '类型名',
     supported_modes varchar(32) charset utf8mb4 COLLATE utf8mb4_general_ci       not null comment '支持的模式',
     create_by       varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null comment '创建人',
     create_time     datetime                                                     not null comment '创建时间',
     update_by       varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci null comment '更新人',
     update_time     datetime                                                     not null comment '更新时间',
-    PRIMARY KEY (`name`) USING BTREE,
-    index `idx_endpoint_name` (`name`) using btree
+    PRIMARY KEY (`id`) USING BTREE,
+    index `idx_endpoint_id` (`id`) using btree
 ) engine = InnoDB
   character set = utf8mb4
     comment '端点类型表'

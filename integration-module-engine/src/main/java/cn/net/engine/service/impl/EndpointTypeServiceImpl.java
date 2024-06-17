@@ -1,5 +1,6 @@
 package cn.net.engine.service.impl;
 
+import cn.net.base.bean.SnowFlakeGenerator;
 import cn.net.base.bean.SysOpr;
 import cn.net.engine.bean.project.EndpointConfig;
 import cn.net.engine.bean.project.EndpointType;
@@ -33,6 +34,8 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
     private EndpointConfigMapper endpointConfigMapper;
     // servlet工具
     private ServletUtils servletUtils;
+    // 雪花ID
+    private SnowFlakeGenerator snowFlakeGenerator;
 
     @Autowired
     public void setEndpointTypeMapper(EndpointTypeMapper endpointTypeMapper) {
@@ -47,6 +50,11 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
     @Autowired
     public void setServletUtils(ServletUtils servletUtils) {
         this.servletUtils = servletUtils;
+    }
+
+    @Autowired
+    public void setSnowFlakeGenerator(SnowFlakeGenerator snowFlakeGenerator) {
+        this.snowFlakeGenerator = snowFlakeGenerator;
     }
 
     /**
@@ -77,6 +85,7 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
         endpointType.setUpdateBy(userId);
         endpointType.setCreateTime(time);
         endpointType.setUpdateTime(time);
+        endpointType.setId(snowFlakeGenerator.generateUniqueId());
         // 调用mapper插入类型表
         int addEndpointType = endpointTypeMapper.addEndpointType(endpointType);
         List<EndpointConfig> properties = endpointType.getProperties();
@@ -85,6 +94,7 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
             for (EndpointConfig endpointConfig : properties) {
                 endpointConfig.setCreateBy(userId);
                 endpointConfig.setUpdateBy(userId);
+                endpointConfig.setId(snowFlakeGenerator.generateUniqueId());
                 endpointConfig.setCreateTime(time);
                 endpointConfig.setUpdateTime(time);
             }
@@ -128,27 +138,27 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
         List<EndpointConfig> endpointConfigs = endpointConfigMapper.findAllByEndpointType(endpointType.getName());
         // 构建当前配置表的类型和名称的唯一集合
         Set<String> currentKeys = endpointConfigs.stream()
-                .map(b -> b.getEndpointType() + "_" + endpointType.getName())
+                .map(EndpointConfig::getId)
                 .collect(Collectors.toSet());
         // 构建新B表的数据的唯一键集合
         Set<String> newKeys;
         if (properties != null && !properties.isEmpty()) {
             newKeys = properties.stream()
-                    .map(b -> b.getEndpointType() + "_" + endpointType.getName()).collect(Collectors.toSet());
+                    .map(EndpointConfig::getId).collect(Collectors.toSet());
         } else {
             newKeys = new HashSet<>();
         }
         // 找到需要删除的配置表的数据
         endpointConfigs.forEach(b -> {
-            String key = b.getEndpointType() + "_" + endpointType.getName();
+            String key = b.getId();
             if (!newKeys.contains(key)) {
-                success.set(endpointConfigMapper.deleteEndpointConfig(b.getName(), b.getEndpointType()) > 0);
+                success.set(endpointConfigMapper.deleteEndpointConfig(b.getId()) > 0);
             }
         });
         // 更新或新增配置表的数据
         if (properties != null && !properties.isEmpty()) {
             properties.forEach(b -> {
-                String key = b.getEndpointType() + "_" + endpointType.getName();
+                String key = b.getEndpointType() + "_" + b.getName();
                 if (!currentKeys.contains(key)) {
                     success.set(endpointConfigMapper.updateEndpointConfig(b) > 0);
                 } else {
@@ -162,11 +172,21 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
     /**
      * 删除端点类型
      *
-     * @param endpointTypeName 端点名称
+     * @param endpointTypeId 端点名称
      * @return true 成功 false 失败
      */
     @Override
-    public boolean deleteEndpointType(String endpointTypeName) {
-        return false;
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteEndpointType(String endpointTypeId) {
+        // 先查询端点类型表的类型名
+        EndpointType endpointType = endpointTypeMapper.getEndpointTypeById(endpointTypeId);
+        if (endpointType == null) {
+            throw new RuntimeException("ID " + endpointTypeId + " not found");
+        }
+        // 先删除配置表的，再删除端点类型表的
+        int configs = endpointConfigMapper.deleteEndpointConfigs(endpointType.getName());
+        int type = endpointTypeMapper.deleteEndpointType(endpointTypeId);
+        // 因为配置表可能没有对应的配置数据
+        return type > 0 && configs >= 0;
     }
 }

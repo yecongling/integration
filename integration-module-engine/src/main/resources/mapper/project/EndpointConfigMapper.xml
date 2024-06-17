@@ -4,20 +4,69 @@
 
     <!-- 根据名称和类型查询 -->
     <select id="findAllByEndpointType" parameterType="string" resultType="cn.net.engine.bean.project.EndpointConfig">
-
+        select endpoint_type,
+               name,
+               title,
+               type,
+               required,
+               allowed_values,
+               default_value,
+               endpoint_mode,
+               masked,
+               mode_required,
+               applies_to,
+               tips
+        from t_engine_ep_properties
+        where endpoint_type = #{endpointType}
     </select>
 
     <!-- 新增端点配置 -->
     <insert id="addEndpointConfig" parameterType="cn.net.engine.bean.project.EndpointConfig">
-        insert into t_engine_ep_properties (create_by, create_time, update_by, update_time, endpoint_type, name, title,
+        insert into t_engine_ep_properties (id, create_by, create_time, update_by, update_time, endpoint_type, name,
+        title,
         type, allowed_values, default_value, endpoint_mode, applies_to, tips, masked, mode_required)
         VALUES
         <foreach collection="configs" item="config" separator=",">
-            (#{config.createBy}, #{config.createTime}, #{config.updateBy}, #{config.updateTime}, #{endpointType},
+            (#{config.id}, #{config.createBy}, #{config.createTime}, #{config.updateBy}, #{config.updateTime},
+            #{endpointType},
             #{config.name}, #{config.title}, #{config.type}, #{config.allowedValues},
             #{config.defaultValue},#{config.endpointMode}, #{config.appliesTo}, #{config.tips}, #{config.masked},
             #{config.modeRequired})
         </foreach>
 
     </insert>
+
+    <!-- 更新端点配置 -->
+    <update id="updateEndpointConfig" parameterType="cn.net.engine.bean.project.EndpointConfig">
+        update t_engine_ep_properties
+        set update_by      = #{config.updateBy},
+            update_time    = #{config.updateTime},
+            name           = #{config.name},
+            title          = #{config.title},
+            type           = #{config.type},
+            required       = #{config.required},
+            allowed_values = #{config.allowedValues},
+            default_value  = #{config.defaultValue},
+            endpoint_mode  = #{config.endpointMode},
+            masked         = #{config.masked},
+            mode_required  = #{config.modeRequired},
+            applies_to     = #{config.allowedValues},
+            tips           = #{config.title}
+        where id = #{config.id}
+
+    </update>
+
+    <!-- 删除端点 -->
+    <delete id="deleteEndpointConfig" parameterType="string">
+        delete
+        from t_engine_ep_properties
+        where id = #{id}
+    </delete>
+
+    <!-- 根据端点类型名删除 -->
+    <delete id="deleteEndpointConfigs" parameterType="string">
+        delete
+        from t_engine_ep_properties
+        where endpoint_type = #{endpointType}
+    </delete>
 </mapper>

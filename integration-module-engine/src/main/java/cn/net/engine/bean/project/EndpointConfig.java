@@ -14,6 +14,8 @@ import java.util.Date;
 public class EndpointConfig implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
+    private String id;
+
     // 配置名称
     private String name;
     // 配置标题
@@ -43,6 +45,14 @@ public class EndpointConfig implements Serializable {
     private String updateBy;
     private Date createTime;
     private Date updateTime;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
