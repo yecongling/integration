@@ -44,4 +44,9 @@
             </if>
         </where>
     </select>
+
+    <!-- 新增端点类型 -->
+    <insert id="addEndpointType" parameterType="cn.net.engine.bean.project.EndpointType">
+
+    </insert>
 </mapper>
