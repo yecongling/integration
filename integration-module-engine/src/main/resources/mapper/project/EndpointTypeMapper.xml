@@ -23,18 +23,18 @@
     <!-- 获取所有端点类型-包括配置 -->
     <select id="getEndpointTypes" parameterType="cn.net.engine.bean.project.EndpointType" resultMap="endpointType">
         select type.name,
-               supported_modes,
-               teep.name           as config_name,
-               teep.title          as config_title,
-               teep.type           as config_type,
-               teep.applies_to     as config_appliesTo,
-               teep.default_value  as default_value,
-               teep.allowed_values as allowed_values,
-               teep.mode_required  as mode_required,
-               teep.tips,
-               teep.masked
+        supported_modes,
+        teep.name as config_name,
+        teep.title as config_title,
+        teep.type as config_type,
+        teep.applies_to as config_appliesTo,
+        teep.default_value as default_value,
+        teep.allowed_values as allowed_values,
+        teep.mode_required as mode_required,
+        teep.tips,
+        teep.masked
         from t_engine_endpoint_type type
-                 left join integration.t_engine_ep_properties teep on type.name = teep.endpoint_type
+        left join integration.t_engine_ep_properties teep on type.name = teep.endpoint_type
         <where>
             <if test="name != null and name != ''">
                 and teep.name = #{name}
@@ -47,6 +47,7 @@
 
     <!-- 新增端点类型 -->
     <insert id="addEndpointType" parameterType="cn.net.engine.bean.project.EndpointType">
-
+        insert into t_engine_endpoint_type (name, supported_modes, create_by, create_time, update_by, update_time)
+        VALUES (#{name}, #{supportedModes}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime})
     </insert>
 </mapper>

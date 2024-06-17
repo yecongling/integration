@@ -2,8 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.net.engine.mapper.EndpointConfigMapper">
 
+    <!-- 根据名称和类型查询 -->
+    <select id="findAllByEndpointType" parameterType="string" resultType="cn.net.engine.bean.project.EndpointConfig">
+
+    </select>
+
     <!-- 新增端点配置 -->
     <insert id="addEndpointConfig" parameterType="cn.net.engine.bean.project.EndpointConfig">
+        insert into t_engine_ep_properties (create_by, create_time, update_by, update_time, endpoint_type, name, title,
+        type, allowed_values, default_value, endpoint_mode, applies_to, tips, masked, mode_required)
+        VALUES
+        <foreach collection="configs" item="config" separator=",">
+            (#{config.createBy}, #{config.createTime}, #{config.updateBy}, #{config.updateTime}, #{endpointType},
+            #{config.name}, #{config.title}, #{config.type}, #{config.allowedValues},
+            #{config.defaultValue},#{config.endpointMode}, #{config.appliesTo}, #{config.tips}, #{config.masked},
+            #{config.modeRequired})
+        </foreach>
 
     </insert>
 </mapper>

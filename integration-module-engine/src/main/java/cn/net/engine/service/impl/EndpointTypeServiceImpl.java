@@ -12,7 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName EndpointTypeServiceImpl
@@ -91,14 +95,68 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
     }
 
     /**
-     * 更新端点类型
+     * 更新端点类型（更新设计到端点类型更新，配置的增删改）
      *
      * @param endpointType 端点类型
      * @return true 成功 false 失败
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean updateEndpointType(EndpointType endpointType) {
-        return false;
+        // 获取当前的操作员和时间
+        SysOpr sysOpr = servletUtils.getSysOpr();
+        String userId = sysOpr.getUserId();
+        Date time = new Date();
+        endpointType.setCreateBy(userId);
+        endpointType.setUpdateBy(userId);
+        endpointType.setCreateTime(time);
+        endpointType.setUpdateTime(time);
+        List<EndpointConfig> properties = endpointType.getProperties();
+        if (properties != null && !properties.isEmpty()) {
+            // 给每个配置项设置修改人和时间
+            for (EndpointConfig endpointConfig : properties) {
+                endpointConfig.setCreateBy(userId);
+                endpointConfig.setUpdateBy(userId);
+                endpointConfig.setCreateTime(time);
+                endpointConfig.setUpdateTime(time);
+            }
+        }
+        AtomicBoolean success = new AtomicBoolean(true);
+        // 先更新端点类型表
+        int updateEndpointType = endpointTypeMapper.updateEndpointType(endpointType);
+        // 获取端点类型表关联的配置表的现有数据
+        List<EndpointConfig> endpointConfigs = endpointConfigMapper.findAllByEndpointType(endpointType.getName());
+        // 构建当前配置表的类型和名称的唯一集合
+        Set<String> currentKeys = endpointConfigs.stream()
+                .map(b -> b.getEndpointType() + "_" + endpointType.getName())
+                .collect(Collectors.toSet());
+        // 构建新B表的数据的唯一键集合
+        Set<String> newKeys;
+        if (properties != null && !properties.isEmpty()) {
+            newKeys = properties.stream()
+                    .map(b -> b.getEndpointType() + "_" + endpointType.getName()).collect(Collectors.toSet());
+        } else {
+            newKeys = new HashSet<>();
+        }
+        // 找到需要删除的配置表的数据
+        endpointConfigs.forEach(b -> {
+            String key = b.getEndpointType() + "_" + endpointType.getName();
+            if (!newKeys.contains(key)) {
+                success.set(endpointConfigMapper.deleteEndpointConfig(b.getName(), b.getEndpointType()) > 0);
+            }
+        });
+        // 更新或新增配置表的数据
+        if (properties != null && !properties.isEmpty()) {
+            properties.forEach(b -> {
+                String key = b.getEndpointType() + "_" + endpointType.getName();
+                if (!currentKeys.contains(key)) {
+                    success.set(endpointConfigMapper.updateEndpointConfig(b) > 0);
+                } else {
+                    success.set(endpointConfigMapper.addEndpointConfig(b) > 0);
+                }
+            });
+        }
+        return success.get() && updateEndpointType > 0;
     }
 
     /**

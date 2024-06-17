@@ -30,4 +30,20 @@ public interface EndpointTypeMapper {
      * @return 受影响的行数
      */
     int addEndpointType(EndpointType endpointType);
+
+    /**
+     * 更新端点类型
+     *
+     * @param endpointType 端点类型
+     * @return 受影响的行数
+     */
+    int updateEndpointType(EndpointType endpointType);
+
+    /**
+     * 更新端点类型
+     *
+     * @param key 端点名称
+     * @return 受影响的行数
+     */
+    int deleteEndpointType(String key);
 }
