@@ -5,7 +5,6 @@ import cn.net.base.utils.SpringContextUtils;
 import cn.net.framework.redis.RedisUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,12 +34,10 @@ public class ServletUtils {
         // 从request中获取token，然后在redis中获取该操作员
         HttpServletRequest request = SpringContextUtils.getHttpServletRequest();
         String token = request.getHeader("token");
-        if (StringUtils.isBlank(token)) {
-            return null;
-        }
         Object o = redisUtil.get(token);
         if (ObjectUtils.isEmpty(o)) {
-            return null;
+            // 如果没取到，构建一个默认的操作员防止在取的时候出现空指针
+            return new SysOpr();
         }
         return (SysOpr) o;
     }

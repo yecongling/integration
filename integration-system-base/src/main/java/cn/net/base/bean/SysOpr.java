@@ -14,8 +14,8 @@ public class SysOpr implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private String userId;
-    private String userName;
+    private String userId = "00001";
+    private String userName = "admin";
 
     public String getUserId() {
         return userId;

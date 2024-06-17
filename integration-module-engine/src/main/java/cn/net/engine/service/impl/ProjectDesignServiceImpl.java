@@ -26,28 +26,28 @@ public class ProjectDesignServiceImpl implements IProjectDesignService {
 
     // 注入项目设计mapper
     private ProjectDesignMapper projectDesignMapper;
+    // 注入servlet工具
+    private ServletUtils servletUtils;
+    // 注入引擎服务中心
+    private EngineServiceCenter engineServiceCenter;
+    // 生成唯一id的雪花算法
+    private SnowFlakeGenerator snowFlakeGenerator;
 
     @Autowired
     public void setProjectDesignMapper(ProjectDesignMapper projectDesignMapper) {
         this.projectDesignMapper = projectDesignMapper;
     }
 
-    private ServletUtils servletUtils;
-
     @Autowired
     public void setServletUtils(ServletUtils servletUtils) {
         this.servletUtils = servletUtils;
     }
-
-    private EngineServiceCenter engineServiceCenter;
 
     @Autowired
     public void setEngineServiceCenter(EngineServiceCenter engineServiceCenter) {
         this.engineServiceCenter = engineServiceCenter;
     }
 
-    // 生成唯一id的雪花算法
-    private SnowFlakeGenerator snowFlakeGenerator;
     @Autowired
     public void setSnowFlakeGenerator(SnowFlakeGenerator snowFlakeGenerator) {
         this.snowFlakeGenerator = snowFlakeGenerator;
@@ -85,7 +85,6 @@ public class ProjectDesignServiceImpl implements IProjectDesignService {
     public boolean addProject(Project project) {
         // 获取操作员
         SysOpr sysOpr = servletUtils.getSysOpr();
-        System.out.println(sysOpr);
         // 设置主键
         project.setId(snowFlakeGenerator.generateUniqueId());
         // 设置操作人、操作时间
@@ -93,7 +92,6 @@ public class ProjectDesignServiceImpl implements IProjectDesignService {
         project.setUpdateBy(sysOpr.getUserName());
         project.setCreateTime(new Date());
         project.setUpdateTime(new Date());
-
         return projectDesignMapper.addProject(project) > 0;
     }
 
@@ -105,6 +103,11 @@ public class ProjectDesignServiceImpl implements IProjectDesignService {
      */
     @Override
     public boolean updateProject(Project project) {
+        // 获取操作员
+        SysOpr sysOpr = servletUtils.getSysOpr();
+        // 设置操作人、操作时间
+        project.setUpdateBy(sysOpr.getUserName());
+        project.setUpdateTime(new Date());
         return projectDesignMapper.updateProject(project) > 0;
     }
 
