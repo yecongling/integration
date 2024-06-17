@@ -1,5 +1,6 @@
 package cn.net.system.controller;
 
+import cn.net.base.core.Response;
 import cn.net.system.bean.Menu;
 import cn.net.system.service.IMenuService;
 import com.alibaba.fastjson.JSONArray;
@@ -58,5 +59,38 @@ public class MenuController {
     @GetMapping("/getDirectoryMenu")
     public JSONArray getDirectoryMenu(@RequestParam(name = "roleId") String roleId) {
         return menuService.getDirectory(roleId);
+    }
+
+    /**
+     * 新增菜单
+     *
+     * @param sysPermission 菜单信息对象
+     * @return 新增成功或失败
+     */
+    @RequestMapping(value = "/addPermission", method = RequestMethod.POST)
+    public Response<Object> addPermission(@RequestBody Menu sysPermission) {
+        return menuService.addMenu(sysPermission);
+    }
+
+    /**
+     * 修改菜单
+     *
+     * @param sysPermission 菜单信息对象
+     * @return 新增成功或失败
+     */
+    @RequestMapping(value = "/updatePermission", method = RequestMethod.POST)
+    public Response<String> updatePermission(@RequestBody Menu sysPermission) {
+        return menuService.updateMenu(sysPermission);
+    }
+
+    /**
+     * 删除菜单
+     *
+     * @param id 菜单ID
+     * @return 新增成功或失败
+     */
+    @RequestMapping(value = "/deletePermission", method = RequestMethod.POST)
+    public Response<Object> deletePermission(@RequestBody String id) {
+        return menuService.deleteMenu(id);
     }
 }

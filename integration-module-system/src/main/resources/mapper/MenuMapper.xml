@@ -49,12 +49,69 @@
     <select id="getDirectory" resultMap="menu">
         <choose>
             <when test="roleId == 'admin'">
-                select id, name, menu_type, parent_id, is_leaf from integration.t_sys_permission where del_flag = 0 and menu_type = 0 order by sort_no
+                select id, name, menu_type, parent_id, is_leaf from integration.t_sys_permission where del_flag = 0 and
+                menu_type = 0 order by sort_no
             </when>
             <otherwise>
-                select a.id, a.name, a.menu_type, a.parent_id, a.is_leaf from t_sys_permission a left join t_sys_role_permission b on a.id = b.permission_id where
+                select a.id, a.name, a.menu_type, a.parent_id, a.is_leaf from t_sys_permission a left join
+                t_sys_role_permission b on a.id = b.permission_id where
                 b.role_id = #{roleId} and a.del_flag = 0 and menu_type = 0 order by a.sort_no
             </otherwise>
         </choose>
     </select>
+
+    <!-- 新增菜单 -->
+    <insert id="addMenu" useGeneratedKeys="true" keyProperty="id"
+            parameterType="cn.net.system.bean.Menu">
+        insert into integration.t_sys_permission (id, parent_id, name, url, component, component_name,
+                                                  redirect, menu_type, perms, perms_type, sort_no, always_show,
+                                                  icon, is_route, is_leaf, keep_alive, hidden, hide_tab,
+                                                  description, create_by, create_time, update_by, update_time,
+                                                  del_flag, rule_flag, status, internal_or_external)
+            value (#{id}, #{parentId}, #{name}, #{url}, #{component}, #{componentName}, #{redirect}, #{menuType},
+                   #{perms},
+                   #{permsType}, #{sortNo}, #{alwaysShow}, #{icon}, #{route}, #{leaf}, #{keepAlive}, #{hidden},
+                   #{hideTab},
+                   #{description}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{delFlag}, #{ruleFlag},
+                   #{status}, #{internalOrExternal})
+    </insert>
+
+    <!-- 更新菜单 -->
+    <update id="updateMenu" parameterType="cn.net.system.bean.Menu">
+        update integration.t_sys_permission
+        set parent_id            = #{parentId},
+            name                 = #{name},
+            url                  = #{url},
+            component            = #{component},
+            component_name       = #{componentName},
+            redirect             = #{redirect},
+            menu_type            = #{menuType},
+            perms                = #{perms},
+            perms_type           = #{permsType},
+            sort_no              = #{sortNo},
+            always_show          = #{alwaysShow},
+            icon                 = #{icon},
+            is_route             = #{route},
+            is_leaf              = #{leaf},
+            keep_alive           = #{keepAlive},
+            hidden               = #{hidden},
+            hide_tab             = #{hideTab},
+            description          = #{description},
+            create_by            = #{createBy},
+            create_time          = #{createTime},
+            update_by            = #{updateBy},
+            update_time          = #{updateTime},
+            del_flag             = #{delFlag},
+            rule_flag            = #{ruleFlag},
+            status               = #{status},
+            internal_or_external = #{internalOrExternal}
+        where id = #{id}
+    </update>
+
+    <!-- 删除菜单 -->
+    <delete id="deleteMenu" parameterType="string">
+        delete
+        from integration.t_sys_permission
+        where id = #{id}
+    </delete>
 </mapper>

@@ -2,7 +2,9 @@ package cn.net.system.service.impl;
 
 import cn.net.base.constant.CommonConstant;
 import cn.net.base.constant.SymbolConstant;
+import cn.net.base.core.Response;
 import cn.net.base.utils.ConvertUtils;
+import cn.net.base.utils.UUIDUtils;
 import cn.net.system.bean.Menu;
 import cn.net.system.mapper.MenuMapper;
 import cn.net.system.service.IMenuService;
@@ -12,10 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @ClassName MenuServiceImpl
@@ -76,6 +75,61 @@ public class MenuServiceImpl implements IMenuService {
         JSONArray jsonArray = new JSONArray();
         this.getDirectory(jsonArray, directory, null);
         return jsonArray;
+    }
+
+    /**
+     * 新增菜单
+     *
+     * @param menu 菜单
+     * @return 结果
+     */
+    @Override
+    public Response<Object> addMenu(Menu menu) {
+        // 设置一些必要属性
+        Date date = new Date();
+        menu.setId(UUIDUtils.getUniqueId());
+        menu.setCreateTime(date);
+        menu.setUpdateTime(date);
+        menu.setCreateBy("admin");
+        menu.setUpdateBy("admin");
+        int i = menuMapper.addMenu(menu);
+        if (i > 0) {
+            return Response.success("新增菜单成功");
+        }
+        return Response.error("新增菜单失败");
+    }
+
+    /**
+     * 更新菜单
+     *
+     * @param menu 菜单对象
+     * @return 结果
+     */
+    @Override
+    public Response<String> updateMenu(Menu menu) {
+        // 设置一些必要属性
+        Date date = new Date();
+        menu.setCreateTime(date);
+        menu.setUpdateTime(date);
+        menu.setCreateBy("admin");
+        menu.setUpdateBy("admin");
+        int i = menuMapper.updateMenu(menu);
+        if (i > 0) {
+            return Response.success("修改菜单成功");
+        }
+        return Response.error("菜单修改失败");
+    }
+
+    /**
+     * 删除菜单
+     *
+     * @param id 菜单ID
+     * @return -
+     */
+    @Override
+    public Response<Object> deleteMenu(String id) {
+        int i = menuMapper.deleteMenu(id);
+        return Response.success(i);
     }
 
     /**

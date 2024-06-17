@@ -1,5 +1,6 @@
 package cn.net.system.service;
 
+import cn.net.base.core.Response;
 import cn.net.system.bean.Menu;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -37,4 +38,28 @@ public interface IMenuService {
      * @return 目录
      */
     JSONArray getDirectory(String roleId);
+
+    /**
+     * 新增菜单
+     *
+     * @param menu 菜单
+     * @return 结果
+     */
+    Response<Object> addMenu(Menu menu);
+
+    /**
+     * 更新菜单
+     *
+     * @param menu 菜单对象
+     * @return 结果
+     */
+    Response<String> updateMenu(Menu menu);
+
+    /**
+     * 删除菜单
+     *
+     * @param id 菜单ID
+     * @return -
+     */
+    Response<Object> deleteMenu(String id);
 }

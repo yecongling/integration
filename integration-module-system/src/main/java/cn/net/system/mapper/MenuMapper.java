@@ -40,4 +40,28 @@ public interface MenuMapper {
      * @return 一级菜单
      */
     List<Menu> getDirectory(@Param("roleId") String roleId);
+
+    /**
+     * 添加菜单
+     *
+     * @param menu 菜单对象
+     * @return 受影响的行数
+     */
+    int addMenu(Menu menu);
+
+    /**
+     * 更新菜单
+     *
+     * @param menu 菜单对象
+     * @return -
+     */
+    int updateMenu(Menu menu);
+
+    /**
+     * 删除菜单
+     *
+     * @param id 菜单ID
+     * @return -
+     */
+    int deleteMenu(String id);
 }
