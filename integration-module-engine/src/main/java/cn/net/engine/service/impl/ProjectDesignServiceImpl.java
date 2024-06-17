@@ -1,7 +1,7 @@
 package cn.net.engine.service.impl;
 
+import cn.net.base.bean.SnowFlakeGenerator;
 import cn.net.base.bean.SysOpr;
-import cn.net.base.utils.UUIDUtils;
 import cn.net.engine.bean.project.Project;
 import cn.net.engine.bean.project.Router;
 import cn.net.engine.camel.core.EngineServiceCenter;
@@ -46,6 +46,13 @@ public class ProjectDesignServiceImpl implements IProjectDesignService {
         this.engineServiceCenter = engineServiceCenter;
     }
 
+    // 生成唯一id的雪花算法
+    private SnowFlakeGenerator snowFlakeGenerator;
+    @Autowired
+    public void setSnowFlakeGenerator(SnowFlakeGenerator snowFlakeGenerator) {
+        this.snowFlakeGenerator = snowFlakeGenerator;
+    }
+
     /**
      * 查询所有项目信息
      *
@@ -80,7 +87,7 @@ public class ProjectDesignServiceImpl implements IProjectDesignService {
         SysOpr sysOpr = servletUtils.getSysOpr();
         System.out.println(sysOpr);
         // 设置主键
-        project.setId(UUIDUtils.getUniqueId());
+        project.setId(snowFlakeGenerator.generateUniqueId());
         // 设置操作人、操作时间
         project.setCreateBy(sysOpr.getUserName());
         project.setUpdateBy(sysOpr.getUserName());
