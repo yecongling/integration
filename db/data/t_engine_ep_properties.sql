@@ -1,4 +1,4 @@
-insert into integration.t_engine_ep_properties (create_by, create_time, update_by, update_time, endpoint_type_name, name, title, type, required, allowed_values, default_value, endpoint_modes, masked, modeRequired, applies_to)
+insert into integration.t_engine_endpoint_properties (create_by, create_time, update_by, update_time, endpoint_type, name, title, type, required, allowed_values, default_value, endpoint_mode, masked, mode_required, applies_to)
 values  ('00001', '2022-11-29 11:30:48', '00001', '2022-11-29 11:30:53', 'soap', 'certificate', '证书', 'STRING', 0, null, null, null, 0, 0, 'PRODUCER'),
         ('00001', '2022-11-29 12:44:52', '00001', '2022-11-29 12:44:56', 'soap', 'compressContent', '压缩响应', 'BOOLEAN', 0, null, 'true', null, 0, 0, 'CONSUMER'),
         ('00001', '2022-11-29 11:18:34', '00001', '2022-11-29 11:18:41', 'soap', 'connectionTimeout', '连接超时', 'INTEGER', 0, null, '30000', null, 0, 0, 'PRODUCER'),

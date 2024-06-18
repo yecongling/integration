@@ -2,7 +2,7 @@ package cn.net.engine.service.impl;
 
 import cn.net.base.bean.SnowFlakeGenerator;
 import cn.net.base.bean.SysOpr;
-import cn.net.engine.bean.project.EndpointConfig;
+import cn.net.engine.bean.project.EndpointProperties;
 import cn.net.engine.bean.project.EndpointType;
 import cn.net.engine.mapper.EndpointConfigMapper;
 import cn.net.engine.mapper.EndpointTypeMapper;
@@ -88,15 +88,15 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
         endpointType.setId(snowFlakeGenerator.generateUniqueId());
         // 调用mapper插入类型表
         int addEndpointType = endpointTypeMapper.addEndpointType(endpointType);
-        List<EndpointConfig> properties = endpointType.getProperties();
+        List<EndpointProperties> properties = endpointType.getProperties();
         if (properties != null && !properties.isEmpty()) {
             // 给每个配置项设置修改人和时间
-            for (EndpointConfig endpointConfig : properties) {
-                endpointConfig.setCreateBy(userId);
-                endpointConfig.setUpdateBy(userId);
-                endpointConfig.setId(snowFlakeGenerator.generateUniqueId());
-                endpointConfig.setCreateTime(time);
-                endpointConfig.setUpdateTime(time);
+            for (EndpointProperties endpointProperties : properties) {
+                endpointProperties.setCreateBy(userId);
+                endpointProperties.setUpdateBy(userId);
+                endpointProperties.setId(snowFlakeGenerator.generateUniqueId());
+                endpointProperties.setCreateTime(time);
+                endpointProperties.setUpdateTime(time);
             }
         }
         // 调用mapper插入配置表（有可能没有配置项）
@@ -119,33 +119,33 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
         Date time = new Date();
         endpointType.setUpdateBy(userId);
         endpointType.setUpdateTime(time);
-        List<EndpointConfig> properties = endpointType.getProperties();
+        List<EndpointProperties> properties = endpointType.getProperties();
         if (properties != null && !properties.isEmpty()) {
             // 给每个配置项设置修改人和时间
-            for (EndpointConfig endpointConfig : properties) {
-                endpointConfig.setUpdateBy(userId);
-                endpointConfig.setUpdateTime(time);
+            for (EndpointProperties endpointProperties : properties) {
+                endpointProperties.setUpdateBy(userId);
+                endpointProperties.setUpdateTime(time);
             }
         }
         AtomicBoolean success = new AtomicBoolean(true);
         // 先更新端点类型表
         int updateEndpointType = endpointTypeMapper.updateEndpointType(endpointType);
         // 获取端点类型表关联的配置表的现有数据
-        List<EndpointConfig> endpointConfigs = endpointConfigMapper.findAllByEndpointType(endpointType.getName());
+        List<EndpointProperties> endpointProperties = endpointConfigMapper.findAllByEndpointType(endpointType.getName());
         // 构建当前配置表的类型和名称的唯一集合
-        Set<String> currentKeys = endpointConfigs.stream()
-                .map(EndpointConfig::getId)
+        Set<String> currentKeys = endpointProperties.stream()
+                .map(EndpointProperties::getId)
                 .collect(Collectors.toSet());
         // 构建新B表的数据的唯一键集合
         Set<String> newKeys;
         if (properties != null && !properties.isEmpty()) {
             newKeys = properties.stream()
-                    .map(EndpointConfig::getId).collect(Collectors.toSet());
+                    .map(EndpointProperties::getId).collect(Collectors.toSet());
         } else {
             newKeys = new HashSet<>();
         }
         // 找到需要删除的配置表的数据
-        endpointConfigs.forEach(b -> {
+        endpointProperties.forEach(b -> {
             String key = b.getId();
             if (!newKeys.contains(key)) {
                 success.set(endpointConfigMapper.deleteEndpointConfig(b.getId()) > 0);

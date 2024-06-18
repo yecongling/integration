@@ -274,8 +274,8 @@ create table `t_engine_variable`
   row_format = DYNAMIC;
 
 /* 新建终端属性配置表 */
-drop table if exists `t_engine_ep_properties`;
-create table `t_engine_ep_properties`
+drop table if exists t_engine_endpoint_properties;
+create table `t_engine_endpoint_properties`
 (
     id               varchar(32)                                                  not null comment '端点类型唯一ID',
     `create_by`      varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',

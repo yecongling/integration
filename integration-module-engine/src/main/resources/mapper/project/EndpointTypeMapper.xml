@@ -9,7 +9,7 @@
         <result column="update_by" property="updateBy"/>
         <result column="update_time" property="updateTime"/>
         <!-- 可以关联 - 如果内部有其他关联的对象时可使用，如果是集合的时候 collection -->
-        <collection property="properties" javaType="cn.net.engine.bean.project.EndpointConfig">
+        <collection property="properties" javaType="cn.net.engine.bean.project.EndpointProperties">
             <result property="name" column="config_name"/>
             <result property="title" column="config_title"/>
             <result property="type" column="config_type"/>
@@ -46,7 +46,7 @@
         teep.tips,
         teep.masked
         from t_engine_endpoint_type type
-        left join integration.t_engine_ep_properties teep on type.name = teep.endpoint_type
+        left join integration.t_engine_endpoint_properties teep on type.name = teep.endpoint_type
         <where>
             <if test="name != null and name != ''">
                 and teep.name = #{name}

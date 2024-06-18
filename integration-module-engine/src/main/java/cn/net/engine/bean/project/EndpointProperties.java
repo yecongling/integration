@@ -11,7 +11,7 @@ import java.util.Date;
  * @Date 2024/5/31 上午9:47
  * @Version 1.0
  */
-public class EndpointConfig implements Serializable {
+public class EndpointProperties implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private String id;

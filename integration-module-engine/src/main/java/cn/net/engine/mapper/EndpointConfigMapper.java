@@ -1,6 +1,6 @@
 package cn.net.engine.mapper;
 
-import cn.net.engine.bean.project.EndpointConfig;
+import cn.net.engine.bean.project.EndpointProperties;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public interface EndpointConfigMapper {
      * @param endpointType 配置名称
      * @return 配置数据
      */
-    List<EndpointConfig> findAllByEndpointType(@Param("endpointType") String endpointType);
+    List<EndpointProperties> findAllByEndpointType(@Param("endpointType") String endpointType);
 
     /**
      * 添加端点配置
@@ -28,7 +28,7 @@ public interface EndpointConfigMapper {
      * @param configs 配置项
      * @return 受影响的行数
      */
-    int addEndpointConfig(@Param("configs") List<EndpointConfig> configs);
+    int addEndpointConfig(@Param("configs") List<EndpointProperties> configs);
 
     /**
      * 添加端点配置 单条数据
@@ -36,7 +36,7 @@ public interface EndpointConfigMapper {
      * @param config 配置项
      * @return 受影响的行数
      */
-    int addEndpointConfig(@Param("config") EndpointConfig config);
+    int addEndpointConfig(@Param("config") EndpointProperties config);
 
     /**
      * 更新端点配置
@@ -44,7 +44,7 @@ public interface EndpointConfigMapper {
      * @param config 配置数据
      * @return 受影响的行数
      */
-    int updateEndpointConfig(@Param("config") EndpointConfig config);
+    int updateEndpointConfig(@Param("config") EndpointProperties config);
 
     /**
      * 删除端点配置
