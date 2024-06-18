@@ -117,17 +117,13 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
         SysOpr sysOpr = servletUtils.getSysOpr();
         String userId = sysOpr.getUserId();
         Date time = new Date();
-        endpointType.setCreateBy(userId);
         endpointType.setUpdateBy(userId);
-        endpointType.setCreateTime(time);
         endpointType.setUpdateTime(time);
         List<EndpointConfig> properties = endpointType.getProperties();
         if (properties != null && !properties.isEmpty()) {
             // 给每个配置项设置修改人和时间
             for (EndpointConfig endpointConfig : properties) {
-                endpointConfig.setCreateBy(userId);
                 endpointConfig.setUpdateBy(userId);
-                endpointConfig.setCreateTime(time);
                 endpointConfig.setUpdateTime(time);
             }
         }
@@ -158,7 +154,7 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
         // 更新或新增配置表的数据
         if (properties != null && !properties.isEmpty()) {
             properties.forEach(b -> {
-                String key = b.getEndpointType() + "_" + b.getName();
+                String key = b.getId();
                 if (!currentKeys.contains(key)) {
                     success.set(endpointConfigMapper.updateEndpointConfig(b) > 0);
                 } else {
