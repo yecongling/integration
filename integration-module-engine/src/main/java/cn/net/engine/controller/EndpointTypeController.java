@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @ClassName EndpointTypeController
- * @Description 端点类型接口
+ * @Description 端点类型接口(一个推送测试)
  * @Author ycl
  * @Date 2024/6/5 下午4:38
  * @Version 1.0
