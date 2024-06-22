@@ -3,7 +3,7 @@ name: Build and Deploy to Aliyun
 on:
   push:
     branches:
-      - main  # 你希望在哪个分支推送时触发该工作流
+      - master  # 你希望在哪个分支推送时触发该工作流
 
 jobs:
   build-and-deploy:
