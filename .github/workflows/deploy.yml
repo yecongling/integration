@@ -21,6 +21,10 @@ jobs:
 
     - name: Build with Maven
       run: mvn clean package
+    - name: Add known hosts
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan -H ${{ secrets.ALIYUN_HOST }} >> ~/.ssh/known_hosts
 
     - name: Deploy to server
       env:
