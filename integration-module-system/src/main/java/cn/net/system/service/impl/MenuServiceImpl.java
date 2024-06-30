@@ -92,6 +92,7 @@ public class MenuServiceImpl implements IMenuService {
         menu.setUpdateTime(date);
         menu.setCreateBy("admin");
         menu.setUpdateBy("admin");
+        menu.setDelFlag(CommonConstant.DEL_FLAG_0);
         int i = menuMapper.addMenu(menu);
         if (i > 0) {
             return Response.success("新增菜单成功");
