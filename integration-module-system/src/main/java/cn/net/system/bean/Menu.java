@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @ClassName Menu
- * @Description @TODO
+ * @Description 菜单实例
  * @Author ycl
  * @Date 2024/4/28 下午12:48
  * @Version 1.0
@@ -109,7 +109,7 @@ public class Menu implements Serializable {
     /**
      * 删除状态 0正常 1已删除
      */
-    private Integer delFlag;
+    private Integer delFlag = 0;
 
     /**
      * 是否配置菜单的数据权限 1是0否 默认0
@@ -119,12 +119,12 @@ public class Menu implements Serializable {
     /**
      * 是否隐藏路由菜单: 0否,1是（默认值0）
      */
-    private boolean hidden;
+    private boolean hidden = false;
 
     /**
      * 是否隐藏Tab: 0否,1是（默认值0）
      */
-    private boolean hideTab;
+    private boolean hideTab = false;
 
     /**
      * 创建时间

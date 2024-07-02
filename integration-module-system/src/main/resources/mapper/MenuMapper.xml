@@ -97,8 +97,6 @@
             hidden               = #{hidden},
             hide_tab             = #{hideTab},
             description          = #{description},
-            create_by            = #{createBy},
-            create_time          = #{createTime},
             update_by            = #{updateBy},
             update_time          = #{updateTime},
             del_flag             = #{delFlag},
