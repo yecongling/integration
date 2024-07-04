@@ -1,10 +1,12 @@
 package cn.net.system.service.impl;
 
+import cn.net.base.bean.SysOpr;
 import cn.net.base.constant.CommonConstant;
 import cn.net.base.constant.SymbolConstant;
 import cn.net.base.core.Response;
 import cn.net.base.utils.ConvertUtils;
 import cn.net.base.utils.UUIDUtils;
+import cn.net.framework.utils.ServletUtils;
 import cn.net.system.bean.Menu;
 import cn.net.system.mapper.MenuMapper;
 import cn.net.system.service.IMenuService;
@@ -28,9 +30,16 @@ public class MenuServiceImpl implements IMenuService {
 
     private final MenuMapper menuMapper;
 
+    private ServletUtils servletUtils;
+
     @Autowired
     public MenuServiceImpl(MenuMapper menuMapper) {
         this.menuMapper = menuMapper;
+    }
+
+    @Autowired
+    public void setServletUtils(ServletUtils servletUtils) {
+        this.servletUtils = servletUtils;
     }
 
     /**
@@ -88,10 +97,12 @@ public class MenuServiceImpl implements IMenuService {
         // 设置一些必要属性
         Date date = new Date();
         menu.setId(UUIDUtils.getUniqueId());
+        // 获取当前操作员
+        SysOpr sysOpr = servletUtils.getSysOpr();
         menu.setCreateTime(date);
         menu.setUpdateTime(date);
-        menu.setCreateBy("admin");
-        menu.setUpdateBy("admin");
+        menu.setCreateBy(sysOpr.getUserId());
+        menu.setUpdateBy(sysOpr.getUserId());
         menu.setDelFlag(CommonConstant.DEL_FLAG_0);
         int i = menuMapper.addMenu(menu);
         if (i > 0) {
@@ -112,8 +123,9 @@ public class MenuServiceImpl implements IMenuService {
         Date date = new Date();
         menu.setCreateTime(date);
         menu.setUpdateTime(date);
-        menu.setCreateBy("admin");
-        menu.setUpdateBy("admin");
+        // 获取当前操作员
+        SysOpr sysOpr = servletUtils.getSysOpr();
+        menu.setUpdateBy(sysOpr.getUserId());
         int i = menuMapper.updateMenu(menu);
         if (i > 0) {
             return Response.success("修改菜单成功");
@@ -370,7 +382,7 @@ public class MenuServiceImpl implements IMenuService {
      * 判断是否外网URL 例如： <a href="http://localhost:8080/jeecg-boot/swagger-ui.html#/">...</a> 支持特殊格式： {{
      * window._CONFIG['domianURL'] }}/druid/ {{ JS代码片段 }}，前台解析会自动执行JS代码片段
      *
-     * @return
+     * @return true / false
      */
     private boolean isWwwHttpUrl(String url) {
         return url != null && (url.startsWith(CommonConstant.HTTP_PROTOCOL) || url.startsWith(CommonConstant.HTTPS_PROTOCOL) || url.startsWith(SymbolConstant.DOUBLE_LEFT_CURLY_BRACKET));
@@ -380,7 +392,7 @@ public class MenuServiceImpl implements IMenuService {
      * 通过URL生成路由name（去掉URL前缀斜杠，替换内容中的斜杠‘/’为-） 举例： URL = /system/role RouteName =
      * system-role
      *
-     * @return
+     * @return /
      */
     private String urlToRouteName(String url) {
         if (ConvertUtils.isNotEmpty(url)) {
