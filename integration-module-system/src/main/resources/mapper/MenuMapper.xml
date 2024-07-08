@@ -77,32 +77,15 @@
     </insert>
 
     <!-- 更新菜单 -->
-    <update id="updateMenu" parameterType="cn.net.system.bean.Menu">
+    <update id="updateMenu" parameterType="map">
         update integration.t_sys_permission
-        set parent_id            = #{parentId},
-            name                 = #{name},
-            url                  = #{url},
-            component            = #{component},
-            component_name       = #{componentName},
-            redirect             = #{redirect},
-            menu_type            = #{menuType},
-            perms                = #{perms},
-            perms_type           = #{permsType},
-            sort_no              = #{sortNo},
-            always_show          = #{alwaysShow},
-            icon                 = #{icon},
-            is_route             = #{route},
-            is_leaf              = #{leaf},
-            keep_alive           = #{keepAlive},
-            hidden               = #{hidden},
-            hide_tab             = #{hideTab},
-            description          = #{description},
-            update_by            = #{updateBy},
-            update_time          = #{updateTime},
-            del_flag             = #{delFlag},
-            rule_flag            = #{ruleFlag},
-            status               = #{status},
-            internal_or_external = #{internalOrExternal}
+        <set>
+            <foreach collection="map" index="key" item="value" separator=",">
+                <if test="key != 'id' and value != null">
+                    ${key} = #{value}
+                </if>
+            </foreach>
+        </set>
         where id = #{id}
     </update>
 

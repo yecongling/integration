@@ -1,5 +1,7 @@
 package cn.net.system.bean;
 
+import cn.net.framework.annotation.Column;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ public class Menu implements Serializable {
     /**
      * 父id
      */
+    @Column("parent_id")
     private String parentId;
 
     /**
@@ -44,6 +47,7 @@ public class Menu implements Serializable {
     /**
      * 权限策略1显示2禁用
      */
+    @Column("perms_type")
     private String permsType;
 
     /**
@@ -59,6 +63,7 @@ public class Menu implements Serializable {
     /**
      * 组件名字
      */
+    @Column("component_name")
     private String componentName;
 
     /**
@@ -73,27 +78,31 @@ public class Menu implements Serializable {
     /**
      * 菜单排序
      */
+    @Column("sort_no")
     private Double sortNo;
 
     /**
      * 类型（0：一级菜单；1：子菜单 ；2：按钮权限）
      */
+    @Column("menu_type")
     private Integer menuType;
 
     /**
      * 是否叶子节点: 1:是  0:不是
      */
+    @Column("is_leaf")
     private boolean leaf;
 
     /**
      * 是否路由菜单: 0:不是  1:是（默认值1）
      */
-    private boolean route;
-
+    @Column("is_route")
+    private boolean route = true;
 
     /**
      * 是否缓存页面: 0:不是  1:是（默认值1）
      */
+    @Column("keep_alive")
     private boolean keepAlive;
 
     /**
@@ -104,17 +113,20 @@ public class Menu implements Serializable {
     /**
      * 创建人
      */
+    @Column("create_by")
     private String createBy;
 
     /**
      * 删除状态 0正常 1已删除
      */
+    @Column("del_flag")
     private Integer delFlag = 0;
 
     /**
      * 是否配置菜单的数据权限 1是0否 默认0
      */
-    private Integer ruleFlag;
+    @Column("rule_flag")
+    private Integer ruleFlag = 0;
 
     /**
      * 是否隐藏路由菜单: 0否,1是（默认值0）
@@ -124,21 +136,25 @@ public class Menu implements Serializable {
     /**
      * 是否隐藏Tab: 0否,1是（默认值0）
      */
+    @Column("hide_tab")
     private boolean hideTab = false;
 
     /**
      * 创建时间
      */
+    @Column("create_time")
     private Date createTime;
 
     /**
      * 更新人
      */
+    @Column("update_by")
     private String updateBy;
 
     /**
      * 更新时间
      */
+    @Column("update_time")
     private Date updateTime;
 
     /**
@@ -149,11 +165,13 @@ public class Menu implements Serializable {
     /**
      * alwaysShow
      */
+    @Column("always_show")
     private boolean alwaysShow;
 
     /**
      * 外链菜单打开方式 0/内部打开 1/外部打开
      */
+    @Column("internal_or_external")
     private boolean internalOrExternal;
 
     /**
@@ -178,7 +196,6 @@ public class Menu implements Serializable {
             this.ruleFlag = 0;
             this.delFlag = 0;
             this.alwaysShow = false;
-            this.route = true;
             this.keepAlive = true;
             this.leaf = true;
             this.hidden = false;

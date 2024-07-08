@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName MenuMapper
@@ -52,10 +53,10 @@ public interface MenuMapper {
     /**
      * 更新菜单
      *
-     * @param menu 菜单对象
+     * @param menu 菜单对象数据
      * @return -
      */
-    int updateMenu(Menu menu);
+    int updateMenu(Map<String, Object> menu);
 
     /**
      * 删除菜单

@@ -79,7 +79,7 @@ public class MenuController {
      * @return 新增成功或失败
      */
     @RequestMapping(value = "/updatePermission", method = RequestMethod.POST)
-    public Response<String> updatePermission(@RequestBody Menu sysPermission) {
+    public Response<String> updatePermission(@RequestBody Menu sysPermission) throws Exception{
         return menuService.updateMenu(sysPermission);
     }
 

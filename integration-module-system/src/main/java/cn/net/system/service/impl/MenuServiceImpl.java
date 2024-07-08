@@ -6,6 +6,7 @@ import cn.net.base.constant.SymbolConstant;
 import cn.net.base.core.Response;
 import cn.net.base.utils.ConvertUtils;
 import cn.net.base.utils.UUIDUtils;
+import cn.net.framework.annotation.Column;
 import cn.net.framework.utils.ServletUtils;
 import cn.net.system.bean.Menu;
 import cn.net.system.mapper.MenuMapper;
@@ -16,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 /**
@@ -103,7 +105,6 @@ public class MenuServiceImpl implements IMenuService {
         menu.setUpdateTime(date);
         menu.setCreateBy(sysOpr.getUserId());
         menu.setUpdateBy(sysOpr.getUserId());
-        menu.setDelFlag(CommonConstant.DEL_FLAG_0);
         int i = menuMapper.addMenu(menu);
         if (i > 0) {
             return Response.success("新增菜单成功");
@@ -118,15 +119,15 @@ public class MenuServiceImpl implements IMenuService {
      * @return 结果
      */
     @Override
-    public Response<String> updateMenu(Menu menu) {
+    public Response<String> updateMenu(Menu menu) throws Exception{
         // 设置一些必要属性
         Date date = new Date();
-        menu.setCreateTime(date);
         menu.setUpdateTime(date);
         // 获取当前操作员
         SysOpr sysOpr = servletUtils.getSysOpr();
         menu.setUpdateBy(sysOpr.getUserId());
-        int i = menuMapper.updateMenu(menu);
+        Map<String, Object> map = mapEntityFields(menu);
+        int i = menuMapper.updateMenu(map);
         if (i > 0) {
             return Response.success("修改菜单成功");
         }
@@ -407,5 +408,29 @@ public class MenuServiceImpl implements IMenuService {
         } else {
             return null;
         }
+    }
+
+    /**
+     * map传参
+     * @param entity 实例
+     * @return map
+     * @throws Exception -
+     */
+    public Map<String, Object> mapEntityFields(Menu entity) throws Exception {
+        Map<String, Object> fieldMap = new HashMap<>();
+        Field[] fields = entity.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            Object value = field.get(entity);
+            if (value != null) {
+                Column column = field.getAnnotation(Column.class);
+                if (column != null) {
+                    fieldMap.put(column.value(), value);
+                } else {
+                    fieldMap.put(field.getName(), value);
+                }
+            }
+        }
+        return fieldMap;
     }
 }

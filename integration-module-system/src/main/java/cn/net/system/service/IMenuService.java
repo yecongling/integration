@@ -53,7 +53,7 @@ public interface IMenuService {
      * @param menu 菜单对象
      * @return 结果
      */
-    Response<String> updateMenu(Menu menu);
+    Response<String> updateMenu(Menu menu) throws Exception;
 
     /**
      * 删除菜单
