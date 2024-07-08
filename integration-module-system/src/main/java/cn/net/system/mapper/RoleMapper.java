@@ -12,10 +12,18 @@ import java.util.List;
 public interface RoleMapper {
 
     /**
+     * 查询角色信息
+     *
+     * @param role 角色信息
+     * @return 角色列表
+     */
+    List<Role> selectRoleList(Role role);
+
+    /**
      * 根据用户ID查询角色
      *
      * @param userId 用户id
      * @return 角色信息
      */
-    List<Role> selectByUserId(Long userId);
+    List<Role> selectByUserId(String userId);
 }
