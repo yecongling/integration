@@ -3,7 +3,7 @@ package cn.net.system.service.impl;
 import cn.net.base.core.Response;
 import cn.net.system.bean.SysUser;
 import cn.net.system.mapper.UserMapper;
-import cn.net.system.service.ISysUserService;
+import cn.net.system.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +17,12 @@ import java.util.List;
  * @Version 1.0
  */
 @Service
-public class SysUserServiceImpl implements ISysUserService {
+public class UserServiceImpl implements IUserService {
 
     private final UserMapper userMapper;
 
     @Autowired
-    public SysUserServiceImpl(UserMapper userMapper) {
+    public UserServiceImpl(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
 

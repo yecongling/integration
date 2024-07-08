@@ -14,7 +14,7 @@ import java.util.List;
  * @Date 2024/4/28 下午1:51
  * @Version 1.0
  */
-public interface ISysUserService {
+public interface IUserService {
     /**
      * 查询所有的用户
      *

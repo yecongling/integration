@@ -16,15 +16,15 @@ CREATE TABLE `t_sys_user`
     `salt`           varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci       NULL DEFAULT NULL COMMENT 'md5密码盐',
     `avatar`         varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '头像',
     `birthday`       datetime                                                     NULL DEFAULT NULL COMMENT '生日',
-    `sex`            tinyint(1)                                                   NULL DEFAULT NULL COMMENT '性别(0-默认未知,1-男,2-女)',
+    `sex`            tinyint(1)                                                   NULL DEFAULT 0 COMMENT '性别(0-默认未知,1-男,2-女)',
     `email`          varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci       NULL DEFAULT NULL COMMENT '电子邮件',
     `phone`          varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci       NULL DEFAULT NULL COMMENT '电话',
     `org_code`       varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci       NULL DEFAULT NULL COMMENT '登录会话的机构编码',
-    `status`         tinyint(1)                                                   NULL DEFAULT NULL COMMENT '状态(1-正常,2-冻结)',
-    `del_flag`       tinyint(1)                                                   NULL DEFAULT NULL COMMENT '删除状态(0-正常,1-已删除)',
+    `status`         tinyint(1)                                                   NULL DEFAULT 1 COMMENT '状态(1-正常,2-冻结)',
+    `del_flag`       tinyint(1)                                                   NULL DEFAULT 0 COMMENT '删除状态(0-正常,1-已删除)',
     `third_id`       varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '第三方登录的唯一标识',
     `third_type`     varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '第三方类型',
-    `activity_sync`  tinyint(1)                                                   NULL DEFAULT NULL COMMENT '同步工作流引擎(1-同步,0-不同步)',
+    `activity_sync`  tinyint(1)                                                   NULL DEFAULT 0 COMMENT '同步工作流引擎(1-同步,0-不同步)',
     `work_no`        varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '工号，唯一键',
     `post`           varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '职务，关联职务表',
     `telephone`      varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci       NULL DEFAULT NULL COMMENT '座机号',
@@ -32,7 +32,7 @@ CREATE TABLE `t_sys_user`
     `create_time`    datetime                                                     NOT NULL COMMENT '创建日期',
     `update_by`      varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
     `update_time`    datetime                                                     NOT NULL COMMENT '更新日期',
-    `user_identity`  tinyint(1)                                                   NULL DEFAULT NULL COMMENT '身份（1普通成员 2上级）',
+    `user_identity`  tinyint(1)                                                   NULL DEFAULT 1 COMMENT '身份（1普通成员 2上级）',
     `depart_ids`     longtext CHARACTER SET utf8 COLLATE utf8_general_ci          NULL COMMENT '负责部门',
     `rel_tenant_ids` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '多租户标识',
     `client_id`      varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci       NULL DEFAULT NULL COMMENT '设备ID',
@@ -53,20 +53,20 @@ CREATE TABLE `t_sys_user`
 DROP TABLE IF EXISTS `t_sys_role`;
 CREATE TABLE `t_sys_role`
 (
-    `id`          varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci       NOT NULL COMMENT '主键id',
-    `role_name`   varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '角色名称',
-    `role_code`   varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci      NOT NULL COMMENT '角色编码',
-    `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '描述',
-    `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
-    `create_time` datetime                                                     NOT NULL COMMENT '创建日期',
-    `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
-    `update_time` datetime                                                     NOT NULL COMMENT '更新日期',
-    PRIMARY KEY (`id`) USING BTREE,
-    UNIQUE INDEX `uniq_sys_role_role_code` (`role_code`) USING BTREE,
-    INDEX `idx_sr_role_code` (`role_code`) USING BTREE
+    `role_id`          varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '主键id',
+    `role_name`   varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL     DEFAULT NULL COMMENT '角色名称',
+    `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL     DEFAULT NULL COMMENT '描述',
+    `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '创建人',
+    `create_time` datetime                                                      NOT NULL COMMENT '创建日期',
+    `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '更新人',
+    `update_time` datetime                                                      NOT NULL COMMENT '更新日期',
+    `status`      tinyint(1)                                                    NOT NULL DEFAULT 1 comment '角色状态',
+    PRIMARY KEY (`role_id`) USING BTREE,
+    UNIQUE INDEX `uniq_sys_role_name` (`role_name`) USING BTREE,
+    INDEX `idx_sr_role_name` (`role_name`) USING BTREE
 ) ENGINE = InnoDB
-  CHARACTER SET = utf8
-  COLLATE = utf8_general_ci COMMENT = '角色表'
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_general_ci COMMENT = '角色表'
   ROW_FORMAT = Dynamic;
 
 /* 新建用户角色关联表 */
