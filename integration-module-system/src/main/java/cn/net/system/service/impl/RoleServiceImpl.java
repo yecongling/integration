@@ -32,7 +32,7 @@ public class RoleServiceImpl implements IRoleService {
      */
     @Override
     public List<Role> selectRoleList(Role role) {
-        return List.of();
+        return roleMapper.selectRoleList(role);
     }
 
     /**

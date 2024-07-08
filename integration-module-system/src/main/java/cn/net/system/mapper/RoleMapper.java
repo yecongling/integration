@@ -26,4 +26,36 @@ public interface RoleMapper {
      * @return 角色信息
      */
     List<Role> selectByUserId(String userId);
+
+    /**
+     * 新增角色
+     *
+     * @param role 角色
+     * @return 受影响的行数
+     */
+    int addRole(Role role);
+
+    /**
+     * 更新角色
+     *
+     * @param role 角色信息
+     * @return 受影响的行数
+     */
+    int updateRole(Role role);
+
+    /**
+     * 删除角色
+     *
+     * @param id 角色ID
+     * @return 受影响的行数
+     */
+    int deleteRole(String id);
+
+    /**
+     * 给角色分配菜单
+     *
+     * @param role 角色信息（包含菜单）
+     * @return 成功或失败
+     */
+    boolean assignMenuToRole(Role role);
 }
