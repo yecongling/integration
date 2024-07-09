@@ -1,11 +1,15 @@
 package cn.net.system.service.impl;
 
+import cn.net.base.bean.SysOpr;
+import cn.net.base.utils.UUIDUtils;
+import cn.net.framework.utils.ServletUtils;
 import cn.net.system.bean.Role;
 import cn.net.system.mapper.RoleMapper;
 import cn.net.system.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,9 +23,17 @@ import java.util.List;
 public class RoleServiceImpl implements IRoleService {
 
     private RoleMapper roleMapper;
+
+    private ServletUtils servletUtils;
+
     @Autowired
     public void setRoleMapper(RoleMapper roleMapper) {
         this.roleMapper = roleMapper;
+    }
+
+    @Autowired
+    public void setServletUtils(ServletUtils servletUtils) {
+        this.servletUtils = servletUtils;
     }
 
     /**
@@ -43,7 +55,7 @@ public class RoleServiceImpl implements IRoleService {
      */
     @Override
     public Role selectRoleById(String roleId) {
-        return null;
+        return roleMapper.selectRoleById(roleId);
     }
 
     /**
@@ -54,7 +66,16 @@ public class RoleServiceImpl implements IRoleService {
      */
     @Override
     public Boolean insertRole(Role role) {
-        return null;
+        Date date = new Date();
+        role.setCreateTime(date);
+        role.setUpdateTime(date);
+        // 获取操作员
+        SysOpr sysOpr = servletUtils.getSysOpr();
+        role.setCreateBy(sysOpr.getUserId());
+        role.setUpdateBy(sysOpr.getUserId());
+        // 生成id
+        role.setRoleId(UUIDUtils.getUniqueId());
+        return roleMapper.addRole(role) > 0;
     }
 
     /**

@@ -28,6 +28,14 @@ public interface RoleMapper {
     List<Role> selectByUserId(String userId);
 
     /**
+     * 根据角色id查询角色信息
+     *
+     * @param roleId 角色id
+     * @return 角色信息
+     */
+    Role selectRoleById(String roleId);
+
+    /**
      * 新增角色
      *
      * @param role 角色
