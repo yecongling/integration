@@ -1,7 +1,5 @@
 package cn.net.base.bean;
 
-import org.springframework.stereotype.Component;
-
 /**
  * @ClassName SnowFlakeUtil
  * @Description 雪花算法，生成id
@@ -9,7 +7,6 @@ import org.springframework.stereotype.Component;
  * @Date 2022/11/8 12:00
  * @Version 1.0
  */
-@Component
 public class SnowFlakeGenerator {
 
     private static final long EPOCH = 1288834974657L;

@@ -1,7 +1,7 @@
 package cn.net.system.service.impl;
 
+import cn.net.base.bean.SnowFlakeGenerator;
 import cn.net.base.bean.SysOpr;
-import cn.net.base.utils.UUIDUtils;
 import cn.net.framework.utils.ServletUtils;
 import cn.net.system.bean.Role;
 import cn.net.system.mapper.RoleMapper;
@@ -25,6 +25,8 @@ public class RoleServiceImpl implements IRoleService {
     private RoleMapper roleMapper;
 
     private ServletUtils servletUtils;
+    // 雪花ID
+    private SnowFlakeGenerator snowFlakeGenerator;
 
     @Autowired
     public void setRoleMapper(RoleMapper roleMapper) {
@@ -34,6 +36,10 @@ public class RoleServiceImpl implements IRoleService {
     @Autowired
     public void setServletUtils(ServletUtils servletUtils) {
         this.servletUtils = servletUtils;
+    }
+    @Autowired
+    public void setSnowFlakeGenerator(SnowFlakeGenerator snowFlakeGenerator) {
+        this.snowFlakeGenerator = snowFlakeGenerator;
     }
 
     /**
@@ -74,7 +80,7 @@ public class RoleServiceImpl implements IRoleService {
         role.setCreateBy(sysOpr.getUserId());
         role.setUpdateBy(sysOpr.getUserId());
         // 生成id
-        role.setRoleId(UUIDUtils.getUniqueId());
+        role.setRoleId(snowFlakeGenerator.generateUniqueId());
         return roleMapper.addRole(role) > 0;
     }
 
