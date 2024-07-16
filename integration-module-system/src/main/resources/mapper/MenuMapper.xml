@@ -18,17 +18,20 @@
     <select id="getAllMenus" parameterType="object" resultMap="menu">
         select *
         from t_sys_permission
-        <where>
-            <if test="menu.name != null and menu.name != ''">
-                and INSTR(`name`, #{menu.name}) > 0
-            </if>
-            <if test="menu.menu_type != null and menu.menu_type != '-1'">
-                and menu_type = #{menu.menu_type}
-            </if>
-            <if test="menu.hidden != null and menu.hidden != '-1'">
-                and hidden = #{menu.hidden}
-            </if>
-        </where>
+        <if test="menu != null">
+            <where>
+                <if test="menu.name != null and menu.name != ''">
+                    and INSTR(`name`, #{menu.name}) > 0
+                </if>
+                <if test="menu.menu_type != null and menu.menu_type != '-1'">
+                    and menu_type = #{menu.menu_type}
+                </if>
+                <if test="menu.hidden != null and menu.hidden != '-1'">
+                    and hidden = #{menu.hidden}
+                </if>
+            </where>
+        </if>
+
         order by sort_no asc
     </select>
 

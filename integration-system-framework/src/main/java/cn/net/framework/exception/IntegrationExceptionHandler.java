@@ -4,6 +4,7 @@ import cn.net.base.bean.SysOpr;
 import cn.net.base.core.Response;
 import cn.net.framework.netty.service.PushMsgService;
 import cn.net.framework.utils.ServletUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -44,6 +45,11 @@ public class IntegrationExceptionHandler {
             // 消息推送
             pushMsgService.pushMsgToOne(sysOpr.getUserId(), ExceptionUtils.getStackTrace(e));
         }
-        return Response.error(e.getMessage());
+        // 有时候e.getMessage可能返回的是null数据，无法进行错误的判断
+        String errorMsg = e.getMessage();
+        if (StringUtils.isBlank(errorMsg)) {
+            errorMsg = ExceptionUtils.getStackTrace(e);
+        }
+        return Response.error(errorMsg);
     }
 }
