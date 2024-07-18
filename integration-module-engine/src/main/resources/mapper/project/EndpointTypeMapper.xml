@@ -47,14 +47,16 @@
         teep.masked
         from t_engine_endpoint_type type
         left join integration.t_engine_endpoint_properties teep on type.name = teep.endpoint_type
-        <where>
-            <if test="name != null and name != ''">
-                and teep.name = #{name}
-            </if>
-            <if test="supportedModes != null and supportedModes != ''">
-                and instr(supported_modes, #{supportedModes}) > 0
-            </if>
-        </where>
+        <if test="et != null">
+            <where>
+                <if test="et.name != null and et.name != ''">
+                    and teep.name = #{et.name}
+                </if>
+                <if test="et.supportedModes != null and et.supportedModes != ''">
+                    and instr(supported_modes, #{et.supportedModes}) > 0
+                </if>
+            </where>
+        </if>
     </select>
 
     <!-- 新增端点类型 -->

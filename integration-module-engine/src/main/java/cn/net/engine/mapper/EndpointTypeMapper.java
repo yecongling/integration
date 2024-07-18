@@ -37,7 +37,7 @@ public interface EndpointTypeMapper {
      * @param endpointType 端点类型查询条件
      * @return 端点类型集合
      */
-    List<EndpointType> getEndpointTypes(EndpointType endpointType);
+    List<EndpointType> getEndpointTypes(@Param("et") EndpointType endpointType);
 
     /**
      * 添加端点类型
