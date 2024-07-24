@@ -62,11 +62,11 @@ public class UserArgResolver implements HandlerMethodArgumentResolver {
         HttpServletRequest request = SpringContextUtils.getHttpServletRequest();
         String token = request.getHeader("token");
         if (StringUtils.isBlank(token)) {
-            return null;
+            throw new RuntimeException("用户未进行登录，请登录后再进行下一步操作！");
         }
         Object o = redisUtil.get(token);
         if (ObjectUtils.isEmpty(o)) {
-            return null;
+            throw new RuntimeException("用户会话已失效，请重新登录！");
         }
         return (SysOpr) o;
     }

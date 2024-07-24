@@ -55,7 +55,6 @@ public class ProjectDesignController {
      */
     @PostMapping("/addProject")
     public boolean addProject(@RequestBody Project project, SysOpr sysOpr) {
-        System.out.println("当前登录的操作员" + sysOpr);
         return projectDesignService.addProject(project);
     }
 
