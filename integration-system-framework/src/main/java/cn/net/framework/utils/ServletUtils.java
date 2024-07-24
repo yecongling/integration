@@ -36,8 +36,8 @@ public class ServletUtils {
         String token = request.getHeader("token");
         Object o = redisUtil.get(token);
         if (ObjectUtils.isEmpty(o)) {
-            // 如果没取到，构建一个默认的操作员防止在取的时候出现空指针
-            return new SysOpr();
+            // 如果没取到，直接抛出异常，阻止进行下一步操作
+            throw new RuntimeException("用户为进行登录或会话已失效，请重新登录进行操作");
         }
         return (SysOpr) o;
     }
