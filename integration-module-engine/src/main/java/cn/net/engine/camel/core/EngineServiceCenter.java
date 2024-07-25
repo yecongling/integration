@@ -1,6 +1,8 @@
 package cn.net.engine.camel.core;
 
+import cn.net.engine.camel.endpoint.CxfEndpointFactory;
 import org.apache.camel.CamelContext;
+import org.apache.camel.Endpoint;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.spi.RouteController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,14 @@ public class EngineServiceCenter {
     }
 
     /**
+     * 发布webservice 服务
+     */
+    public void publishWebservice() throws Exception {
+        Endpoint endpoint = CxfEndpointFactory.createEndpoint();
+        camelContext.addEndpoint("cxfEndpoint", endpoint);
+    }
+
+    /**
      * 发布服务
      *
      * @param routesBuilder 构建的路由结构
@@ -32,6 +42,8 @@ public class EngineServiceCenter {
      */
     public Object publishService(RoutesBuilder routesBuilder) {
         try {
+            publishWebservice();
+
             camelContext.addRoutes(routesBuilder);
         } catch (Exception e) {
             System.out.println("服务发布失败，原因：" + e.getMessage());
