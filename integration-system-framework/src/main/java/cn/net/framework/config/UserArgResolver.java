@@ -68,6 +68,6 @@ public class UserArgResolver implements HandlerMethodArgumentResolver {
         if (ObjectUtils.isEmpty(o)) {
             throw new RuntimeException("用户会话已失效，请重新登录！");
         }
-        return (SysOpr) o;
+        return o;
     }
 }

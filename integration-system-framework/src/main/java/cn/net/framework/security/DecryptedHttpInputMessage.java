@@ -7,6 +7,7 @@ import org.springframework.http.HttpInputMessage;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -38,7 +39,7 @@ public class DecryptedHttpInputMessage implements HttpInputMessage {
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
         byte[] decryptedKeyBytes = cipher.doFinal(Base64.getDecoder().decode(encryptedKey));
-        String aesKey = new String(decryptedKeyBytes);
+        String aesKey = new String(decryptedKeyBytes, StandardCharsets.UTF_8);
 
         // 读取请求体并解密
         String encryptedData = inputStreamToString(inputMessage.getBody());
@@ -93,12 +94,12 @@ public class DecryptedHttpInputMessage implements HttpInputMessage {
      * @throws Exception
      */
     private String decrypt(String data, String aesKey) throws Exception {
-        SecretKeySpec secretKey = new SecretKeySpec(aesKey.getBytes(), "AES");
-        Cipher aesCipher = Cipher.getInstance("AES");
+        SecretKeySpec secretKey = new SecretKeySpec(aesKey.getBytes(StandardCharsets.UTF_8), "AES");
+        Cipher aesCipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         aesCipher.init(Cipher.DECRYPT_MODE, secretKey);
         byte[] decodedBytes = Base64.getDecoder().decode(data);
         byte[] decryptedBytes = aesCipher.doFinal(decodedBytes);
-        return new String(decryptedBytes);
+        return new String(decryptedBytes, StandardCharsets.UTF_8);
     }
 
     /**

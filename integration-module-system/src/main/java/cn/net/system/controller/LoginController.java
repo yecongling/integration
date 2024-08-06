@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
  * 登录入口
  */
 @RestController
-@RequestMapping("/system")
 @Tag(name = "登录控制器", description = "登录模块使用")
 public class LoginController {
 

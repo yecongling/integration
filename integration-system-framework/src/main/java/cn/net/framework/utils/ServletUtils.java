@@ -34,6 +34,11 @@ public class ServletUtils {
         // 从request中获取token，然后在redis中获取该操作员
         HttpServletRequest request = SpringContextUtils.getHttpServletRequest();
         String token = request.getHeader("token");
+        // 如果是登录地址进来，这里是获取不到操作员的（这里是mybatis拦截器那里可能会拦截登录的sql取操作员）
+        String requestURI = request.getRequestURI();
+        if ("/integration/login".equals(requestURI)) {
+            return null;
+        }
         Object o = redisUtil.get(token);
         if (ObjectUtils.isEmpty(o)) {
             // 如果没取到，直接抛出异常，阻止进行下一步操作

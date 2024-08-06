@@ -13,7 +13,7 @@ public class Response<T> implements Serializable {
     // 返回代码
     private int code;
     // 返回消息
-    private String msg = "";
+    private String message = "";
     // 返回数据
     private T data;
 
@@ -32,7 +32,7 @@ public class Response<T> implements Serializable {
      */
     public Response(int code, String msg, T data) {
         this.code = code;
-        this.msg = msg;
+        this.message = msg;
         this.data = data;
     }
 
@@ -63,7 +63,7 @@ public class Response<T> implements Serializable {
         Response<T> r = new Response<T>();
         r.setCode(200);
         r.setData((T) msg);
-        r.setMsg(msg);
+        r.setMessage(msg);
         return r;
     }
 
@@ -92,7 +92,7 @@ public class Response<T> implements Serializable {
     public static <T> Response<T> success(String msg, T data) {
         Response<T> r = new Response<T>();
         r.setCode(200);
-        r.setMsg(msg);
+        r.setMessage(msg);
         r.setData(data);
         return r;
     }
@@ -100,7 +100,7 @@ public class Response<T> implements Serializable {
     public static <T> Response<T> error(String msg, T data) {
         Response<T> r = new Response<T>();
         r.setCode(500);
-        r.setMsg(msg);
+        r.setMessage(msg);
         r.setData(data);
         return r;
     }
@@ -112,12 +112,12 @@ public class Response<T> implements Serializable {
     public static <T> Response<T> error(int code, String msg) {
         Response<T> r = new Response<T>();
         r.setCode(code);
-        r.setMsg(msg);
+        r.setMessage(msg);
         return r;
     }
 
     public Response<T> error500(String message) {
-        this.msg = message;
+        this.message = message;
         this.code = 500;
         return this;
     }
@@ -130,12 +130,12 @@ public class Response<T> implements Serializable {
         this.code = code;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setMessage(String msg) {
+        this.message = msg;
     }
 
     public T getData() {
