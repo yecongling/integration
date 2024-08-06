@@ -38,7 +38,7 @@ public class LoginController {
         // 如果校验有误，返回登录失败以及错误信息
         if (errors.hasErrors()) {
             response.setCode(500);
-            response.setMsg(errors.getAllErrors().get(0).getDefaultMessage());
+            response.setMessage(errors.getAllErrors().get(0).getDefaultMessage());
             return response;
         }
         // 调用登录服务

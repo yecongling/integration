@@ -41,14 +41,14 @@ public class LoginInterceptor implements HandlerInterceptor {
         Response<String> result = new Response<>();
         if (StringUtils.isBlank(token)) {
             result.setCode(403);
-            result.setMsg("用户未登录，无法进行业务请求！");
+            result.setMessage("用户未登录，无法进行业务请求！");
             response.getWriter().write(JSONObject.toJSONString(result));
             return false;
         }
         // 从redis中获取数据，判定token是否有效
         if (!redisUtil.hasKey(token)) {
             result.setCode(403);
-            result.setMsg("会话已失效！请重新登录");
+            result.setMessage("会话已失效！请重新登录");
             response.getWriter().write(JSONObject.toJSONString(result));
             return false;
         }
