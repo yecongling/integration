@@ -52,3 +52,6 @@ spring:
           min-idle: 8
 mybatis:
   mapper-locations: classpath*:mapper/**/*.xml
+
+file:
+  upload-path: ./uploads
