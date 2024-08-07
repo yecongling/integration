@@ -89,8 +89,8 @@ public class MenuController {
      * @param id 菜单ID
      * @return 新增成功或失败
      */
-    @RequestMapping(value = "/deletePermission", method = RequestMethod.POST)
-    public Response<Object> deletePermission(@RequestBody String id) {
+    @RequestMapping(value = "/deletePermission", method = RequestMethod.DELETE)
+    public Response<Object> deletePermission(@RequestParam(name = "id") String id) {
         return menuService.deleteMenu(id);
     }
 }

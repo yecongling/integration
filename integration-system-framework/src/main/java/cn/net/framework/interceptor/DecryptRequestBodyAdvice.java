@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 
 /**
  * @ClassName DecryptRequestBodyAdvice
- * @Description 后端解密
+ * @Description 后端解密（使用了@requestBody注解标明的参数都是需要走这里来解密的）
  * @Author ycl
  * @Date 2024/8/5 下午5:26
  * @Version 1.0
