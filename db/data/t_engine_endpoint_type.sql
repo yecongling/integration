@@ -30,7 +30,7 @@ CREATE TABLE `t_engine_endpoint_type`
     `create_time`     datetime                                                     NOT NULL COMMENT '创建时间',
     `update_by`       varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
     `update_time`     datetime                                                     NOT NULL COMMENT '更新时间',
-    `category`        varchar(16)                                                  DEFAULT NULL COMMENT '所属分类',
+    `parent_id`       varchar(16)                                                  DEFAULT NULL COMMENT '父节点',
     PRIMARY KEY (`id`) USING BTREE,
     KEY `idx_endpoint_id` (`id`) USING BTREE
 ) ENGINE = InnoDB
