@@ -9,7 +9,7 @@ WHERE row_num BETWEEN 0 AND 10;
 DROP TABLE IF EXISTS `t_sys_user`;
 CREATE TABLE `t_sys_user`
 (
-    `id`             varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci       NOT NULL COMMENT '主键id',
+    `id`             varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci       NOT NULL COMMENT '主键id',
     `username`       varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '登录账号',
     `real_name`      varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '真实姓名',
     `password`       varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '密码',
@@ -28,9 +28,9 @@ CREATE TABLE `t_sys_user`
     `work_no`        varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '工号，唯一键',
     `post`           varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '职务，关联职务表',
     `telephone`      varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci       NULL DEFAULT NULL COMMENT '座机号',
-    `create_by`      varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
+    `create_by`      varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
     `create_time`    datetime                                                     NOT NULL COMMENT '创建日期',
-    `update_by`      varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
+    `update_by`      varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
     `update_time`    datetime                                                     NOT NULL COMMENT '更新日期',
     `user_identity`  tinyint(1)                                                   NULL DEFAULT 1 COMMENT '身份（1普通成员 2上级）',
     `depart_ids`     longtext CHARACTER SET utf8 COLLATE utf8_general_ci          NULL COMMENT '负责部门',
@@ -53,12 +53,12 @@ CREATE TABLE `t_sys_user`
 DROP TABLE IF EXISTS `t_sys_role`;
 CREATE TABLE `t_sys_role`
 (
-    `role_id`          varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '主键id',
+    `role_id`          varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '主键id',
     `role_name`   varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL     DEFAULT NULL COMMENT '角色名称',
     `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL     DEFAULT NULL COMMENT '描述',
-    `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '创建人',
+    `create_by`   varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '创建人',
     `create_time` datetime                                                      NOT NULL COMMENT '创建日期',
-    `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '更新人',
+    `update_by`   varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '更新人',
     `update_time` datetime                                                      NOT NULL COMMENT '更新日期',
     `status`      tinyint(1)                                                    NOT NULL DEFAULT 1 comment '角色状态',
     PRIMARY KEY (`role_id`) USING BTREE,
@@ -73,9 +73,9 @@ CREATE TABLE `t_sys_role`
 DROP TABLE IF EXISTS `t_sys_user_role`;
 CREATE TABLE `t_sys_user_role`
 (
-    `id`      varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '主键id',
-    `user_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户id',
-    `role_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色id',
+    `id`      varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '主键id',
+    `user_id` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户id',
+    `role_id` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色id',
     PRIMARY KEY (`id`) USING BTREE,
     INDEX `idx_sur_user_id` (`user_id`) USING BTREE,
     INDEX `idx_sur_role_id` (`role_id`) USING BTREE,
@@ -92,8 +92,8 @@ CREATE TABLE `t_sys_user_role`
 DROP TABLE IF EXISTS `t_sys_permission`;
 CREATE TABLE `t_sys_permission`
 (
-    `id`                   varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci       NOT NULL COMMENT '主键id',
-    `parent_id`            varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci       NULL DEFAULT NULL COMMENT '父id',
+    `id`                   varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci       NOT NULL COMMENT '主键id',
+    `parent_id`            varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci       NULL DEFAULT NULL COMMENT '父id',
     `name`                 varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '菜单标题',
     `url`                  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '路径',
     `component`            varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '组件',
@@ -111,9 +111,9 @@ CREATE TABLE `t_sys_permission`
     `hidden`               tinyint(1)                                                   NULL DEFAULT 0 COMMENT '是否隐藏路由: 0否,1是',
     `hide_tab`             tinyint(1)                                                   NULL DEFAULT NULL COMMENT '是否隐藏tab: 0否,1是',
     `description`          varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '描述',
-    `create_by`            varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
+    `create_by`            varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
     `create_time`          datetime                                                     NOT NULL COMMENT '创建日期',
-    `update_by`            varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
+    `update_by`            varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
     `update_time`          datetime                                                     NOT NULL COMMENT '更新日期',
     `del_flag`             int(1)                                                       NULL DEFAULT 0 COMMENT '删除状态 0正常 1已删除',
     `rule_flag`            int(3)                                                       NULL DEFAULT 0 COMMENT '是否添加数据权限1是0否',
@@ -141,13 +141,13 @@ CREATE TABLE `t_sys_permission`
 DROP TABLE IF EXISTS `t_sys_role_permission`;
 CREATE TABLE `t_sys_role_permission`
 (
-    `create_by`     varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
+    `create_by`     varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
     `create_time`   datetime                                                     NOT NULL COMMENT '创建日期',
-    `update_by`     varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
+    `update_by`     varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
     `update_time`   datetime                                                     NOT NULL COMMENT '更新日期',
-    `id`            varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci       NOT NULL,
-    `role_id`       varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci       NULL DEFAULT NULL COMMENT '角色id',
-    `permission_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci       NULL DEFAULT NULL COMMENT '权限id',
+    `id`            varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci       NOT NULL,
+    `role_id`       varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci       NULL DEFAULT NULL COMMENT '角色id',
+    `permission_id` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci       NULL DEFAULT NULL COMMENT '权限id',
     `data_rule_ids` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci     NULL DEFAULT NULL COMMENT '数据权限ids',
     `operate_date`  datetime                                                     NULL DEFAULT NULL COMMENT '操作时间',
     `operate_ip`    varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci      NULL DEFAULT NULL COMMENT '操作ip',
@@ -168,12 +168,12 @@ CREATE TABLE `t_sys_role_permission`
 DROP DATABASE IF EXISTS `t_engine_resource_category`;
 CREATE TABLE `t_engine_resource_category`
 (
-    `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
+    `create_by`   varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
     `create_time` datetime                                                     NOT NULL COMMENT '创建日期',
-    `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
+    `update_by`   varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
     `update_time` datetime                                                     NOT NULL COMMENT '更新日期',
-    `id`          varchar(32) character set utf8 collate utf8_general_ci       not null,
-    `parent_id`   varchar(32) character set utf8 collate utf8_general_ci       NULL default null comment '上级id',
+    `id`          varchar(16) character set utf8 collate utf8_general_ci       not null,
+    `parent_id`   varchar(16) character set utf8 collate utf8_general_ci       NULL default null comment '上级id',
     `name`        varchar(100) character set utf8 collate utf8_general_ci      NOT NULL comment '分类名称',
     primary key (`id`) using btree
 ) engine = InnoDB
@@ -186,12 +186,12 @@ CREATE TABLE `t_engine_resource_category`
 DROP DATABASE IF EXISTS `t_engine_resource`;
 CREATE TABLE `t_engine_resource`
 (
-    `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
+    `create_by`   varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
     `create_time` datetime                                                     NOT NULL COMMENT '创建日期',
-    `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
+    `update_by`   varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
     `update_time` datetime                                                     NOT NULL COMMENT '更新日期',
-    `id`          varchar(32) character set utf8 collate utf8_general_ci       not null,
-    `category_id` varchar(32) character set utf8 collate utf8_general_ci       not null comment '分类id',
+    `id`          varchar(16) character set utf8 collate utf8_general_ci       not null,
+    `category_id` varchar(16) character set utf8 collate utf8_general_ci       not null comment '分类id',
     `name`        varchar(100) character set utf8 collate utf8_general_ci      not null comment '资源名称',
     primary key (`id`) using btree
 ) engine = InnoDB
@@ -203,7 +203,7 @@ CREATE TABLE `t_engine_resource`
 DROP TABLE IF EXISTS `t_engine_datasource`;
 CREATE TABLE `t_engine_datasource`
 (
-    `id`                 varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL,
+    `id`                 varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL,
     `name`               varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '数据源名称',
     `remark`             varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
     `datasource_type`    varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '数据库类型',
@@ -217,9 +217,9 @@ CREATE TABLE `t_engine_datasource`
     `max_lifetime`       int                                                                default 30 not null COMMENT '连接存活时间',
     `min_idle`           int                                                                default 8 not null COMMENT '最小闲置连接数',
     `max_pool_size`      int                                                                default 20 not null COMMENT '最大连接池数量',
-    `create_by`          varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '创建人',
+    `create_by`          varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '创建人',
     `create_time`        datetime                                                      NOT NULL COMMENT '创建日期',
-    `update_by`          varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '更新人',
+    `update_by`          varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '更新人',
     `update_time`        datetime                                                      NOT NULL COMMENT '更新日期',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
@@ -231,10 +231,10 @@ CREATE TABLE `t_engine_datasource`
 drop table if exists `t_engine_project`;
 create table `t_engine_project`
 (
-    `id`          varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null comment '项目ID',
-    `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
+    `id`          varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null comment '项目ID',
+    `create_by`   varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
     `create_time` datetime                                                     NOT NULL COMMENT '创建日期',
-    `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
+    `update_by`   varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
     `update_time` datetime                                                     NOT NULL COMMENT '更新日期',
     `name`        varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL     DEFAULT NULL COMMENT '项目名',
     `type`        tinyint(1)                                                   NULL     DEFAULT NULL COMMENT '项目类型（1-集成项目 2-接口项目）',
@@ -257,10 +257,10 @@ drop table if exists `t_engine_variable`;
 create table `t_engine_variable`
 (
 
-    `id`          varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null comment '变量ID',
-    `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '创建人',
+    `id`          varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null comment '变量ID',
+    `create_by`   varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '创建人',
     `create_time` datetime                                                      NOT NULL COMMENT '创建日期',
-    `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '更新人',
+    `update_by`   varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '更新人',
     `update_time` datetime                                                      NOT NULL COMMENT '更新日期',
     `name`        varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '变量名字',
     `encrypt`     bit                                                           NULL DEFAULT NULL COMMENT '是否加密',
@@ -277,12 +277,12 @@ create table `t_engine_variable`
 drop table if exists t_engine_endpoint_properties;
 create table `t_engine_endpoint_properties`
 (
-    id               varchar(32)                                                  not null comment '端点类型唯一ID',
-    `create_by`      varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
+    id               varchar(16)                                                  not null comment '端点类型唯一ID',
+    `create_by`      varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
     `create_time`    datetime                                                     NOT NULL COMMENT '创建日期',
-    `update_by`      varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
+    `update_by`      varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
     `update_time`    datetime                                                     NOT NULL COMMENT '更新日期',
-    `endpoint_type`  varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null COMMENT '端点类型',
+    `endpoint_type`  varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null COMMENT '端点类型',
     `name`           varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null COMMENT '属性名',
     `title`          varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci null     default null COMMENT '标题',
     `type`           varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci null     default null COMMENT '类型',
@@ -292,7 +292,7 @@ create table `t_engine_endpoint_properties`
     `endpoint_mode`  varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null NULL COMMENT '端点模式',
     `masked`         tinyint(1)                                                   not null default 0 COMMENT '标记',
     `mode_required`  tinyint(1)                                                   not null default 0 COMMENT '模式必填',
-    `applies_to`     varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null COMMENT '用于哪一端 生产-PRODUCER（IN/IN_OUT） 消费-CONSUMER（OUT/OUT_IN）',
+    `applies_to`     varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null COMMENT '用于哪一端 生产-PRODUCER（IN/IN_OUT） 消费-CONSUMER（OUT/OUT_IN）',
     `tips`           text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci        NUll COMMENT '提示信息',
     primary key (`id`) using BTREE,
     index `idx_variable_ep_id` (`endpoint_type`) using btree,
@@ -308,12 +308,12 @@ create table `t_engine_endpoint_properties`
 drop table if exists `t_engine_route`;
 create table t_engine_route
 (
-    `create_by`         varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
+    `create_by`         varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
     `create_time`       datetime                                                     NOT NULL COMMENT '创建日期',
-    `update_by`         varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
+    `update_by`         varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
     `update_time`       datetime                                                     NOT NULL COMMENT '更新日期',
-    id                  varchar(32)                                                  not null comment '路由唯一ID',
-    project_id          varchar(32)                                                  null comment '所属项目',
+    id                  varchar(16)                                                  not null comment '路由唯一ID',
+    project_id          varchar(16)                                                  null comment '所属项目',
     name                varchar(128)                                                 not null comment '路由名字',
     description         varchar(256)                                                 null comment '描述',
     debug               tinyint     default 0                                        not null comment '启用调试模式',
@@ -335,14 +335,14 @@ create table t_engine_route
 drop table if exists `t_engine_endpoint`;
 create table t_engine_endpoint
 (
-    `create_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '创建人',
+    `create_by`   varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '创建人',
     `create_time` datetime                                                      NOT NULL COMMENT '创建日期',
-    `update_by`   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '更新人',
+    `update_by`   varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '更新人',
     `update_time` datetime                                                      NOT NULL COMMENT '更新日期',
-    `id`          varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null comment '端点唯一ID',
+    `id`          varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null comment '端点唯一ID',
     `name`        varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null comment '端点名字',
     `description` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci null comment '描述',
-    `project_id`  varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci comment '所属项目ID（也可能同时属于多个项目，也可能不属于任何项目，提前配置的）',
+    `project_id`  varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci comment '所属项目ID（也可能同时属于多个项目，也可能不属于任何项目，提前配置的）',
     `type`        varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null comment '类型（如http、soap、DB、FTP……）',
     `mode`        varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  not null comment '模式，进出或进、出模式',
     `status`      int                                                           not null default 1 comment '状态 1-正常 2-部分异常 3-异常',
@@ -361,12 +361,12 @@ create table t_engine_endpoint
 drop table if exists `t_engine_endpoint_type`;
 create table if not exists integration.t_engine_endpoint_type
 (
-    id              varchar(32)                                                  not null comment '端点类型唯一ID',
+    id              varchar(16)                                                  not null comment '端点类型唯一ID',
     name            varchar(16) charset utf8mb4 COLLATE utf8mb4_general_ci       not null comment '类型名',
     supported_modes varchar(32) charset utf8mb4 COLLATE utf8mb4_general_ci       not null comment '支持的模式',
-    create_by       varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null comment '创建人',
+    create_by       varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci not null comment '创建人',
     create_time     datetime                                                     not null comment '创建时间',
-    update_by       varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci null comment '更新人',
+    update_by       varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci null comment '更新人',
     update_time     datetime                                                     not null comment '更新时间',
     PRIMARY KEY (`id`) USING BTREE,
     index `idx_endpoint_id` (`id`) using btree
