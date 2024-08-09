@@ -27,6 +27,11 @@ public class EndpointType implements Serializable {
     private String supportedModes;
     // 包含的配置项
     private List<EndpointProperties> properties;
+    // 子节点
+    private List<EndpointType> children;
+
+    // 父节点
+    private String parentId;
 
     private String createBy;
     private String updateBy;
@@ -95,5 +100,21 @@ public class EndpointType implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public List<EndpointType> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<EndpointType> children) {
+        this.children = children;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 }

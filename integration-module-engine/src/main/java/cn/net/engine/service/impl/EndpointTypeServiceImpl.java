@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
@@ -66,6 +63,34 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
     @Override
     public List<EndpointType> findAll(EndpointType endpointType) {
         return endpointTypeMapper.getEndpointTypes(endpointType);
+    }
+
+    /**
+     * 查询端点类型的树结构数据
+     *
+     * @param endpointType 查询条件
+     * @return 端点信息
+     */
+    @Override
+    public List<EndpointType> getEndpointTypesTree(String endpointType) {
+        List<EndpointType> types = endpointTypeMapper.getEndpointType(endpointType);
+        // 构建成上下级的关系
+        // 先处理成map结构方便快速查找
+        Map<String, EndpointType> collect = types.stream().collect(Collectors.toMap(EndpointType::getId, e -> e));
+        // 定义返回的结果
+        List<EndpointType> rootNodes = new ArrayList<>();
+        for (EndpointType type : types) {
+            if (type.getParentId() != null) {
+                // 找到父节点
+                EndpointType parent = collect.get(type.getParentId());
+                if (parent != null) {
+                    parent.getChildren().add(type);
+                }
+            } else {
+                rootNodes.add(type);
+            }
+        }
+        return rootNodes;
     }
 
     /**

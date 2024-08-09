@@ -2,7 +2,9 @@ package cn.net.engine.controller;
 
 import cn.net.base.core.Response;
 import cn.net.engine.bean.project.Endpoint;
+import cn.net.engine.bean.project.EndpointType;
 import cn.net.engine.service.IEndpointService;
+import cn.net.engine.service.IEndpointTypeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +24,27 @@ public class EndpointController {
 
     private IEndpointService endpointService;
 
+    private IEndpointTypeService endpointTypeService;
+
     @Autowired
     public void setEndpointService(IEndpointService endpointService) {
         this.endpointService = endpointService;
+    }
+
+    @Autowired
+    public void setEndpointTypeService(IEndpointTypeService endpointTypeService) {
+        this.endpointTypeService = endpointTypeService;
+    }
+
+    /**
+     * 查询端点类型
+     *
+     * @param typeName 类型名
+     * @return 端点类型
+     */
+    @GetMapping("/getEndpointType")
+    public Response<List<EndpointType>> getEndpointTypes(String typeName) {
+        return Response.success(endpointTypeService.getEndpointTypesTree(typeName));
     }
 
     /**

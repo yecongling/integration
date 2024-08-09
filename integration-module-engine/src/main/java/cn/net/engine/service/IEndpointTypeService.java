@@ -22,6 +22,13 @@ public interface IEndpointTypeService {
     List<EndpointType> findAll(EndpointType endpointType);
 
     /**
+     * 查询端点类型的树结构数据
+     * @param endpointType 查询条件
+     * @return 端点信息
+     */
+    List<EndpointType> getEndpointTypesTree(String endpointType);
+
+    /**
      * 新增端点类型
      *
      * @param endpointType 端点类型

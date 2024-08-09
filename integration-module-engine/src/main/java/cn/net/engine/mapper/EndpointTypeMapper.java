@@ -40,6 +40,14 @@ public interface EndpointTypeMapper {
     List<EndpointType> getEndpointTypes(@Param("et") EndpointType endpointType);
 
     /**
+     * 查询端点类型
+     *
+     * @param typeName 端点类型查询条件
+     * @return 端点类型集合
+     */
+    List<EndpointType> getEndpointType(@Param("typeName") String typeName);
+
+    /**
      * 添加端点类型
      *
      * @param endpointType 端点类型数据

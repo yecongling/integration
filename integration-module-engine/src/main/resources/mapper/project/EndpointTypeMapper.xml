@@ -8,6 +8,7 @@
         <result column="create_time" property="createTime" javaType="Date"/>
         <result column="update_by" property="updateBy"/>
         <result column="update_time" property="updateTime"/>
+        <result column="parent_id" property="parentId"/>
         <!-- 可以关联 - 如果内部有其他关联的对象时可使用，如果是集合的时候 collection -->
         <collection property="properties" javaType="cn.net.engine.bean.project.EndpointProperties">
             <result property="name" column="config_name"/>
@@ -29,7 +30,9 @@
 
     <!-- 根据id查询端点类型 -->
     <select id="getEndpointTypeById" parameterType="string" resultType="cn.net.engine.bean.project.EndpointType">
-        select name, supported_modes from t_engine_endpoint_type where id = #{id}
+        select name, supported_modes
+        from t_engine_endpoint_type
+        where id = #{id}
     </select>
 
     <!-- 获取所有端点类型-包括配置 -->
@@ -59,6 +62,16 @@
         </if>
     </select>
 
+    <!-- 查询端点类型（不查询配置，只需要id,name,supported_modes, parent_id） -->
+    <select id="getEndpointType" parameterType="string" resultMap="endpointType">
+        select id, name, supported_modes, parent_id from integration.t_engine_endpoint_type
+        <where>
+            <if test="typeName != null and typeName != ''">
+                and instr(name, #{typeName}) >= 0
+            </if>
+        </where>
+    </select>
+
     <!-- 新增端点类型 -->
     <insert id="addEndpointType" parameterType="cn.net.engine.bean.project.EndpointType">
         insert into t_engine_endpoint_type (id, name, supported_modes, create_by, create_time, update_by, update_time)
@@ -77,6 +90,8 @@
 
     <!-- 删除端点类型表 -->
     <delete id="deleteEndpointType" parameterType="string">
-        delete from t_engine_endpoint_type where id = #{id}
+        delete
+        from t_engine_endpoint_type
+        where id = #{id}
     </delete>
 </mapper>
