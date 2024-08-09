@@ -36,7 +36,25 @@ public class SnowFlakeGenerator {
         this.datacenterId = datacenterId;
     }
 
+    /**
+     * 默认生成16为长度的id
+     *
+     * @return 雪花id
+     */
     public synchronized String generateUniqueId() {
+        return generateUniqueId(16);
+    }
+
+    /**
+     * 生成指定长度的雪花id
+     *
+     * @param length 指定长度，
+     * @return id
+     */
+    public synchronized String generateUniqueId(int length) {
+        if (length < 16) {
+            length = 16;
+        }
         long timestamp = timeGen();
 
         if (timestamp < lastTimestamp) {
@@ -59,38 +77,17 @@ public class SnowFlakeGenerator {
                 (workerId << WORKER_ID_SHIFT) |
                 sequence;
 
-        return padLeft(Long.toHexString(id), 32);
+        return padLeft(Long.toHexString(id), length);
     }
 
     /**
-     * 生成雪花id
+     * 生成雪花id 带固定前缀（长度就变成了前缀长度+16）
+     *
      * @param prefix 固定前缀
      * @return id
      */
     public synchronized String generateUniqueId(String prefix) {
-        long timestamp = timeGen();
-
-        if (timestamp < lastTimestamp) {
-            throw new RuntimeException("Clock moved backwards. Refusing to generate id for " + (lastTimestamp - timestamp) + " milliseconds");
-        }
-
-        if (lastTimestamp == timestamp) {
-            sequence = (sequence + 1) & SEQUENCE_MASK;
-            if (sequence == 0) {
-                timestamp = tilNextMillis(lastTimestamp);
-            }
-        } else {
-            sequence = 0L;
-        }
-
-        lastTimestamp = timestamp;
-
-        long id = ((timestamp - EPOCH) << TIMESTAMP_LEFT_SHIFT) |
-                (datacenterId << DATACENTER_ID_SHIFT) |
-                (workerId << WORKER_ID_SHIFT) |
-                sequence;
-
-        return prefix + padLeft(Long.toHexString(id), 32 - prefix.length());
+        return prefix + generateUniqueId();
     }
 
     /**
