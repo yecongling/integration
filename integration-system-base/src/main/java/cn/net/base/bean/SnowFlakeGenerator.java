@@ -63,6 +63,37 @@ public class SnowFlakeGenerator {
     }
 
     /**
+     * 生成雪花id
+     * @param prefix 固定前缀
+     * @return id
+     */
+    public synchronized String generateUniqueId(String prefix) {
+        long timestamp = timeGen();
+
+        if (timestamp < lastTimestamp) {
+            throw new RuntimeException("Clock moved backwards. Refusing to generate id for " + (lastTimestamp - timestamp) + " milliseconds");
+        }
+
+        if (lastTimestamp == timestamp) {
+            sequence = (sequence + 1) & SEQUENCE_MASK;
+            if (sequence == 0) {
+                timestamp = tilNextMillis(lastTimestamp);
+            }
+        } else {
+            sequence = 0L;
+        }
+
+        lastTimestamp = timestamp;
+
+        long id = ((timestamp - EPOCH) << TIMESTAMP_LEFT_SHIFT) |
+                (datacenterId << DATACENTER_ID_SHIFT) |
+                (workerId << WORKER_ID_SHIFT) |
+                sequence;
+
+        return prefix + padLeft(Long.toHexString(id), 32 - prefix.length());
+    }
+
+    /**
      * 填充
      *
      * @param s      待填充的字符串
