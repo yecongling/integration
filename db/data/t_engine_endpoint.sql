@@ -30,7 +30,7 @@ CREATE TABLE `t_engine_endpoint`
     `id`                  varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '端点唯一ID',
     `name`                varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '端点名字',
     `description`         varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci          DEFAULT NULL COMMENT '描述',
-    `project_id`          varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci           DEFAULT NULL COMMENT '所属项目ID（也可能同时属于多个项目，也可能不属于任何项目，提前配置的）',
+    `project_id`          varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci          DEFAULT NULL COMMENT '所属项目ID（也可能同时属于多个项目，多个项目ID|分隔，也可能不属于任何项目，提前配置的）',
     `type`                varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '类型（如http、soap、DB、FTP……）',
     `mode`                varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL COMMENT '模式，进出或进、出模式',
     `status`              int                                                           NOT NULL DEFAULT '1' COMMENT '状态 1-正常 2-部分异常 3-异常',
