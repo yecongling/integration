@@ -2,9 +2,9 @@ package cn.net.engine.service.impl;
 
 import cn.net.base.bean.SnowFlakeGenerator;
 import cn.net.base.bean.SysOpr;
-import cn.net.engine.bean.project.EndpointProperties;
+import cn.net.engine.bean.project.EndpointTypeConfig;
 import cn.net.engine.bean.project.EndpointType;
-import cn.net.engine.mapper.EndpointConfigMapper;
+import cn.net.engine.mapper.EndpointTypeConfigMapper;
 import cn.net.engine.mapper.EndpointTypeMapper;
 import cn.net.engine.service.IEndpointTypeService;
 import cn.net.framework.utils.ServletUtils;
@@ -28,7 +28,7 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
     // 端点类型管理Mapper
     private EndpointTypeMapper endpointTypeMapper;
     // 端点配置Mapper
-    private EndpointConfigMapper endpointConfigMapper;
+    private EndpointTypeConfigMapper endpointConfigMapper;
     // servlet工具
     private ServletUtils servletUtils;
     // 雪花ID
@@ -40,7 +40,7 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
     }
 
     @Autowired
-    public void setEndpointConfigMapper(EndpointConfigMapper endpointConfigMapper) {
+    public void setEndpointConfigMapper(EndpointTypeConfigMapper endpointConfigMapper) {
         this.endpointConfigMapper = endpointConfigMapper;
     }
 
@@ -94,6 +94,17 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
     }
 
     /**
+     * 根据端点类型查询该类型的配置项
+     *
+     * @param endpointType 端点类型
+     * @return 配置项
+     */
+    @Override
+    public List<EndpointTypeConfig> getEndpointTypeConfigs(String endpointType) {
+        return endpointConfigMapper.findAllByEndpointType(endpointType);
+    }
+
+    /**
      * 新增端点类型
      *
      * @param endpointType 端点类型
@@ -113,15 +124,15 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
         endpointType.setId(snowFlakeGenerator.generateUniqueId());
         // 调用mapper插入类型表
         int addEndpointType = endpointTypeMapper.addEndpointType(endpointType);
-        List<EndpointProperties> properties = endpointType.getProperties();
+        List<EndpointTypeConfig> properties = endpointType.getProperties();
         if (properties != null && !properties.isEmpty()) {
             // 给每个配置项设置修改人和时间
-            for (EndpointProperties endpointProperties : properties) {
-                endpointProperties.setCreateBy(userId);
-                endpointProperties.setUpdateBy(userId);
-                endpointProperties.setId(snowFlakeGenerator.generateUniqueId());
-                endpointProperties.setCreateTime(time);
-                endpointProperties.setUpdateTime(time);
+            for (EndpointTypeConfig endpointTypeConfig : properties) {
+                endpointTypeConfig.setCreateBy(userId);
+                endpointTypeConfig.setUpdateBy(userId);
+                endpointTypeConfig.setId(snowFlakeGenerator.generateUniqueId());
+                endpointTypeConfig.setCreateTime(time);
+                endpointTypeConfig.setUpdateTime(time);
             }
         }
         // 调用mapper插入配置表（有可能没有配置项）
@@ -144,28 +155,28 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
         Date time = new Date();
         endpointType.setUpdateBy(userId);
         endpointType.setUpdateTime(time);
-        List<EndpointProperties> properties = endpointType.getProperties();
+        List<EndpointTypeConfig> properties = endpointType.getProperties();
         if (properties != null && !properties.isEmpty()) {
             // 给每个配置项设置修改人和时间
-            for (EndpointProperties endpointProperties : properties) {
-                endpointProperties.setUpdateBy(userId);
-                endpointProperties.setUpdateTime(time);
+            for (EndpointTypeConfig endpointTypeConfig : properties) {
+                endpointTypeConfig.setUpdateBy(userId);
+                endpointTypeConfig.setUpdateTime(time);
             }
         }
         AtomicBoolean success = new AtomicBoolean(true);
         // 先更新端点类型表
         int updateEndpointType = endpointTypeMapper.updateEndpointType(endpointType);
         // 获取端点类型表关联的配置表的现有数据
-        List<EndpointProperties> endpointProperties = endpointConfigMapper.findAllByEndpointType(endpointType.getName());
+        List<EndpointTypeConfig> endpointProperties = endpointConfigMapper.findAllByEndpointType(endpointType.getName());
         // 构建当前配置表的类型和名称的唯一集合
         Set<String> currentKeys = endpointProperties.stream()
-                .map(EndpointProperties::getId)
+                .map(EndpointTypeConfig::getId)
                 .collect(Collectors.toSet());
         // 构建新B表的数据的唯一键集合
         Set<String> newKeys;
         if (properties != null && !properties.isEmpty()) {
             newKeys = properties.stream()
-                    .map(EndpointProperties::getId).collect(Collectors.toSet());
+                    .map(EndpointTypeConfig::getId).collect(Collectors.toSet());
         } else {
             newKeys = new HashSet<>();
         }

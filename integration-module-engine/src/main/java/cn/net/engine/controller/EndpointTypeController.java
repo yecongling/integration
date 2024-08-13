@@ -2,6 +2,7 @@ package cn.net.engine.controller;
 
 import cn.net.base.core.Response;
 import cn.net.engine.bean.project.EndpointType;
+import cn.net.engine.bean.project.EndpointTypeConfig;
 import cn.net.engine.service.IEndpointTypeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class EndpointTypeController {
     }
 
     /**
-     * 查询端点类型以及其配置项
+     * 查询端点类型不包括配置
      *
      * @param endpointType 端点类型
      * @return 所有满足条件的端点类型
@@ -36,6 +37,17 @@ public class EndpointTypeController {
     @PostMapping("/getEndpointTypes")
     public Response<List<EndpointType>> getEndpointTypes(@RequestBody(required = false) EndpointType endpointType) {
         return Response.success(endpointTypeService.findAll(endpointType));
+    }
+
+    /**
+     * 根据端点类型查询类型配置
+     * @param typeId 类型id
+     * @return 类型配置
+     */
+    @GetMapping("/getEndpointTypeConfig")
+    public Response<List<EndpointTypeConfig>> getEndpointTypeConfig(@RequestParam(name = "typeId") String typeId) {
+        System.out.println("端点类型id为：" + typeId);
+        return Response.success(endpointTypeService.getEndpointTypeConfigs(typeId));
     }
 
     /**

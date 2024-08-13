@@ -1,6 +1,7 @@
 package cn.net.engine.service;
 
 import cn.net.engine.bean.project.EndpointType;
+import cn.net.engine.bean.project.EndpointTypeConfig;
 
 import java.util.List;
 
@@ -27,6 +28,13 @@ public interface IEndpointTypeService {
      * @return 端点信息
      */
     List<EndpointType> getEndpointTypesTree(String endpointType);
+
+    /**
+     * 根据端点类型查询该类型的配置项
+     * @param endpointType 端点类型
+     * @return 配置项
+     */
+    List<EndpointTypeConfig> getEndpointTypeConfigs(String endpointType);
 
     /**
      * 新增端点类型

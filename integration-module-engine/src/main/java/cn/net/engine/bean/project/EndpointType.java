@@ -26,7 +26,7 @@ public class EndpointType implements Serializable {
     @NotEmpty(message = "支持的模式不能为空，可选项为IN、IN_OUT、OUT、OUT_IN")
     private String supportedModes;
     // 包含的配置项
-    private List<EndpointProperties> properties;
+    private List<EndpointTypeConfig> properties;
     // 子节点
     private List<EndpointType> children;
 
@@ -62,11 +62,11 @@ public class EndpointType implements Serializable {
         this.supportedModes = supportedModes;
     }
 
-    public List<EndpointProperties> getProperties() {
+    public List<EndpointTypeConfig> getProperties() {
         return properties;
     }
 
-    public void setProperties(List<EndpointProperties> properties) {
+    public void setProperties(List<EndpointTypeConfig> properties) {
         this.properties = properties;
     }
 

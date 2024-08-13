@@ -10,14 +10,18 @@
         <result column="update_time" property="updateTime"/>
         <result column="parent_id" property="parentId"/>
         <!-- 可以关联 - 如果内部有其他关联的对象时可使用，如果是集合的时候 collection -->
-        <collection property="properties" javaType="cn.net.engine.bean.project.EndpointProperties">
+        <collection property="properties" javaType="cn.net.engine.bean.project.EndpointTypeConfig">
+            <result property="id" column="config_id"/>
             <result property="name" column="config_name"/>
-            <result property="title" column="config_title"/>
-            <result property="type" column="config_type"/>
-            <result property="appliesTo" column="config_appliesTo"/>
+            <result property="appliesTo" column="applies_to"/>
             <result property="defaultValue" column="default_value"/>
-            <result property="allowedValues" column="allowed_values"/>
-            <result property="modeRequired" column="mode_required"/>
+            <result column="create_by" property="createBy"/>
+            <result column="create_time" property="createTime" javaType="Date"/>
+            <result column="update_by" property="updateBy"/>
+            <result column="update_time" property="updateTime" javaType="Date"/>
+            <result column="type_id" property="typeId"/>
+            <result column="validation_rules" property="validationRules"/>
+            <result column="config_id" property="id"/>
         </collection>
     </resultMap>
 
@@ -35,28 +39,18 @@
         where id = #{id}
     </select>
 
-    <!-- 获取所有端点类型-包括配置 -->
+    <!-- 获取所有端点类型-不包括配置 -->
     <select id="getEndpointTypes" parameterType="cn.net.engine.bean.project.EndpointType" resultMap="endpointType">
-        select type.name,
+        select
+        id,
+        name,
         supported_modes,
-        teep.name as config_name,
-        teep.title as config_title,
-        teep.type as config_type,
-        teep.applies_to as config_appliesTo,
-        teep.default_value as default_value,
-        teep.allowed_values as allowed_values,
-        teep.mode_required as mode_required,
-        teep.tips,
-        teep.masked
-        from t_engine_endpoint_type type
-        left join integration.t_engine_endpoint_properties teep on type.name = teep.endpoint_type
+        parent_id
+        from t_engine_endpoint_type
         <if test="et != null">
             <where>
                 <if test="et.name != null and et.name != ''">
-                    and teep.name = #{et.name}
-                </if>
-                <if test="et.supportedModes != null and et.supportedModes != ''">
-                    and instr(supported_modes, #{et.supportedModes}) > 0
+                    and instr(name, #{et.name}) >= 0
                 </if>
             </where>
         </if>

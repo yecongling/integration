@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.net.engine.mapper.EndpointConfigMapper">
+<mapper namespace="cn.net.engine.mapper.EndpointTypeConfigMapper">
 
-    <!-- 根据名称和类型查询 -->
-    <select id="findAllByEndpointType" parameterType="string" resultType="cn.net.engine.bean.project.EndpointProperties">
-        select endpoint_type,
+    <!-- 根据类型查询 -->
+    <select id="findAllByEndpointType" parameterType="string"
+            resultType="cn.net.engine.bean.project.EndpointTypeConfig">
+        select id,
+               type_id,
                name,
                title,
+               description,
                type,
-               required,
-               allowed_values,
                default_value,
-               endpoint_mode,
-               masked,
-               mode_required,
+               options,
+               validation_rules,
                applies_to,
-               tips
-        from t_engine_endpoint_properties
-        where endpoint_type = #{endpointType}
+               create_time,
+               update_time
+        from t_engine_endpoint_type_config
+        where type_id = #{endpointType}
     </select>
 
     <!-- 新增端点配置 -->
-    <insert id="addEndpointConfig" parameterType="cn.net.engine.bean.project.EndpointProperties">
-        insert into t_engine_endpoint_properties (id, create_by, create_time, update_by, update_time, endpoint_type, name,
+    <insert id="addEndpointConfig" parameterType="cn.net.engine.bean.project.EndpointTypeConfig">
+        insert into t_engine_endpoint_properties (id, create_by, create_time, update_by, update_time, endpoint_type,
+        name,
         title,
         type, allowed_values, default_value, endpoint_mode, applies_to, tips, masked, mode_required)
         VALUES
@@ -37,7 +39,7 @@
     </insert>
 
     <!-- 更新端点配置 -->
-    <update id="updateEndpointConfig" parameterType="cn.net.engine.bean.project.EndpointProperties">
+    <update id="updateEndpointConfig" parameterType="cn.net.engine.bean.project.EndpointTypeConfig">
         update t_engine_endpoint_properties
         set update_by      = #{config.updateBy},
             update_time    = #{config.updateTime},

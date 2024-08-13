@@ -51,7 +51,7 @@ public class Endpoint implements Serializable {
     /**
      * 配置列表
      */
-    private List<EndpointProperties> configList;
+    private List<EndpointTypeConfig> configList;
 
     public String getId() {
         return id;
@@ -125,11 +125,11 @@ public class Endpoint implements Serializable {
         this.configs = configs;
     }
 
-    public List<EndpointProperties> getConfigList() {
+    public List<EndpointTypeConfig> getConfigList() {
         return configList;
     }
 
-    public void setConfigList(List<EndpointProperties> configList) {
+    public void setConfigList(List<EndpointTypeConfig> configList) {
         this.configList = configList;
     }
 
