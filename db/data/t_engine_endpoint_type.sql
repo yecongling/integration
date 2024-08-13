@@ -32,6 +32,7 @@ CREATE TABLE `t_engine_endpoint_type`
     `update_time`     datetime                                                     NOT NULL COMMENT '更新时间',
     `parent_id`       varchar(16)                                                  DEFAULT NULL COMMENT '父节点',
     `status`          int                                                          NOT NULL COMMENT '状态 1、正常 2、停用',
+    `title`           varchar(255)                                                 DEFAULT NULL COMMENT '中文名描述',
     PRIMARY KEY (`id`) USING BTREE,
     KEY `idx_endpoint_id` (`id`) USING BTREE
 ) ENGINE = InnoDB
