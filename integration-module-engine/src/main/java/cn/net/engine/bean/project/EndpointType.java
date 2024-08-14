@@ -33,6 +33,9 @@ public class EndpointType implements Serializable {
     // 父节点
     private String parentId;
 
+    // 状态
+    private int status;
+
     private String createBy;
     private String updateBy;
     private Date createTime;
@@ -116,5 +119,13 @@ public class EndpointType implements Serializable {
 
     public void setParentId(String parentId) {
         this.parentId = parentId;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

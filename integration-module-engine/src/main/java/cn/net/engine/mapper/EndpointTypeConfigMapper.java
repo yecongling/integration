@@ -28,7 +28,7 @@ public interface EndpointTypeConfigMapper {
      * @param configs 配置项
      * @return 受影响的行数
      */
-    int addEndpointConfig(@Param("configs") List<EndpointTypeConfig> configs);
+    int addEndpointConfigs(@Param("configs") List<EndpointTypeConfig> configs);
 
     /**
      * 添加端点配置 单条数据
@@ -36,7 +36,7 @@ public interface EndpointTypeConfigMapper {
      * @param config 配置项
      * @return 受影响的行数
      */
-    int addEndpointConfig(@Param("config") EndpointTypeConfig config);
+    int addEndpointConfig(EndpointTypeConfig config);
 
     /**
      * 更新端点配置
@@ -53,6 +53,13 @@ public interface EndpointTypeConfigMapper {
      * @return 受影响的行数
      */
     int deleteEndpointConfig(@Param("id") String id);
+
+    /**
+     * 批量删除
+     * @param ids id
+     * @return 受影响的行数
+     */
+    int deleteEndpointConfigsBatch(@Param("ids") List<String> ids);
 
     /**
      * 根据端点类型删除

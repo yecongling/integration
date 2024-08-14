@@ -68,8 +68,9 @@
 
     <!-- 新增端点类型 -->
     <insert id="addEndpointType" parameterType="cn.net.engine.bean.project.EndpointType">
-        insert into t_engine_endpoint_type (id, name, supported_modes, create_by, create_time, update_by, update_time)
-        VALUES (#{id}, #{name}, #{supportedModes}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime})
+        insert into t_engine_endpoint_type (id, name, supported_modes, create_by, create_time, update_by, update_time,
+                                            status)
+        VALUES (#{id}, #{name}, #{supportedModes}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{status})
     </insert>
 
     <!-- 更新端点类型表 -->

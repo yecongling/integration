@@ -46,7 +46,6 @@ public class EndpointTypeController {
      */
     @GetMapping("/getEndpointTypeConfig")
     public Response<List<EndpointTypeConfig>> getEndpointTypeConfig(@RequestParam(name = "typeId") String typeId) {
-        System.out.println("端点类型id为：" + typeId);
         return Response.success(endpointTypeService.getEndpointTypeConfigs(typeId));
     }
 

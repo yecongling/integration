@@ -2,8 +2,8 @@ package cn.net.engine.service.impl;
 
 import cn.net.base.bean.SnowFlakeGenerator;
 import cn.net.base.bean.SysOpr;
-import cn.net.engine.bean.project.EndpointTypeConfig;
 import cn.net.engine.bean.project.EndpointType;
+import cn.net.engine.bean.project.EndpointTypeConfig;
 import cn.net.engine.mapper.EndpointTypeConfigMapper;
 import cn.net.engine.mapper.EndpointTypeMapper;
 import cn.net.engine.service.IEndpointTypeService;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 /**
@@ -136,7 +135,7 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
             }
         }
         // 调用mapper插入配置表（有可能没有配置项）
-        int addEndpointConfig = endpointConfigMapper.addEndpointConfig(endpointType.getProperties());
+        int addEndpointConfig = endpointConfigMapper.addEndpointConfigs(endpointType.getProperties());
         return addEndpointType > 0 && addEndpointConfig >= 0;
     }
 
@@ -158,47 +157,44 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
         List<EndpointTypeConfig> properties = endpointType.getProperties();
         if (properties != null && !properties.isEmpty()) {
             // 给每个配置项设置修改人和时间
-            for (EndpointTypeConfig endpointTypeConfig : properties) {
-                endpointTypeConfig.setUpdateBy(userId);
-                endpointTypeConfig.setUpdateTime(time);
-            }
+            properties.forEach(config -> {
+                config.setUpdateBy(userId);
+                config.setUpdateTime(time);
+            });
         }
-        AtomicBoolean success = new AtomicBoolean(true);
         // 先更新端点类型表
         int updateEndpointType = endpointTypeMapper.updateEndpointType(endpointType);
+        if (updateEndpointType <= 0) {
+            return false;
+        }
         // 获取端点类型表关联的配置表的现有数据
-        List<EndpointTypeConfig> endpointProperties = endpointConfigMapper.findAllByEndpointType(endpointType.getName());
+        List<EndpointTypeConfig> existingConfigs = endpointConfigMapper.findAllByEndpointType(endpointType.getName());
         // 构建当前配置表的类型和名称的唯一集合
-        Set<String> currentKeys = endpointProperties.stream()
+        Set<String> currentKeys = existingConfigs.stream()
                 .map(EndpointTypeConfig::getId)
                 .collect(Collectors.toSet());
         // 构建新B表的数据的唯一键集合
-        Set<String> newKeys;
-        if (properties != null && !properties.isEmpty()) {
-            newKeys = properties.stream()
-                    .map(EndpointTypeConfig::getId).collect(Collectors.toSet());
-        } else {
-            newKeys = new HashSet<>();
-        }
+        Set<String> newKeys = properties != null ? properties.stream().map(EndpointTypeConfig::getId).collect(Collectors.toSet()) : Collections.emptySet();
         // 找到需要删除的配置表的数据
-        endpointProperties.forEach(b -> {
-            String key = b.getId();
-            if (!newKeys.contains(key)) {
-                success.set(endpointConfigMapper.deleteEndpointConfig(b.getId()) > 0);
-            }
-        });
+        List<String> toDelete = existingConfigs.stream().map(EndpointTypeConfig::getId).filter(id -> !newKeys.contains(id)).toList();
+        if (!toDelete.isEmpty() && endpointConfigMapper.deleteEndpointConfigsBatch(toDelete) < toDelete.size()) {
+            return false;
+        }
         // 更新或新增配置表的数据
         if (properties != null && !properties.isEmpty()) {
-            properties.forEach(b -> {
-                String key = b.getId();
-                if (!currentKeys.contains(key)) {
-                    success.set(endpointConfigMapper.updateEndpointConfig(b) > 0);
+            for (EndpointTypeConfig config : properties) {
+                if (!currentKeys.contains(config.getId())) {
+                    if (endpointConfigMapper.updateEndpointConfig(config) <= 0) {
+                        return false;
+                    }
                 } else {
-                    success.set(endpointConfigMapper.addEndpointConfig(b) > 0);
+                    if (endpointConfigMapper.addEndpointConfig(config) <= 0) {
+                        return false;
+                    }
                 }
-            });
+            }
         }
-        return success.get() && updateEndpointType > 0;
+        return true;
     }
 
     /**
