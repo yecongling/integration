@@ -214,7 +214,12 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
         // 先删除配置表的，再删除端点类型表的
         int configs = endpointConfigMapper.deleteEndpointConfigs(endpointType.getName());
         int type = endpointTypeMapper.deleteEndpointType(endpointTypeId);
-        // 因为配置表可能没有对应的配置数据
-        return type > 0 && configs >= 0;
+        if (type < 0) {
+            throw new RuntimeException("删除类型失败，受影响的行数为0");
+        }
+        if (configs < 0) {
+            throw new RuntimeException("删除端点类型配置表失败");
+        }
+        return true;
     }
 }
