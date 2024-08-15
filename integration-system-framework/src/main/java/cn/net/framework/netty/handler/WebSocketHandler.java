@@ -3,7 +3,6 @@ package cn.net.framework.netty.handler;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.net.framework.netty.config.NettyConfig;
-import cn.net.framework.netty.server.NettyServer;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -24,7 +23,7 @@ import org.springframework.stereotype.Component;
 @ChannelHandler.Sharable
 public class WebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
 
-    private static final Logger log = LoggerFactory.getLogger(NettyServer.class);
+    private static final Logger log = LoggerFactory.getLogger(WebSocketHandler.class);
 
     /**
      * 一旦连接，第一个执行

@@ -2,6 +2,7 @@ package cn.net.framework.interceptor;
 
 import cn.net.framework.security.DecryptedHttpInputMessage;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.stereotype.Component;
@@ -30,6 +31,12 @@ public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
     @Override
     public HttpInputMessage beforeBodyRead(HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) throws IOException {
         try {
+            // 获取请求头中的加密判定，决定是否需要解密
+            HttpHeaders headers = inputMessage.getHeaders();
+            // 如果配置不解密，则不进行解密处理，默认是需要解密处理
+            if ( "0".equals(headers.getFirst("encrypt")) ) {
+                return inputMessage;
+            }
             return new DecryptedHttpInputMessage(inputMessage);
         } catch (Exception e) {
             throw new RuntimeException(e);
