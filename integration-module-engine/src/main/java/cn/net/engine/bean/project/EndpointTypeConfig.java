@@ -1,6 +1,5 @@
 package cn.net.engine.bean.project;
 
-import com.alibaba.fastjson.JSONObject;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.io.Serial;
@@ -42,10 +41,10 @@ public class EndpointTypeConfig implements Serializable {
     private String defaultValue;
 
     // 可选字段，配置项（select使用）
-    private JSONObject options;
+    private String options;
 
     // 校验规则
-    private JSONObject validationRules;
+    private String validationRules;
 
     // 适用于哪一端 producer \ consumer
     private String appliesTo;
@@ -111,19 +110,19 @@ public class EndpointTypeConfig implements Serializable {
         this.defaultValue = defaultValue;
     }
 
-    public JSONObject getOptions() {
+    public String getOptions() {
         return options;
     }
 
-    public void setOptions(JSONObject options) {
+    public void setOptions(String options) {
         this.options = options;
     }
 
-    public JSONObject getValidationRules() {
+    public String getValidationRules() {
         return validationRules;
     }
 
-    public void setValidationRules(JSONObject validationRules) {
+    public void setValidationRules(String validationRules) {
         this.validationRules = validationRules;
     }
 

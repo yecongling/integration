@@ -14,6 +14,7 @@ import java.util.List;
  * @Author ycl
  * @Date 2024/5/31 上午9:20
  * @Version 1.0
+ * @TODO 需要根据数据库表重新设计该bean类
  */
 public class Endpoint implements Serializable {
     @Serial
