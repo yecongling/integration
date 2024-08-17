@@ -61,7 +61,7 @@ public class EndpointTypeController {
     }
 
     /**
-     * 更新端点
+     * 更新端点类型
      *
      * @param endpointType 端点类型
      * @return true 成功 false 失败
