@@ -19,7 +19,7 @@ import java.util.List;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/engine/endpoint")
+@RequestMapping("/project/endpoint")
 public class EndpointController {
 
     private IEndpointService endpointService;
