@@ -18,7 +18,7 @@ import java.util.List;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/engine/endpointType")
+@RequestMapping("/project/endpointType")
 public class EndpointTypeController {
 
     private IEndpointTypeService endpointTypeService;
