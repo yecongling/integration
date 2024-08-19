@@ -37,7 +37,7 @@ CREATE TABLE `t_engine_endpoint_type`
     KEY `idx_endpoint_id` (`id`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_0900_ai_ci
+  COLLATE = utf8mb4_general_ci
   ROW_FORMAT = DYNAMIC COMMENT ='端点类型表';
 
 SET FOREIGN_KEY_CHECKS = 1;

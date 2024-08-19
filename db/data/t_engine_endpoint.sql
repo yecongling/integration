@@ -39,7 +39,7 @@ CREATE TABLE `t_engine_endpoint`
     `host`                varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci           DEFAULT NULL COMMENT 'endpoint的主机名或IP地址',
     `port`                int                                                                    DEFAULT NULL COMMENT '连接端口',
     `path`                varchar(255) COLLATE utf8mb4_general_ci                                DEFAULT NULL COMMENT '路径或资源标识符，如文件路径、队列名称',
-    `query_params`        json                                                                   DEFAULT NULL COMMENT '查询参数，以json的形式存储',
+    `query_params`        text                                                                   DEFAULT NULL COMMENT '查询参数，以json的形式存储',
     `username`            varchar(32) COLLATE utf8mb4_general_ci                                 DEFAULT NULL COMMENT '用户名',
     `password`            varchar(255) COLLATE utf8mb4_general_ci                                DEFAULT NULL COMMENT '密码（加密存储）',
     `authentication_type` varchar(32) COLLATE utf8mb4_general_ci                                 DEFAULT NULL COMMENT '认证类型',
