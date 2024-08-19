@@ -35,7 +35,7 @@ public class EndpointTypeController {
      * @return 端点类型
      */
     @GetMapping("/getEndpointTypeTree")
-    public Response<List<EndpointType>> getEndpointTypeTree(String typeName) {
+    public Response<List<EndpointType>> getEndpointTypeTree(@RequestParam(name = "name") String typeName) {
         return Response.success(endpointTypeService.getEndpointTypesTree(typeName));
     }
 
