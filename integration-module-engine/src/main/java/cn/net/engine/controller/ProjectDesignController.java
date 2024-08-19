@@ -16,7 +16,7 @@ import java.util.List;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/engine/project")
+@RequestMapping("/project/design")
 public class ProjectDesignController {
     private final IProjectDesignService projectDesignService;
 
@@ -31,8 +31,8 @@ public class ProjectDesignController {
      * @param param 检索条件
      * @return 所有的项目信息
      */
-    @RequestMapping("/queryProjects")
-    public List<Project> queryProject(@RequestBody(required = false) Project param) {
+    @RequestMapping("/getProjects")
+    public List<Project> getProjects(@RequestBody(required = false) Project param) {
         return projectDesignService.getProjects(param);
     }
 

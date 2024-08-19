@@ -29,6 +29,17 @@ public class EndpointTypeController {
     }
 
     /**
+     * 查询端点类型(树形结构数据)
+     *
+     * @param typeName 类型名
+     * @return 端点类型
+     */
+    @GetMapping("/getEndpointTypeTree")
+    public Response<List<EndpointType>> getEndpointTypeTree(String typeName) {
+        return Response.success(endpointTypeService.getEndpointTypesTree(typeName));
+    }
+
+    /**
      * 查询端点类型不包括配置
      *
      * @param endpointType 端点类型
