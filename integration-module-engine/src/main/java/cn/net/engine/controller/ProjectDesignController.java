@@ -1,6 +1,6 @@
 package cn.net.engine.controller;
 
-import cn.net.base.bean.SysOpr;
+import cn.net.base.core.Response;
 import cn.net.engine.bean.project.Project;
 import cn.net.engine.service.IProjectDesignService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ public class ProjectDesignController {
      * @return 返回保存结果
      */
     @PostMapping("/addProject")
-    public boolean addProject(@RequestBody Project project, SysOpr sysOpr) {
+    public boolean addProject(@RequestBody Project project) {
         return projectDesignService.addProject(project);
     }
 
@@ -67,6 +67,39 @@ public class ProjectDesignController {
     @PostMapping("/updateProject")
     public boolean updateProject(@RequestBody Project project) {
         return projectDesignService.updateProject(project);
+    }
+
+    /**
+     * 查询回收站项目数据
+     *
+     * @param project 查询条件
+     * @return 项目数据
+     */
+    @RequestMapping("/queryRecycle")
+    public Response<Project> queryRecycle(@RequestBody Project project) {
+        return null;
+    }
+
+    /**
+     * 项目添加到回收站 （逻辑删除）
+     *
+     * @param projectId 项目id
+     * @return 结果
+     */
+    @DeleteMapping("/addRecycle")
+    public Response<String> addRecycle(@RequestParam(name = "projectId") String projectId) {
+        return null;
+    }
+
+    /**
+     * 从回收站中恢复
+     *
+     * @param projectId 项目id
+     * @return 结果
+     */
+    @RequestMapping("/recover")
+    public Response<String> recover(@RequestParam(name = "projectId") String projectId) {
+        return null;
     }
 
     /**

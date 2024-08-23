@@ -44,7 +44,7 @@ public class Project extends BaseModel {
     private Integer projectPriority;
 
     /* 项目状态  0 - 全部停止   1 - 部分已启动  2 - 全部启动 */
-    private Integer status = 0;
+    private Integer status = (Integer) 1;
 
     public String getId() {
         return id;
