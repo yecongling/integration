@@ -25,12 +25,11 @@ public class EndpointType implements Serializable {
     // 支持的模式
     @NotEmpty(message = "支持的模式不能为空，可选项为IN、IN_OUT、OUT、OUT_IN")
     private String supportedModes;
+
     // 包含的配置项
     private List<EndpointTypeConfig> properties;
-    // 子节点
-    private List<EndpointType> children;
 
-    // 父节点
+    // 父节点(这里主要是针对类型，分的大类，如web服务、文件服务、MQ等)
     private String parentId;
 
     // 状态
@@ -103,14 +102,6 @@ public class EndpointType implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public List<EndpointType> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<EndpointType> children) {
-        this.children = children;
     }
 
     public String getParentId() {

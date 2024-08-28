@@ -8,6 +8,7 @@ import cn.net.engine.mapper.EndpointTypeConfigMapper;
 import cn.net.engine.mapper.EndpointTypeMapper;
 import cn.net.engine.service.IEndpointTypeService;
 import cn.net.framework.utils.ServletUtils;
+import com.alibaba.fastjson.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,25 +72,21 @@ public class EndpointTypeServiceImpl implements IEndpointTypeService {
      * @return 端点信息
      */
     @Override
-    public List<EndpointType> getEndpointTypesTree(String endpointType) {
+    public Map<String, List<EndpointType>> getEndpointTypesTree(String endpointType) {
         List<EndpointType> types = endpointTypeMapper.getEndpointType(endpointType);
-        // 构建成上下级的关系
-        // 先处理成map结构方便快速查找
-        Map<String, EndpointType> collect = types.stream().collect(Collectors.toMap(EndpointType::getId, e -> e));
         // 定义返回的结果
-        List<EndpointType> rootNodes = new ArrayList<>();
+        Map<String, List<EndpointType>> result = new HashMap<>();
         for (EndpointType type : types) {
-            if (type.getParentId() != null) {
+            if (type.getParentId() != null && result.containsKey(type.getParentId())) {
                 // 找到父节点
-                EndpointType parent = collect.get(type.getParentId());
-                if (parent != null) {
-                    parent.getChildren().add(type);
-                }
+                result.get(type.getParentId()).add(type);
             } else {
-                rootNodes.add(type);
+                ArrayList<EndpointType> list = new ArrayList<>();
+                result.put(type.getParentId(), list);
+                list.add(type);
             }
         }
-        return rootNodes;
+        return result;
     }
 
     /**

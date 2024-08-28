@@ -16,12 +16,12 @@ import java.util.List;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/project/design")
-public class ProjectDesignController {
+@RequestMapping("/project")
+public class ProjectManagerController {
     private final IProjectDesignService projectDesignService;
 
     @Autowired
-    public ProjectDesignController(IProjectDesignService projectDesignService) {
+    public ProjectManagerController(IProjectDesignService projectDesignService) {
         this.projectDesignService = projectDesignService;
     }
 

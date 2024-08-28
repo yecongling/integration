@@ -2,8 +2,10 @@ package cn.net.engine.service;
 
 import cn.net.engine.bean.project.EndpointType;
 import cn.net.engine.bean.project.EndpointTypeConfig;
+import com.alibaba.fastjson.JSONArray;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName IEndpointTypeService
@@ -27,7 +29,7 @@ public interface IEndpointTypeService {
      * @param endpointType 查询条件
      * @return 端点信息
      */
-    List<EndpointType> getEndpointTypesTree(String endpointType);
+    Map<String, List<EndpointType>> getEndpointTypesTree(String endpointType);
 
     /**
      * 根据端点类型查询该类型的配置项
