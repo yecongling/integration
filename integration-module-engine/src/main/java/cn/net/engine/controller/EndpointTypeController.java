@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName EndpointTypeController
@@ -35,7 +36,7 @@ public class EndpointTypeController {
      * @return 端点类型
      */
     @GetMapping("/getEndpointTypeTree")
-    public Response<List<EndpointType>> getEndpointTypeTree(@RequestParam(name = "name") String typeName) {
+    public Response<Map<String, List<EndpointType>>> getEndpointTypeTree(@RequestParam(name = "name") String typeName) {
         return Response.success(endpointTypeService.getEndpointTypesTree(typeName));
     }
 
