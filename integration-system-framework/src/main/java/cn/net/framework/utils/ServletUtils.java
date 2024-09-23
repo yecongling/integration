@@ -36,8 +36,9 @@ public class ServletUtils {
         String token = request.getHeader("token");
         // 如果是登录地址进来，这里是获取不到操作员的（这里是mybatis拦截器那里可能会拦截登录的sql取操作员）
         String requestURI = request.getRequestURI();
-        if ("/login".equals(requestURI)) {
-            return null;
+        // 这里考虑如果是登录的话是否将认定为系统操作
+        if (requestURI.endsWith("/login")) {
+            return new SysOpr();
         }
         Object o = redisUtil.get(token);
         if (ObjectUtils.isEmpty(o)) {
