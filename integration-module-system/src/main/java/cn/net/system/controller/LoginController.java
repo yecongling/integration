@@ -53,8 +53,8 @@ public class LoginController {
      * @return 返回退出登录结果
      */
     @Operation(summary = "退出登录")
-    @RequestMapping(value = "logout", method = RequestMethod.GET)
-    public Response<Object> logout(@RequestParam String userId) throws Exception {
+    @RequestMapping(value = "/logout", method = RequestMethod.DELETE)
+    public Response<Object> logout(@RequestParam("userId") String userId) throws Exception {
         return loginService.logout(userId);
     }
 }

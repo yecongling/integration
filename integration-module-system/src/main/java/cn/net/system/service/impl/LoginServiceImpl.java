@@ -88,12 +88,18 @@ public class LoginServiceImpl implements ILoginService {
     /**
      * 退出登录
      *
-     * @param userId 用户ID
+     * @param token 用户token
      * @return 返回退出登录结果
      */
     @Override
-    public Response<Object> logout(String userId) throws Exception {
+    public Response<Object> logout(String token) {
+        // 从redis删除用户的token
+        Object o = redisUtil.get(token);
+        redisUtil.delete(token);
 
-        return null;
+        // 记录退出登录日志
+        BaseEvent<Object> logout = new BaseEvent<>(o, "logout");
+        producer.publishEvent(logout);
+        return Response.success();
     }
 }

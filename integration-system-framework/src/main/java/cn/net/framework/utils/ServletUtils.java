@@ -36,13 +36,13 @@ public class ServletUtils {
         String token = request.getHeader("token");
         // 如果是登录地址进来，这里是获取不到操作员的（这里是mybatis拦截器那里可能会拦截登录的sql取操作员）
         String requestURI = request.getRequestURI();
-        if ("/integration/login".equals(requestURI)) {
+        if ("/login".equals(requestURI)) {
             return null;
         }
         Object o = redisUtil.get(token);
         if (ObjectUtils.isEmpty(o)) {
             // 如果没取到，直接抛出异常，阻止进行下一步操作
-            throw new RuntimeException("用户为进行登录或会话已失效，请重新登录进行操作");
+            throw new RuntimeException("用户未进行登录或会话已失效，请重新登录进行操作");
         }
         return (SysOpr) o;
     }
