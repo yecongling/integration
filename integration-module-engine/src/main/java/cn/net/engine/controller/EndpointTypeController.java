@@ -4,6 +4,8 @@ import cn.net.base.core.Response;
 import cn.net.engine.bean.project.EndpointType;
 import cn.net.engine.bean.project.EndpointTypeConfig;
 import cn.net.engine.service.IEndpointTypeService;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +38,16 @@ public class EndpointTypeController {
      * @return 端点类型
      */
     @GetMapping("/getEndpointTypeTree")
-    public Response<Map<String, List<EndpointType>>> getEndpointTypeTree(@RequestParam(name = "typeName", required = false) String typeName) {
-        return Response.success(endpointTypeService.getEndpointTypesTree(typeName));
+    public Response<JSONArray> getEndpointTypeTree(@RequestParam(name = "typeName", required = false) String typeName) {
+        JSONArray array = new JSONArray();
+        // 将map数据进行转换，搞成数组形式的数据
+        Map<String, List<EndpointType>> endpointTypesTree = endpointTypeService.getEndpointTypesTree(typeName);
+        endpointTypesTree.forEach((key, type) -> {
+            JSONObject object = new JSONObject();
+            object.put(key, type);
+            array.add(object);
+        });
+        return Response.success(array);
     }
 
     /**
