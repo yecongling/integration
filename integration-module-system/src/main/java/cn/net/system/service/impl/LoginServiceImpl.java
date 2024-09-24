@@ -4,6 +4,7 @@ import cn.net.base.bean.SysOpr;
 import cn.net.base.constant.CommonConstant;
 import cn.net.base.core.Response;
 import cn.net.base.utils.PasswordUtils;
+import cn.net.base.utils.SpringContextUtils;
 import cn.net.base.utils.UUIDUtils;
 import cn.net.framework.event.BaseEvent;
 import cn.net.framework.event.Producer;
@@ -11,6 +12,7 @@ import cn.net.framework.redis.RedisUtil;
 import cn.net.system.bean.SysUser;
 import cn.net.system.mapper.UserMapper;
 import cn.net.system.service.ILoginService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,6 +75,10 @@ public class LoginServiceImpl implements ILoginService {
         SysOpr sysOpr = new SysOpr();
         sysOpr.setUserId(sysUser.getUserId());
         sysOpr.setUserName(sysUser.getUsername());
+        // 记录操作员的登录地址方便做审计
+        HttpServletRequest request = SpringContextUtils.getHttpServletRequest();
+        String localAddr = request.getLocalAddr();
+        sysOpr.setIpAddress(localAddr);
         // token有效期30分钟
         redisUtil.set(token, sysOpr, 1800);
         // 发送消息用于记录登录日志

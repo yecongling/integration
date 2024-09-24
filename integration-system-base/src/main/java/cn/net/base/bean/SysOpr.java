@@ -17,6 +17,8 @@ public class SysOpr implements Serializable {
     private String userId = "00001";
     private String userName = "admin";
 
+    private String ipAddress = "";
+
     public String getUserId() {
         return userId;
     }
@@ -31,5 +33,13 @@ public class SysOpr implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
     }
 }
