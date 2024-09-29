@@ -12,7 +12,7 @@ import java.util.List;
  * @Date 2024/5/9 上午9:23
  * @Version 1.0
  */
-public interface IProjectDesignService {
+public interface IProjectService {
     /**
      * 查询所有项目信息
      *

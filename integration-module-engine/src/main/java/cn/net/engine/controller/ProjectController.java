@@ -2,26 +2,26 @@ package cn.net.engine.controller;
 
 import cn.net.base.core.Response;
 import cn.net.engine.bean.project.Project;
-import cn.net.engine.service.IProjectDesignService;
+import cn.net.engine.service.IProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
- * @ClassName ProjectDesignController
- * @Description 项目设计controller
+ * @ClassName ProjectController
+ * @Description 项目controller
  * @Author ycl
  * @Date 2024/5/9 上午9:14
  * @Version 1.0
  */
 @RestController
 @RequestMapping("/project")
-public class ProjectManagerController {
-    private final IProjectDesignService projectDesignService;
+public class ProjectController {
+    private final IProjectService projectDesignService;
 
     @Autowired
-    public ProjectManagerController(IProjectDesignService projectDesignService) {
+    public ProjectController(IProjectService projectDesignService) {
         this.projectDesignService = projectDesignService;
     }
 

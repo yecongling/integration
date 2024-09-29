@@ -86,6 +86,7 @@ public class LoginServiceImpl implements ILoginService {
         producer.publishEvent(event);
         Map<String, Object> data = new HashMap<>();
         data.put("token", token);
+        // 这里需要查询用户自己配置的书页面以及用户的角色信息，然后后面才会根据角色来显示系统的菜单
         data.put("homePath", "/home");
         data.put("roleId", "admin");
         return Response.success(data);

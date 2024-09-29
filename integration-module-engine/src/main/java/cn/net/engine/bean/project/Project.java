@@ -16,9 +16,6 @@ public class Project extends BaseModel {
     @Serial
     private static final long serialVersionUID = 2394196668840811356L;
 
-    /* 用在前台的key */
-    private String key;
-
     /**
      * 项目ID 以project_开头
      */
@@ -100,13 +97,5 @@ public class Project extends BaseModel {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
     }
 }

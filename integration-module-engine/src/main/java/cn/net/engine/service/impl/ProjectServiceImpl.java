@@ -7,7 +7,7 @@ import cn.net.engine.bean.project.Router;
 import cn.net.engine.camel.core.EngineServiceCenter;
 import cn.net.engine.camel.routes.BaseRouteImpl;
 import cn.net.engine.mapper.ProjectDesignMapper;
-import cn.net.engine.service.IProjectDesignService;
+import cn.net.engine.service.IProjectService;
 import cn.net.framework.utils.ServletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ import java.util.*;
  * @Version 1.0
  */
 @Service
-public class ProjectDesignServiceImpl implements IProjectDesignService {
+public class ProjectServiceImpl implements IProjectService {
 
     // 注入项目设计mapper
     private ProjectDesignMapper projectDesignMapper;
