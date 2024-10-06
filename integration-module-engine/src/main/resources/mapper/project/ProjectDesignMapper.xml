@@ -8,6 +8,8 @@
         <result column="id" property="id"/>
         <result column="type" property="projectType"/>
         <result column="priority" property="projectPriority"/>
+        <result column="log_type" property="logType"/>
+        <result column="del_flag" property="delFlag"/>
     </resultMap>
 
     <!-- 查询所有项目信息 -->
@@ -31,10 +33,10 @@
             useGeneratedKeys="true" keyProperty="id">
         insert into integration.t_engine_project (id, create_by, create_time, update_by, update_time, name, type,
                                                   log_type,
-                                                  status, priority, description)
+                                                  status, priority, description, del_flag)
         values (#{id}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{projectName}, #{projectType},
                 #{logType},
-                #{status}, #{projectPriority}, #{description})
+                #{status}, #{projectPriority}, #{description}, #{delFlag})
     </insert>
 
     <!-- 更新项目 -->
@@ -47,7 +49,8 @@
             integration.t_engine_project.log_type    = #{logType},
             integration.t_engine_project.status      = #{status},
             integration.t_engine_project.priority    = #{projectPriority},
-            integration.t_engine_project.description = #{description}
+            integration.t_engine_project.description = #{description},
+            integration.t_engine_project.del_flag    = #{delFlag}
         where integration.t_engine_project.id = #{id}
     </update>
 
