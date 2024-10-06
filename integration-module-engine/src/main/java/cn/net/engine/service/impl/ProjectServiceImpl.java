@@ -92,6 +92,8 @@ public class ProjectServiceImpl implements IProjectService {
         project.setUpdateBy(sysOpr.getUserName());
         project.setCreateTime(new Date());
         project.setUpdateTime(new Date());
+        // 项目的状态默认为0，就是未启动状态
+        project.setStatus(0);
         return projectDesignMapper.addProject(project) > 0;
     }
 
