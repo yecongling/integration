@@ -41,7 +41,9 @@ public class Project extends BaseModel {
     private Integer projectPriority;
 
     /* 项目状态  0 - 全部停止   1 - 部分已启动  2 - 全部启动 */
-    private Integer status = (Integer) 1;
+    private Integer status = 1;
+    /* 删除标记 1、删除 0、未删除 删除的数据放置在回收站 */
+    private Integer delFlag = 0;
 
     public String getId() {
         return id;
@@ -97,5 +99,13 @@ public class Project extends BaseModel {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
     }
 }

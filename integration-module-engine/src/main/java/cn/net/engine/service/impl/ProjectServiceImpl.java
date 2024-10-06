@@ -94,6 +94,8 @@ public class ProjectServiceImpl implements IProjectService {
         project.setUpdateTime(new Date());
         // 项目的状态默认为0，就是未启动状态
         project.setStatus(0);
+        // 默认为未删除状态
+        project.setDelFlag(0);
         return projectDesignMapper.addProject(project) > 0;
     }
 

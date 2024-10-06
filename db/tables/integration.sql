@@ -241,6 +241,7 @@ create table `t_engine_project`
     `log_type`    tinyint(1)                                                   NULL     DEFAULT NULL COMMENT '日志类型（1、全部记录 2、仅记录失败 3、精简日志 4、不记录）',
     `status`      tinyint(1)                                                   NULL     DEFAULT NULL COMMENT '项目状态（0-全部停止 1-部分启动 2-全部启动）',
     `priority`    tinyint(1)                                                   not NULL DEFAULT 1 COMMENT '项目优先级（1-10）',
+    `del_flag`    tinyint(1)                                                   not null default 0 comment '删除标记（1、删除状态 0、未删除状态）针对是否放置在回收站',
     `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci        NULL     DEFAULT NULL COMMENT '项目描述',
     `routes`      text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci        NULL     DEFAULT NULL COMMENT '项目包含的路由ID',
     `endpoints`   text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci        NULL     DEFAULT NULL COMMENT '项目包含的终端ID',
