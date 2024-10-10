@@ -25,6 +25,8 @@
             <if test="status != null and status != ''">
                 and `status` = #{status}
             </if>
+            # 这里添加删除状态的条件判定，可以是主页面上的，也可以是回收站中的数据
+            and del_flag = #{delFlag}
         </where>
     </select>
 

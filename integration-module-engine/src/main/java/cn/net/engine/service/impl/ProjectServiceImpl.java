@@ -61,6 +61,11 @@ public class ProjectServiceImpl implements IProjectService {
      */
     @Override
     public List<Project> getProjects(Project param) {
+        // 设置默认的删除标记为0
+        if (param == null) {
+            param = new Project();
+            param.setDelFlag(0);
+        }
         return projectDesignMapper.getAllProjects(param);
     }
 

@@ -37,7 +37,7 @@ public class ProjectController {
     }
 
     /**
-     * 通过项目ID查询项目信息（包括项目包含的终端、路由、组件、连线）
+     * 通过项目ID查询项目信息
      *
      * @param projectId 项目ID
      * @return 项目model
